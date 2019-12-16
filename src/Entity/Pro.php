@@ -49,14 +49,15 @@ class Pro
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CommandePro", mappedBy="pro")
      */
     private $commandePro;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="pro", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -140,18 +141,6 @@ class Pro
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     /**
      * @return Collection|CommandePro[]
      */
@@ -179,6 +168,18 @@ class Pro
                 $commandePro->setPro(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

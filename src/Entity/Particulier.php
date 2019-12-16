@@ -39,14 +39,15 @@ class Particulier
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CommandePar", mappedBy="particulier")
      */
     private $commandePar;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="particulier", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -106,18 +107,6 @@ class Particulier
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     /**
      * @return Collection|CommandePar[]
      */
@@ -145,6 +134,18 @@ class Particulier
                 $commandePar->setParticulier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
