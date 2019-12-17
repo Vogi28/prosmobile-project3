@@ -15,7 +15,7 @@
     </rule>
     <rule ref="rulesets/codesize.xml/TooManyFields" >
         <properties>
-            <property name="maxfields" value="20" />
+            <property name="maxfields" value="200" />
         </properties>
     </rule>
     <rule ref="rulesets/controversial.xml" >
@@ -38,7 +38,6 @@
         </properties>
     </rule>
     <rule ref="rulesets/unusedcode.xml" />
-        <exclude name="UnusedFormalParameter" />
-    </rule>
+
     <exclude-pattern>src/Migrations</exclude-pattern>
 </ruleset>
