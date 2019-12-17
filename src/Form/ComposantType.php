@@ -11,6 +11,7 @@ class ComposantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $options;
         $builder
             ->add('nom')
             ->add('prix')
