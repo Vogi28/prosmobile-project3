@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSmobile| Accessoires{% endblock %}
+
+{% block body %}
+    <h1>Accessoires disponibles</h1>
+
+    <div class="container">
+        <div class="row">
+    {% for accessoire in accessoires %}
+            <div class="col-4 card" style="width: 18rem;">
+                <img src="https://via.placeholder.com/300x400.png" class="card-img-top" alt="Vignette produi">
+                <div class="card-body">
+                    <h5 class="card-title">{{ accessoire.nom }}</h5>
+                    {#<p class="card-text">Description de l'accessoire (pas prévu dans la BDD pour l'instant)</p>#}
+                    <p class="card-text">{{ accessoire.prix }} €</p>
+                    <a href="{{ path('accessoire_show', {'id': accessoire.id}) }}" class="btn btn-primary">Fiche produit</a>
+                    {% if  is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('accessoire_edit', {'id': accessoire.id}) }}" class="btn btn-secondary">Modifier</a>
+                    {% endif %}
+                </div>
+            </div>
+    {% else %}
+            Aucun accessoire trouvé.
+    {% endfor %}
+        </div>
+    </div>
+
+    {% if  is_granted('ROLE_ADMIN') %}
+        <div>
+            <a href="{{ path('accessoire_new') }}">Ajouter un accessoire</a>
+        </div>
+    {% endif %}
+
+{% endblock %}
