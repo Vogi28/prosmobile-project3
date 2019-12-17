@@ -26,12 +26,25 @@
         </div>
       </li>
       {% if app.user %}
+        {% if is_granted('ROLE_PARTICULIER')%}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('particulier') }}">Profile</a>
+            </li>
+          {% elseif is_granted('ROLE_PRO') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('home') }}">Profile</a>
+            </li>
+          {% elseif is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('home') }}">Administration</a>
+            </li> 
+        {% endif %}
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('home') }}">Logout</a>
+        <a class="nav-link" href="{{ path('logout') }}">Logout</a>
       </li>
       {% else %}
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('home') }}">Login</a>
+        <a class="nav-link" href="{{ path('login') }}">Login</a>
       </li>
       {% endif %}
     </ul>

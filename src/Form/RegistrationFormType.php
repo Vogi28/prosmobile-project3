@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -21,10 +20,10 @@ class RegistrationFormType extends AbstractType
         $options = [];
         $builder
             ->add('email')
-            ->add('pros', RadioType::class, [
+            ->add('pros', CheckboxType::class, [
                 'label' => 'Vous etes un professionnel',
                 'mapped' => false,
-                'value' => true
+                'required' => false
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -39,8 +38,8 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'The passwords field must match',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Entrer votre mot
-                de passe']],
+                'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' =>
+                'Entrer votre mot de passe']],
                 'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' =>
                 'Confirmer mot de passe']],
                 // instead of being set onto the object directly,
