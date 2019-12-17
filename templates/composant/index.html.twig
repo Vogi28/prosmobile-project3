@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Composant index
+{% endblock %}
+
+{% block body %}
+	<h1>Composant index</h1>
+	<div class="d-flex justify-content-around">
+		<table class="table table-borderless">
+			<thead class="thead-dark">
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Prix</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for composant in composants %}
+					<tr>
+						<td>{{ composant.id }}</td>
+						<td>{{ composant.nom }}</td>
+						<td>{{ composant.prix }}</td>
+						<td>
+							<a href="{{ path('composant_show', {'id': composant.id}) }}">show</a>
+							<a href="{{ path('composant_edit', {'id': composant.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<a href="{{ path('composant_new') }}">Create new</a>
+{% endblock %}
