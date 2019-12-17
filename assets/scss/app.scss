@@ -1,9 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
 @import "vars";
+@import "~bootstrap/scss/bootstrap";
 
-body {
-    background-color: $secondary-color;
-}
+// body {
+//     background-color: $secondary-color;
+// }
+
 
 a {
     color: $warm-color;
