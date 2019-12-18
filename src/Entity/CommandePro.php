@@ -19,7 +19,7 @@ class CommandePro
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Promo", inversedBy="commandesPros")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Promo", inversedBy="commandePro")
      */
     private $promo;
 
