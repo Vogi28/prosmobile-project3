@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Particulier;
+use App\Entity\Pro;
 use App\Entity\User;
-use App\Form\ParticulierFormType;
+use App\Form\ProFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,19 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * IsGranted("ROLE_PARTICULIER")
- * @Route("/particulier", name="particulier_")
+ * IsGranted("ROLE_PRO")
+ * @Route("/pro", name="pro_")
  */
-class ParticulierController extends AbstractController
+class ProController extends AbstractController
 {
     /**
      * @Route("/profile/{id}", name="profile")
      */
     public function index(User $user)
     {
-    
-        return $this->render('particulier/index.html.twig', [
-            'controller_name' => 'ParticulierController',
+        return $this->render('pro/index.html.twig', [
+            'controller_name' => 'ProController',
             'user' => $user
         ]);
     }
@@ -36,22 +35,22 @@ class ParticulierController extends AbstractController
      */
     public function infosForm(User $user, Request $request, EntityManagerInterface $em)
     {
-        $particulier = new Particulier();
-        $particulier->setUser($user);
+        $pro = new Pro();
+        $pro->setUser($user);
 
-        $form = $this->createForm(ParticulierFormType::class, $particulier);
+        $form = $this->createForm(ProFormType::class, $pro);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $particulier = $form->getData();
-            $em->persist($particulier);
+            $pro = $form->getData();
+            $em->persist($pro);
             $em->flush();
 
-            return $this->redirectToRoute('particulier_profile', ['id' => $particulier->getUser()->getId()]);
+            return $this->redirectToRoute('pro_profile', ['id' => $pro->getUser()->getId()]);
         }
 
-        return $this->render('particulier/form.html.twig', [
-            'formParticulier' => $form->createView()
+        return $this->render('pro/form.html.twig', [
+            'formPro' => $form->createView()
         ]);
     }
 }

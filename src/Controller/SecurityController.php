@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Exception;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,8 +43,12 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('home');
+            
+            if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
+                return $this->redirectToRoute("particulier_profile", ["id" => $user->getId()]);
+            } elseif ($user->getRoles()[0] == 'ROLE_PRO') {
+                 return $this->redirectToRoute('pro_profile', ['id' => $user->getID()]);
+            }
         }
 
         return $this->render('registration/register.html.twig', [
@@ -58,13 +61,13 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        
-        // if ($this->getUser()->getRoles() === 'ROLE_PARTICULIER' ) {
-        //     return $this->redirectToRoute('particulier');
-        // }
-        // elseif ($this->getUser()->getRoles() === 'ROLE_PRO' ) {
-        //     return $this->redirectToRoute('particulier');
-        // }
+        if ($this->getUser()) {
+            if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+                return $this->redirectToRoute("particulier_profile", ["id" => $this->getUser()->getId()]);
+            } elseif ($this->getUser()->getRoles()[0] == 'ROLE_PRO') {
+                return $this->redirectToRoute('pro_profile', ['id' => $this->getUser()->getId()]);
+            }
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

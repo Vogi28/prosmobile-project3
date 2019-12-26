@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Informations</h1>
+<div class="container d-flex justify-content-center">
+    {{ form_start(formParticulier) }}
+        {{ form_row(formParticulier.prenom, {'attr': {'placeholder': 'Entrer votre prénom'}}) }}
+        {{ form_row(formParticulier.nom, {'attr': {'placeholder': 'Entrer votre nom'}}) }}
+        {{ form_row(formParticulier.adresse, {'attr': {'placeholder': 'Entrer votre adresse'}}) }}
+        {{ form_row(formParticulier.telephone) }}
+
+        <button class="btn btn-success">Envoyer</button>
+    {{ form_end(formParticulier) }}
+</div>
+{% endblock %}
