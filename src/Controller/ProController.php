@@ -33,7 +33,7 @@ class ProController extends AbstractController
      *@Route("/profile/{id}/infos", name="informations")
      * @return void
      */
-    public function infosForm(User $user, Request $request, EntityManagerInterface $em)
+    public function infosForm(User $user, Request $request, EntityManagerInterface $emi)
     {
         $pro = new Pro();
         $pro->setUser($user);
@@ -43,8 +43,8 @@ class ProController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $pro = $form->getData();
-            $em->persist($pro);
-            $em->flush();
+            $emi->persist($pro);
+            $emi->flush();
 
             return $this->redirectToRoute('pro_profile', ['id' => $pro->getUser()->getId()]);
         }
