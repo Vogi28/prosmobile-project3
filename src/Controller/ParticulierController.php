@@ -34,7 +34,7 @@ class ParticulierController extends AbstractController
      *@Route("/profile/{id}/infos", name="informations")
      * @return void
      */
-    public function infosForm(User $user, Request $request, EntityManagerInterface $em)
+    public function infosForm(User $user, Request $request, EntityManagerInterface $emi)
     {
         $particulier = new Particulier();
         $particulier->setUser($user);
@@ -44,8 +44,8 @@ class ParticulierController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $particulier = $form->getData();
-            $em->persist($particulier);
-            $em->flush();
+            $emi->persist($particulier);
+            $emi->flush();
 
             return $this->redirectToRoute('particulier_profile', ['id' => $particulier->getUser()->getId()]);
         }
