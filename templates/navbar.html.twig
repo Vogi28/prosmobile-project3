@@ -28,11 +28,11 @@
       {% if app.user %}
         {% if is_granted('ROLE_PARTICULIER')%}
             <li class="nav-item">
-              <a class="nav-link" href="{{ path('particulier') }}">Profile</a>
+              <a class="nav-link" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">Profile</a>
             </li>
           {% elseif is_granted('ROLE_PRO') %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ path('home') }}">Profile</a>
+              <a class="nav-link" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">Profile</a>
             </li>
           {% elseif is_granted('ROLE_ADMIN') %}
             <li class="nav-item">

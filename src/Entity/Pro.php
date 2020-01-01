@@ -54,7 +54,7 @@ class Pro
     private $commandePro;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="pro", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="pro")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

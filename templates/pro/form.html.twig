@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Informations</h1>
+<div class="container d-flex justify-content-center">
+    {{ form_start(formPro) }}
+        {{ form_row(formPro.prenom, {'attr': {'placeholder': 'Entrer votre prénom'}}) }}
+        {{ form_row(formPro.nom, {'attr': {'placeholder': 'Entrer votre nom'}}) }}
+        {{ form_row(formPro.adresse, {'attr': {'placeholder': 'Entrer votre adresse'}}) }}
+        {{ form_row(formPro.societe, {'attr': {'placeholder': 'Entrer le nom de votre société'}}) }}
+        {{ form_row(formPro.siret, {'attr': {'placeholder': 'Entrer votre SIRET'}}) }}
+        {{ form_row(formPro.telephone) }}
+
+        <button class="btn btn-success">Envoyer</button>
+    {{ form_end(formPro) }}
+</div>
+{% endblock %}
