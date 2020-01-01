@@ -5,35 +5,40 @@
 
 {% block body %}
 	<h1>Composant index</h1>
-	<div class="d-flex justify-content-around">
-		<table class="table table-borderless">
-			<thead class="thead-dark">
-				<tr>
-					<th>Id</th>
-					<th>Nom</th>
-					<th>Prix</th>
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for composant in composants %}
-					<tr>
-						<td>{{ composant.id }}</td>
-						<td>{{ composant.nom }}</td>
-						<td>{{ composant.prix }}</td>
-						<td>
-							<a href="{{ path('composant_show', {'id': composant.id}) }}">show</a>
-							<a href="{{ path('composant_edit', {'id': composant.id}) }}">edit</a>
-						</td>
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="4">no records found</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+	<div class="container">
+		<div class="row">
+			{% for composant in composants %}
+				<div class="card mb-3" style="max-width: 540px;">
+					<div class="row no-gutters">
+						<div class="col-md-4">
+							<img src="https://via.placeholder.com/150x200.png" class="card-img" alt="...">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">{{ composant.nom }}</h5>
+								<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+								<p class="card-text">
+									<small class="text-muted">{{ composant.prix }}
+										€</small>
+								</p>
+							</div>
+							<div class="card-footer">
+								<a href="{{ path('composant_show', {'id': composant.id}) }}" class="card-link">Voir</a>
+								{% if  is_granted('ROLE_ADMIN') %}
+									<a href="{{ path('composant_edit', {'id': composant.id}) }}" class="card-link">Modifier</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				Aucun composant trouvé.
+			{% endfor %}
+		</div>
 	</div>
-
-	<a href="{{ path('composant_new') }}">Create new</a>
+	{% if  is_granted('ROLE_ADMIN') %}
+		<div>
+			<a href="{{ path('composant_new') }}">Ajouter un composant</a>
+		</div>
+	{% endif %}
 {% endblock %}
