@@ -60,6 +60,16 @@ class Telephone
      */
     private $accessoire;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $reference;
+
     public function __construct()
     {
         $this->composant = new ArrayCollection();
@@ -216,6 +226,30 @@ class Telephone
         if ($this->accessoire->contains($accessoire)) {
             $this->accessoire->removeElement($accessoire);
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

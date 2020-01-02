@@ -31,6 +31,11 @@ class Service
      */
     private $telephone;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $photo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Service
     public function setTelephone(?Telephone $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

@@ -26,17 +26,22 @@ class Promo
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\CommandePar", mappedBy="promo")
      */
-    private $commandesPar;
+    private $commandePar;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\CommandePro", mappedBy="promo")
      */
-    private $commandesPro;
+    private $commandePro;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $photo;
 
     public function __construct()
     {
-        $this->commandesPar = new ArrayCollection();
-        $this->commandesPro = new ArrayCollection();
+        $this->commandePar = new ArrayCollection();
+        $this->commandePro = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,13 +66,13 @@ class Promo
      */
     public function getCommandesPar(): Collection
     {
-        return $this->commandesPar;
+        return $this->commandePar;
     }
 
     public function addCommandesPar(CommandePar $commandesPar): self
     {
-        if (!$this->commandesPar->contains($commandesPar)) {
-            $this->commandesPar[] = $commandesPar;
+        if (!$this->commandePar->contains($commandesPar)) {
+            $this->commandePar[] = $commandesPar;
             $commandesPar->addPromo($this);
         }
 
@@ -76,8 +81,8 @@ class Promo
 
     public function removeCommandesPar(CommandePar $commandesPar): self
     {
-        if ($this->commandesPar->contains($commandesPar)) {
-            $this->commandesPar->removeElement($commandesPar);
+        if ($this->commandePar->contains($commandesPar)) {
+            $this->commandePar->removeElement($commandesPar);
             $commandesPar->removePromo($this);
         }
 
@@ -89,13 +94,13 @@ class Promo
      */
     public function getCommandesPros(): Collection
     {
-        return $this->commandesPro;
+        return $this->commandePro;
     }
 
     public function addCommandesPro(CommandePro $commandesPro): self
     {
-        if (!$this->commandesPro->contains($commandesPro)) {
-            $this->commandesPro[] = $commandesPro;
+        if (!$this->commandePro->contains($commandesPro)) {
+            $this->commandePro[] = $commandesPro;
             $commandesPro->addPromo($this);
         }
 
@@ -104,10 +109,22 @@ class Promo
 
     public function removeCommandesPro(CommandePro $commandesPro): self
     {
-        if ($this->commandesPro->contains($commandesPro)) {
-            $this->commandesPro->removeElement($commandesPro);
+        if ($this->commandePro->contains($commandesPro)) {
+            $this->commandePro->removeElement($commandesPro);
             $commandesPro->removePromo($this);
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
