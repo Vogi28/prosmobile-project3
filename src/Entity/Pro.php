@@ -19,6 +19,12 @@ class Pro
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="pro")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
@@ -54,10 +60,9 @@ class Pro
     private $commandePro;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="pro")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $user;
+    private $pourcentRemise;
 
     public function __construct()
     {
@@ -180,6 +185,18 @@ class Pro
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPourcentRemise(): ?int
+    {
+        return $this->pourcentRemise;
+    }
+
+    public function setPourcentRemise(?int $pourcentRemise): self
+    {
+        $this->pourcentRemise = $pourcentRemise;
 
         return $this;
     }

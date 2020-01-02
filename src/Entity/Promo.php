@@ -38,6 +38,21 @@ class Promo
      */
     private $photo;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $debut;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fin;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $pourcentage;
+
 
     public function __construct()
     {
@@ -126,6 +141,42 @@ class Promo
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getDebut(): ?\DateTimeInterface
+    {
+        return $this->debut;
+    }
+
+    public function setDebut(\DateTimeInterface $debut): self
+    {
+        $this->debut = $debut;
+
+        return $this;
+    }
+
+    public function getFin(): ?\DateTimeInterface
+    {
+        return $this->fin;
+    }
+
+    public function setFin(\DateTimeInterface $fin): self
+    {
+        $this->fin = $fin;
+
+        return $this;
+    }
+
+    public function getPourcentage(): ?int
+    {
+        return $this->pourcentage;
+    }
+
+    public function setPourcentage(int $pourcentage): self
+    {
+        $this->pourcentage = $pourcentage;
 
         return $this;
     }
