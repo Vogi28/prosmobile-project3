@@ -103,7 +103,6 @@ class Promo
         if (!$this->commandePro->contains($commandePro)) {
             $this->commandePro[] = $commandePro;
             $commandePro->addPromo($this);
-
         }
 
         return $this;
