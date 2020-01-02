@@ -9,13 +9,34 @@
 </style>
 
 <div class="example-wrapper">
+{% if user.pro is null %}
     <h1>Hello {{ user.email }}! ✅</h1>
+{% else %}
+    <h1>Hello! ✅</h1>
+{% endif %}
+
 </div>
 <div class="container-full">
-    <nav>
-    <ul>
-        <li><a href="{{ path('pro_informations', {'id': user.id}) }}">Informations</a></li>
-    </ul>
-    </nav>
+    <div class="row">
+        <div class="col">
+            <nav>
+            <ul>
+                {% if user.pro is null %}
+                    <li><a href="{{ path('pro_informations', {'id': user.id}) }}">Informations</a></li>
+                {% else %}
+                    <li><a href="{{ path('pro_informations', {'id': user.id}) }}">Mise a jour des informations</a></li>
+                {% endif %}
+            </ul>
+            </nav>
+        </div>
+        <div class="col">
+            <p> {{ user.pro.prenom }}</p>
+            <p> {{ user.pro.nom }}</p>
+            <p> {{ user.pro.adresse }}</p>
+            <p> {{ user.pro.telephone }}</p>
+            <p> {{ user.email }}</p>
+            <p> {{ user.pro.siret }}</p>
+        </div>
+    </div>
 </div>
 {% endblock %}
