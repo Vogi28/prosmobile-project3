@@ -11,16 +11,12 @@
 				<div class="card mb-3" style="max-width: 540px;">
 					<div class="row no-gutters">
 						<div class="col-md-4">
-							<img src="https://via.placeholder.com/150x200.png" class="card-img" alt="...">
+							<img src="https://via.placeholder.com/150x200.png" class="card-img" alt="{{ composant.nom }}">
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
 								<h5 class="card-title">{{ composant.nom }}</h5>
-								<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-								<p class="card-text">
-									<small class="text-muted">{{ composant.prix }}
-										€</small>
-								</p>
+								<small class="text-muted">{{ composant.prix }} €</small>
 							</div>
 						</div>
 					</div>
@@ -30,6 +26,11 @@
 			{% endif %}
 		</div>
 	</div>
+	{% if  is_granted('ROLE_ADMIN') %}
+		<div>
+			<a href="{{ path('composant_new') }}">Ajouter un composant</a>
+		</div>
+	{% endif %}
 	<div>
 		<a href="{{ path('composant_index') }}">Retour</a>
 	</div>
