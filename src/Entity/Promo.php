@@ -33,6 +33,12 @@ class Promo
      */
     private $commandePro;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $photo;
+
+
     public function __construct()
     {
         $this->commandePar = new ArrayCollection();
@@ -108,6 +114,18 @@ class Promo
             $this->commandePro->removeElement($commandePro);
             $commandePro->removePromo($this);
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

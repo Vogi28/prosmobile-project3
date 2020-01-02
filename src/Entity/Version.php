@@ -28,6 +28,11 @@ class Version
      */
     private $telephones;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $photo;
+
     public function __construct()
     {
         $this->telephones = new ArrayCollection();
@@ -77,6 +82,18 @@ class Version
                 $telephone->setVersion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
