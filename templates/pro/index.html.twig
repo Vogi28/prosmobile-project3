@@ -25,18 +25,23 @@
                     <li><a href="{{ path('pro_informations', {'id': user.id}) }}">Informations</a></li>
                 {% else %}
                     <li><a href="{{ path('pro_informations', {'id': user.id}) }}">Mise a jour des informations</a></li>
+                    <li><a href="#">Changer mot de passe</a></li>
+                    <li><a href="#">Commandes</a></li>
+                    <li><a href="#">Rendez-vous</a></li>
                 {% endif %}
             </ul>
             </nav>
         </div>
-        <div class="col">
-            <p> {{ user.pro.prenom }}</p>
-            <p> {{ user.pro.nom }}</p>
-            <p> {{ user.pro.adresse }}</p>
-            <p> {{ user.pro.telephone }}</p>
-            <p> {{ user.email }}</p>
-            <p> {{ user.pro.siret }}</p>
-        </div>
+        {% if user.pro is not null %}
+            <div class="col">
+                <p> {{ user.pro.prenom }}</p>
+                <p> {{ user.pro.nom }}</p>
+                <p> {{ user.pro.adresse }}</p>
+                <p> {{ user.pro.telephone }}</p>
+                <p> {{ user.email }}</p>
+                <p> {{ user.pro.siret }}</p>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
