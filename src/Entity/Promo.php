@@ -38,6 +38,7 @@ class Promo
      */
     private $photo;
 
+
     public function __construct()
     {
         $this->commandePar = new ArrayCollection();
@@ -64,26 +65,26 @@ class Promo
     /**
      * @return Collection|CommandePar[]
      */
-    public function getCommandesPar(): Collection
+    public function getCommandePar(): Collection
     {
         return $this->commandePar;
     }
 
-    public function addCommandesPar(CommandePar $commandesPar): self
+    public function addCommandePar(CommandePar $commandePar): self
     {
-        if (!$this->commandePar->contains($commandesPar)) {
-            $this->commandePar[] = $commandesPar;
-            $commandesPar->addPromo($this);
+        if (!$this->commandePar->contains($commandePar)) {
+            $this->commandePar[] = $commandePar;
+            $commandePar->addPromo($this);
         }
 
         return $this;
     }
 
-    public function removeCommandesPar(CommandePar $commandesPar): self
+    public function removeCommandePar(CommandePar $commandePar): self
     {
-        if ($this->commandePar->contains($commandesPar)) {
-            $this->commandePar->removeElement($commandesPar);
-            $commandesPar->removePromo($this);
+        if ($this->commandePar->contains($commandePar)) {
+            $this->commandePar->removeElement($commandePar);
+            $commandePar->removePromo($this);
         }
 
         return $this;
@@ -92,26 +93,27 @@ class Promo
     /**
      * @return Collection|CommandePro[]
      */
-    public function getCommandesPros(): Collection
+    public function getCommandePro(): Collection
     {
         return $this->commandePro;
     }
 
-    public function addCommandesPro(CommandePro $commandesPro): self
+    public function addCommandePro(CommandePro $commandePro): self
     {
-        if (!$this->commandePro->contains($commandesPro)) {
-            $this->commandePro[] = $commandesPro;
-            $commandesPro->addPromo($this);
+        if (!$this->commandePro->contains($commandePro)) {
+            $this->commandePro[] = $commandePro;
+            $commandePro->addPromo($this);
+
         }
 
         return $this;
     }
 
-    public function removeCommandesPro(CommandePro $commandesPro): self
+    public function removeCommandePro(CommandePro $commandePro): self
     {
-        if ($this->commandePro->contains($commandesPro)) {
-            $this->commandePro->removeElement($commandesPro);
-            $commandesPro->removePromo($this);
+        if ($this->commandePro->contains($commandePro)) {
+            $this->commandePro->removeElement($commandePro);
+            $commandePro->removePromo($this);
         }
 
         return $this;

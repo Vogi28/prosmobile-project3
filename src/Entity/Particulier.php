@@ -26,7 +26,6 @@ class Particulier
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=8)
      */
     private $nom;
 
@@ -46,7 +45,7 @@ class Particulier
     private $commandePar;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="particulier", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="particulier")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

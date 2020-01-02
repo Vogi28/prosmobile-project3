@@ -17,7 +17,7 @@ class DetailCdePart
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CommandePar", inversedBy="detailCdePar")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CommandePar", inversedBy="detailCdePart")
      * @ORM\JoinColumn(nullable=false)
      */
     private $commandePar;

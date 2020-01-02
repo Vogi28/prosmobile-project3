@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CommandeParticulierRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CommandeParRepository")
  */
 class CommandePar
 {
@@ -19,21 +19,21 @@ class CommandePar
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Promo", inversedBy="commandesParticuliers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Promo", inversedBy="commandePar")
      */
     private $promo;
 
     /**
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\DetailCdePart",
-     *     mappedBy="commandeParticulier",
+     *     mappedBy="commandePar",
      *     orphanRemoval=true
      *     )
      */
     private $detailCdePart;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Particulier", inversedBy="commandeParticulier")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Particulier", inversedBy="commandePar")
      * @ORM\JoinColumn(nullable=false)
      */
     private $particulier;
