@@ -19,11 +19,6 @@ class CommandePro
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Promo", inversedBy="commandePro")
-     */
-    private $promo;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\DetailCdePro", mappedBy="commandePro", orphanRemoval=true)
      */
     private $detailCdePro;
@@ -36,39 +31,12 @@ class CommandePro
 
     public function __construct()
     {
-        $this->promo = new ArrayCollection();
         $this->detailCdePro = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Promo[]
-     */
-    public function getPromo(): Collection
-    {
-        return $this->promo;
-    }
-
-    public function addPromo(Promo $promo): self
-    {
-        if (!$this->promo->contains($promo)) {
-            $this->promo[] = $promo;
-        }
-
-        return $this;
-    }
-
-    public function removePromo(Promo $promo): self
-    {
-        if ($this->promo->contains($promo)) {
-            $this->promo->removeElement($promo);
-        }
-
-        return $this;
     }
 
     /**

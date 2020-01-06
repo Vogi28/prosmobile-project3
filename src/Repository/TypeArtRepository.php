@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Telephone;
+use App\Entity\TypeArt;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Telephone|null find($id, $lockMode = null, $lockVersion = null)
- * @method Telephone|null findOneBy(array $criteria, array $orderBy = null)
- * @method Telephone[]    findAll()
- * @method Telephone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TypeArt|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TypeArt|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TypeArt[]    findAll()
+ * @method TypeArt[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TelephoneRepository extends ServiceEntityRepository
+class TypeArtRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Telephone::class);
+        parent::__construct($registry, TypeArt::class);
     }
 
     // /**
-    //  * @return Telephone[] Returns an array of Telephone objects
+    //  * @return TypeArt[] Returns an array of TypeArt objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TelephoneRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Telephone
+    public function findOneBySomeField($value): ?TypeArt
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')
