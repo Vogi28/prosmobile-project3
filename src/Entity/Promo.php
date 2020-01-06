@@ -29,11 +29,6 @@ class Promo
     private $commandePar;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\CommandePro", mappedBy="promo")
-     */
-    private $commandePro;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $photo;
@@ -57,7 +52,6 @@ class Promo
     public function __construct()
     {
         $this->commandePar = new ArrayCollection();
-        $this->commandePro = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,34 +94,6 @@ class Promo
         if ($this->commandePar->contains($commandePar)) {
             $this->commandePar->removeElement($commandePar);
             $commandePar->removePromo($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CommandePro[]
-     */
-    public function getCommandePro(): Collection
-    {
-        return $this->commandePro;
-    }
-
-    public function addCommandePro(CommandePro $commandePro): self
-    {
-        if (!$this->commandePro->contains($commandePro)) {
-            $this->commandePro[] = $commandePro;
-            $commandePro->addPromo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommandePro(CommandePro $commandePro): self
-    {
-        if ($this->commandePro->contains($commandePro)) {
-            $this->commandePro->removeElement($commandePro);
-            $commandePro->removePromo($this);
         }
 
         return $this;
