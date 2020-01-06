@@ -25,7 +25,7 @@
                     <li><a href="{{ path('particulier_informations', {'id': user.id}) }}">Informations</a></li>
                 {% else %}
                     <li><a href="{{ path('particulier_edit', {'id': user.particulier.id}) }}">Mise a jour des informations</a></li>
-                    <li><a href="#">Changer mot de passe</a></li>
+                    <li><a href="{{ path('changer_mdp', {'id': user.id}) }}">Changer mot de passe</a></li>
                     <li><a href="#">Commandes</a></li>
                     <li><a href="#">Rendez-vous</a></li>
                 {% endif %}

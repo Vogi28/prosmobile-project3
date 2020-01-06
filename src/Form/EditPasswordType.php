@@ -5,45 +5,39 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
-class RegistrationFormType extends AbstractType
+class EditPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $options = [];
+        $options;
         $builder
-            ->add('email')
-            ->add('pros', CheckboxType::class, [
-                'label' => 'Vous etes un professionnel',
-                'mapped' => false,
-                'required' => false
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
+            ->add('oldPassword', PasswordType::class, [
+                'constraints' => array(
+                    new UserPassword(
+                        ['message' => 'Mot de passe incorrect']
+                    ),
+                    ),
+                'label' => 'Ancien mot de passe',
+                'required' => true,
+                'mapped' => false
+                
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent correspondre',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' =>
-                'Entrer votre mot de passe']],
-                'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' =>
-                'Confirmer mot de passe']],
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'first_options' => ['label' => 'Nouveau mot de passe', 'attr'
+                => ['placeholder' => 'Entrez votre nouveau mot de passe']],
+                'second_options' => ['label' => 'Confirmer votre mot de passe',
+                'attr' => ['placeholder' => 'Confirmer mot de passe']],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
