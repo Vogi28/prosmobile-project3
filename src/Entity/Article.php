@@ -54,11 +54,6 @@ class Article
     private $stock;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $relation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeArt", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -171,18 +166,6 @@ class Article
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
-
-        return $this;
-    }
-
-    public function getRelation(): ?int
-    {
-        return $this->relation;
-    }
-
-    public function setRelation(int $relation): self
-    {
-        $this->relation = $relation;
 
         return $this;
     }
