@@ -3,10 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Particulier;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,11 +16,9 @@ class ParticulierFormType extends AbstractType
             ->add('prenom')
             ->add('nom')
             ->add('adresse')
+            ->add('codePostal')
+            ->add('ville')
             ->add('telephone')
-            // ->add('user', EntityType::class, [
-            // 'class' => User::class,
-            // 'value' => 'email'
-            // ])
         ;
     }
 
