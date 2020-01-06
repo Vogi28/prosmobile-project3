@@ -18,8 +18,9 @@ class ProFormType extends AbstractType
             ->add('societe')
             ->add('siret')
             ->add('adresse')
+            ->add('codePostal')
+            ->add('ville')
             ->add('telephone')
-            // ->add('user')
         ;
     }
 
