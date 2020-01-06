@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Informations</h1>
+<div class="container d-flex justify-content-center">
+    {{ form_start(formPass) }}
+        {{ form_row(formPass.oldPassword) }}
+        {{ form_row(formPass.plainPassword) }}
+
+        <button class="btn btn-success">Envoyer</button>
+    {{ form_end(formPass) }}
+</div>
+{% endblock %}

@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EditPasswordType;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -98,5 +101,41 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+    }
+
+    /**
+     * @Route("/password/{id}", name="changer_mdp")
+     */
+    public function changePassword(
+        User $user,
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $emi
+    ) {
+        
+        $form = $this->createForm(EditPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                $form->get('plainPassword')->getData()
+            ));
+
+            $emi->persist($user);
+            $emi->flush();
+
+            $this->addFlash('success', 'Changement de mot de passe réussi');
+            
+            if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
+                return $this->redirectToRoute("particulier_profile", ["id" => $user->getId()]);
+            } elseif ($user->getRoles()[0] == 'ROLE_PRO') {
+                 return $this->redirectToRoute('pro_profile', ['id' => $user->getID()]);
+            }
+        }
+
+        return $this->render('security/changePass.html.twig', [
+            'formPass' => $form->createView()
+        ]);
     }
 }
