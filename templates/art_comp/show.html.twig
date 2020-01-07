@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArtComp{% endblock %}
+
+{% block body %}
+    <h1>ArtComp</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ art_comp.id }}</td>
+            </tr>
+            <tr>
+                <th>ArtId</th>
+                <td>{{ art_comp.artId }}</td>
+            </tr>
+            <tr>
+                <th>ArtCompId</th>
+                <td>{{ art_comp.artCompId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('art_comp_index') }}">back to list</a>
+
+    <a href="{{ path('art_comp_edit', {'id': art_comp.id}) }}">edit</a>
+
+    {{ include('art_comp/_delete_form.html.twig') }}
+{% endblock %}
