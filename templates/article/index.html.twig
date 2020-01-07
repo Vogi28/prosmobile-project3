@@ -1,47 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}PROSmobile |Articles{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+    <h1>Tous les articles disponibles</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Photo</th>
-                <th>Reference</th>
-                <th>Description</th>
-                <th>PrixHt</th>
-                <th>PrixTtc</th>
-                <th>Stock</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+{% if  is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('article_new') }}" class="btn btn-success">Ajouter un article</a>
+{% endif %}
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
         {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.nom }}</td>
-                <td>{{ article.photo }}</td>
-                <td>{{ article.reference }}</td>
-                <td>{{ article.description }}</td>
-                <td>{{ article.prixHt }}</td>
-                <td>{{ article.prixTtc }}</td>
-                <td>{{ article.stock }}</td>
-                <td>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
-                </td>
-            </tr>
+        <div class="col-md-4">
+            <img src="{{ article.photo }}" class="card-img" alt="Vignette article {{ article.nom }}"
+            title="{{ article.nom }}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ article.nom }}</h5>
+                {% if  is_granted('ROLE_ADMIN') %}
+                <p class="card-text">Référence : {{ article.reference }} - Stock restant : {{ article.stock }}</p>
+                {% endif %}
+                <p class="card-text">{{ article.description }}</p>
+                <p class="card-text">{{ article.prixTtc }} €</p>
+                <div>
+                    <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-outline-success">Fiche produit</a>
+                    {% if  is_granted('ROLE_ADMIN') %}
+                    {# BOUTON JAUNE EDITER #}
+                    <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning">Modifier</a>
+                    {# BOUTON ROUGE SUPPRIMER #}
+                    <a href="{{ path('article_delete', {'id': article.id}) }}" class="btn btn-outline-danger">Supprimer</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
         {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
+        <div class="card border-dark mb-3 w-50">
+            <div class="card-body text-dark">
+                <h5 class="card-title">Pas d'article trouvé</h5>
+                <p class="card-text">Aucun article n'est enregistré dans cette liste.</p>
+                <a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
+</div>
 
-    <a href="{{ path('article_new') }}">Create new</a>
-{% endblock %}
+    {% endblock %}
