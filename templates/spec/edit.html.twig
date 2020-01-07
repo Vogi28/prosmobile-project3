@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Spec{% endblock %}
+
+{% block body %}
+    <h1>Edit Spec</h1>
+
+    {{ include('spec/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('spec_index') }}">back to list</a>
+
+    {{ include('spec/_delete_form.html.twig') }}
+{% endblock %}
