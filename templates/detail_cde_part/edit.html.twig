@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DetailCdePart{% endblock %}
+
+{% block body %}
+    <h1>Edit DetailCdePart</h1>
+
+    {{ include('detail_cde_part/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('detail_cde_part_index') }}">back to list</a>
+
+    {{ include('detail_cde_part/_delete_form.html.twig') }}
+{% endblock %}
