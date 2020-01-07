@@ -24,7 +24,7 @@ class TypeArt
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="type_art")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="typeArt")
      */
     private $articles;
 

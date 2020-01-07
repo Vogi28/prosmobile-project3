@@ -24,7 +24,7 @@ class ProController extends AbstractController
      */
     public function index(ProRepository $proRepository): Response
     {
-        return $this->render('pro/index.html.twig', [
+        return $this->render('profile/pro/index.html.twig', [
             'pros' => $proRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class ProController extends AbstractController
      */
     public function profile(User $user)
     {
-        return $this->render('pro/profile/index.html.twig', [
+        return $this->render('profile/pro/profile/index.html.twig', [
             'controller_name' => 'ProController',
             'user' => $user
         ]);
@@ -62,7 +62,7 @@ class ProController extends AbstractController
             return $this->redirectToRoute('pro_profile', ['id' => $pro->getUser()->getId()]);
         }
 
-        return $this->render('pro/profile/form.html.twig', [
+        return $this->render('profile/pro/profile/form.html.twig', [
             'formPro' => $form->createView()
         ]);
     }
@@ -84,7 +84,7 @@ class ProController extends AbstractController
             return $this->redirectToRoute('pro_index');
         }
 
-        return $this->render('pro/new.html.twig', [
+        return $this->render('profile/pro/new.html.twig', [
             'pro' => $pro,
             'form' => $form->createView(),
         ]);
@@ -95,7 +95,7 @@ class ProController extends AbstractController
      */
     public function show(Pro $pro): Response
     {
-        return $this->render('pro/show.html.twig', [
+        return $this->render('profile/pro/show.html.twig', [
             'pro' => $pro,
         ]);
     }
@@ -118,7 +118,7 @@ class ProController extends AbstractController
             }
         }
 
-        return $this->render('pro/edit.html.twig', [
+        return $this->render('profile/pro/edit.html.twig', [
             'pro' => $pro,
             'form' => $form->createView(),
         ]);

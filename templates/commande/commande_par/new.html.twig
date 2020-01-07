@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CommandePar{% endblock %}
+
+{% block body %}
+    <h1>Create new CommandePar</h1>
+
+    {{ include('commande_par/_form.html.twig') }}
+
+    <a href="{{ path('commande_par_index') }}">back to list</a>
+{% endblock %}
