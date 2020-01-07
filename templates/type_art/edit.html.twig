@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeArt{% endblock %}
+
+{% block body %}
+    <h1>Edit TypeArt</h1>
+
+    {{ include('type_art/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('type_art_index') }}">back to list</a>
+
+    {{ include('type_art/_delete_form.html.twig') }}
+{% endblock %}
