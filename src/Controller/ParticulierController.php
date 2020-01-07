@@ -25,7 +25,7 @@ class ParticulierController extends AbstractController
      */
     public function index(ParticulierRepository $partiRepository)
     {
-        return $this->render('particulier/index.html.twig', [
+        return $this->render('profile/particulier/index.html.twig', [
             'particuliers' => $partiRepository->findAll()
         ]);
     }
@@ -36,7 +36,7 @@ class ParticulierController extends AbstractController
     public function profile(User $user)
     {
     
-        return $this->render('particulier/profile/index.html.twig', [
+        return $this->render('profile/particulier/profile/index.html.twig', [
             'controller_name' => 'ParticulierController',
             'user' => $user
         ]);
@@ -64,7 +64,7 @@ class ParticulierController extends AbstractController
             return $this->redirectToRoute('particulier_profile', ['id' => $particulier->getUser()->getId()]);
         }
 
-        return $this->render('particulier/profile/form.html.twig', [
+        return $this->render('profile/particulier/profile/form.html.twig', [
             'formParticulier' => $form->createView()
         ]);
     }
@@ -87,7 +87,7 @@ class ParticulierController extends AbstractController
             return $this->redirectToRoute('particulier_index');
         }
 
-        return $this->render('particulier/new.html.twig', [
+        return $this->render('profile/particulier/new.html.twig', [
             'particulier' => $particulier,
             'form' => $form->createView(),
         ]);
@@ -98,7 +98,7 @@ class ParticulierController extends AbstractController
      */
     public function show(Particulier $particulier): Response
     {
-        return $this->render('particulier/show.html.twig', [
+        return $this->render('profile/particulier/show.html.twig', [
             'particulier' => $particulier,
         ]);
     }
@@ -121,7 +121,7 @@ class ParticulierController extends AbstractController
             }
         }
 
-        return $this->render('particulier/edit.html.twig', [
+        return $this->render('profile/particulier/edit.html.twig', [
             'particulier' => $particulier,
             'form' => $form->createView(),
         ]);
