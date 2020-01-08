@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\CommandePar;
+use App\Entity\Particulier;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,8 +15,11 @@ class CommandeParType extends AbstractType
     {
         $options;
         $builder
-            ->add('promo')
-            ->add('particulier')
+            // ->add('promo')
+            ->add('particulier', EntityType::class, [
+                'class' => Particulier::class,
+                'choice_label' => 'id'
+            ])
         ;
     }
 
