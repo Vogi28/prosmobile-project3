@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ article.nom }}</h1>
 
-{% if accessoire is defined %}
+{% if article is defined %}
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row no-gutters">
         <div class="col-md-4">
@@ -44,6 +44,10 @@
             </div>
         {% endif %}
 
-                <a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
+    {# TODO inclure la section articles compatibles :
+    {% include ('../art_comp/show.html.twig') %} #}
 
+<div>
+    <a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
+</div>
 {% endblock %}
