@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+    <h1>Commandes index</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Commande</th>
+                <th>Client ID</th>
+                <th>Nom / Societe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+        <pre>
+            {{ dump(commande) }}
+        </pre>
+            <tr>
+                <td>{{ commande.id }}</td>
+                {% if commande.particulier is defined %}
+                    <td>{{ commande.particulier.id }}</td>
+                    {% for particulier in particuliers %}
+                        <td>{{ particulier.nom }} {{ particulier.prenom }}</td>
+                    {% endfor %}
+                {% elseif commande.pro is defined %}
+                    <td>{{ commande.pro.id }}</td>
+                    {% for pro in pros %}
+                        <td>{{ pro.societe }}</td>
+                    {% endfor %}
+                {% endif %}
+                <td>
+                {% if commande.particulier is defined %}
+                    <a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">details</a>
+                    <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'particulier'}) }}">edit</a>
+                {% elseif commande.pro is defined %}
+                    <a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">details</a>
+                    <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'pro'}) }}">edit</a>
+                {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('commande_new') }}">Create new</a>
+{% endblock %}

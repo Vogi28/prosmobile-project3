@@ -10,6 +10,8 @@ use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
 use App\Repository\DetailCdePartRepository;
 use App\Repository\DetailCdeProRepository;
+use App\Repository\ParticulierRepository;
+use App\Repository\ProRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +25,10 @@ class CommandeController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(CommandeParRepository $cdeParRepository, CommandeProRepository $cdeProRepository): Response
-    {
+    public function index(
+        CommandeParRepository $cdeParRepository,
+        CommandeProRepository $cdeProRepository
+    ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             return $this->render('commande/commande_par/index.html.twig', [
             'commande_pars' => $cdeParRepository->findAll(),
