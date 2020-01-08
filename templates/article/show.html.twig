@@ -44,10 +44,11 @@
             </div>
         {% endif %}
 
-    {# TODO inclure la section articles compatibles :
-    {% include ('../art_comp/show.html.twig') %} #}
+    {# inclure la section articles compatibles : #}
+    {% include ('art_comp/show.html.twig') %}
 
 <div>
-    <a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
+<a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
 </div>
+
 {% endblock %}
