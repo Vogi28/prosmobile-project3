@@ -85,18 +85,22 @@ class CommandeController extends AbstractController
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      */
+    
     public function details(
-        CommandePar $cdePar,
-        CommandePro $cdePro,
+        $id,
+        CommandeParRepository $cdePar,
+        CommandeProRepository $cdePro,
         DetailCdePartRepository $dtlCdePartRepository,
         DetailCdeProRepository $dtlCdeProRepository
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+            $cdePar = $cdePar->findOneById($id);
             return $this->render('commande/commande_par/show.html.twig', [
             'commande_par' => $cdePar,
             'details' => $dtlCdePartRepository->findByCommandePar($cdePar->getId())
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+            $cdePro = $cdePro->findOneById($id);
             return $this->render('commande/commande_pro/show.html.twig', [
             'commande_pro' => $cdePro,
             'details' => $dtlCdeProRepository->findByCommandePro($cdePro->getId())
@@ -108,9 +112,15 @@ class CommandeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, CommandePar $cdePar, CommandePro $cdePro): Response
-    {
+    public function edit(
+        Request $request,
+        int $id,
+        CommandeParRepository $cdePar,
+        CommandeProRepository $cdePro
+    ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+            $cdePar = $cdePar->findOneById($id);
+
             $form = $this->createForm(CommandeParType::class, $cdePar);
             $form->handleRequest($request);
 
@@ -120,6 +130,8 @@ class CommandeController extends AbstractController
                 return $this->redirectToRoute('commande_index');
             }
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+            $cdePro = $cdePro->findOneById($id);
+
             $form = $this->createForm(CommandeProType::class, $cdePro);
             $form->handleRequest($request);
 
@@ -131,11 +143,15 @@ class CommandeController extends AbstractController
         }
 
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+            $cdePar = $cdePar->findOneById($id);
+
             return $this->render('commande/commande_par/edit.html.twig', [
             'commande_par' => $cdePar,
             'form' => $form->createView(),
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+            $cdePro = $cdePro->findOneById($id);
+
             return $this->render('commande/commande_pro/edit.html.twig', [
             'commande_pro' => $cdePro,
             'form' => $form->createView(),
@@ -146,15 +162,23 @@ class CommandeController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
      */
-    public function delete(Request $request, CommandePar $cdePar, CommandePro $cdePro): Response
-    {
+    public function delete(
+        Request $request,
+        int $id,
+        CommandeParRepository $cdePar,
+        CommandeProRepository $cdePro
+    ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+            $cdePar = $cdePar->findOneById($id);
+
             if ($this->isCsrfTokenValid('delete'.$cdePar->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($cdePar);
                 $entityManager->flush();
             }
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+            $cdePro = $cdePro->findOneById($id);
+
             if ($this->isCsrfTokenValid('delete'.$cdePro->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($cdePro);
