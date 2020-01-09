@@ -81,6 +81,8 @@ class ProController extends AbstractController
             $entityManager->persist($pro);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Ajout réussi');
+
             return $this->redirectToRoute('pro_index');
         }
 
@@ -112,8 +114,12 @@ class ProController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN') {
+                $this->addFlash('success', 'Modification réussi');
+
                 return $this->redirectToRoute('pro_index');
             } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+                $this->addFlash('success', 'Modification réussi');
+
                 return $this->redirectToRoute('pro_profile', ["id" => $this->getUser()->getId()]);
             }
         }
@@ -134,6 +140,8 @@ class ProController extends AbstractController
             $entityManager->remove($pro);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', 'Suppression réussi');
 
         return $this->redirectToRoute('pro_index');
     }
