@@ -15,14 +15,6 @@
 
 	<h1 class="text-center">Liste des promotions</h1>
 
-	{% for promo, messages in app.flashes %}
-		{% for message in messages %}
-			<div class="alert alert-{{ promo }}">
-				{{ message }}
-			</div>
-		{% endfor %}
-	{% endfor %}
-
 	<div class="container">
 		<div class="row">
 			{% for promo in promos %}
@@ -33,24 +25,24 @@
 				{% endif %}
 				<div class="col-6 mt-2">
 					<div class="media mt-2">
-						<img src="{{ photo }}" class="align-self-start mr-3 img-thumbnail" alt="...">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" alt="...">
 						<div class="media-body">
 							<h5 class="mt-2">{{ promo.nom }}</h5>
-							<div class="mt-2">
+							<p class="mt-4">
 								du
 								{{ promo.debut ? promo.debut|date('d/m/Y') : '' }}
 								jusqu'au
 								{{ promo.fin ? promo.fin|date('d/m/Y') : '' }}
-							</div>
-							<div class="mt-2">
-								{{ promo.pourcentage }}%
-							</div>
-							<div class="mt-2">
-								<button class="btn">
-									<a href="{{ path('promo_edit', {'id': promo.id}) }}">
+							</p>
+							<p class="mt-2">
+								{{ promo.pourcentage }} %
+							</p>
+							<div class="mt-4">
+								<a href="{{ path('promo_edit', {'id': promo.id}) }}">
+									<button class="btn">
 										Éditer
-									</a>
-								</button>
+									</button>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -62,13 +54,13 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div class="container">
+	<div class="container mt-2">
 		<div class="row">
-			<button class="btn">
-				<a href="{{ path('promo_new') }}">
+			<a href="{{ path('promo_new') }}">
+				<button class="btn">
 					Ajouter
-				</a>
-			</button>
+				</button>
+			</a>
 		</div>
 	</div>
 {% endblock %}

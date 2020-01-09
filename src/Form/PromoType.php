@@ -23,7 +23,7 @@ class PromoType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'https://liendephoto.png',
+                    'placeholder' => 'ex: https://x.xxx.xx/xxxxxxx/xxx.png',
                     'pattern' => '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?
                     [a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
                 ]
