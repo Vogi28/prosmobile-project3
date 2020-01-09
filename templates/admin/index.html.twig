@@ -10,11 +10,18 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-    <nav>
-        <ul>
-            <p><a href="{{ path('pro_index')}}">Pro</a></p>
-            <p><a href="{{ path('particulier_index')}}">Particulier</a></p>
-        </ul>
-    </nav>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-start">
+            <div class="col">
+                <nav>
+                    <ul>
+                        <p><a href="{{ path('pro_index')}}">Pro</a></p>
+                        <p><a href="{{ path('particulier_index')}}">Particulier</a></p>
+                        <p><a href="{{ path('admin_commande_index')}}">Commande</a></p>
+                    </ul>
+            </div>    
+        </div>
+    </div>
+    
 </div>
 {% endblock %}

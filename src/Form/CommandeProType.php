@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Pro;
 use App\Entity\CommandePro;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommandeProType extends AbstractType
@@ -13,8 +15,11 @@ class CommandeProType extends AbstractType
     {
         $options;
         $builder
-            ->add('pro')
-        ;
+        ->add('id')
+        ->add('pro', EntityType::class, [
+            'class' => Pro::class,
+            'choice_label' => 'id'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,22 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CommandePar{% endblock %}
+{% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-    <h1>CommandePar</h1>
+    <h1>Details commande</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ commande_par.id }}</td>
+                <th>Article ID</th>
+                <th>Article name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Price with Taxes</th>
+                {# <td>{{ commande_par.id }}</td> #}
             </tr>
+            {% for detail in details %}
+                <tr>
+                    <td><a href="#">{{ detail.article }}</a></td>
+                    <td>{{ detail.nomArt }}</td>
+                    <td>{{ detail.quantity }}</td>
+                    <td>{{ detail.prixHT }}</td>
+                    <td>{{ detail.remise }}</td>
+                    <td>{{ detail.total }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('commande_par_index') }}">back to list</a>
-
-    <a href="{{ path('commande_par_edit', {'id': commande_par.id}) }}">edit</a>
-
-    {{ include('commande_par/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_PARTICULIER') %}
+        <a href="{{ path('commande_index', {'id': commande_par.particulier.id}) }}">back to list</a>
+        <a href="{{ path('commande_edit', {'id': commande_par.id}) }}">
+        edit</a>
+    {% elseif is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin_commande_index') }}">back to list</a>
+        <a href="{{ path('admin_commande_edit', {'id': commande_par.id, 'role': 'particulier'}) }}">
+        edit</a>
+    {% endif %}
+    {{ include('commande/commande_par/_delete_form.html.twig') }}
 {% endblock %}
