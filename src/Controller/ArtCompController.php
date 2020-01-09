@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\ArtComp;
+use App\Entity\Article;
 use App\Form\ArtCompType;
 use App\Repository\ArtCompRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,15 +50,7 @@ class ArtCompController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="art_comp_show", methods={"GET"})
-     */
-    public function show(ArtComp $artComp): Response
-    {
-        return $this->render('art_comp/show.html.twig', [
-            'art_comp' => $artComp,
-        ]);
-    }
+    // méthode "art_comp_show" supprimée ici pour la mettre dans ArticleController
 
     /**
      * @Route("/{id}/edit", name="art_comp_edit", methods={"GET","POST"})
