@@ -24,19 +24,9 @@ class Spec
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $idGroupe;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $valeur;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $unite;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="spec")
@@ -65,18 +55,6 @@ class Spec
         return $this;
     }
 
-    public function getIdGroupe(): ?int
-    {
-        return $this->idGroupe;
-    }
-
-    public function setIdGroupe(int $idGroupe): self
-    {
-        $this->idGroupe = $idGroupe;
-
-        return $this;
-    }
-
     public function getValeur(): ?string
     {
         return $this->valeur;
@@ -85,18 +63,6 @@ class Spec
     public function setValeur(string $valeur): self
     {
         $this->valeur = $valeur;
-
-        return $this;
-    }
-
-    public function getUnite(): ?string
-    {
-        return $this->unite;
-    }
-
-    public function setUnite(?string $unite): self
-    {
-        $this->unite = $unite;
 
         return $this;
     }
