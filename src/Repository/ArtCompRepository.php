@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\ArtComp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @method ArtComp|null find($id, $lockMode = null, $lockVersion = null)

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Repository\ArtCompRepository;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,12 +50,29 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     * @Route("/show/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article): Response
+    public function show(Article $article, ArtCompRepository $artCompRepository): Response
     {
+        $artComps = $artCompRepository->findOneByArtId($article->getId());
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'art_comps' => $artComps,
+        ]);
+    }
+
+    /**
+     * @Route("/comp/{id}", name="article_comp", methods={"GET"})
+     * @param ArtCompRepository $artCompRepository
+     * @param int $id
+     * @return Response
+     */
+    public function showComp(ArtCompRepository $artCompRepository, int $id): Response
+    {
+        $artComps = $artCompRepository->findCompByArt($id);
+        return $this->render('article_show/show.html.twig', [
+            'art_comps' => $artComps,
+            'article' => $id,
         ]);
     }
 
