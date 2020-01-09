@@ -1,11 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Promo{% endblock %}
+{% block title %}PROSMobile - Ajouter une promotion{% endblock %}
 
 {% block body %}
-    <h1>Create new Promo</h1>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('promo_index') }}">
+					Gestion des promotions
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Nouvelle promotion
+			</li>
+		</ol>
+	</nav>
 
-    {{ include('promo/_form.html.twig') }}
+	<h1 class="text-center">Ajouter une promotion</h1>
 
-    <a href="{{ path('promo_index') }}">back to list</a>
+	{{ include('promo/_form.html.twig') }}
 {% endblock %}

@@ -1,4 +1,37 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container">
+	<div class="row">
+		<div class="col-lg">
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.nom, 'Titre de la promotion') }}
+				{{ form_widget(form.nom) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.photo, 'Photo') }}
+				{{ form_widget(form.photo) }}
+			</div>
+		</div>
+		<div class="col-lg">
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.debut, 'Date de début de la promotion') }}
+				{{ form_widget(form.debut) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.fin, 'Date de fin de la promotion') }}
+				{{ form_widget(form.fin) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.pourcentage, 'Remise') }}
+				{{ form_widget(form.pourcentage) }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<button class="btn">
+			{{ button_label|default('Enregistrer') }}
+		</button>
+	</div>
+</div>
 {{ form_end(form) }}
