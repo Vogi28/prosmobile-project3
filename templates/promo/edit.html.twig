@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Promo{% endblock %}
+{% block title %}PROSMobile - Caractéristiques de la promotion{% endblock %}
 
 {% block body %}
-    <h1>Edit Promo</h1>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('promo_index') }}">
+					Gestion des promotions
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Configurer la promotion
+			</li>
+		</ol>
+	</nav>
 
-    {{ include('promo/_form.html.twig', {'button_label': 'Update'}) }}
+	<h1 class="text-center">Caractéristiques de la promotion</h1>
 
-    <a href="{{ path('promo_index') }}">back to list</a>
+	{{ include('promo/_form.html.twig') }}
 
-    {{ include('promo/_delete_form.html.twig') }}
+	<div class="container">
+		<div class="row">
+			{{ include('promo/_delete_form.html.twig') }}
+		</div>
+	</div>
 {% endblock %}

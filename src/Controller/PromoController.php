@@ -39,6 +39,8 @@ class PromoController extends AbstractController
             $entityManager->persist($promo);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La nouvelle promotion à été ajoutée');
+
             return $this->redirectToRoute('promo_index');
         }
 
@@ -69,6 +71,8 @@ class PromoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'La promotion à été modifiée');
+
             return $this->redirectToRoute('promo_index');
         }
 
@@ -83,10 +87,12 @@ class PromoController extends AbstractController
      */
     public function delete(Request $request, Promo $promo): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$promo->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $promo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($promo);
             $entityManager->flush();
+
+            $this->addFlash('success', 'La promotion à été supprimée');
         }
 
         return $this->redirectToRoute('promo_index');

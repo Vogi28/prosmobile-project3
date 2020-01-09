@@ -1,43 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Promo index{% endblock %}
+{% block title %}PROSMobile - Liste des promotions{% endblock %}
 
 {% block body %}
-    <h1>Promo index</h1>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('promo_index') }}">
+					Gestion des promotions
+				</a>
+			</li>
+		</ol>
+	</nav>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Photo</th>
-                <th>Debut</th>
-                <th>Fin</th>
-                <th>Pourcentage</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for promo in promos %}
-            <tr>
-                <td>{{ promo.id }}</td>
-                <td>{{ promo.nom }}</td>
-                <td>{{ promo.photo }}</td>
-                <td>{{ promo.debut ? promo.debut|date('Y-m-d') : '' }}</td>
-                <td>{{ promo.fin ? promo.fin|date('Y-m-d') : '' }}</td>
-                <td>{{ promo.pourcentage }}</td>
-                <td>
-                    <a href="{{ path('promo_show', {'id': promo.id}) }}">show</a>
-                    <a href="{{ path('promo_edit', {'id': promo.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<h1 class="text-center">Liste des promotions</h1>
 
-    <a href="{{ path('promo_new') }}">Create new</a>
+	{% for promo, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{ promo }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+
+	<div class="container">
+		<div class="row">
+			{% for promo in promos %}
+				{% if promo.photo is empty %}
+					{% set photo ='https://via.placeholder.com/150x200' %}
+				{% else %}
+					{% set photo = promo.photo %}
+				{% endif %}
+				<div class="col-6 mt-2">
+					<div class="media mt-2">
+						<img src="{{ photo }}" class="align-self-start mr-3 img-thumbnail" alt="...">
+						<div class="media-body">
+							<h5 class="mt-2">{{ promo.nom }}</h5>
+							<div class="mt-2">
+								du
+								{{ promo.debut ? promo.debut|date('d/m/Y') : '' }}
+								jusqu'au
+								{{ promo.fin ? promo.fin|date('d/m/Y') : '' }}
+							</div>
+							<div class="mt-2">
+								{{ promo.pourcentage }}%
+							</div>
+							<div class="mt-2">
+								<button class="btn">
+									<a href="{{ path('promo_edit', {'id': promo.id}) }}">
+										Éditer
+									</a>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="mt-2">
+					Pas de promos trouvées
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<button class="btn">
+				<a href="{{ path('promo_new') }}">
+					Ajouter
+				</a>
+			</button>
+		</div>
+	</div>
 {% endblock %}

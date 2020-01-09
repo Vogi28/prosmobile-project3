@@ -1,56 +1,91 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href=" {{ path('home') }}">PROSMOBILE</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-white stiky-top">
+	<!-- brand -->
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav">
+			<li>
+				<a class="navbar-brand" href=" {{ path('home') }}">PROSMOBILE</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</li>
+		</ul>
+	</div>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    {% if not app.user %}
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ path('register')}}">Register <span class="sr-only">(current)</span></a>
-      </li>
-      {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      {% if app.user %}
-        {% if is_granted('ROLE_PARTICULIER')%}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">Profile</a>
-            </li>
-          {% elseif is_granted('ROLE_PRO') %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">Profile</a>
-            </li>
-          {% elseif is_granted('ROLE_ADMIN') %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
-            </li> 
-        {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('logout') }}">Logout</a>
-      </li>
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('login') }}">Login</a>
-      </li>
-      {% endif %}
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+	<!-- links -->
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mx-auto">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Links
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#"></a>
+					<a class="dropdown-item" href="#"></a>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<!-- register -->
+			{% if not app.user %}
+				<li class="nav-item active">
+					<a class="nav-link" href="{{ path('register')}}">S'enregistrer</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="sr-only">(current)</span>
+					</button>
+				</li>
+			{% endif %}
+			<!-- roles -->
+			{% if app.user %}
+				<!-- individual -->
+				{% if is_granted('ROLE_PARTICULIER')%}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">
+							<i class="fas fa-user fa-lg"></i>
+						</a>
+					</li>
+					<!-- professional -->
+				{% elseif is_granted('ROLE_PRO') %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
+							<i class="fas fa-user-tie fa-lg"></i>
+						</a>
+					</li>
+					<!-- administration -->
+				{% elseif is_granted('ROLE_ADMIN') %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('home') }}">
+							<i class="fas fa-user-shield fa-lg"></i>
+						</a>
+					</li>
+				{% endif %}
+				<!-- logout -->
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('logout') }}">
+						Se déconnecter
+					</a>
+				</li>
+			{% else %}
+				<!-- login -->
+				<li class="nav-item active">
+					<a class="nav-link" href="{{ path('login') }}">
+						Se connecter
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+		<!-- search -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<form class="form-inline">
+					<input class="form-control border border-light" type="search" placeholder="Rechercher" aria-label="Search">
+					<button class="btn btn-outline-secondary border border-light" type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+			</li>
+		</ul>
+	</div>
 </nav>
