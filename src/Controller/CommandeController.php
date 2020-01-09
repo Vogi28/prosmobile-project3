@@ -23,19 +23,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandeController extends AbstractController
 {
     /**
-     * @Route("/", name="index", methods={"GET"})
+     * @Route("/{id}", name="index", methods={"GET"})
      */
     public function index(
+        int $id,
         CommandeParRepository $cdeParRepository,
         CommandeProRepository $cdeProRepository
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             return $this->render('commande/commande_par/index.html.twig', [
-            'commande_pars' => $cdeParRepository->findAll(),
+            'commande_pars' => $cdeParRepository->findByParticulier($id),
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             return $this->render('commande/commande_pro/index.html.twig', [
-            'commande_pros' => $cdeProRepository->findAll(),
+            'commande_pros' => $cdeProRepository->findByPro($id),
             ]);
         }
     }
@@ -87,7 +88,7 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
+     * @Route("/detail/{id}", name="show", methods={"GET"})
      */
     
     public function details(
@@ -130,8 +131,10 @@ class CommandeController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
+                
+                $this->addFlash('success', 'Modification réussi');
 
-                return $this->redirectToRoute('commande_index');
+                return $this->redirectToRoute('commande_index', ['id' => $cdePar->getParticulier()->getId()]);
             }
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             $cdePro = $cdePro->findOneById($id);
@@ -142,20 +145,18 @@ class CommandeController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
 
-                return $this->redirectToRoute('commande_index');
+                $this->addFlash('success', 'Modification réussi');
+
+                return $this->redirectToRoute('commande_index', ['id' => $cdePro->getPro()->getId()]);
             }
         }
 
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
-            $cdePar = $cdePar->findOneById($id);
-
             return $this->render('commande/commande_par/edit.html.twig', [
             'commande_par' => $cdePar,
             'form' => $form->createView(),
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
-            $cdePro = $cdePro->findOneById($id);
-
             return $this->render('commande/commande_pro/edit.html.twig', [
             'commande_pro' => $cdePro,
             'form' => $form->createView(),
@@ -189,6 +190,8 @@ class CommandeController extends AbstractController
                 $entityManager->flush();
             }
         }
+
+        $this->addFlash('success', 'Suppression réussi');
 
         return $this->redirectToRoute('commande_index');
     }

@@ -15,21 +15,14 @@
         </thead>
         <tbody>
         {% for commande in commandes %}
-        <pre>
-            {{ dump(commande) }}
-        </pre>
             <tr>
                 <td>{{ commande.id }}</td>
                 {% if commande.particulier is defined %}
                     <td>{{ commande.particulier.id }}</td>
-                    {% for particulier in particuliers %}
-                        <td>{{ particulier.nom }} {{ particulier.prenom }}</td>
-                    {% endfor %}
+                    <td>{{ commande.particulier.nom }} {{ commande.particulier.prenom }}</td>
                 {% elseif commande.pro is defined %}
                     <td>{{ commande.pro.id }}</td>
-                    {% for pro in pros %}
-                        <td>{{ pro.societe }}</td>
-                    {% endfor %}
+                        <td>{{ commande.pro.societe }}</td>
                 {% endif %}
                 <td>
                 {% if commande.particulier is defined %}

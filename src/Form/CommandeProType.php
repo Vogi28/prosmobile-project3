@@ -15,11 +15,11 @@ class CommandeProType extends AbstractType
     {
         $options;
         $builder
-            ->add('pro', EntityType::class, [
-                'class' => Pro::class,
-                'choice_label' => 'id'
-            ])
-        ;
+        ->add('id')
+        ->add('pro', EntityType::class, [
+            'class' => Pro::class,
+            'choice_label' => 'id'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

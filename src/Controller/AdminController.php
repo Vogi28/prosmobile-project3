@@ -49,7 +49,7 @@ class AdminController extends AbstractController
             $cde[] = $cdePro[$i];
         }
 
-            return $this->render('commande/index.html.twig', [
+        return $this->render('commande/index.html.twig', [
             'commandes' => $cde,
             'particuliers' => $particulier->findAll(),
             'pros' => $pro->findAll()
@@ -61,8 +61,8 @@ class AdminController extends AbstractController
      */
     
     public function details(
-        $id,
-        $role,
+        int $id,
+        string $role,
         CommandeParRepository $cdePar,
         CommandeProRepository $cdePro,
         DetailCdePartRepository $dtlCdePartRepository,
@@ -86,15 +86,16 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="commande_edit", methods={"GET","POST"})
+     * @Route("/commande/{id}/{role}/edit", name="commande_edit", methods={"GET","POST"})
      */
     public function edit(
         Request $request,
         int $id,
+        string $role,
         CommandeParRepository $cdePar,
         CommandeProRepository $cdePro
     ): Response {
-        if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+        if ($role === 'particulier') {
             $cdePar = $cdePar->findOneById($id);
 
             $form = $this->createForm(CommandeParType::class, $cdePar);
@@ -103,9 +104,11 @@ class AdminController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
 
-                return $this->redirectToRoute('commande_index');
+                $this->addFlash('success', 'Modification réussi');
+
+                return $this->redirectToRoute('admin_commande_index');
             }
-        } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+        } elseif ($role === 'pro') {
             $cdePro = $cdePro->findOneById($id);
 
             $form = $this->createForm(CommandeProType::class, $cdePro);
@@ -114,20 +117,18 @@ class AdminController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
 
-                return $this->redirectToRoute('commande_index');
+                $this->addFlash('success', 'Modification réussi');
+
+                return $this->redirectToRoute('admin_commande_index');
             }
         }
 
-        if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
-            $cdePar = $cdePar->findOneById($id);
-
+        if ($role === 'particulier') {
             return $this->render('commande/commande_par/edit.html.twig', [
             'commande_par' => $cdePar,
             'form' => $form->createView(),
             ]);
-        } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
-            $cdePro = $cdePro->findOneById($id);
-
+        } elseif ($role === 'pro') {
             return $this->render('commande/commande_pro/edit.html.twig', [
             'commande_pro' => $cdePro,
             'form' => $form->createView(),
@@ -136,15 +137,16 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="commande_delete", methods={"DELETE"})
+     * @Route("/commande/{id}/{role}", name="commande_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
         int $id,
+        string $role,
         CommandeParRepository $cdePar,
         CommandeProRepository $cdePro
     ): Response {
-        if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+        if ($role === 'particulier') {
             $cdePar = $cdePar->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$cdePar->getId(), $request->request->get('_token'))) {
@@ -152,7 +154,7 @@ class AdminController extends AbstractController
                 $entityManager->remove($cdePar);
                 $entityManager->flush();
             }
-        } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+        } elseif ($role === 'pro') {
             $cdePro = $cdePro->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$cdePro->getId(), $request->request->get('_token'))) {
@@ -162,6 +164,8 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('commande_index');
+        $this->addFlash('success', 'Suppression réussi');
+
+        return $this->redirectToRoute('admin_commande_index');
     }
 }

@@ -16,6 +16,7 @@ class CommandeParType extends AbstractType
         $options;
         $builder
             // ->add('promo')
+            ->add('id')
             ->add('particulier', EntityType::class, [
                 'class' => Particulier::class,
                 'choice_label' => 'id'
