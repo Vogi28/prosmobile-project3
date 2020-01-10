@@ -1,10 +1,9 @@
-<nav
-	class="navbar navbar-expand-lg navbar-light bg-light stiky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white stiky-top">
 	<!-- brand -->
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav">
 			<li>
-				<a class="navbar-brand" href=" {{ path('home') }}">PROSMOBILE</a>
+				<a class="navbar-brand text-success" href="{{ path('home') }}">PROSMOBILE</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -15,13 +14,16 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mx-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
+				<a class="nav-link" href="{{ path('article_index') }}">Articles</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
+				<a class="nav-link" href="#">Réparation</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
+				<a class="nav-link" href="#">Magasin</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Contact</a>
 			</li>
 		</ul>
 	</div>
@@ -32,7 +34,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Mon compte
 				</a>
-				<div class="dropdown-menu dropdown-menu-lg-right" style="width:350px;" aria-labelledby="navbarDropdown">
+				<div class="dropdown-menu" style="width:302px;" aria-labelledby="navbarDropdown">
 					<div class="navbar-nav d-flex flex-column">
 						<div>
 							<!-- roles -->
@@ -40,47 +42,48 @@
 								<!-- individual -->
 								{% if is_granted('ROLE_PARTICULIER')%}
 									<div class="nav-item">
+										<h6 class="dropdown-header d-flex justify-content-center mt-2 mb-2">Compte particulier</h6>
 										<div class="row d-flex justify-content-center">
 											<span class="mr-2">
 												<i class="fas fa-user fa-lg" style="color:green;"></i>
 											</span>
 											|
 											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">
-												<i class="fas fa-pencil-alt fa-lg"></i>
+												<i class="far fa-id-card fa-lg"></i>
 											</a>
 										</div>
 									</div>
 									<!-- professional -->
 								{% elseif is_granted('ROLE_PRO') %}
 									<div class="nav-item">
+										<h6 class="dropdown-header d-flex justify-content-center mt-2 mb-2">Compte professionnel</h6>
 										<div class="row d-flex justify-content-center">
 											<span class="mr-2">
 												<i class="fas fa-user-tie fa-lg" style="color:green;"></i>
 											</span>
 											|
 											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
-												<i class="fas fa-pencil-alt fa-lg"></i>
+												<i class="far fa-id-card fa-lg"></i>
 											</a>
 										</div>
 									</div>
 									<!-- administration -->
 								{% elseif is_granted('ROLE_ADMIN') %}
 									<div class="nav-item">
-										<div class="d-flex justify-content-center mt-2 mb-2">
-											Compte administrateur
-										</div>
+										<h6 class="dropdown-header d-flex justify-content-center mt-2 mb-2">Compte administrateur</h6>
 										<div class="row d-flex justify-content-center">
 											<span class="mr-2">
 												<i class="fas fa-user-lock fa-lg" style="color:green;"></i>
 											</span>
 											|
 											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('home') }}">
-												<i class="fas fa-pencil-alt fa-lg"></i>
+												<i class="fas fa-sliders-h fa-lg"></i>
 											</a>
 										</div>
 									</div>
 								{% endif %}
 								<!-- logout -->
+								<div class="dropdown-divider"></div>
 								<div class="nav-item d-flex justify-content-center">
 									<a class="nav-link" href="{{ path('logout') }}">
 										Se déconnecter
@@ -88,7 +91,7 @@
 								</div>
 							{% else %}
 								<!-- login -->
-								<div class="nav-item active d-flex justify-content-center">
+								<div class="nav-item active d-flex justify-content-center mt-2">
 									<a class="nav-link btn btn-success text-white" style="width:150px;" href="{{ path('login') }}">
 										Identifiez-vous
 									</a>
