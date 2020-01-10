@@ -11,8 +11,21 @@
 			</li>
 		</ul>
 	</div>
-
-
+	<!-- links -->
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mx-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			</li>
+		</ul>
+	</div>
+	<!-- my account -->
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item dropdown">
@@ -27,27 +40,48 @@
 								<!-- individual -->
 								{% if is_granted('ROLE_PARTICULIER')%}
 									<div class="nav-item">
-										<a class="nav-link" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">
-											<i class="fas fa-user fa-lg"></i>
-										</a>
+										<div class="row d-flex justify-content-center">
+											<span class="mr-2">
+												<i class="fas fa-user fa-lg" style="color:green;"></i>
+											</span>
+											|
+											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">
+												<i class="fas fa-pencil-alt fa-lg"></i>
+											</a>
+										</div>
 									</div>
 									<!-- professional -->
 								{% elseif is_granted('ROLE_PRO') %}
 									<div class="nav-item">
-										<a class="nav-link" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
-											<i class="fas fa-user-tie fa-lg"></i>
-										</a>
+										<div class="row d-flex justify-content-center">
+											<span class="mr-2">
+												<i class="fas fa-user-tie fa-lg" style="color:green;"></i>
+											</span>
+											|
+											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
+												<i class="fas fa-pencil-alt fa-lg"></i>
+											</a>
+										</div>
 									</div>
 									<!-- administration -->
 								{% elseif is_granted('ROLE_ADMIN') %}
 									<div class="nav-item">
-										<a class="nav-link" href="{{ path('home') }}">
-											<i class="fas fa-user-shield fa-lg"></i>
-										</a>
+										<div class="d-flex justify-content-center mt-2 mb-2">
+											Compte administrateur
+										</div>
+										<div class="row d-flex justify-content-center">
+											<span class="mr-2">
+												<i class="fas fa-user-lock fa-lg" style="color:green;"></i>
+											</span>
+											|
+											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('home') }}">
+												<i class="fas fa-pencil-alt fa-lg"></i>
+											</a>
+										</div>
 									</div>
 								{% endif %}
 								<!-- logout -->
-								<div class="nav-item">
+								<div class="nav-item d-flex justify-content-center">
 									<a class="nav-link" href="{{ path('logout') }}">
 										Se déconnecter
 									</a>
@@ -65,7 +99,7 @@
 						<div>
 							<!-- register -->
 							{% if not app.user %}
-								<div class="row d-flex justify-content-center" style="font-size:0.7em;">
+								<div class="row d-flex justify-content-center mt-2" style="font-size:0.7em;">
 									<span>Nouveau client ?</span>
 									<a class="nav-link" style="margin-left:5px; padding:0;" href="{{ path('register')}}">Créez votre compte</a>
 								</div>
@@ -76,9 +110,11 @@
 			</li>
 		</ul>
 	</div>
-	<div>
+	<!-- phone number -->
+	<div class="ml-4">
 		<button class="btn btn-success">
-			<i class="fas fa-phone-alt fa-lg" style="margin-right:5px;"></i> 03 88 62 98 01
+			<i class="fas fa-mobile-alt fa-lg" style="margin-right:5px;"></i>
+			03 88 62 98 01
 		</button>
 	</div>
 </nav>
