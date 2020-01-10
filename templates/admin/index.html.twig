@@ -7,10 +7,8 @@
 	<!-- tree -->
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
-			<li class="breadcrumb-item">
-				<a href="{{ path('admin_index') }}">
-					Dashboard
-				</a>
+			<li class="breadcrumb-item active" aria-current="page">
+				Dashboard
 			</li>
 		</ol>
 	</nav>
@@ -18,7 +16,8 @@
 	<h1 class="text-center">Dashboard</h1>
 	<div class="container mt-4">
 		<div class="row">
-			<div class="col-6">
+			<!-- accounts -->
+			<div class="col-4">
 				<div class="d-flex justify-content-center" title="Comptes">
 					<i class="fas fa-id-card fa-lg text-success"></i>
 				</div>
@@ -31,13 +30,25 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-6 ">
+			<!-- orders -->
+			<div class="col-4 ">
 				<div class="d-flex justify-content-center" title="Commandes">
 					<i class="fas fa-box-open fa-lg text-success"></i>
 				</div>
 				<ul class="nav flex-column">
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('admin_commande_index')}}">Commandes</a>
+					</li>
+				</ul>
+			</div>
+			<!-- discounts -->
+			<div class="col-4 ">
+				<div class="d-flex justify-content-center" title="Promos">
+					<i class="fas fa-percent fa-lg text-success"></i>
+				</div>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('promo_index')}}">Promos</a>
 					</li>
 				</ul>
 			</div>

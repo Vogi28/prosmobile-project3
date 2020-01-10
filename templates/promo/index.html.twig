@@ -3,12 +3,16 @@
 {% block title %}PROSMobile - Liste des promotions{% endblock %}
 
 {% block body %}
+	<!-- tree -->
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
-				<a href="{{ path('promo_index') }}">
-					Gestion des promotions
+				<a href="{{ path('admin_index') }}">
+					Dashboard
 				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Gestion des promotions
 			</li>
 		</ol>
 	</nav>
@@ -35,7 +39,8 @@
 								{{ promo.fin ? promo.fin|date('d/m/Y') : '' }}
 							</p>
 							<p class="mt-2">
-								{{ promo.pourcentage }} %
+								{{ promo.pourcentage }}
+								%
 							</p>
 							<div class="mt-4">
 								<a href="{{ path('promo_edit', {'id': promo.id}) }}">
