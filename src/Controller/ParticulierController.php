@@ -84,6 +84,8 @@ class ParticulierController extends AbstractController
             $entityManager->persist($particulier);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Ajout réussi');
+
             return $this->redirectToRoute('particulier_index');
         }
 
@@ -115,8 +117,12 @@ class ParticulierController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN') {
+                $this->addFlash('success', 'Modification réussi');
+
                 return $this->redirectToRoute('particulier_index');
             } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+                $this->addFlash('success', 'Modification réussi');
+
                 return $this->redirectToRoute('particulier_profile', ["id" => $this->getUser()->getId()]);
             }
         }
@@ -136,6 +142,8 @@ class ParticulierController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($particulier);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Suppression réussi');
         }
 
         return $this->redirectToRoute('particulier_index');

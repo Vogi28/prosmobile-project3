@@ -7,7 +7,7 @@
 
     {{ include('commande/commande_pro/_form.html.twig', {'button_label': 'Update'}) }}
     {% if is_granted('ROLE_PRO') %}
-        <a href="{{ path('commande_index') }}">back to list</a>
+        <a href="{{ path('commande_index', {'id': commande_pro.id}) }}">back to list</a>
     {% elseif is_granted('ROLE_ADMIN') %}
         <a href="{{ path('admin_commande_index') }}">back to list</a>
     {% endif %}
