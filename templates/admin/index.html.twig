@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
-{% endblock %}
+{% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
 	<!-- tree -->
@@ -19,7 +18,10 @@
 			<!-- accounts -->
 			<div class="col-4">
 				<div class="d-flex justify-content-center" title="Comptes">
-					<i class="fas fa-id-card fa-lg text-success"></i>
+					<i data-fa-symbol="user" class="fas fa-user text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#user"></use>
+					</svg>
 				</div>
 				<ul class="nav flex-column">
 					<li class="nav-item">
@@ -33,7 +35,10 @@
 			<!-- orders -->
 			<div class="col-4 ">
 				<div class="d-flex justify-content-center" title="Commandes">
-					<i class="fas fa-box-open fa-lg text-success"></i>
+					<i data-fa-symbol="order" class="fas fas fa-box-open text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#order"></use>
+					</svg>
 				</div>
 				<ul class="nav flex-column">
 					<li class="nav-item">
@@ -44,7 +49,10 @@
 			<!-- discounts -->
 			<div class="col-4 ">
 				<div class="d-flex justify-content-center" title="Promos">
-					<i class="fas fa-percent fa-lg text-success"></i>
+					<i data-fa-symbol="discount" class="fas fas fa-percent text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#discount"></use>
+					</svg>
 				</div>
 				<ul class="nav flex-column">
 					<li class="nav-item">
