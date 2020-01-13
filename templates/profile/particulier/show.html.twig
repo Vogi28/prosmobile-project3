@@ -39,7 +39,9 @@
     </table>
 
     <p><a href="{{ path('particulier_edit', {'id': particulier.id}) }}">edit</a></p>
-
+    {% if is_granted('ROLE_ADMIN') %}
+        <p>{{ include('profile/particulier/_delete_form.html.twig') }}</p>
+    {% endif %}
     <a href="{{ path('particulier_index') }}">back to list</a>
 
 

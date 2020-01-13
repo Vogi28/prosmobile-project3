@@ -4,17 +4,18 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\EditPasswordType;
+use App\Service\MailerService;
+use Doctrine\ORM\EntityManager;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
@@ -26,7 +27,8 @@ class SecurityController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
-        LoginFormAuthenticator $authenticator
+        LoginFormAuthenticator $authenticator,
+        MailerService $mailer
     ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -42,7 +44,7 @@ class SecurityController extends AbstractController
             );
 
             if ($form->get('pros')->getData() === true) {
-                $user->setRoles(['ROLE_ADMIN']);
+                $user->setRoles(['ROLE_PRO']);
             } else {
                 $user->setRoles(['ROLE_PARTICULIER']);
             }
@@ -52,14 +54,9 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Enregistrement réussi');
-            // do anything else you need here, like send an email
 
+            $mailer->sendRegNotif($user->getEmail());
             
-            // if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
-            //     return $this->redirectToRoute("particulier_profile", ["id" => $user->getId()]);
-            // } elseif ($user->getRoles()[0] == 'ROLE_PRO') {
-            //      return $this->redirectToRoute('pro_profile', ['id' => $user->getID()]);
-            // }
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

@@ -183,14 +183,27 @@ class AdminController extends AbstractController
             $user = $userRepository->findOneById($id);
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
+                $path = 'particulier_index';
+            } else {
+                $path = 'pro_index';
+            }
+            
             $entityManager->remove($user);
             $entityManager->flush();
 
+            if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
+                $entityManager->getConnection()->exec('ALTER TABLE particulier AUTO_INCREMENT = 1');
+            } else {
+                $entityManager->getConnection()->exec('ALTER TABLE pro AUTO_INCREMENT = 1');
+            }
+
+            
             $entityManager->getConnection()->exec('ALTER TABLE user AUTO_INCREMENT = 1');
         }
 
         $this->addFlash('success', 'Suppression réussi');
 
-        return $this->redirectToRoute('admin_commande_index');
+        return $this->redirectToRoute($path);
     }
 }
