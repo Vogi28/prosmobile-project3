@@ -42,7 +42,7 @@ class SecurityController extends AbstractController
             );
 
             if ($form->get('pros')->getData() === true) {
-                $user->setRoles(['ROLE_PRO']);
+                $user->setRoles(['ROLE_ADMIN']);
             } else {
                 $user->setRoles(['ROLE_PARTICULIER']);
             }
