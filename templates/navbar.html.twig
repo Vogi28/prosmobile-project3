@@ -3,7 +3,9 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav">
 			<li>
-				<a class="navbar-brand text-success" href="{{ path('home') }}">PROSMOBILE</a>
+				<a class="navbar-brand text-success" href="{{ path('home') }}">
+					PROSMOBILE
+				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -14,16 +16,24 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mx-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="{{ path('article_index') }}">Articles</a>
+				<a class="nav-link" href="{{ path('article_index') }}">
+					Articles
+				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Réparation</a>
+				<a class="nav-link" href="#">
+					Réparation
+				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Magasin</a>
+				<a class="nav-link" href="#">
+					Magasin
+				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Contact</a>
+				<a class="nav-link" href="#">
+					Contact
+				</a>
 			</li>
 		</ul>
 	</div>
@@ -31,93 +41,144 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Mon compte
-				</a>
-				<div class="dropdown-menu" style="width:302px;" aria-labelledby="navbarDropdown">
-					<div class="navbar-nav d-flex flex-column">
-						<div>
-							<!-- roles -->
-							{% if app.user %}
-								<!-- individual -->
-								{% if is_granted('ROLE_PARTICULIER')%}
-									<div class="nav-item">
-										<h6 class="dropdown-header d-flex justify-content-center mt-2 mb-2">Compte particulier</h6>
-										<div class="row d-flex justify-content-center">
-											<span class="mr-2">
-												<i class="fas fa-user fa-lg" style="color:green;"></i>
-											</span>
-											|
-											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('particulier_profile', { 'id': app.user.id }) }}">
-												<i class="far fa-id-card fa-lg"></i>
+				<div class="d-flex flex-column">
+					{% if app.user %}
+						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Mon compte
+						</a>
+						<span class="text-success" style="font-size:0.7em;">
+							Vous êtes connecté(e)
+						</span>
+					{% else %}
+						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Mon compte
+						</a>
+						<span class="" style="font-size:0.7em;">
+							Identifiez-vous
+						</span>
+					{% endif %}
+					<div class="dropdown-menu mt-3" style="width:303px;" aria-labelledby="navbarDropdown">
+						{% if app.user %}
+							<!-- individual -->
+							{% if is_granted('ROLE_PARTICULIER')%}
+								<h6 class="text-center">Compte particulier</h6>
+								<div class="container d-flex justify-content-center">
+									<div class="row">
+										<div class="col-4">
+											<i data-fa-symbol="user" class="fas fa-user text-success"></i>
+											<svg class="icon">
+												<use xlink:href="#user"></use>
+											</svg>
+										</div>
+										<div class="col-4">
+											<a class="btn p-0" href="{{ path('particulier_profile', { 'id': app.user.id }) }}" role="button" title="Profil">
+												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</a>
+										</div>
+										<div class="col-4">
+											<a class="btn p-0" href="{{ path('logout') }}" role="button" title="Se déconnecter">
+												<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#logout"></use>
+												</svg>
 											</a>
 										</div>
 									</div>
-									<!-- professional -->
-								{% elseif is_granted('ROLE_PRO') %}
-									<div class="nav-item">
-										<h6 class="dropdown-header d-flex justify-content-center mt-2 mb-2">Compte professionnel</h6>
-										<div class="row d-flex justify-content-center">
-											<span class="mr-2">
-												<i class="fas fa-user-tie fa-lg" style="color:green;"></i>
-											</span>
-											|
-											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
-												<i class="far fa-id-card fa-lg"></i>
-											</a>
-										</div>
-									</div>
-									<!-- administration -->
-								{% elseif is_granted('ROLE_ADMIN') %}
-									<div class="nav-item">
-										<h6 class="dropdown-header d-flex justify-content-center mt-2 mb-2">Compte administrateur</h6>
-										<div class="row d-flex justify-content-center">
-											<span class="mr-2">
-												<i class="fas fa-user-lock fa-lg" style="color:green;"></i>
-											</span>
-											|
-											<a class="nav-link ml-2" style="margin-left:5px; padding:0;" href="{{ path('home') }}">
-												<i class="fas fa-sliders-h fa-lg"></i>
-											</a>
-										</div>
-									</div>
-								{% endif %}
-								<!-- logout -->
-								<div class="dropdown-divider"></div>
-								<div class="nav-item d-flex justify-content-center">
-									<a class="nav-link" href="{{ path('logout') }}">
-										Se déconnecter
-									</a>
 								</div>
-							{% else %}
-								<!-- login -->
-								<div class="nav-item active d-flex justify-content-center mt-2">
-									<a class="nav-link btn btn-success text-white" style="width:150px;" href="{{ path('login') }}">
-										Identifiez-vous
-									</a>
+								<!-- professional -->
+							{% elseif is_granted('ROLE_PRO') %}
+								<h6 class="text-center">Compte professionnel</h6>
+								<div class="container d-flex justify-content-center">
+									<div class="row">
+										<div class="col-4">
+											<i data-fa-symbol="pro-user" class="fas fa-user-tie text-success"></i>
+											<svg class="icon">
+												<use xlink:href="#pro-user"></use>
+											</svg>
+										</div>
+										<div class="col-4">
+											<a class="btn p-0" href="{{ path('pro_profile', { 'id' : app.user.id }) }}" role="button" title="Profil">
+												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</a>
+										</div>
+										<div class="col-4">
+											<a class="btn p-0" href="{{ path('logout') }}" role="button" title="Se déconnecter">
+												<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#logout"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- administration -->
+							{% elseif is_granted('ROLE_ADMIN') %}
+								<h6 class="text-center">Compte administrateur</h6>
+								<div class="container d-flex justify-content-center">
+									<div class="row">
+										<div class="col-4">
+											<i data-fa-symbol="admin-user" class="fas fa-user-tie text-success"></i>
+											<svg class="icon">
+												<use xlink:href="#admin-user"></use>
+											</svg>
+										</div>
+										<div class="col-4">
+											<a class="btn p-0" href="{{ path('admin_index', { 'id' : app.user.id }) }}" role="button" title="Dashboard">
+												<i data-fa-symbol="dashboard" class="fas fa-chart-line text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#dashboard"></use>
+												</svg>
+											</a>
+										</div>
+										<div class="col-4">
+											<a class="btn p-0" href="{{ path('logout') }}" role="button" title="Se déconnecter">
+												<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#logout"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
 								</div>
 							{% endif %}
-						</div>
-
-						<div>
+						{% else %}
+							<!-- login -->
+							<div class="nav-item active d-flex justify-content-center mt-2">
+								<a class="btn btn-success" href="{{ path('login') }}" role="button">
+									Identifiez-vous
+								</a>
+							</div>
 							<!-- register -->
 							{% if not app.user %}
 								<div class="row d-flex justify-content-center mt-2" style="font-size:0.7em;">
-									<span>Nouveau client ?</span>
-									<a class="nav-link" style="margin-left:5px; padding:0;" href="{{ path('register')}}">Créez votre compte</a>
+									<span>
+										Nouveau client ?
+									</span>
+									<a class="nav-link text-primary p-0 ml-2" href="{{ path('register')}}">
+										Créez votre compte
+									</a>
 								</div>
 							{% endif %}
-						</div>
+						{% endif %}
 					</div>
-				</li>
+				</div>
 			</li>
 		</ul>
 	</div>
 	<!-- phone number -->
-	<div class="ml-4">
-		<button class="btn btn-success">
-			<i class="fas fa-mobile-alt fa-lg" style="margin-right:5px;"></i>
+	<div class="p-2 ml-5 bg-success text-white rounded">
+		<i data-fa-symbol="phone" class="fas fa-mobile-alt mr-2"></i>
+		<svg class="icon">
+			<use xlink:href="#phone"></use>
+		</svg>
+		<span>
 			03 88 62 98 01
-		</button>
+		</span>
 	</div>
 </nav>

@@ -3,25 +3,63 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-start">
-            <div class="col">
-                <nav>
-                    <ul>
-                        <p><a href="{{ path('pro_index')}}">Pro</a></p>
-                        <p><a href="{{ path('particulier_index')}}">Particulier</a></p>
-                        <p><a href="{{ path('admin_commande_index')}}">Commande</a></p>
-                    </ul>
-            </div>    
-        </div>
-    </div>
-    
-</div>
+	<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item active" aria-current="page">
+				Dashboard
+			</li>
+		</ol>
+	</nav>
+	<!-- dashboard -->
+	<h1 class="text-center">Dashboard</h1>
+	<div class="container mt-4">
+		<div class="row">
+			<!-- accounts -->
+			<div class="col-4">
+				<div class="d-flex justify-content-center" title="Comptes">
+					<i data-fa-symbol="user" class="fas fa-user text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#user"></use>
+					</svg>
+				</div>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('pro_index')}}">Professionnels</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('particulier_index')}}">Particuliers</a>
+					</li>
+				</ul>
+			</div>
+			<!-- orders -->
+			<div class="col-4 ">
+				<div class="d-flex justify-content-center" title="Commandes">
+					<i data-fa-symbol="order" class="fas fas fa-box-open text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#order"></use>
+					</svg>
+				</div>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('admin_commande_index')}}">Commandes</a>
+					</li>
+				</ul>
+			</div>
+			<!-- discounts -->
+			<div class="col-4 ">
+				<div class="d-flex justify-content-center" title="Promos">
+					<i data-fa-symbol="discount" class="fas fas fa-percent text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#discount"></use>
+					</svg>
+				</div>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('promo_index')}}">Promos</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -3,8 +3,14 @@
 {% block title %}PROSMobile - Ajouter une promotion{% endblock %}
 
 {% block body %}
+	<!-- tree -->
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
 			<li class="breadcrumb-item">
 				<a href="{{ path('promo_index') }}">
 					Gestion des promotions

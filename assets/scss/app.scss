@@ -23,7 +23,7 @@ a {
     border-right: 9px solid rgba(0, 0, 0, 0);
     content: "";
     display: inline-block;
-    left: 102px;
+    left: 94px;
     position: absolute;
     top: -8px;
 }
@@ -34,7 +34,12 @@ a {
     border-right: 9px solid rgba(0, 0, 0, 0);
     content: "";
     display: inline-block;
-    left: 102px;
+    left: 94px;
     position: absolute;
     top: -7px;
+}
+
+.icon {
+    width: 1.5em;
+    height: 1.5em;
 }
