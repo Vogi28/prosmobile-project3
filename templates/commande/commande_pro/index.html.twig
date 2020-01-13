@@ -30,6 +30,7 @@
         {% endfor %}
         </tbody>
     </table>
+    <p><a href="{{ path('commande_new', {'id': app.user.pro.id}) }}">Create new</a></p>
 
-    <a href="{{ path('commande_new') }}">Create new</a>
+    <a href="{{ path('pro_profile', {'id': app.user.id}) }}">Back to profil</a>
 {% endblock %}

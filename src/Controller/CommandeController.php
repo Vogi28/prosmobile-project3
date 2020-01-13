@@ -42,7 +42,7 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
+     * @Route("/{id}/new", name="new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -57,7 +57,7 @@ class CommandeController extends AbstractController
                 $entityManager->persist($cdePar);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('commande_index');
+                return $this->redirectToRoute('commande_index', ['id' => $cdePar->getParticulier()->getId()]);
             }
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             $cdePro = new CommandePro();
@@ -70,7 +70,7 @@ class CommandeController extends AbstractController
                 $entityManager->persist($cdePro);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('commande_index');
+                return $this->redirectToRoute('commande_index', ['id' => $cdePro->getPro()->getId()]);
             }
         }
 
@@ -165,7 +165,7 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
@@ -181,6 +181,11 @@ class CommandeController extends AbstractController
                 $entityManager->remove($cdePar);
                 $entityManager->flush();
             }
+
+            $this->addFlash('success', 'Suppression réussi');
+
+            return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getParticulier()->getId()
+            ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             $cdePro = $cdePro->findOneById($id);
 
@@ -189,10 +194,11 @@ class CommandeController extends AbstractController
                 $entityManager->remove($cdePro);
                 $entityManager->flush();
             }
+
+            $this->addFlash('success', 'Suppression réussi');
+
+            return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getPro()->getId()
+            ]);
         }
-
-        $this->addFlash('success', 'Suppression réussi');
-
-        return $this->redirectToRoute('commande_index');
     }
 }

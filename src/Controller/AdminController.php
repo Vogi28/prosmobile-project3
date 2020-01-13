@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\CommandePar;
-use App\Entity\CommandePro;
 use App\Form\CommandeParType;
 use App\Form\CommandeProType;
 use App\Repository\ProRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
 use App\Repository\ParticulierRepository;
@@ -139,29 +139,54 @@ class AdminController extends AbstractController
     /**
      * @Route("/commande/{id}/{role}", name="commande_delete", methods={"DELETE"})
      */
-    public function delete(
+    public function deleteCde(
         Request $request,
         int $id,
         string $role,
-        CommandeParRepository $cdePar,
-        CommandeProRepository $cdePro
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
     ): Response {
         if ($role === 'particulier') {
-            $cdePar = $cdePar->findOneById($id);
+            $userPar = $userRepository->findOneById($id);
 
-            if ($this->isCsrfTokenValid('delete'.$cdePar->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($cdePar);
+            if ($this->isCsrfTokenValid('delete'.$userPar->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($userPar);
                 $entityManager->flush();
+
+                $entityManager->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
             }
         } elseif ($role === 'pro') {
-            $cdePro = $cdePro->findOneById($id);
+            $userPro = $userRepository->findOneById($id);
 
-            if ($this->isCsrfTokenValid('delete'.$cdePro->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($cdePro);
+            if ($this->isCsrfTokenValid('delete'.$userPro->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($userPro);
                 $entityManager->flush();
+
+                $entityManager->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
             }
+        }
+
+        $this->addFlash('success', 'Suppression réussi');
+
+        return $this->redirectToRoute('admin_commande_index');
+    }
+
+    /**
+     * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
+     */
+    public function deleteUser(
+        Request $request,
+        int $id,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+            $user = $userRepository->findOneById($id);
+
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            $entityManager->getConnection()->exec('ALTER TABLE user AUTO_INCREMENT = 1');
         }
 
         $this->addFlash('success', 'Suppression réussi');
