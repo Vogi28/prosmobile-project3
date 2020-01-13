@@ -23,13 +23,13 @@
 		<div class="row">
 			{% for promo in promos %}
 				{% if promo.photo is empty %}
-					{% set photo ='https://via.placeholder.com/150x200' %}
+					{% set photo ='https://via.placeholder.com/800x200' %}
 				{% else %}
 					{% set photo = promo.photo %}
 				{% endif %}
-				<div class="col-6 mt-2">
+				<div class="col-12 mt-2">
 					<div class="media mt-2">
-						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" alt="...">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:800px; height:200px;" alt="...">
 						<div class="media-body">
 							<h5 class="mt-2">{{ promo.nom }}</h5>
 							<p class="mt-4">
