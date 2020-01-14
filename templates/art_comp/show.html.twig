@@ -1,4 +1,5 @@
 <h1 class="text-center">Articles compatibles</h1>
+{# compatible product #}
 <div class="container mt-4">
 	<div class="row">
 		{% for art_comp in art_comps %}
@@ -12,6 +13,7 @@
 					<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
 					<div class="media-body">
 						<h5 class="mt-2">{{ art_comp.nom }}</h5>
+						{# administrator part #}
 						{% if  is_granted('ROLE_ADMIN') %}
 							<p class="mt-4">Référence :
 								{{ art_comp.reference }}
@@ -49,15 +51,6 @@
 											</svg>
 										</a>
 									</div>
-									{# remove button #}
-									<div class="col-4">
-										<a href="{{ path('article_delete', {'id': article.id}) }}" title="Supprimer">
-											<i data-fa-symbol="remove" class="fas fa-trash text-secondary"></i>
-											<svg class="icon">
-												<use xlink:href="#remove"></use>
-											</svg>
-										</a>
-									</div>
 								{% endif %}
 							</div>
 						</div>
@@ -71,25 +64,3 @@
 		{% endfor %}
 	</div>
 </div>
-{#<table class="table">
-				        <tbody>
-				            <tr>
-				                <th>Id</th>
-				                <td>{{ art_comp.id }}</td>
-				            </tr>
-				            <tr>
-				                <th>ArtId</th>
-				                <td>{{ art_comp.artId }}</td>
-				            </tr>
-				            <tr>
-				                <th>ArtCompId</th>
-				                <td>{{ art_comp.artCompId }}</td>
-				            </tr>
-				        </tbody>
-				    </table>
-				
-				    <a href="{{ path('art_comp_index') }}">back to list</a>
-				
-				    <a href="{{ path('art_comp_edit', {'id': art_comp.id}) }}">edit</a>
-				
-				    {{ include('art_comp/_delete_form.html.twig') }}#}

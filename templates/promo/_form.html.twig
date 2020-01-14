@@ -27,10 +27,14 @@
 		</div>
 	</div>
 </div>
-<div class="container mt-2">
+{# save button #}
+<div class="container">
 	<div class="row">
-		<button class="btn btn-success" style="width:150px;">
-			{{ button_label|default('Enregistrer') }}
+		<button class="btn" title="Sauvegarder">
+			<i data-fa-symbol="save" class="fas fa-save text-secondary"></i>
+			<svg class="icon">
+				<use xlink:href="#save"></use>
+			</svg>
 		</button>
 	</div>
 </div>

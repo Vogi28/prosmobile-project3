@@ -3,7 +3,7 @@
 {% block title %}DASHBOARD{% endblock %}
 
 {% block body %}
-	<!-- tree -->
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item active" aria-current="page">
@@ -11,11 +11,12 @@
 			</li>
 		</ol>
 	</nav>
-	<!-- dashboard -->
+	{# dashboard #}
 	<h1 class="text-center">Dashboard</h1>
 	<div class="container mt-4">
-		<div class="row">
-			<!-- accounts -->
+		<div
+			class="row">
+			{# accounts #}
 			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Comptes">
 					<i data-fa-symbol="user" class="fas fa-user text-success"></i>
@@ -32,7 +33,7 @@
 					</li>
 				</ul>
 			</div>
-			<!-- Articles-->
+			{# products #}
 			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Articles">
 					<i data-fa-symbol="articles" class="fas fa-box text-success"></i>
@@ -46,7 +47,7 @@
 					</li>
 				</ul>
 			</div>
-			<!-- orders -->
+			{# orders #}
 			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Commandes">
 					<i data-fa-symbol="order" class="fas fas fa-box-open text-success"></i>
@@ -60,7 +61,7 @@
 					</li>
 				</ul>
 			</div>
-			<!-- discounts -->
+			{# discounts #}
 			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Promos">
 					<i data-fa-symbol="discount" class="fas fas fa-percent text-success"></i>
