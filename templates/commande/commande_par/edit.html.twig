@@ -1,16 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit CommandePar{% endblock %}
+{% block title %}Editer Commande{% endblock %}
 
 {% block body %}
-    <h1>Edit CommandePar</h1>
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+        {% if is_granted('ROLE_PARTICULIER') %}
+			<li class="breadcrumb-item">
+				<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
+					Profile
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('commande_index', {'id' : app.user.particulier.id}) }}">
+					Commandes
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('commande_show', {'id' : commande_par.id}) }}">
+					Detail commande
+				</a>
+			</li>
+        {% elseif is_granted('ROLE_ADMIN') %}
+            <li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_commande_index') }}">
+					Commandes
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('admin_commande_detail', {'id' : commande_par.id, 
+                'role' : 'particulier'}) }}">
+					Details commande
+				</a>
+			</li>
+        {% endif %}
+			<li class="breadcrumb-item active" aria-current="page">
+				Editer commande
+			</li>
+		</ol>
+	</nav>
+
+    <h1 class="text-center">Editer commande</h1>
 
     {{ include('commande/commande_par/_form.html.twig', {'button_label': 'Update'}) }}
-    {% if is_granted('ROLE_PARTICULIER') %}
-        <a href="{{ path('commande_index', {'id' : commande_par.id}) }}">back to list</a>
-    {% elseif is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('admin_commande_index') }}">back to list</a>
-    {% endif %}
 
     {{ include('commande/commande_par/_delete_form.html.twig') }}
 {% endblock %}
