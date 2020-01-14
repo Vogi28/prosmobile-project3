@@ -3,6 +3,21 @@
 {% block title %}Pro index{% endblock %}
 
 {% block body %}
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+					Index pro
+				</a>
+			</li>
+		</ol>
+	</nav>
+
     <h1>Pro index</h1>
 
     <table class="table">
@@ -41,7 +56,5 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
-    
-    <a href="{{ path('admin_index') }}">Back to menu</a>
+    </table>    
 {% endblock %}

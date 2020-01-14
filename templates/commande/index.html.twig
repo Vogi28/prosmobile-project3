@@ -3,7 +3,23 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-    <h1>Commandes index</h1>
+
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+					Commandes
+				</a>
+			</li>
+		</ol>
+	</nav>
+
+    <h1 class="text-center">Commandes</h1>
     <table class="table">
         <thead>
             <tr>
@@ -27,10 +43,10 @@
                 <td>
                 {% if commande.particulier is defined %}
                     <a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">details</a>
-                    <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'particulier'}) }}">edit</a>
+                    {# <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'particulier'}) }}">edit</a> #}
                 {% elseif commande.pro is defined %}
                     <a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">details</a>
-                    <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'pro'}) }}">edit</a>
+                    {# <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'pro'}) }}">edit</a> #}
                 {% endif %}
                 </td>
             </tr>
@@ -42,5 +58,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_index') }}">Back to menu</a>
 {% endblock %}

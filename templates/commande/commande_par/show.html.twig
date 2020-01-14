@@ -3,7 +3,40 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-    <h1>Details commande</h1>
+
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+        {% if is_granted('ROLE_PARTICULIER') %}
+			<li class="breadcrumb-item">
+				<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
+					Profile
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('commande_index', {'id' : app.user.particulier.id}) }}">
+					Commandes
+				</a>
+			</li>
+        {% elseif is_granted('ROLE_ADMIN') %}
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_commande_index') }}">
+					Commandes
+				</a>
+			</li>
+        {% endif %}
+			<li class="breadcrumb-item active" aria-current="page">
+				Detail commande
+			</li>
+		</ol>
+	</nav>
+    
+    <h1 class="text-center">Details commande</h1>
 
     <table class="table">
         <tbody>
@@ -14,6 +47,7 @@
                 <th>Price</th>
                 <th>Discount</th>
                 <th>Price with Taxes</th>
+                <th>Actions</th>
                 {# <td>{{ commande_par.id }}</td> #}
             </tr>
             {% for detail in details %}
@@ -24,18 +58,18 @@
                     <td>{{ detail.prixHT }}</td>
                     <td>{{ detail.remise }}</td>
                     <td>{{ detail.total }}</td>
+                    <td>
+                    {% if is_granted('ROLE_PARTICULIER') %}
+                            <a href="{{ path('commande_edit', {'id': commande_par.id}) }}">edit</a>
+                    {% elseif is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin_commande_edit', {'id': commande_par.id, 
+                        'role': 'particulier'}) }}">edit</a>
+                    {% endif %}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% if is_granted('ROLE_PARTICULIER') %}
-        <a href="{{ path('commande_index', {'id': commande_par.particulier.id}) }}">back to list</a>
-        <a href="{{ path('commande_edit', {'id': commande_par.id}) }}">
-        edit</a>
-    {% elseif is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('admin_commande_index') }}">back to list</a>
-        <a href="{{ path('admin_commande_edit', {'id': commande_par.id, 'role': 'particulier'}) }}">
-        edit</a>
+    {% if details is not empty %}
+        {{ include('commande/commande_par/_delete_form.html.twig') }}
     {% endif %}
-    {{ include('commande/commande_par/_delete_form.html.twig') }}
 {% endblock %}

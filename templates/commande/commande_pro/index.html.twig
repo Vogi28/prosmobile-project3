@@ -3,7 +3,21 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-    <h1>Commandes index</h1>
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('pro_profile', {'id' : app.user.id}) }}">
+					Profile
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Commandes
+			</li>
+		</ol>
+	</nav>
+
+    <h1 class="text-center">Commandes</h1>
 
     <table class="table">
         <thead>
@@ -20,7 +34,7 @@
                 <td>{{ commande_pro.pro.id }}</td>
                 <td>
                     <a href="{{ path('commande_show', {'id': commande_pro.id}) }}">details</a>
-                    <a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">edit</a>
+                    {# <a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -30,7 +44,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <p><a href="{{ path('commande_new', {'id': app.user.pro.id}) }}">Create new</a></p>
+    {# <p><a href="{{ path('commande_new', {'id': app.user.pro.id}) }}">Create new</a></p> #}
 
-    <a href="{{ path('pro_profile', {'id': app.user.id}) }}">Back to profil</a>
 {% endblock %}

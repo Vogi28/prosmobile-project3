@@ -3,7 +3,29 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Informations</h1>
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+		{% if is_granted('ROLE_PARTICULIER') %}
+			<li class="breadcrumb-item">
+				<a href="{{ path('particulier_profile', {'id' : app.user.id }) }}">
+					Profile
+				</a>
+			</li>
+		{% elseif is_granted('ROLE_PRO') %}
+			<li class="breadcrumb-item">
+				<a href="{{ path('pro_profile', {'id' : app.user.id }) }}">
+					Profile
+				</a>
+			</li>
+			{% endif %}
+			<li class="breadcrumb-item active" aria-current="page">
+				Changement de mot de passe
+			</li>
+		</ol>
+	</nav>
+
+    <h1 class="text-center">Changement de mot de passe</h1>
 <div class="container d-flex justify-content-center">
     {{ form_start(formPass) }}
         {{ form_row(formPass.oldPassword) }}
