@@ -1,4 +1,14 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_widget(form) }}
+{# save button #}
+<div class="container">
+	<div class="row">
+		<button class="btn" title="Sauvegarder">
+			<i data-fa-symbol="save" class="fas fa-save text-secondary"></i>
+			<svg class="icon">
+				<use xlink:href="#save"></use>
+			</svg>
+		</button>
+	</div>
+</div>
 {{ form_end(form) }}

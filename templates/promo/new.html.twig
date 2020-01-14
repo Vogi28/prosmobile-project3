@@ -3,7 +3,7 @@
 {% block title %}PROSMobile - Ajouter une promotion{% endblock %}
 
 {% block body %}
-	<!-- tree -->
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
@@ -21,8 +21,8 @@
 			</li>
 		</ol>
 	</nav>
-
+	{# body#}
 	<h1 class="text-center">Ajouter une promotion</h1>
-
+	{# include promo form #}
 	{{ include('promo/_form.html.twig') }}
 {% endblock %}

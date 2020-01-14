@@ -7,9 +7,15 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
-				<a href="{{ path('home') }}">
-					Accueil
-				</a>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('admin_index') }}">
+						Dashboard
+					</a>
+				{% else %}
+					<a href="{{ path('home') }}">
+						Accueil
+					</a>
+				{% endif %}
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
 				Articles
@@ -72,8 +78,7 @@
 							{% endif %}
 							{# buttons #}
 							<div class="container">
-								<div
-									class="row">
+								<div class="row">
 									{# show product button #}
 									<div class="col-4">
 										<a href="{{ path('article_show', {'id': article.id}) }}" title="Afficher">
@@ -91,15 +96,6 @@
 												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
 												<svg class="icon">
 													<use xlink:href="#edit"></use>
-												</svg>
-											</a>
-										</div>
-										{# remove button #}
-										<div class="col-4">
-											<a href="{{ path('article_delete', {'id': article.id}) }}" title="Supprimer">
-												<i data-fa-symbol="remove" class="fas fa-trash text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#remove"></use>
 												</svg>
 											</a>
 										</div>

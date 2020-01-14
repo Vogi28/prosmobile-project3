@@ -1,4 +1,27 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-lg">
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.artId, 'ID article') }}
+				{{ form_widget(form.artId) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.artCompId, 'ID article compatible') }}
+				{{ form_widget(form.artCompId) }}
+			</div>
+		</div>
+	</div>
+</div>
+{# save button #}
+<div class="container">
+	<div class="row">
+		<button class="btn" title="Sauvegarder">
+			<i data-fa-symbol="save" class="fas fa-save text-secondary"></i>
+			<svg class="icon">
+				<use xlink:href="#save"></use>
+			</svg>
+		</button>
+	</div>
+</div>
 {{ form_end(form) }}
