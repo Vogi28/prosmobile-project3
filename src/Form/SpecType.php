@@ -15,10 +15,8 @@ class SpecType extends AbstractType
 
         $builder
             ->add('nom')
-            ->add('idGroupe')
             ->add('valeur')
-            ->add('unite')
-            ->add('articles')
+            //->add('articles')
         ;
     }
 
