@@ -21,7 +21,7 @@
 			</li>
 		</ol>
 	</nav>
-
+	{# body #}
 	<h1 class="text-center">{{ article.nom }}</h1>
 	{# product #}
 	<div class="container mt-4">
@@ -95,11 +95,8 @@
 					</div>
 				</div>
 			{% else %}
-				<div class="card border-danger mb-3 w-50">
-					<div class="card-body text-danger">
-						<h5 class="card-title">ERREUR</h5>
-						<p class="card-text">Aucun article trouvé avec ces critères.</p>
-					</div>
+				<div class="">
+					Aucun article trouvé avec ces critères
 				</div>
 			{% endif %}
 		</div>

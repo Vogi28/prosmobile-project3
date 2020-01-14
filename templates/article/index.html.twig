@@ -16,12 +16,12 @@
 			</li>
 		</ol>
 	</nav>
-
+	{# body #}
 	<h1 class="text-center">Tous les articles disponibles</h1>
 	{# administrator part #}
 	{# add button #}
 	{% if is_granted('ROLE_ADMIN') %}
-		<div class="container-fluid">
+		<div class="container-fluid mt-4">
 			<div class="row">
 				<a class="btn" href="{{ path('article_new') }}" title="Ajouter">
 					<i data-fa-symbol="add" class="fas fa-plus text-secondary"></i>
@@ -32,8 +32,8 @@
 			</div>
 		</div>
 	{% endif %}
-
-	<div class="container">
+	{# product list #}
+	<div class="container mt-4">
 		<div class="row">
 			{% for article in articles %}
 				{% if article.photo is empty %}
@@ -72,7 +72,8 @@
 							{% endif %}
 							{# buttons #}
 							<div class="container">
-								<div class="row">
+								<div
+									class="row">
 									{# show product button #}
 									<div class="col-4">
 										<a href="{{ path('article_show', {'id': article.id}) }}" title="Afficher">
@@ -109,12 +110,9 @@
 					</div>
 				</div>
 			{% else %}
-				<div class="card border-dark mb-3 w-50">
-					<div class="card-body text-dark">
-						<h5 class="card-title">Pas d'article trouvé</h5>
-						<p class="card-text">Aucun article n'est enregistré dans cette liste.</p>
-						<a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
-					</div>
+				{# empty #}
+				<div class="">
+					Aucun article n'est enregistré dans cette liste
 				</div>
 			{% endfor %}
 		</div>

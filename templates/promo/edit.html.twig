@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PROSMobile - Caractéristiques de la promotion
-{% endblock %}
+{% block title %}PROSMobile - Caractéristiques de la promotion{% endblock %}
 
 {% block body %}
-	<!-- tree -->
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
@@ -22,11 +21,11 @@
 			</li>
 		</ol>
 	</nav>
-
+	{# body #}
 	<h1 class="text-center">Caractéristiques de la promotion</h1>
-
+	{# include promo form #}
 	{{ include('promo/_form.html.twig') }}
-
+	{# delete button #}
 	<div class="container mt-2">
 		<div class="row">
 			<div class="btn" style="width:150px;">
