@@ -6,6 +6,7 @@ use App\Form\CommandeParType;
 use App\Form\CommandeProType;
 use App\Repository\ProRepository;
 use App\Repository\UserRepository;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
@@ -169,6 +170,16 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Suppression réussi');
 
         return $this->redirectToRoute('admin_commande_index');
+    }
+
+    /**
+     *@Route("/article", name="article_index")
+     */
+    public function articleIndex(ArticleRepository $articleRepository)
+    {
+        return $this->render('article/index.html.twig', [
+            'articles' => $articleRepository->findAll()
+        ]);
     }
 
     /**

@@ -12,13 +12,13 @@
 {% if user.pro is null %}
     <h1>Hello {{ user.email }}! ✅</h1>
 {% else %}
-    <h1>Hello! ✅</h1>
+    <h1>Hello {{ user.pro.nom }} {{ user.pro.prenom }}! ✅</h1>
 {% endif %}
 
 </div>
 <div class="container-full">
     <div class="row">
-        <div class="col">
+        <div class="col-4">
             <nav>
             <ul>
                 {% if user.pro is null %}
@@ -33,9 +33,12 @@
             </nav>
         </div>
         {% if user.pro is not null %}
-            <div class="col">
+            <div class="col-4">
                 <p> {{ user.pro.prenom }}</p>
                 <p> {{ user.pro.nom }}</p>
+            </div>
+            <div class="col-4">
+                <p> {{ user.pro.societe }}</p>
                 <p> {{ user.pro.adresse }}</p>
                 <p> {{ user.pro.telephone }}</p>
                 <p> {{ user.email }}</p>

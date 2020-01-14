@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}DASHBOARD{% endblock %}
 
 {% block body %}
 	<!-- tree -->
@@ -16,7 +16,7 @@
 	<div class="container mt-4">
 		<div class="row">
 			<!-- accounts -->
-			<div class="col-4">
+			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Comptes">
 					<i data-fa-symbol="user" class="fas fa-user text-success"></i>
 					<svg class="icon">
@@ -32,8 +32,22 @@
 					</li>
 				</ul>
 			</div>
+			<!-- Articles-->
+			<div class="col-3">
+				<div class="d-flex justify-content-center" title="Articles">
+					<i data-fa-symbol="articles" class="fas fa-box text-success"></i>
+					<svg class="icon">
+						<use xlink:href="#articles"></use>
+					</svg>
+				</div>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('admin_article_index')}}">Articles</a>
+					</li>
+				</ul>
+			</div>
 			<!-- orders -->
-			<div class="col-4 ">
+			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Commandes">
 					<i data-fa-symbol="order" class="fas fas fa-box-open text-success"></i>
 					<svg class="icon">
@@ -47,7 +61,7 @@
 				</ul>
 			</div>
 			<!-- discounts -->
-			<div class="col-4 ">
+			<div class="col-3">
 				<div class="d-flex justify-content-center" title="Promos">
 					<i data-fa-symbol="discount" class="fas fas fa-percent text-success"></i>
 					<svg class="icon">

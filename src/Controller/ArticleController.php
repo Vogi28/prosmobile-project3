@@ -52,12 +52,20 @@ class ArticleController extends AbstractController
     /**
      * @Route("/show/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article, ArtCompRepository $artCompRepository): Response
-    {
-        $artComps = $artCompRepository->findOneByArtId($article->getId());
+    public function show(
+        Article $article,
+        ArticleRepository $articleRepository,
+        ArtCompRepository $artCompRepository
+    ): Response {
+        $artComps = $artCompRepository->findByArtId(['artId' => $article->getId()]);
+        $artCompId = [];
+        foreach ($artComps as $artcomp) {
+            $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+        }
+        
         return $this->render('article/show.html.twig', [
             'article' => $article,
-            'art_comps' => $artComps,
+            'art_comps' => $artCompId,
         ]);
     }
 
@@ -67,14 +75,14 @@ class ArticleController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function showComp(ArtCompRepository $artCompRepository, int $id): Response
-    {
-        $artComps = $artCompRepository->findCompByArt($id);
-        return $this->render('article_show/show.html.twig', [
-            'art_comps' => $artComps,
-            'article' => $id,
-        ]);
-    }
+    // public function showComp(ArtCompRepository $artCompRepository, int $id): Response
+    // {
+    //     $artComps = $artCompRepository->findCompByArt($id);
+    //     return $this->render('article_show/show.html.twig', [
+    //         'art_comps' => $artComps,
+    //         'article' => $id,
+    //     ]);
+    // }
 
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
