@@ -3,11 +3,11 @@
     <div class="row">
         <div class="col-lg">
             <div class="d-flex flex-column mt-2">
-                {{ form_label(form.nom, 'Nom de la spécification') }}
+                {{ form_label(form.nom, 'Nom (exemples : "couleur" ou "capacité")') }}
                 {{ form_widget(form.nom) }}
             </div>
             <div class="d-flex flex-column mt-2">
-                {{ form_label(form.valeur, 'Valeur (avec son unité)') }}
+                {{ form_label(form.valeur, 'Valeur (exemples : "bleu" ou "32 Go")') }}
                 {{ form_widget(form.valeur) }}
             </div>
         </div>
