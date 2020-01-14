@@ -1,54 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PROSmobile |{{ article.nom }}{% endblock %}
+{% block title %}PROSmobile -{{ article.nom }}{% endblock %}
 
 {% block body %}
-    <h1>{{ article.nom }}</h1>
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('article_index') }}">
+					Articles
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Fiche produit
+			</li>
+		</ol>
+	</nav>
 
-{% if article is defined %}
-<div class="card mb-3 text-center" style="max-width: 540px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <img src="{{ article.photo }}" class="card-img" alt="Vignette article {{ article.nom }}"
-                 title="{{ article.nom }}">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">{{ article.nom }}</h5>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <p class="card-text">Référence : {{ article.reference }} - Stock restant : {{ article.stock }}</p>
-                {% endif %}
-                <p class="card-text">{{ article.description }}</p>
-                {% if is_granted('ROLE_PARTICULIER') %}
-                    <p class="card-text">{{ article.prixTtc }} €</p>
-                {% else %}
-                    <p class="card-text">{{ article.prixHt }} € HT</p>
-                {% endif %}
-                <div>
-                    <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-outline-success">Fiche produit</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        {# BOUTON JAUNE EDITER #}
-                        <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning">Modifier</a>
-                        {# BOUTON ROUGE SUPPRIMER #}
-                        <a href="{{ path('article_delete', {'id': article.id}) }}" class="btn btn-outline-danger">Supprimer</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% else %}
-            <div class="card border-danger mb-3 w-50">
-                <div class="card-body text-danger">
-                    <h5 class="card-title">ERREUR</h5>
-                    <p class="card-text">Aucun article trouvé avec ces critères.</p>
-                    <a href="{{ path('article_index') }}" class="btn btn-primary">Retour à la liste</a>
-            </div>
-        {% endif %}
-
-    {# inclure la section articles compatibles : #}
-    {% include ('art_comp/show.html.twig') %}
-
-<div>
-<a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
-</div>
-
+	<h1 class="text-center">{{ article.nom }}</h1>
+	{# product #}
+	<div class="container mt-4">
+		<div class="row d-flex justify-content-center">
+			{% if article is defined %}
+				<div class="col-4 mt-2" style="height:300px;">
+					<div class="media mt-2">
+						<img src="{{ article.photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+						<div class="media-body">
+							<h5 class="mt-2">{{ article.nom }}</h5>
+							{# administrator part #}
+							{% if  is_granted('ROLE_ADMIN') %}
+								<p class="card-text">
+									Référence :
+									{{ article.reference }}
+									- Stock restant :
+									{{ article.stock }}
+								</p>
+							{% endif %}
+							<p class="card-text">
+								{{ article.description }}
+							</p>
+							{# user part #}
+							{% if is_granted('ROLE_PARTICULIER') %}
+								<p class="card-text">
+									{{ article.prixTtc }}
+									€
+								</p>
+							{% else %}
+								<p class="card-text">
+									{{ article.prixHt }}
+									€ HT
+								</p>
+							{% endif %}
+							{# buttons #}
+							<div class="container">
+								<div class="row">
+									{# show product button #}
+									<div class="col-4">
+										<a href="{{ path('article_show', {'id': article.id}) }}" title="Afficher">
+											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+											<svg class="icon">
+												<use xlink:href="#show"></use>
+											</svg>
+										</a>
+									</div>
+									{# administrator part #}
+									{% if is_granted('ROLE_ADMIN') %}
+										{# edit button #}
+										<div class="col-4">
+											<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
+												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</a>
+										</div>
+										{# remove button #}
+										<div class="col-4">
+											<a href="{{ path('article_delete', {'id': article.id}) }}" title="Supprimer">
+												<i data-fa-symbol="remove" class="fas fa-trash text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#remove"></use>
+												</svg>
+											</a>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="card border-danger mb-3 w-50">
+					<div class="card-body text-danger">
+						<h5 class="card-title">ERREUR</h5>
+						<p class="card-text">Aucun article trouvé avec ces critères.</p>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	{# compatible product #}
+	<div class="container">
+		<div class="row">
+			{% include ('art_comp/show.html.twig') %}
+		</div>
+	</div>
 {% endblock %}

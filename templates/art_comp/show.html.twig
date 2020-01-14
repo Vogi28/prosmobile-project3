@@ -1,65 +1,95 @@
-<h1>Articles compatibles</h1>
-
-
-{% for art_comp in art_comps %}
-
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <img src="{{ art_comp.photo }}" class="card-img" alt="Vignette article {{ art_comp.nom }}"
-                 title="{{ art_comp.nom }}">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">{{ art_comp.nom }}</h5>
-                {% if  is_granted('ROLE_ADMIN') %}
-                    <p class="card-text">Référence : {{ art_comp.reference }} - Stock restant : {{ art_comp.stock }}</p>
-                {% endif %}
-                <p class="card-text">{{ art_comp.description }}</p>
-                {% if is_granted('ROLE_PARTICULIER') %}
-                    <p class="card-text">{{ art_comp.prixTtc }} €</p>
-                {% else %}
-                    <p class="card-text">{{ art_comp.prixHt }} € HT</p>
-                {% endif %}
-                <div>
-                    <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-outline-success">Fiche produit</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        {# BOUTON JAUNE EDITER #}
-                        <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning">Modifier</a>
-                        {# BOUTON ROUGE SUPPRIMER #}
-                        <a href="{{ path('article_delete', {'id': article.id}) }}" class="btn btn-outline-danger">Supprimer</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
+<h1 class="text-center">Articles compatibles</h1>
+<div class="container">
+	<div class="row">
+		{% for art_comp in art_comps %}
+			{% if art_comp.photo is empty %}
+				{% set photo ='https://via.placeholder.com/150x200' %}
+			{% else %}
+				{% set photo = art_comp.photo %}
+			{% endif %}
+			<div class="col-4 mt-2" style="height:500px;">
+				<div class="media mt-2">
+					<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+					<div class="media-body">
+						<h5 class="mt-2">{{ art_comp.nom }}</h5>
+						{% if  is_granted('ROLE_ADMIN') %}
+							<p class="mt-4">Référence :
+								{{ art_comp.reference }}
+								- Stock restant :
+								{{ art_comp.stock }}</p>
+						{% endif %}
+						<p class="card-text">{{ art_comp.description }}</p>
+						{% if is_granted('ROLE_PARTICULIER') %}
+							<p class="mt-4">{{ art_comp.prixTtc }}
+								€</p>
+						{% else %}
+							<p class="mt-4">{{ art_comp.prixHt }}
+								€ HT</p>
+						{% endif %}
+						{# buttons #}
+						<div class="container">
+							<div class="row">
+								{# show product button #}
+								<div class="col-4">
+									<a href="{{ path('article_show', {'id': article.id}) }}" title="Afficher">
+										<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+										<svg class="icon">
+											<use xlink:href="#show"></use>
+										</svg>
+									</a>
+								</div>
+								{# administrator part #}
+								{% if is_granted('ROLE_ADMIN') %}
+									{# edit button #}
+									<div class="col-4">
+										<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
+											<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+											<svg class="icon">
+												<use xlink:href="#edit"></use>
+											</svg>
+										</a>
+									</div>
+									{# remove button #}
+									<div class="col-4">
+										<a href="{{ path('article_delete', {'id': article.id}) }}" title="Supprimer">
+											<i data-fa-symbol="remove" class="fas fa-trash text-secondary"></i>
+											<svg class="icon">
+												<use xlink:href="#remove"></use>
+											</svg>
+										</a>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="mt-2">
+				Aucun article compatible enregistré dans cette liste.
+			</div>
+		{% endfor %}
+	</div>
 </div>
-{% else %}
-    <div>
-        <p class="card-text">Aucun article compatible enregistré dans cette liste.</p>
-        <a href="{{ path('home') }}" class="btn btn-outline-success">Retour à l'accueil</a>
-    </div>
-{% endfor %}
-
-    {#<table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ art_comp.id }}</td>
-            </tr>
-            <tr>
-                <th>ArtId</th>
-                <td>{{ art_comp.artId }}</td>
-            </tr>
-            <tr>
-                <th>ArtCompId</th>
-                <td>{{ art_comp.artCompId }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('art_comp_index') }}">back to list</a>
-
-    <a href="{{ path('art_comp_edit', {'id': art_comp.id}) }}">edit</a>
-
-    {{ include('art_comp/_delete_form.html.twig') }}#}
+{#<table class="table">
+				        <tbody>
+				            <tr>
+				                <th>Id</th>
+				                <td>{{ art_comp.id }}</td>
+				            </tr>
+				            <tr>
+				                <th>ArtId</th>
+				                <td>{{ art_comp.artId }}</td>
+				            </tr>
+				            <tr>
+				                <th>ArtCompId</th>
+				                <td>{{ art_comp.artCompId }}</td>
+				            </tr>
+				        </tbody>
+				    </table>
+				
+				    <a href="{{ path('art_comp_index') }}">back to list</a>
+				
+				    <a href="{{ path('art_comp_edit', {'id': art_comp.id}) }}">edit</a>
+				
+				    {{ include('art_comp/_delete_form.html.twig') }}#}
