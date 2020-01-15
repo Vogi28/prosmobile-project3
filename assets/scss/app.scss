@@ -52,3 +52,7 @@ input, input:focus{
     padding: 5px;
     outline: none;
 }
+
+.nav-pills .nav-link.active {
+    background-color: #1B5E20 !important;
+}
