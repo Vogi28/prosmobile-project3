@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Pro;
 use App\Form\ArticleType;
 use App\Repository\ArtCompRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\PromoRepository;
+use App\Repository\ProRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,14 +69,56 @@ class ArticleController extends AbstractController
     public function show(
         Article $article,
         ArticleRepository $articleRepository,
-        ArtCompRepository $artCompRepository
+        ArtCompRepository $artCompRepository,
+        PromoRepository $promoRepository,
+        ProRepository $proRepository
     ): Response {
+        $today = date('Y-m-d');
+        //dd($this->getUser()->getRoles()[0]);
+
+        if ($this->getUser()->getRoles()[0]=="ROLE_PARTICULIER"){
+            $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+            $prixTtc = $articleRepository->findOneById(['id' => $article->getId()])->getPrixTtc();
+            $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
+
+            $artComps = $artCompRepository->findByArtId(['artId' => $article->getId()]);
+            $artCompId = [];
+            foreach ($artComps as $artcomp) {
+                $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+            }
+
+            return $this->render('article/show.html.twig', [
+                'article' => $article,
+                'art_comps' => $artCompId,
+                'promo' => $promo,
+                'prix_ttc_reduit' => $prixTtcReduit,
+            ]);
+        }
+        elseif ($this->getUser()->getRoles()[0]=="ROLE_PRO"){
+            $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
+            $prixHt = $articleRepository->findOneById(['id' => $article->getId()])->getPrixHt();
+            $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
+
+            $artComps = $artCompRepository->findByArtId(['artId' => $article->getId()]);
+            $artCompId = [];
+            foreach ($artComps as $artcomp) {
+                $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+            }
+
+            return $this->render('article/show.html.twig', [
+                'article' => $article,
+                'art_comps' => $artCompId,
+                'reduc' => $reduc,
+                'prix_ht_reduit' => $prixHtReduit,
+            ]);
+        }
+
         $artComps = $artCompRepository->findByArtId(['artId' => $article->getId()]);
         $artCompId = [];
         foreach ($artComps as $artcomp) {
             $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
         }
-        
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'art_comps' => $artCompId,
