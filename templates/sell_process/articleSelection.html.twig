@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSmobile - Articles{% endblock %}
+
+{% block body %}
+
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('admin_index') }}">
+						Dashboard
+					</a>
+				{% else %}
+					<a href="{{ path('home') }}">
+						Accueil
+					</a>
+				{% endif %}
+			</li>
+			<li class="breadcrumb-item">
+                <a href="{{ path('article_sell_brand') }}">
+				Marques
+                </a>
+			</li>
+            <li class="breadcrumb-item active" aria-current="page">
+				{{ marque }}
+			</li>
+		</ol>
+	</nav>
+	{# body #}
+	<h1 class="text-center">Tous les articles {{ marque }}</h1>
+	{# administrator part #}
+	{# add button #}
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="container-fluid mt-4">
+			<div class="row">
+				<a class="btn" href="{{ path('article_new') }}" title="Ajouter">
+					<i data-fa-symbol="add" class="fas fa-plus text-secondary"></i>
+					<svg class="icon">
+						<use xlink:href="#add"></use>
+					</svg>
+				</a>
+			</div>
+		</div>
+	{% endif %}
+	{# product list #}
+	<div class="container mt-4">
+		<div class="row">
+			{% for article in articles %}
+				{% if article.photo is empty %}
+					{% set photo ='https://via.placeholder.com/150x200' %}
+				{% else %}
+					{% set photo = article.photo %}
+				{% endif %}
+				<div class="col-4 mt-2" style="height:300px;">
+					<div class="media mt-2">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+						<div class="media-body">
+							<h5 class="mt-2">{{ article.nom }}</h5>
+							{# administrator part #}
+							{% if  is_granted('ROLE_ADMIN') %}
+								<p class="card-text">
+									Référence :
+									{{ article.reference }}
+									- Stock restant :
+									{{ article.stock }}
+								</p>
+							{% endif %}
+							<p class="card-text">
+								{{ article.description }}
+							</p>
+							{# user part #}
+							{% if is_granted('ROLE_PARTICULIER') %}
+								<p class="card-text">
+									{{ article.prixTtc }}
+									€
+								</p>
+							{% else %}
+								<p class="card-text">
+									{{ article.prixHt }}
+									€ HT
+								</p>
+							{% endif %}
+							{# buttons #}
+							<div class="container">
+								<div class="row">
+									{# show product button #}
+									<div class="col-4">
+										<a href="{{ path('article_show', {'id': article.id}) }}" title="Afficher">
+											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+											<svg class="icon">
+												<use xlink:href="#show"></use>
+											</svg>
+										</a>
+									</div>
+									{# administrator part #}
+									{% if is_granted('ROLE_ADMIN') %}
+										{# edit button #}
+										<div class="col-4">
+											<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
+												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+												<svg class="icon">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</a>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				{# empty #}
+				<div class="">
+					Aucun article n'est enregistré dans cette liste
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
