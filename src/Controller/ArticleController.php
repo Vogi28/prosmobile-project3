@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArtCompRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\MarqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +30,15 @@ class ArticleController extends AbstractController
     /**
      * @Route("/marque/{id}/{slug<[a-zA-z]+>}", name="article_marque", methods={"GET"})
      */
-    public function oneBrandindex(int $id, string $slug, ArticleRepository $articleRepository): Response
-    {
+    public function oneBrandindex(
+        int $id,
+        string $slug,
+        ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository
+    ): Response {
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articleRepository->findBy(['marque' => $id]),
-            'marque' => $slug
+            'marque' => $marqueRepository->findOneByNom($slug)
         ]);
     }
 
@@ -61,14 +66,19 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="article_show", methods={"GET"})
+     * @Route("/marque/{id}/{slug<[a-zA-z]+>}/{id2}", name="article_show", methods={"GET"})
      */
     public function show(
+        $id,
+        $id2,
+        $slug,
         Article $article,
         ArticleRepository $articleRepository,
-        ArtCompRepository $artCompRepository
+        ArtCompRepository $artCompRepository,
+        MarqueRepository $marqueRepository
     ): Response {
-        $artComps = $artCompRepository->findByArtId(['artId' => $article->getId()]);
+        $id;
+        $artComps = $artCompRepository->findByArtId(['artId' => $id2]);
         $artCompId = [];
         foreach ($artComps as $artcomp) {
             $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
@@ -77,6 +87,7 @@ class ArticleController extends AbstractController
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'art_comps' => $artCompId,
+            'marque' => $marqueRepository->findOneByNom($slug)
         ]);
     }
 

@@ -18,8 +18,13 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-				<a href="{{ path('article_index') }}">
-					Articles
+				<a href="{{ path('article_sell_brand') }}">
+					Téléphones
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="#">
+					{{ marque.nom }}
 				</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
@@ -27,6 +32,7 @@
 			</li>
 		</ol>
 	</nav>
+	
 	{# body #}
 	<h1 class="text-center">{{ article.nom }}</h1>
 	{# product #}
