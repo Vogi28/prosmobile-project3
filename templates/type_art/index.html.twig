@@ -1,35 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TypeArt index{% endblock %}
+{% block title %}PROSmobile |catégories{% endblock %}
 
 {% block body %}
-    <h1>TypeArt index</h1>
+    {# tree #}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white rounded-0">
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_index') }}">
+                    Dashboard
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Gestion des catégories d'articles
+            </li>
+        </ol>
+    </nav>
+    {# body #}
+    <h1 class="text-center">Liste des catégories d'articles</h1>
+    {# add button #}
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <a class="btn" href="{{ path('type_art_new') }}" title="Ajouter">
+                <i data-fa-symbol="add" class="fas fa-plus text-secondary"></i>
+                <svg class="icon">
+                    <use xlink:href="#add"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+    {# discount list #}
+    <div class="container mt-4">
+        <div class="row">
+            {% for type_art in type_arts %}
+                <div class="col-12">
+                    <div class="media mt-2">
+                        <div class="media-body">
+                            <h5 class="mt-2">{{ type_art.nom }}</h5>
+                            {# edit button #}
+                            <div class="mt-4">
+                                <a href="{{ path('type_art_edit', {'id': type_art.id}) }}" title="Modifier">
+                                    <i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+                                    <svg class="icon">
+                                        <use xlink:href="#edit"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                {# empty #}
+                <div class="">
+                    Aucune catégorie enregistrée
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for type_art in type_arts %}
-            <tr>
-                <td>{{ type_art.id }}</td>
-                <td>{{ type_art.nom }}</td>
-                <td>
-                    <a href="{{ path('type_art_show', {'id': type_art.id}) }}">show</a>
-                    <a href="{{ path('type_art_edit', {'id': type_art.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('type_art_new') }}">Create new</a>
 {% endblock %}
