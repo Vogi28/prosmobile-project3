@@ -37,7 +37,7 @@ class SellProcessController extends AbstractController
      */
     public function accessoriesIndex()
     {
-        return $this->render('sell_process/accesIndex.html.twig', [
+        return $this->render('sell_process/accessIndex.html.twig', [
             'controller_name' => 'SellProcessController',
         ]);
     }

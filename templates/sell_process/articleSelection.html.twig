@@ -20,16 +20,16 @@
 			</li>
 			<li class="breadcrumb-item">
                 <a href="{{ path('article_sell_brand') }}">
-				Marques
+				Téléphones
                 </a>
 			</li>
             <li class="breadcrumb-item active" aria-current="page">
-				{{ marque }}
+				{{ marque.nom }}
 			</li>
 		</ol>
 	</nav>
 	{# body #}
-	<h1 class="text-center">Tous les articles {{ marque }}</h1>
+	<h1 class="text-center">Tous les articles {{ marque.nom }}</h1>
 	{# administrator part #}
 	{# add button #}
 	{% if is_granted('ROLE_ADMIN') %}
@@ -87,7 +87,8 @@
 								<div class="row">
 									{# show product button #}
 									<div class="col-4">
-										<a href="{{ path('article_show', {'id': article.id}) }}" title="Afficher">
+										<a href="{{ path('article_show', {'id': marque.id, 
+										'id2': article.id , 'slug': marque.nom }) }}" title="Afficher">
 											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
 											<svg class="icon">
 												<use xlink:href="#show"></use>
