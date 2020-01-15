@@ -27,6 +27,17 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/marque/{id}/{slug<[a-zA-z]+>}", name="article_marque", methods={"GET"})
+     */
+    public function oneBrandindex(int $id, string $slug, ArticleRepository $articleRepository): Response
+    {
+        return $this->render('sell_process/articleSelection.html.twig', [
+            'articles' => $articleRepository->findBy(['marque' => $id]),
+            'marque' => $slug
+        ]);
+    }
+
+    /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
