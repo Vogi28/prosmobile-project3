@@ -23,7 +23,7 @@ a {
     border-right: 9px solid rgba(0, 0, 0, 0);
     content: "";
     display: inline-block;
-    left: 94px;
+    left: 95px;
     position: absolute;
     top: -8px;
 }
@@ -34,7 +34,7 @@ a {
     border-right: 9px solid rgba(0, 0, 0, 0);
     content: "";
     display: inline-block;
-    left: 94px;
+    left: 95px;
     position: absolute;
     top: -7px;
 }
@@ -46,4 +46,9 @@ a {
 
 .carousel-item {
     height: 400px;;
+}
+
+input, input:focus{
+    padding: 5px;
+    outline: none;
 }
