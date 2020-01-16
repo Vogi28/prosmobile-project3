@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white stiky-top">
+<nav
+	class="navbar navbar-expand-lg navbar-light bg-white stiky-top">
 	{# brand #}
 	<a class="navbar-brand text-success" href="{{ path('home') }}">
 		PROSMOBILE
@@ -20,7 +21,7 @@
 				</button>
 			</li>
 		</ul>
-		<ul class="navbar-nav ml-auto">
+		<ul class="navbar-nav mx-auto">
 			<li class="nav-item dropdown mr-2">
 				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Articles
@@ -53,8 +54,21 @@
 				</a>
 			</li>
 		</ul>
+		{# basket #}
+		<ul class="navbar-nav mr-4">
+			<li class="nav-item">
+				<button class="btn" title="Panier">
+					<a href="{{ path('panier_index') }}">
+						<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+						<svg class="icon-md">
+							<use xlink:href="#basket"></use>
+						</svg>
+					</a>
+				</button>
+			</li>
+		</ul>
 		{# accounts #}
-		<ul class="navbar-nav ml-auto">
+		<ul class="navbar-nav mr-5">
 			<li class="nav-item dropdown">
 				<div class="d-flex flex-column">
 					{% if app.user %}
@@ -202,7 +216,7 @@
 		{# phone number #}
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<div class="p-2 ml-5 bg-success text-white rounded">
+				<div class="p-2 bg-success text-white rounded">
 					<i data-fa-symbol="phone" class="fas fa-mobile-alt"></i>
 					<svg class="icon-md">
 						<use xlink:href="#phone"></use>

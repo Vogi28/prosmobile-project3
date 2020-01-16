@@ -3,73 +3,85 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-
-<!-- tree -->
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
-        {% if is_granted('ROLE_PARTICULIER') %}
-			<li class="breadcrumb-item">
-				<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
-					Profile
-				</a>
-			</li>
-            <li class="breadcrumb-item">
-				<a href="{{ path('commande_index', {'id' : app.user.particulier.id}) }}">
-					Commandes
-				</a>
-			</li>
-        {% elseif is_granted('ROLE_ADMIN') %}
-			<li class="breadcrumb-item">
-				<a href="{{ path('admin_index') }}">
-					Dashboard
-				</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="{{ path('admin_commande_index') }}">
-					Commandes
-				</a>
-			</li>
-        {% endif %}
+			{% if is_granted('ROLE_ADMIN') %}
+				<li class="breadcrumb-item">
+					<a href="{{ path('admin_index') }}">
+						Dashboard
+					</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ path('admin_commande_index') }}">
+						Commandes
+					</a>
+				</li>
+			{% elseif is_granted('ROLE_PARTICULIER') %}
+				<li class="breadcrumb-item">
+					<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
+						Profile
+					</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ path('commande_index', {'id' : app.user.particulier.id}) }}">
+						Commandes
+					</a>
+				</li>
+			{% endif %}
 			<li class="breadcrumb-item active" aria-current="page">
-				Detail commande
+				Détails commandes
 			</li>
 		</ol>
 	</nav>
-    
-    <h1 class="text-center">Details commande</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Article ID</th>
-                <th>Article name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Discount</th>
-                <th>Price with Taxes</th>
-                <th>Actions</th>
-                {# <td>{{ commande_par.id }}</td> #}
-            </tr>
-            {% for detail in details %}
-                <tr>
-                    <td><a href="#">{{ detail.article }}</a></td>
-                    <td>{{ detail.nomArt }}</td>
-                    <td>{{ detail.quantity }}</td>
-                    <td>{{ detail.prixHT }}</td>
-                    <td>{{ detail.remise }}</td>
-                    <td>{{ detail.total }}</td>
-                    <td>
-                    {% if is_granted('ROLE_PARTICULIER') %}
-                            <a href="{{ path('commande_edit', {'id': commande_par.id}) }}">edit</a>
-                    {% elseif is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('admin_commande_edit', {'id': commande_par.id, 
-                        'role': 'particulier'}) }}">edit</a>
-                    {% endif %}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% if details is not empty %}
-        {{ include('commande/commande_par/_delete_form.html.twig') }}
-    {% endif %}
+	{# title #}
+	<h1 class="text-center">Détails commandes</h1>
+	{# body #}
+	<table class="table mt-4">
+		<thead class="thead-dark">
+			<tr>
+				<th>Article ID</th>
+				<th>Article name</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Discount</th>
+				<th>Price with Taxes</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for detail in details %}
+				<tr>
+					<td>
+						<a href="#">{{ detail.article }}</a>
+					</td>
+					<td>{{ detail.nomArt }}</td>
+					<td>{{ detail.quantity }}</td>
+					<td>{{ detail.prixHT }}</td>
+					<td>{{ detail.remise }}</td>
+					<td>{{ detail.total }}</td>
+					<td>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('admin_commande_edit', {'id': commande_par.id, 'role': 'particulier'}) }}">
+								<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+								<svg class="icon-md">
+									<use xlink:href="#edit"></use>
+								</svg>
+							</a>
+						{% elseif is_granted('ROLE_PARTICULIER') %}
+							<a href="{{ path('commande_edit', {'id': commande_par.id}) }}">
+								<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+								<svg class="icon-md">
+									<use xlink:href="#edit"></use>
+								</svg>
+							</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% if details is not empty %}
+		{{ include('commande/commande_par/_delete_form.html.twig') }}
+	{% endif %}
 {% endblock %}

@@ -41,14 +41,12 @@
 					<td>{{ particulier.ville }}</td>
 					<td>{{ particulier.telephone }}</td>
 					<td>
-						<div>
-							<a href="{{ path('particulier_edit', {'id': particulier.id}) }}" title="Modifier">
-								<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-								<svg class="icon-md">
-									<use xlink:href="#edit"></use>
-								</svg>
-							</a>
-						</div>
+						<a href="{{ path('particulier_edit', {'id': particulier.id}) }}" title="Modifier">
+							<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+							<svg class="icon-md">
+								<use xlink:href="#edit"></use>
+							</svg>
+						</a>
 					</td>
 				</tr>
 			{% else %}

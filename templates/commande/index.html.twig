@@ -3,8 +3,7 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-
-<!-- tree -->
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
@@ -13,49 +12,59 @@
 				</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
-					Commandes
-				</a>
+				Commandes
 			</li>
 		</ol>
 	</nav>
-
-    <h1 class="text-center">Commandes</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Commande</th>
-                <th>Client ID</th>
-                <th>Nom / Societe</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.id }}</td>
-                {% if commande.particulier is defined %}
-                    <td>{{ commande.particulier.id }}</td>
-                    <td>{{ commande.particulier.nom }} {{ commande.particulier.prenom }}</td>
-                {% elseif commande.pro is defined %}
-                    <td>{{ commande.pro.id }}</td>
-                        <td>{{ commande.pro.societe }}</td>
-                {% endif %}
-                <td>
-                {% if commande.particulier is defined %}
-                    <a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">details</a>
-                    {# <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'particulier'}) }}">edit</a> #}
-                {% elseif commande.pro is defined %}
-                    <a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">details</a>
-                    {# <a href="{{ path('admin_commande_edit', {'id': commande.id, 'role': 'pro'}) }}">edit</a> #}
-                {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+	{# title #}
+	<h1 class="text-center">Commandes</h1>
+	{# body #}
+	<table class="table mt-4">
+		<thead class="thead-dark">
+			<tr>
+				<th>Commande</th>
+				<th>Client ID</th>
+				<th>Nom / Societe</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for commande in commandes %}
+				<tr>
+					<td>{{ commande.id }}</td>
+					{% if commande.particulier is defined %}
+						<td>{{ commande.particulier.id }}</td>
+						<td>
+							{{ commande.particulier.nom }}
+							{{ commande.particulier.prenom }}
+						</td>
+					{% elseif commande.pro is defined %}
+						<td>{{ commande.pro.id }}</td>
+						<td>{{ commande.pro.societe }}</td>
+					{% endif %}
+					<td title="Afficher">
+						{% if commande.particulier is defined %}
+							<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">
+								<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+								<svg class="icon-md">
+									<use xlink:href="#show"></use>
+								</svg>
+							</a>
+						{% elseif commande.pro is defined %}
+							<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">
+								<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+								<svg class="icon-md">
+									<use xlink:href="#show"></use>
+								</svg>
+							</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="2">Aucune commande trouvée</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

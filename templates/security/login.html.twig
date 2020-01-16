@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!
-{% endblock %}
+{% block title %}Log in!{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -21,8 +20,7 @@
 	<div class="container mt-4">
 		<div class="row">
 			<div class="col-lg">
-				<form
-					method="post">
+				<form method="post">
 					{# error #}
 					{% if error %}
 						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -42,8 +40,7 @@
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
 					<label class="mt-2" for="inputPassword">Mot de passe</label>
 					<input type="password" name="password" id="inputPassword" class="form-control" required>
-					<input
-					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 					{# remember me #}
 					<div class="checkbox mb-3">
 						<label class="mt-2">
@@ -59,7 +56,7 @@
 			</div>
 			{# login page img #}
 			<div class="col-lg d-flex justify-content-end">
-				<img src="https://via.placeholder.com/400x500" class="img-thumbnail" style="width:400px; height:500px;" alt="">
+				<img src="" class="img-thumbnail" style="width:400px; height:500px;" alt="">
 			</div>
 		</div>
 	</div>
