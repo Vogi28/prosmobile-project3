@@ -76,7 +76,7 @@ class ArticleController extends AbstractController
         $today = date('Y-m-d');
         //dd($this->getUser()->getRoles()[0]);
 
-        if ($this->getUser()->getRoles()[0]=="ROLE_PARTICULIER"){
+        if ($this->getUser()->getRoles()[0]=="ROLE_PARTICULIER") {
             $promo = $promoRepository->findOneByDate($today)->getPourcentage();
             $prixTtc = $articleRepository->findOneById(['id' => $article->getId()])->getPrixTtc();
             $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
@@ -93,8 +93,7 @@ class ArticleController extends AbstractController
                 'promo' => $promo,
                 'prix_ttc_reduit' => $prixTtcReduit,
             ]);
-        }
-        elseif ($this->getUser()->getRoles()[0]=="ROLE_PRO"){
+        } elseif ($this->getUser()->getRoles()[0]=="ROLE_PRO") {
             $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
             $prixHt = $articleRepository->findOneById(['id' => $article->getId()])->getPrixHt();
             $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
