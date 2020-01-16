@@ -37,8 +37,13 @@
 				<tr>
 					<td>{{ commande_par.id }}</td>
 					<td>{{ commande_par.particulier.id }}</td>
-					<td>
-						<a href="{{ path('commande_show', {'id': commande_par.id}) }}">details</a>
+					<td title="Afficher">
+						<a href="{{ path('commande_show', {'id': commande_par.id}) }}">
+							<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+							<svg class="icon-md">
+								<use xlink:href="#show"></use>
+							</svg>
+						</a>
 					</td>
 				</tr>
 			{% else %}
