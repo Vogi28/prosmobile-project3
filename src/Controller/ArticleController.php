@@ -32,11 +32,15 @@ class ArticleController extends AbstractController
     /**
      * @Route("/marque/{id}/{slug<[a-zA-z]+>}", name="article_marque", methods={"GET"})
      */
-    public function oneBrandindex(int $id, string $slug, ArticleRepository $articleRepository): Response
-    {
+    public function oneBrandindex(
+        int $id,
+        string $slug,
+        ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository
+    ): Response {
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articleRepository->findBy(['marque' => $id]),
-            'marque' => $slug
+            'marque' => $marqueRepository->findOneByNom($slug)
         ]);
     }
 
@@ -129,7 +133,7 @@ class ArticleController extends AbstractController
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'art_comps' => $artCompId,
-            'marque' => $marqueRepository->findOneByNom($slug),
+            'marque' => $marqueRepository->findOneByNom($slug)
         ]);
     }
 

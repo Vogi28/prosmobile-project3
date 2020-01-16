@@ -18,8 +18,13 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-				<a href="{{ path('article_index') }}">
-					Articles
+				<a href="{{ path('article_sell_brand') }}">
+					Téléphones
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="#">
+					{{ marque.nom }}
 				</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
@@ -27,6 +32,7 @@
 			</li>
 		</ol>
 	</nav>
+	
 	{# body #}
 	<h1 class="text-center">{{ article.nom }}</h1>
 	{# product #}
@@ -90,6 +96,14 @@
 							{# buttons #}
 							<div class="container">
 								<div class="row">
+									<div class="col-4">
+									<a href="{{ path('panier_add', {'id': article.id} )}}" title="Ajouter au panier">
+										<i data-fa-symbol="basket" class="fas fa-shopping-basket text-success"></i>
+													<svg class="icon">
+														<use xlink:href="#basket"></use>
+													</svg>
+									</a>
+								</div>
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
