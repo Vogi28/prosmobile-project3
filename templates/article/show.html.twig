@@ -71,6 +71,14 @@
 							{# buttons #}
 							<div class="container">
 								<div class="row">
+									<div class="col-4">
+									<a href="{{ path('panier_add', {'id': article.id} )}}" title="Ajouter au panier">
+										<i data-fa-symbol="basket" class="fas fa-shopping-basket text-success"></i>
+													<svg class="icon">
+														<use xlink:href="#basket"></use>
+													</svg>
+									</a>
+								</div>
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
