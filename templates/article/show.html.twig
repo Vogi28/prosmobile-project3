@@ -57,7 +57,7 @@
 								{{ article.description }}
 							</p>
 							{# user part #}
-							{# {% if is_granted('ROLE_PARTICULIER') %} #}
+							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
 									<p class="card-text">
 										{# TODO en css : PRIX TTC D'ORIGINE BARRÉ #}
@@ -74,6 +74,7 @@
 										€ TTC
 									</p>
 								{% endif %}
+							{% endif %}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
 									<p class="card-text">
@@ -107,7 +108,13 @@
 								<div class="row">
 									<div class="col-4">
 										<button class="btn" title="Ajouter au panier">
-											<a href="{{ path('panier_add', {'id': article.id} )}}">
+										{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+											<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+										{% elseif promo is defined %}
+											<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+										{% else %}
+										<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+										{% endif %}
 												<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
 												<svg class="icon-md">
 													<use xlink:href="#basket"></use>
