@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DASHBOARD{% endblock %}
+{% block title %}Dasboard
+{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -15,32 +16,34 @@
 	<h1 class="text-center">Dashboard</h1>
 
 	<div class="container mt-4">
-		<div class="row">
-			{# dashboard left nav #}
-			<div class="col-1 d-flex justify-content-center">
-				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					{# accounts icon #}
-					<a class="nav-link active mb-4" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true" title="Comptes utilisateurs">
+		<div
+			class="row">
+			{# dashboard nav #}
+			<div class="col-1 d-flex">
+				<div
+					class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					{# accounts tab icon #}
+					<a class="nav-link mb-4" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true" title="Comptes utilisateurs">
 						<i data-fa-symbol="user" class="fas fa-user text-success"></i>
 						<svg class="icon">
 							<use xlink:href="#user"></use>
 						</svg>
 					</a>
-					{# products icon #}
+					{# products tab icon #}
 					<a class="nav-link mb-4" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false" title="Articles">
 						<i data-fa-symbol="articles" class="fas fa-box text-success"></i>
 						<svg class="icon">
 							<use xlink:href="#articles"></use>
 						</svg>
 					</a>
-					{# orders icon #}
+					{# orders tab icon #}
 					<a class="nav-link mb-4" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false" title="Commandes">
 						<i data-fa-symbol="order" class="fas fas fa-box-open text-success"></i>
 						<svg class="icon">
 							<use xlink:href="#order"></use>
 						</svg>
 					</a>
-					{# discounts icon #}
+					{# discounts tab icon #}
 					<a class="nav-link" id="v-pills-discount-tab" data-toggle="pill" href="#v-pills-discount" role="tab" aria-controls="v-pills-discount" aria-selected="false" title="Promotions">
 						<i data-fa-symbol="discount" class="fas fas fa-percent text-success"></i>
 						<svg class="icon">
@@ -49,53 +52,112 @@
 					</a>
 				</div>
 			</div>
-			{# menu #}
-			<div class="col-11">
-				<div class="tab-content d-flex justify-content-start" id="v-pills-tabContent">
-					{# accounts tab #}
-					<div class="tab-pane fade show active" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('pro_index')}}">
-									Professionnels
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('particulier_index')}}">
-									Particuliers
-								</a>
-							</li>
-						</ul>
+			{# tabs menu #}
+			<div class="col-11 d-flex">
+				<div
+					class="tab-content" id="v-pills-tabContent">
+					{# accounts menu #}
+					<div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg" style="width:300px;">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Professionnels</h5>
+											<p class="card-text">Informations sur les clients professionnels.</p>
+											{# infos button #}
+											<a href="{{ path('pro_index')}}" class="btn" title="Informations">
+												<i data-fa-symbol="info" class="fas fa-info text-success"></i>
+												<svg class="icon">
+													<use xlink:href="#info"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg" style="width:300px;">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Particuliers</h5>
+											<p class="card-text">Informations sur les clients particuliers.</p>
+											{# infos button #}
+											<a href="{{ path('particulier_index')}}" class="btn" title="Informations">
+												<i data-fa-symbol="info" class="fas fa-info text-success"></i>
+												<svg class="icon">
+													<use xlink:href="#info"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					{# products tab #}
+					{# products menu #}
 					<div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('admin_article_index')}}">
-									Articles
-								</a>
-							</li>
-						</ul>
+						<div class="container">
+							<div class="row">
+								<div class="col-lg" style="width:300px;">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Articles</h5>
+											<p class="card-text">Informations sur articles.</p>
+											{# infos button #}
+											<a href="{{ path('admin_article_index')}}" class="btn" title="Informations">
+												<i data-fa-symbol="info" class="fas fa-info text-success"></i>
+												<svg class="icon">
+													<use xlink:href="#info"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					{# orders tab #}
+					{# orders menu #}
 					<div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('admin_commande_index')}}">
-									Commandes
-								</a>
-							</li>
-						</ul>
+						<div class="container">
+							<div class="row">
+								<div class="col-lg" style="width:300px;">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Commandes</h5>
+											<p class="card-text">Informations sur les commandes.</p>
+											{# infos button #}
+											<a href="{{ path('admin_commande_index')}}" class="btn" title="Informations">
+												<i data-fa-symbol="info" class="fas fa-info text-success"></i>
+												<svg class="icon">
+													<use xlink:href="#info"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					{# discounts tab #}
+					{# discounts menu #}
 					<div class="tab-pane fade" id="v-pills-discount" role="tabpanel" aria-labelledby="v-pills-discount-tab">
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('promo_index')}}">
-									Promos
-								</a>
-							</li>
-						</ul>
+						<div class="container">
+							<div class="row">
+								<div class="col-lg" style="width:300px;">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Promotions</h5>
+											<p class="card-text">Informations sur les promotions.</p>
+											{# infos button #}
+											<a href="{{ path('promo_index')}}" class="btn" title="Informations">
+												<i data-fa-symbol="info" class="fas fa-info text-success"></i>
+												<svg class="icon">
+													<use xlink:href="#info"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

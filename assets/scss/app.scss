@@ -17,7 +17,7 @@ a {
     height: 100%;
 }
 
-.dropdown-menu::before {
+.acc::before {
     border-bottom: 9px solid rgba(0, 0, 0, 0.2);
     border-left: 9px solid rgba(0, 0, 0, 0);
     border-right: 9px solid rgba(0, 0, 0, 0);
@@ -28,13 +28,35 @@ a {
     top: -8px;
 }
 
-.dropdown-menu::after {
+.acc::after {
     border-bottom: 8px solid #FFFFFF;
     border-left: 9px solid rgba(0, 0, 0, 0);
     border-right: 9px solid rgba(0, 0, 0, 0);
     content: "";
     display: inline-block;
     left: 95px;
+    position: absolute;
+    top: -7px;
+}
+
+.art::before {
+    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 63px;
+    position: absolute;
+    top: -8px;
+}
+
+.art::after {
+    border-bottom: 8px solid #FFFFFF;
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 63px;
     position: absolute;
     top: -7px;
 }
@@ -54,5 +76,5 @@ input, input:focus{
 }
 
 .nav-pills .nav-link.active {
-    background-color: #1B5E20 !important;
+    background-color: #007E33 !important;
 }

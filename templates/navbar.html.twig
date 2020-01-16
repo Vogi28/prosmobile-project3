@@ -19,11 +19,11 @@
 			</li>
 		</ul>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item dropdown mr-4">
+			<li class="nav-item dropdown mr-2">
 				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Articles
+					Articles
 				</a>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<div class="dropdown-menu art mt-3" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="{{ path('article_sell_brand')}}">Téléphones</a>
 					<a class="dropdown-item" href="{{ path('article_sell_component')}}">Composants</a>
 					<a class="dropdown-item" href="{{ path('article_sell_accessories')}}">Accessoires</a>
@@ -64,7 +64,7 @@
 							Identifiez-vous
 						</span>
 					{% endif %}
-					<div class="dropdown-menu mt-3" style="width:305px;" aria-labelledby="navbarDropdown">
+					<div class="dropdown-menu acc mt-3" style="width:305px;" aria-labelledby="navbarDropdown">
 						{% if app.user %}
 							{# individual #}
 							{% if is_granted('ROLE_PARTICULIER')%}
