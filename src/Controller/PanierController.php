@@ -20,7 +20,7 @@ class PanierController extends AbstractController
         $basket = $session->get('panier', []);
 
         $basketData = [];
-
+        
         foreach ($basket as $key => $qty) {
             $basketData[] = [
             'article' => $articleRepository->find($key),
