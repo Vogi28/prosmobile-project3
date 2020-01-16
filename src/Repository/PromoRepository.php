@@ -19,6 +19,17 @@ class PromoRepository extends ServiceEntityRepository
         parent::__construct($registry, Promo::class);
     }
 
+    public function findOneByDate($today): ?Promo
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.debut <= :today')
+            ->andWhere('p.fin >= :today')
+            ->setParameter('today', $today)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Promo[] Returns an array of Promo objects
     //  */
