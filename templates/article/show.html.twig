@@ -32,7 +32,7 @@
 			</li>
 		</ol>
 	</nav>
-	
+
 	{# body #}
 	<h1 class="text-center">{{ article.nom }}</h1>
 	{# product #}
@@ -41,7 +41,7 @@
 			{% if article is defined %}
 				<div class="col-4 mt-2" style="height:300px;">
 					<div class="media mt-2">
-						<img src="{{ article.photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+						<img src="{{ article.photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="{{ article.nom }}">
 						<div class="media-body">
 							<h5 class="mt-2">{{ article.nom }}</h5>
 							{# administrator part #}

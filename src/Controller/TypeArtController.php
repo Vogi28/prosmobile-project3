@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\TypeArt;
 use App\Form\TypeArtType;
+use App\Repository\ArticleRepository;
+use App\Repository\PromoRepository;
+use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,10 +55,36 @@ class TypeArtController extends AbstractController
     /**
      * @Route("/{id}", name="type_art_show", methods={"GET"})
      */
-    public function show(TypeArt $typeArt): Response
-    {
+    public function show(
+        Article $article,
+        TypeArt $typeArt,
+        PromoRepository $promoRepository,
+        ProRepository $proRepository,
+        ArticleRepository $articleRepository
+    ): Response {
+        $today = date('Y-m-d');
+        $articles = $typeArt->getArticles();
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
+            $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
+            $prixHt = $articleRepository->findOneById(['id' => $article->getId()])->getPrixHt();
+            $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
+
+            return $this->render('type_art/show.html.twig', [
+                'type_art' => $typeArt,
+                'articles' => $articles,
+                'reduc' => $reduc,
+                'prix_ht_reduit' => $prixHtReduit,
+            ]);
+        }
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+        $prixTtc = $articleRepository->findOneById(['id' => $article->getId()])->getPrixTtc();
+        $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
+
         return $this->render('type_art/show.html.twig', [
             'type_art' => $typeArt,
+            'articles' => $articles,
+            'promo' => $promo,
+            'prix_ttc_reduit' => $prixTtcReduit,
         ]);
     }
 
