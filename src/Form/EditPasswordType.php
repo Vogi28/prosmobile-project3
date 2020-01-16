@@ -23,11 +23,11 @@ class EditPasswordType extends AbstractType
                     new UserPassword(
                         ['message' => 'Mot de passe incorrect']
                     ),
-                    ),
+                ),
                 'label' => 'Ancien mot de passe',
                 'required' => true,
                 'mapped' => false
-                
+
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -36,8 +36,10 @@ class EditPasswordType extends AbstractType
                 'required' => true,
                 'first_options' => ['label' => 'Nouveau mot de passe', 'attr'
                 => ['placeholder' => 'Entrez votre nouveau mot de passe']],
-                'second_options' => ['label' => 'Confirmer votre mot de passe',
-                'attr' => ['placeholder' => 'Confirmer mot de passe']],
+                'second_options' => [
+                    'label' => 'Nouveau mot de passe',
+                    'attr' => ['placeholder' => 'Confirmez votre nouveau mot de passe']
+                ],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -50,8 +52,7 @@ class EditPasswordType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

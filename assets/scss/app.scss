@@ -61,9 +61,19 @@ a {
     top: -7px;
 }
 
-.icon {
+.icon-sm {
+    width: 1em;
+    height: 1em;
+}
+
+.icon-md {
     width: 1.5em;
     height: 1.5em;
+}
+
+.icon-lg {
+    width: 2em;
+    height: 2em;
 }
 
 .carousel-item {

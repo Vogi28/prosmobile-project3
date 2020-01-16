@@ -21,12 +21,14 @@
 	{# add button #}
 	<div class="container-fluid mt-4">
 		<div class="row">
-			<a class="btn" href="{{ path('promo_new') }}" title="Ajouter">
-				<i data-fa-symbol="add" class="fas fa-plus text-secondary"></i>
-				<svg class="icon">
-					<use xlink:href="#add"></use>
-				</svg>
-			</a>
+			<button class="btn" title="Ajouter">
+				<a href="{{ path('promo_new') }}">
+					<i data-fa-symbol="add" class="fas fa-plus text-success"></i>
+					<svg class="icon-md">
+						<use xlink:href="#add"></use>
+					</svg>
+				</a>
+			</button>
 		</div>
 	</div>
 	{# discount list #}
@@ -34,7 +36,7 @@
 		<div class="row">
 			{% for promo in promos %}
 				{% if promo.photo is empty %}
-					{% set photo ='https://via.placeholder.com/800x200' %}
+					{% set photo ='' %}
 				{% else %}
 					{% set photo = promo.photo %}
 				{% endif %}
@@ -55,19 +57,21 @@
 							</p>
 							{# edit button #}
 							<div class="mt-4">
-								<a href="{{ path('promo_edit', {'id': promo.id}) }}" title="Modifier">
-									<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-									<svg class="icon">
-										<use xlink:href="#edit"></use>
-									</svg>
-								</a>
+								<button class="btn" title="Modifier">
+									<a href="{{ path('promo_edit', {'id': promo.id}) }}">
+										<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+										<svg class="icon-md">
+											<use xlink:href="#edit"></use>
+										</svg>
+									</a>
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			{% else %}
 				{# empty #}
-				<div class="">
+				<div>
 					Pas de promos trouvées
 				</div>
 			{% endfor %}

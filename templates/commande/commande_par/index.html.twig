@@ -3,47 +3,49 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-<!-- tree -->
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item">
 				<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
-					Profile
+					Mon profil
 				</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
-				Commandes
+				Mes commandes
 			</li>
 		</ol>
 	</nav>
-
-    <h1 class="text-center">Commandes</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>ClientID</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commande_par in commande_pars %}
-            <tr>
-                <td>{{ commande_par.id }}</td>
-                <td>{{ commande_par.particulier.id }}</td>
-                <td>
-                    <a href="{{ path('commande_show', {'id': commande_par.id}) }}">details</a>
-                    {# <a href="{{ path('commande_edit', {'id': commande_par.id}) }}">edit</a> #}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {# <p><a href="{{ path('commande_new', {'id': app.user.particulier.id}) }}">Create new</a></p> #}
-
+	{# title #}
+	<h1 class="text-center">Mes commandes</h1>
+	{# body #}
+	<table class="table mt-4">
+		<thead class="thead-dark">
+			<tr>
+				<th>Id</th>
+				<th>ClientID</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for commande_par in commande_pars %}
+				<tr>
+					<td>{{ commande_par.id }}</td>
+					<td>{{ commande_par.particulier.id }}</td>
+					<td>
+						<a href="{{ path('commande_show', {'id': commande_par.id}) }}">details</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="2">Aucune commande trouvée</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

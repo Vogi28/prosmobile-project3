@@ -1,4 +1,55 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container mt-4">
+	<div class="row">
+		{# first column #}
+		<div class="col-lg">
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.prenom, 'Prénom') }}
+				{{ form_widget(form.prenom) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.nom, 'Nom') }}
+				{{ form_widget(form.nom) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.telephone, 'Téléphone') }}
+				{{ form_widget(form.telephone) }}
+			</div>
+		</div>
+		{# second column #}
+		<div class="col-lg">
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.societe, 'Société') }}
+				{{ form_widget(form.societe) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.siret, 'Siret') }}
+				{{ form_widget(form.siret) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.adresse, 'Adresse') }}
+				{{ form_widget(form.adresse) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.codePostal, 'Code postal') }}
+				{{ form_widget(form.codePostal) }}
+			</div>
+			<div class="d-flex flex-column mt-2">
+				{{ form_label(form.ville, 'Ville') }}
+				{{ form_widget(form.ville) }}
+			</div>
+		</div>
+	</div>
+</div>
+{# save button #}
+<div class="container mt-4">
+	<div class="row d-flex justify-content-center">
+		<button class="btn" title="Sauvegarder">
+			<i data-fa-symbol="save" class="fas fa-save text-success"></i>
+			<svg class="icon-md">
+				<use xlink:href="#save"></use>
+			</svg>
+		</button>
+	</div>
+</div>
 {{ form_end(form) }}
