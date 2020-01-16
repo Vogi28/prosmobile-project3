@@ -1,5 +1,10 @@
-<form method="post" action="{{ path('admin_user_delete', {'id': particulier.user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('admin_user_delete', {'id': particulier.user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce profil?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ particulier.user.id) }}">
-    <button class="btn btn-danger">Delete</button>
+    <button class="btn" title="Supprimer">
+		<i data-fa-symbol="remove" class="fas fa-trash text-danger"></i>
+		<svg class="icon-md">
+			<use xlink:href="#remove"></use>
+		</svg>
+	</button>
 </form>

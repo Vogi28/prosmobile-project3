@@ -4,7 +4,7 @@
 	<div class="row">
 		{% for art_comp in art_comps %}
 			{% if art_comp.photo is empty %}
-				{% set photo ='https://via.placeholder.com/150x200' %}
+				{% set photo ='' %}
 			{% else %}
 				{% set photo = art_comp.photo %}
 			{% endif %}
@@ -12,44 +12,57 @@
 				<div class="media mt-2">
 					<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
 					<div class="media-body">
-						<h5 class="mt-2">{{ art_comp.nom }}</h5>
+						<h5 class="mt-2">
+							{{ art_comp.nom }}</h5>
 						{# administrator part #}
-						{% if  is_granted('ROLE_ADMIN') %}
-							<p class="mt-4">Référence :
+						{% if is_granted('ROLE_ADMIN') %}
+							<p class="mt-4">
+								Référence :
 								{{ art_comp.reference }}
 								- Stock restant :
-								{{ art_comp.stock }}</p>
+								{{ art_comp.stock }}
+							</p>
 						{% endif %}
-						<p class="card-text">{{ art_comp.description }}</p>
+						<p class="card-text">
+							{{ art_comp.description }}
+						</p>
 						{% if is_granted('ROLE_PARTICULIER') %}
-							<p class="mt-4">{{ art_comp.prixTtc }}
-								€</p>
+							<p class="mt-4">
+								{{ art_comp.prixTtc }}
+								€
+							</p>
 						{% else %}
-							<p class="mt-4">{{ art_comp.prixHt }}
-								€ HT</p>
+							<p class="mt-4">
+								{{ art_comp.prixHt }}
+								€ HT
+							</p>
 						{% endif %}
 						{# buttons #}
 						<div class="container">
 							<div class="row">
 								{# show product button #}
 								<div class="col-4">
-									<a href="{{ path('article_show', {'id2': art_comp.id, 'id': marque.id, 'slug': marque.nom }) }}" title="Afficher">
-										<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
-										<svg class="icon">
-											<use xlink:href="#show"></use>
-										</svg>
-									</a>
+									<button class="btn" title="Afficher">
+										<a href="{{ path('article_show', {'id2': art_comp.id, 'id': marque.id, 'slug': marque.nom }) }}">
+											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+											<svg class="icon-md">
+												<use xlink:href="#show"></use>
+											</svg>
+										</a>
+									</button>
 								</div>
 								{# administrator part #}
 								{% if is_granted('ROLE_ADMIN') %}
 									{# edit button #}
 									<div class="col-4">
-										<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
-											<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-											<svg class="icon">
-												<use xlink:href="#edit"></use>
-											</svg>
-										</a>
+										<button class="btn" title="Modifier">
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
+												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+												<svg class="icon-md">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</a>
+										</button>
 									</div>
 								{% endif %}
 							</div>
@@ -58,7 +71,7 @@
 				</div>
 			</div>
 		{% else %}
-			<div class="">
+			<div>
 				Aucun article compatible enregistré dans cette liste
 			</div>
 		{% endfor %}

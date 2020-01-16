@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-	<!-- carousel -->
+	{# carousel #}
 	<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
-			<!-- first slide -->
+			{# first slide #}
 			<div class="carousel-item active">
 				<img src="https://assetstools.cosentino.com/api/v1/bynder/color/SL6/tablahd/SL6-fullslab.jpg?w=1920&h=1080&fit=crop&auto=compress,format" class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
@@ -16,7 +16,7 @@
 			</div>
 			{% for promo in promos %}
 				{% if promo.photo is empty %}
-					{% set photo ='https://via.placeholder.com/150x200' %}
+					{% set photo ='' %}
 				{% else %}
 					{% set photo = promo.photo %}
 				{% endif %}
@@ -24,8 +24,10 @@
 					<img src="{{ photo }}" class="d-block w-100" alt="...">
 					<div class="carousel-caption d-none d-md-block">
 						<h5>{{ promo.nom }}</h5>
-						<p>{{ promo.pourcentage }}
-							%</p>
+						<p>
+							{{ promo.pourcentage }}
+							%
+						</p>
 					</div>
 				</div>
 			{% endfor %}

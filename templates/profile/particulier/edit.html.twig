@@ -3,46 +3,47 @@
 {% block title %}PROSmobile{% endblock %}
 
 {% block body %}
-<!-- tree -->
-{% if is_granted('ROLE_ADMIN') %}
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
-			<li class="breadcrumb-item">
-				<a href="{{ path('admin_index') }}">
-					Dashboard
-				</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="{{ path('particulier_index') }}">
-					Index particulier
-				</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="{{ path('particulier_show', {'id': particulier.id}) }}">
-				Profile
-                </a>
-			</li>
-{% elseif is_granted('ROLE_PARTICULIER') %}
-    <nav aria-label="breadcrumb">
-		<ol class="breadcrumb bg-white rounded-0">
-			<li class="breadcrumb-item">
-				<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
-					Profile
-				</a>
-			</li>
-{% endif %}
-            <li class="breadcrumb-item active" aria-current="page">
-				Edit
+			{% if is_granted('ROLE_ADMIN') %}
+				<li class="breadcrumb-item">
+					<a href="{{ path('admin_index') }}">
+						Dashboard
+					</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ path('particulier_index') }}">
+						Comptes particuliers
+					</a>
+				</li>
+			{% else %}
+				<li class="breadcrumb-item">
+					<a href="{{ path('home') }}">
+						Accueil
+					</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ path('particulier_profile', { 'id' : app.user.id }) }}">
+						Mon profil
+					</a>
+				</li>
+			{% endif %}
+			<li class="breadcrumb-item active" aria-current="page">
+				Modifier le profil
 			</li>
 		</ol>
 	</nav>
-
-    <h1 class="text-center">Editer informations</h1>
-    
-    {{ include('profile/particulier/_form.html.twig', {'button_label': 'Update'}) }}
-
-    {% if is_granted('ROLE_ADMIN') %}
-        {{ include('profile/particulier/_delete_form.html.twig') }}
-    {% endif %}
-    
+	{# title #}
+	<h1 class="text-center">Modification des informations</h1>
+	{# body #}
+	<div class="d-flex justify-content-center">
+		{{ include('profile/particulier/_form.html.twig', {'button_label': 'Update'}) }}
+	</div>
+	{# admin part #}
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="d-flex justify-content-center">
+			{{ include('profile/particulier/_delete_form.html.twig') }}
+		</div>
+	{% endif %}
 {% endblock %}

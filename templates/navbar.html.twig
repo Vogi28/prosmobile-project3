@@ -10,23 +10,31 @@
 		{# prosmobile facebook #}
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="btn" href="https://fr-fr.facebook.com/prosmbile" target="_blank" role="button" title="PROSMobile Facebook">
-					<i data-fa-symbol="facebook" class="fab fa-facebook-f text-success"></i>
-					<svg class="icon">
-						<use xlink:href="#facebook"></use>
-					</svg>
-				</a>
+				<button class="btn" title="PROSMobile Facebook">
+					<a href="https://fr-fr.facebook.com/prosmbile" target="_blank">
+						<i data-fa-symbol="facebook" class="fab fa-facebook-f text-success"></i>
+						<svg class="icon-md">
+							<use xlink:href="#facebook"></use>
+						</svg>
+					</a>
+				</button>
 			</li>
 		</ul>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item dropdown mr-2">
-				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Articles
 				</a>
 				<div class="dropdown-menu art mt-3" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="{{ path('article_sell_brand')}}">Téléphones</a>
-					<a class="dropdown-item" href="{{ path('article_sell_component')}}">Composants</a>
-					<a class="dropdown-item" href="{{ path('article_sell_accessories')}}">Accessoires</a>
+					<a class="dropdown-item" href="{{ path('article_sell_brand')}}">
+						Téléphones
+					</a>
+					<a class="dropdown-item" href="{{ path('article_sell_component')}}">
+						Composants
+					</a>
+					<a class="dropdown-item" href="{{ path('article_sell_accessories')}}">
+						Accessoires
+					</a>
 				</div>
 			</li>
 			<li class="nav-item mr-4">
@@ -60,7 +68,7 @@
 						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Mon compte
 						</a>
-						<span class="" style="font-size:0.7em;">
+						<span style="font-size:0.7em;">
 							Identifiez-vous
 						</span>
 					{% endif %}
@@ -73,25 +81,29 @@
 									<div class="row">
 										<div class="col-4">
 											<i data-fa-symbol="user" class="fas fa-user text-success"></i>
-											<svg class="icon">
+											<svg class="icon-md">
 												<use xlink:href="#user"></use>
 											</svg>
 										</div>
 										<div class="col-4">
-											<a class="btn p-0" href="{{ path('particulier_profile', { 'id': app.user.id }) }}" role="button" title="Profil">
-												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#edit"></use>
-												</svg>
-											</a>
+											<button class="btn p-0" title="Profil">
+												<a href="{{ path('particulier_profile', { 'id': app.user.id }) }}">
+													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</a>
+											</button>
 										</div>
 										<div class="col-4">
-											<a class="btn p-0" href="{{ path('logout') }}" role="button" title="Se déconnecter">
-												<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#logout"></use>
-												</svg>
-											</a>
+											<button class="btn p-0" title="Se déconnecter">
+												<a href="{{ path('logout') }}">
+													<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#logout"></use>
+													</svg>
+												</a>
+											</button>
 										</div>
 									</div>
 								</div>
@@ -102,25 +114,29 @@
 									<div class="row">
 										<div class="col-4">
 											<i data-fa-symbol="pro-user" class="fas fa-user-tie text-success"></i>
-											<svg class="icon">
+											<svg class="icon-md">
 												<use xlink:href="#pro-user"></use>
 											</svg>
 										</div>
 										<div class="col-4">
-											<a class="btn p-0" href="{{ path('pro_profile', { 'id' : app.user.id }) }}" role="button" title="Profil">
-												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#edit"></use>
-												</svg>
-											</a>
+											<button class="btn p-0" title="Profil">
+												<a href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
+													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</a>
+											</button>
 										</div>
 										<div class="col-4">
-											<a class="btn p-0" href="{{ path('logout') }}" role="button" title="Se déconnecter">
-												<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#logout"></use>
-												</svg>
-											</a>
+											<button class="btn p-0" title="Se déconnecter">
+												<a href="{{ path('logout') }}">
+													<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#logout"></use>
+													</svg>
+												</a>
+											</button>
 										</div>
 									</div>
 								</div>
@@ -131,35 +147,41 @@
 									<div class="row">
 										<div class="col-4">
 											<i data-fa-symbol="admin-user" class="fas fa-user-tie text-success"></i>
-											<svg class="icon">
+											<svg class="icon-md">
 												<use xlink:href="#admin-user"></use>
 											</svg>
 										</div>
 										<div class="col-4">
-											<a class="btn p-0" href="{{ path('admin_index', { 'id' : app.user.id }) }}" role="button" title="Dashboard">
-												<i data-fa-symbol="dashboard" class="fas fa-chart-line text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#dashboard"></use>
-												</svg>
-											</a>
+											<button class="btn p-0" title="Dashboard">
+												<a href="{{ path('admin_index', { 'id' : app.user.id }) }}">
+													<i data-fa-symbol="dashboard" class="fas fa-chart-line text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#dashboard"></use>
+													</svg>
+												</a>
+											</button>
 										</div>
 										<div class="col-4">
-											<a class="btn p-0" href="{{ path('logout') }}" role="button" title="Se déconnecter">
-												<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
-												<svg class="icon">
-													<use xlink:href="#logout"></use>
-												</svg>
-											</a>
+											<button class="btn p-0" title="Se déconnecter">
+												<a href="{{ path('logout') }}">
+													<i data-fa-symbol="logout" class="fas fa-sign-out-alt text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#logout"></use>
+													</svg>
+												</a>
+											</button>
 										</div>
 									</div>
 								</div>
 							{% endif %}
 						{% else %}
 							{# login #}
-							<div class="nav-item active d-flex justify-content-center mt-2">
-								<a class="btn btn-success" href="{{ path('login') }}" role="button">
-									Identifiez-vous
-								</a>
+							<div class="d-flex justify-content-center mt-2">
+								<button class="btn btn-success">
+									<a class="text-decoration-none text-white" href="{{ path('login') }}">
+										Identifiez-vous
+									</a>
+								</button>
 							</div>
 							{# register #}
 							{% if not app.user %}
@@ -182,7 +204,7 @@
 			<li class="nav-item">
 				<div class="p-2 ml-5 bg-success text-white rounded">
 					<i data-fa-symbol="phone" class="fas fa-mobile-alt"></i>
-					<svg class="icon">
+					<svg class="icon-md">
 						<use xlink:href="#phone"></use>
 					</svg>
 					<span>
