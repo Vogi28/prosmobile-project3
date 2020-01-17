@@ -29,7 +29,7 @@ class Spec
     private $valeur;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="spec")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="spec", cascade={"persist"})
      */
     private $articles;
 

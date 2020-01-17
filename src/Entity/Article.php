@@ -60,7 +60,7 @@ class Article
     private $typeArt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Spec", inversedBy="articles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Spec", inversedBy="articles", cascade={"persist"})
      */
     private $spec;
 
