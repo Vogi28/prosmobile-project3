@@ -88,3 +88,7 @@ input, input:focus{
 .nav-pills .nav-link.active {
     background-color: #007E33 !important;
 }
+
+label {
+    display: flex;
+}

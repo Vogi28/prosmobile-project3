@@ -2,8 +2,8 @@
 	<input type="hidden" name="_method" value="DELETE">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
 	<button class="btn" title="Supprimer">
-		<i data-fa-symbol="remove" class="fas fa-trash text-secondary"></i>
-		<svg class="icon">
+		<i data-fa-symbol="remove" class="fas fa-trash text-danger"></i>
+		<svg class="icon-md">
 			<use xlink:href="#remove"></use>
 		</svg>
 	</button>
