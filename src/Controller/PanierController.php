@@ -18,9 +18,10 @@ class PanierController extends AbstractController
     public function index(SessionInterface $session, ArticleRepository $articleRepository)
     {
         $basket = $session->get('panier', []);
+        $promo = $session->get('promo', 0);
 
         $basketData = [];
-
+        
         foreach ($basket as $key => $qty) {
             $basketData[] = [
             'article' => $articleRepository->find($key),
@@ -29,25 +30,37 @@ class PanierController extends AbstractController
         }
 
         $total = 0;
-
-        foreach ($basketData as $items) {
-            $total += $items['article']->getPrixTtc() * $items['quantity'];
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == 'ROLE_PRO') {
+            foreach ($basketData as $items) {
+                $total += $items['article']->getPrixHt() * $items['quantity'];
+            }
+        } else {
+            foreach ($basketData as $items) {
+                $total += $items['article']->getPrixTtc() * $items['quantity'];
+            }
         }
+        
+
+        $total = $total * (1 - $promo / 100);
 
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
             'panier' => $basketData,
-            'total' => $total
+            'total' => $total,
+            'promo' => $promo
         ]);
     }
 
     /**
-     * @Route("/{id}", name="add")
+     * @Route("/add/{id}/{promo}", name="add")
      */
-    public function add($id, SessionInterface $session)
+    public function add($id, $promo, SessionInterface $session)
     {
         $basket = $session->get('panier', []);
+        $promotion = $session->get('promo', 0);
 
+        $promotion = $promo;
+        
         if (!empty($basket[$id])) {
             $basket[$id]++;
         } else {
@@ -55,7 +68,8 @@ class PanierController extends AbstractController
         }
         
         $session->set('panier', $basket);
-
+        $session->set('promo', $promotion);
+        
         $this->addFlash('success', 'Ajout au panier réussi');
 
         return $this->redirectToRoute('panier_index');
@@ -66,12 +80,13 @@ class PanierController extends AbstractController
      */
     public function delete($id, SessionInterface $session)
     {
+
         $basket = $session->get('panier', []);
 
         if (!empty($basket[$id])) {
             unset($basket[$id]);
         }
-
+        
         $session->set('panier', $basket);
 
         $this->addFlash('success', 'Suppression réussi');

@@ -11,6 +11,15 @@
     {% else %}
         <table class="table">
             <thead>
+            {% if is_granted('ROLE_PRO') %}
+                <tr>
+                    <th>Article</th>
+                    <th>HTT</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            {% else %}
                 <tr>
                     <th>Article</th>
                     <th>HTT</th>
@@ -19,9 +28,18 @@
                     <th>Total</th>
                     <th></th>
                 </tr>
+            {% endif %}
             </thead>
             <tbody>
              {% for item in panier %}
+                {% if is_granted('ROLE_PRO') %}
+                <tr>
+                     <td>{{ item.article.nom }}</td>
+                     <td>{{ item.article.prixHT }}</td>
+                     <td>{{ item.quantity }}</td>
+                     <td>{{ item.article.prixTTC * item.quantity }}</td>
+                     <td>
+                     {% else %}
                  <tr>
                      <td>{{ item.article.nom }}</td>
                      <td>{{ item.article.prixHT }}</td>
@@ -29,8 +47,9 @@
                      <td>{{ item.quantity }}</td>
                      <td>{{ item.article.prixTTC * item.quantity }}</td>
                      <td>
+                     {% endif %}
                         <div class="row">
-                            <a href="{{ path('panier_add', {'id': item.article.id}) }}" class="btn btn-success btn-sm mr-1">
+                            <a href="{{ path('panier_add', {'id': item.article.id, 'promo': promo}) }}" class="btn btn-success btn-sm mr-1">
                                 <i class="fas fa-plus"></i>
                             </a>
                             <a href="{{ path('panier_delete', {'id': item.article.id}) }}" class="btn btn-danger btn-sm mr-1">
@@ -42,8 +61,23 @@
              {% endfor %}
             </tbody>
             <tfoot>
+            {% if promo is defined and promo > 0 %}
                 <tr>
+                {% if is_granted('ROLE_PRO') %}
+                    <td colspan="3" class="text-right">Réduction :</td>
+                {% else %}
+                    <td colspan="4" class="text-right">Réduction :</td>
+                {% endif %}
+                    <td> {{ promo }}</td>
+                    <td></td>
+                </tr>
+                {% endif %}
+                <tr>
+                {% if is_granted('ROLE_PRO') %}
+                    <td colspan="3" class="text-right">Total :</td>
+                {% else %}
                     <td colspan="4" class="text-right">Total :</td>
+                {% endif %}
                     <td> {{ total }}</td>
                     <td></td>
                 </tr>
@@ -56,7 +90,7 @@
 {% block footer %}
     <footer>
     <div class="text-right">
-        <button class="btn btn-success">Checkout</button>
+        <button class="btn btn-success btn-lg">Checkout</button>
     </div>
     </footer>
 {% endblock %}
