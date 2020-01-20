@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\EditPasswordType;
 use App\Service\MailerService;
-use Doctrine\ORM\EntityManager;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -107,7 +106,8 @@ class SecurityController extends AbstractController
         User $user,
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $emi
+        EntityManagerInterface $emi,
+        MailerService $mailer
     ) {
         
         $form = $this->createForm(EditPasswordType::class, $user);
@@ -121,6 +121,8 @@ class SecurityController extends AbstractController
 
             $emi->persist($user);
             $emi->flush();
+
+            $mailer->sendMdpNotif($user->getEmail());
 
             $this->addFlash('success', 'Changement de mot de passe réussi');
             

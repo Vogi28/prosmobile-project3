@@ -90,11 +90,9 @@
 {% block footer %}
     <footer>
     <div class="text-right">
-    {# {% if app.user is null %} #}
+    {% if panier is not empty %}
         <a href="{{ path('panier_validation')}}" class="btn btn-success btn-lg">Checkout</a>
-    {# {% else %} #}
-        {# <a href="{{ path('home') }}" class="btn btn-success btn-lg">Checkout</a> #}
-    {# {% endif %} #}
+    {% endif %}
     </div>
     </footer>
 {% endblock %}
