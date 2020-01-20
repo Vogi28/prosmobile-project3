@@ -17,18 +17,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class SellProcessController extends AbstractController
 {
     /**
+     * @Route("/telephones", name="phone_brands", methods={"GET"})
+     */
+    public function phones(
+        ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository
+    ): Response {
+        $phones = $articleRepository->findByTypeArt('1');
+        return $this->render('sell_process/brandIndex.html.twig', [
+            'phones' => $phones,
+            'brands' => $marqueRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/telephones/{slug<[a-zA-z]+>}", name="phones")
      */
-    public function phonesIndex(
+    public function phonesByBrand(
         string $slug,
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository
     ): Response {
         $marqueId = $marqueRepository->findOneByNom($slug)->getId();
         $phones = $articleRepository->findByTypeArtBrand('1', $marqueId);
-        return $this->render('sell_process/brandIndex.html.twig', [
+        return $this->render('sell_process/articleSelection.html.twig', [
             'controller_name' => 'SellProcessController',
-            'brands' => $marqueRepository->findAll(),
             'brand' => $slug,
             'phones' => $phones
         ]);
