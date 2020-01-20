@@ -60,8 +60,7 @@
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
 									<p class="card-text">
-										{# TODO en css : PRIX TTC D'ORIGINE BARRÉ #}
-										{{ article.prixTtc }}
+										<del>{{ article.prixTtc }}</del>
 										€
 									</p>
 									<p class="card-text">
@@ -78,8 +77,7 @@
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
 									<p class="card-text">
-										{# TODO en css : PRIX HT D'ORIGINE BARRÉ #}
-										{{ article.prixHt }}
+										<del>{{ article.prixHt }}</del>
 										€
 									</p>
 									<p class="card-text">
@@ -92,7 +90,7 @@
 										€ HT
 									</p>
 								{% endif %}
-							{# {% else %}
+							{#{% else %}
 								<p class="card-text">
 									{{ article.prixHt }}
 									€ HT
@@ -100,7 +98,7 @@
 								<p class="card-text">
 									{{ article.prixTtc }}
 									€ TTC
-								</p> #}
+								</p>#}
 							{% endif %}
 							{# buttons #}
 							{# add to basket button #}

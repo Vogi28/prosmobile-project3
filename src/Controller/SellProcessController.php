@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Entity\TypeArt;
+use App\Repository\ArticleRepository;
 use App\Repository\MarqueRepository;
+use App\Repository\TypeArtRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -12,18 +17,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class SellProcessController extends AbstractController
 {
     /**
-     * @Route("/marque", name="brand")
+     * @Route("/telephones/{slug<[a-zA-z]+>}", name="phones")
      */
-    public function brandsIndex(MarqueRepository $marqueRepository)
-    {
+    public function phonesIndex(
+        string $slug,
+        ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository
+    ): Response {
+        $marqueId = $marqueRepository->findOneByNom($slug)->getId();
+        $phones = $articleRepository->findByTypeArtBrand('1', $marqueId);
         return $this->render('sell_process/brandIndex.html.twig', [
             'controller_name' => 'SellProcessController',
-            'brands' => $marqueRepository->findAll()
+            'brands' => $marqueRepository->findAll(),
+            'brand' => $slug,
+            'phones' => $phones
         ]);
     }
 
     /**
-     * @Route("/composants", name="component")
+     * @Route("/composants", name="components")
      */
     public function componentsIndex()
     {
@@ -43,9 +55,9 @@ class SellProcessController extends AbstractController
     }
 
     /**
-     * @Route("/reparation", name="repair")
+     * @Route("/reparation", name="repairs")
      */
-    public function repairIndex()
+    public function repairsIndex()
     {
         return $this->render('sell_process/repairIndex.html.twig', [
             'controller_name' => 'SellProcessController',
