@@ -10,8 +10,6 @@ use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
 use App\Repository\DetailCdePartRepository;
 use App\Repository\DetailCdeProRepository;
-use App\Repository\ParticulierRepository;
-use App\Repository\ProRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,6 +98,7 @@ class CommandeController extends AbstractController
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $cdePar = $cdePar->findOneById($id);
+            dd($dtlCdePartRepository->findByCommandePar($cdePar->getId()));
             return $this->render('commande/commande_par/show.html.twig', [
             'commande_par' => $cdePar,
             'details' => $dtlCdePartRepository->findByCommandePar($cdePar->getId())

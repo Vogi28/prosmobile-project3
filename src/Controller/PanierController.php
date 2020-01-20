@@ -2,10 +2,19 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\CommandePar;
+use App\Entity\CommandePro;
+use App\Entity\DetailCdePro;
 use App\Service\CartService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\DetailCdePart;
+use App\Service\MailerService;
+use App\Repository\PromoRepository;
+use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/panier", name="panier_")
@@ -32,7 +41,7 @@ class PanierController extends AbstractController
     /**
      * @Route("/validation", name="validation")
      */
-    public function reservation(SessionInterface $session, CartService $cartService)
+    public function validaton(SessionInterface $session, CartService $cartService)
     {
         return $this->render('panier/validation.html.twig', [
             'controller_name' => 'PanierController',
@@ -45,6 +54,79 @@ class PanierController extends AbstractController
             'promo' => $session->get('promo', 0)
 
         ]);
+    }
+
+    /**
+     * @Route("/reservation", name="reservation")CartService $cartService
+     */
+    public function reza(
+        SessionInterface $session,
+        ArticleRepository $articleRepository,
+        PromoRepository $promoRepository,
+        EntityManagerInterface $emi,
+        MailerService $mailer
+    ) {
+        $panier = $session->get('panier', []);
+
+        $date = new DateTime('now');
+        if ($this->getUser()->getRoles()[0] == 'ROLE_PARTICULIER') {
+            $cdePar = new CommandePar();
+            $dtlCdePar = new DetailCdePart();
+            
+            $cdePar->setParticulier($this->getUser()->getParticulier());
+            $cdePar->addPromo($promoRepository->findOneByDate($date));
+            $emi->persist($cdePar);
+            
+            $articles = [];
+            foreach ($panier as $id => $qty) {
+                $articles [] = $articleRepository->findOneById($id);
+                foreach ($articles as $article) {
+                    $dtlCdePar->setNomArt($article->getNom());
+                    $dtlCdePar->setQuantite($qty);
+                    $dtlCdePar->setPrixHt($article->getPrixHt());
+                    $dtlCdePar->setPrixTtc($article->getPrixTtc());
+                    $dtlCdePar->setPromo($cdePar->getPromo()[0]->getPourcentage());
+                    $dtlCdePar->setTotal($qty * ($article->getPrixTtc() * (
+                        1 - (($cdePar->getPromo()[0]->getPourcentage()) / 100))));
+                    $dtlCdePar->addArticle($article);
+                    $dtlCdePar->setCommandePar($cdePar);
+                    
+                    $emi->persist($dtlCdePar);
+                }
+            }
+        } elseif ($this->getUser()->getRoles()[0] == 'ROLE_PRO') {
+            $cdePro = new CommandePro();
+            $dtlCdePro = new DetailCdePro();
+            
+            $cdePro->setPro($this->getUser()->getPro());
+            $emi->persist($cdePro);
+            
+            $articles = [];
+            foreach ($panier as $id => $qty) {
+                $articles [] = $articleRepository->findOneById($id);
+                foreach ($articles as $article) {
+                    $dtlCdePro->setNomArt($article->getNom());
+                    $dtlCdePro->setQuantite($qty);
+                    $dtlCdePro->setPrixHt($article->getPrixHt());
+                    $dtlCdePro->setRemise($cdePro->getPro->getRemise());
+                    $dtlCdePro->setTotal($qty * ($article->getPrixTtc() * (
+                        1 - (($cdePro->getPro()->getPourcentRemise()) / 100))));
+                    $dtlCdePro->addArticle($article);
+                    $dtlCdePro->setCommandePro($cdePro);
+                    
+                    $emi->persist($dtlCdePro);
+                }
+            }
+        }
+        
+
+        // $emi->flush();
+        dd($articles);
+
+        $mailer->sendReza($this->getUser()->getEmail(), $articles);
+        dd($articles);
+
+        // return $this->render();
     }
 
     /**
