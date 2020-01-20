@@ -21,8 +21,10 @@
 			</li>
 		</ol>
 	</nav>
-	{# body#}
-	<h1 class="text-center">Ajouter une promotion</h1>
+	{# title#}
+	<h1>Ajouter une promotion</h1>
 	{# include promo form #}
-	{{ include('promo/_form.html.twig') }}
+	<div>
+		{{ include('promo/_form.html.twig') }}
+	</div>
 {% endblock %}

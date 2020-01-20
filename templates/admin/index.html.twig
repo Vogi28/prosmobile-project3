@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dasboard{% endblock %}
+{% block title %}Dasboard
+{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -12,46 +13,57 @@
 		</ol>
 	</nav>
 	{# dashboard #}
-	<h1 class="text-center">Dashboard</h1>
+	<h1>Dashboard</h1>
 	{# body #}
-	<div class="container mt-4">
-		<div class="row">
+	<div class="container-fluid my-5">
+		<div
+			class="row">
 			{# dashboard nav #}
-			<div class="col-1 d-flex">
-				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			<div class="col-1 d-flex justify-content-center">
+				<div
+					class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					{# accounts tab icon #}
-					<a class="nav-link mb-4" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true" title="Comptes utilisateurs">
-						<i data-fa-symbol="user" class="fas fa-user text-success"></i>
-						<svg class="icon-lg">
-							<use xlink:href="#user"></use>
-						</svg>
+					<a class="nav-link mb-4" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true">
+						<div class="account-tab" title="Comptes utilisateurs">
+							<i data-fa-symbol="account" class="fas fa-user"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#account"></use>
+							</svg>
+						</div>
 					</a>
 					{# products tab icon #}
-					<a class="nav-link mb-4" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false" title="Articles">
-						<i data-fa-symbol="articles" class="fas fa-box text-success"></i>
-						<svg class="icon-lg">
-							<use xlink:href="#articles"></use>
-						</svg>
+					<a class="nav-link mb-4" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false">
+						<div class="user-tab" title="Articles">
+							<i data-fa-symbol="product" class="fas fa-box"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#product"></use>
+							</svg>
+						</div>
 					</a>
 					{# orders tab icon #}
-					<a class="nav-link mb-4" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false" title="Commandes">
-						<i data-fa-symbol="order" class="fas fas fa-box-open text-success"></i>
-						<svg class="icon-lg">
-							<use xlink:href="#order"></use>
-						</svg>
+					<a class="nav-link mb-4" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">
+						<div class="order-tab" title="Commandes">
+							<i data-fa-symbol="order" class="fas fas fa-box-open"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#order"></use>
+							</svg>
+						</div>
 					</a>
 					{# discounts tab icon #}
-					<a class="nav-link" id="v-pills-discount-tab" data-toggle="pill" href="#v-pills-discount" role="tab" aria-controls="v-pills-discount" aria-selected="false" title="Promotions">
-						<i data-fa-symbol="discount" class="fas fas fa-percent text-success"></i>
-						<svg class="icon-lg">
-							<use xlink:href="#discount"></use>
-						</svg>
+					<a class="nav-link" id="v-pills-discount-tab" data-toggle="pill" href="#v-pills-discount" role="tab" aria-controls="v-pills-discount" aria-selected="false">
+						<div class="discount-tab" title="Promotions">
+							<i data-fa-symbol="discount" class="fas fas fa-percent"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#discount"></use>
+							</svg>
+						</div>
 					</a>
 				</div>
 			</div>
 			{# tabs menu #}
-			<div class="col-11 d-flex">
-				<div class="tab-content" id="v-pills-tabContent">
+			<div class="col-11 d-flex align-items-center">
+				<div
+					class="tab-content" id="v-pills-tabContent">
 					{# accounts menu #}
 					<div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
 						<div class="container">
