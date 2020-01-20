@@ -19,17 +19,17 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-                <a href="{{ path('article_sell_brand') }}">
+                <a href="{{ path('article_sell_phone_brands') }}">
 				Téléphones
                 </a>
 			</li>
             <li class="breadcrumb-item active" aria-current="page">
-				{{ marque.nom }}
+				{{ brand }}
 			</li>
 		</ol>
 	</nav>
 	{# body #}
-	<h1 class="text-center">Tous les articles {{ marque.nom }}</h1>
+	<h1 class="text-center">Tous les articles {{ brand }}</h1>
 	{# administrator part #}
 	{# add button #}
 	{% if is_granted('ROLE_ADMIN') %}
@@ -88,7 +88,7 @@
 									{# show product button #}
 									<div class="col-4">
 										<a href="{{ path('article_show', {'id': marque.id,
-										'id2': article.id , 'slug': marque.nom }) }}" title="Afficher">
+										'id2': article.id , 'slug': brand }) }}" title="Afficher">
 											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
 											<svg class="icon-md">
 												<use xlink:href="#show"></use>

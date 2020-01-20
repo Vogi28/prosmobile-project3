@@ -31,7 +31,7 @@ class SellProcessController extends AbstractController
     }
 
     /**
-     * @Route("/telephones/{slug<[a-zA-z]+>}", name="phones")
+     * @Route("/telephones/{slug<[a-zA-z]+>}", name="phones_by_brand")
      */
     public function phonesByBrand(
         string $slug,
@@ -39,11 +39,12 @@ class SellProcessController extends AbstractController
         MarqueRepository $marqueRepository
     ): Response {
         $marqueId = $marqueRepository->findOneByNom($slug)->getId();
-        $phones = $articleRepository->findByTypeArtBrand('1', $marqueId);
+        $articles = $articleRepository->findByTypeArtBrand('1', $marqueId);
         return $this->render('sell_process/articleSelection.html.twig', [
             'controller_name' => 'SellProcessController',
+            'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
-            'phones' => $phones
+            'articles' => $articles
         ]);
     }
 

@@ -33,7 +33,7 @@
 
 	{% for brand in brands %}
 		{% if phones is defined and not null %}
-		<a href="{{ path('article_sell_phone_brands', {'id': brand.id}) }}"><img src="{{ brand.image }}" alt="{{ brand.nom }}"></a>
+		<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}"><img src="{{ brand.image }}" alt="{{ brand.nom }}"></a>
 		{% endif %}
 	{% endfor %}
 
