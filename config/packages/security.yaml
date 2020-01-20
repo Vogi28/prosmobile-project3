@@ -44,3 +44,4 @@ security:
         - { path: ^/particulier/profile, roles: ROLE_PARTICULIER }
         - { path: ^/particulier/[0-9]+/edit, roles: [ROLE_ADMIN, ROLE_PARTICULIER] }
         - { path: ^/particulier, roles: ROLE_ADMIN }
+        - { path: ^/panier/validation, roles: [ROLE_ADMIN, ROLE_PARTICULIER, ROLE_PRO] }
