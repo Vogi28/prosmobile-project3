@@ -4,11 +4,35 @@
 
 {% block body %}
 <div class="">
-    <h1>Votre panier</h1>
-
-    {% if panier is empty %}
-        <p>Votre panier est vide</p>
-    {% else %}
+    <h1>Recap</h1>
+{# user information #}
+			{% if is_granted('ROLE_PRO') %}
+				<div class="text-center">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">{{ app.user.pro.prenom }} {{ app.user.pro.nom }}</li>
+						<li class="list-group-item">{{ app.user.pro.adresse }}</li>
+						<li class="list-group-item">{{ app.user.pro.societe }}</li>
+						<li class="list-group-item">{{ app.user.pro.telephone }}</li>
+						<li class="list-group-item">{{ app.user.email }}</li>
+						<li class="list-group-item">{{ app.user.pro.siret }}</li>
+					</ul>
+				</div>
+            {% elseif is_granted('ROLE_PARTICULIER') %}
+				<div class="text-center">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">{{ app.user.particulier.prenom }} 
+                        {{ app.user.particulier.nom }}</li>
+						<li class="list-group-item">{{ app.user.particulier.adresse }}</li>
+						<li class="list-group-item">{{ app.user.particulier.codePostal }} 
+                        {{ app.user.particulier.ville }}</li>
+						<li class="list-group-item">{{ app.user.particulier.telephone }}</li>
+						<li class="list-group-item">{{ app.user.email }}</li>
+					</ul>
+				</div>
+			{% endif %}
+    
+    {# Commandes informations #}
+    <h2>Votre commande</h2>
         <table class="table">
             <thead>
             {% if is_granted('ROLE_PRO') %}
@@ -46,17 +70,7 @@
                      <td>{{ item.article.prixTTC }}</td>
                      <td>{{ item.quantity }}</td>
                      <td>{{ item.article.prixTTC * item.quantity }}</td>
-                     <td>
                      {% endif %}
-                        <div class="row">
-                            <a href="{{ path('panier_add', {'id': item.article.id, 'promo': promo}) }}" class="btn btn-success btn-sm mr-1">
-                                <i class="fas fa-plus"></i>
-                            </a>
-                            <a href="{{ path('panier_delete', {'id': item.article.id}) }}" class="btn btn-danger btn-sm mr-1">
-                                <i class="fas fa-trash"></i>
-                            </a> 
-                        </div>
-                     </td>
                  </tr>
              {% endfor %}
             </tbody>
@@ -71,7 +85,7 @@
                     <td> {{ promo }}</td>
                     <td></td>
                 </tr>
-                {% endif %}
+            {% endif %}
                 <tr>
                 {% if is_granted('ROLE_PRO') %}
                     <td colspan="3" class="text-right">Total :</td>
@@ -83,18 +97,12 @@
                 </tr>
             </tfoot>
         </table>
-    {% endif %}
-
 </div>
 {% endblock %}
 {% block footer %}
     <footer>
     <div class="text-right">
-    {# {% if app.user is null %} #}
-        <a href="{{ path('panier_validation')}}" class="btn btn-success btn-lg">Checkout</a>
-    {# {% else %} #}
-        {# <a href="{{ path('home') }}" class="btn btn-success btn-lg">Checkout</a> #}
-    {# {% endif %} #}
+        <a href="{{ path('home') }}" class="btn btn-success btn-lg">Valider la reservation</a>
     </div>
     </footer>
 {% endblock %}
