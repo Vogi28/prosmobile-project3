@@ -3,6 +3,9 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
+{# <pre>
+	{{ dump(details.0.article.0.id) }}
+</pre> #}
 	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
@@ -44,8 +47,9 @@
 				<th>Article name</th>
 				<th>Quantity</th>
 				<th>Price</th>
-				<th>Discount</th>
 				<th>Price with Taxes</th>
+				<th>Discount</th>
+				<th>Total</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -53,13 +57,14 @@
 			{% for detail in details %}
 				<tr>
 					<td>
-						<a href="#">{{ detail.article }}</a>
+						<a href="#">{{ detail.article.0.id }}</a>
 					</td>
 					<td>{{ detail.nomArt }}</td>
-					<td>{{ detail.quantity }}</td>
+					<td>{{ detail.quantite }}</td>
 					<td>{{ detail.prixHT }}</td>
-					<td>{{ detail.remise }}</td>
-					<td>{{ detail.total }}</td>
+					<td>{{ detail.prixTTC }}</td>
+					<td>{{ detail.promo }}</td>
+					<td>{{ total }}</td>
 					<td>
 						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('admin_commande_edit', {'id': commande_par.id, 'role': 'particulier'}) }}">

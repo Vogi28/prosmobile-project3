@@ -18,12 +18,16 @@
 	<div class="row d-flex justify-content-center">
 		{# save button #}
 		<div>
-			<button class="save-button">
+			<button class="save-button mx-2">
 				<i data-fa-symbol="save" class="fas fa-save"></i>
 				<svg class="icon-md">
 					<use xlink:href="#save"></use>
 				</svg>
 			</button>
+		</div>
+		{# delete button #}
+		<div class="mx-2">
+			{{ include('promo/_delete_form.html.twig') }}
 		</div>
 	</div>
 </div>
