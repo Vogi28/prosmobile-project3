@@ -20,7 +20,7 @@ class DetailCdePartController extends AbstractController
      */
     public function index(DetailCdePartRepository $detCdePartRepository): Response
     {
-        return $this->render('detail_cde_part/index.html.twig', [
+        return $this->render('commande/detail_cde_part/index.html.twig', [
             'detail_cde_parts' => $detCdePartRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class DetailCdePartController extends AbstractController
             return $this->redirectToRoute('detail_cde_part_index');
         }
 
-        return $this->render('detail_cde_part/new.html.twig', [
+        return $this->render('commande/detail_cde_part/new.html.twig', [
             'detail_cde_part' => $detailCdePart,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class DetailCdePartController extends AbstractController
      */
     public function show(DetailCdePart $detailCdePart): Response
     {
-        return $this->render('detail_cde_part/show.html.twig', [
+        return $this->render('commande/detail_cde_part/show.html.twig', [
             'detail_cde_part' => $detailCdePart,
         ]);
     }
@@ -72,7 +72,7 @@ class DetailCdePartController extends AbstractController
             return $this->redirectToRoute('detail_cde_part_index');
         }
 
-        return $this->render('detail_cde_part/edit.html.twig', [
+        return $this->render('commande/detail_cde_part/edit.html.twig', [
             'detail_cde_part' => $detailCdePart,
             'form' => $form->createView(),
         ]);
