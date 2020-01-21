@@ -27,30 +27,33 @@ class ArticleController extends AbstractController
         Article $article,
         ArticleRepository $articleRepository,
         PromoRepository $promoRepository,
-        ProRepository $proRepository
+        ProRepository $proRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $today = date('Y-m-d');
 
         if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
-            $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
-            $prixHt = $articleRepository->findOneById(['id' => $article->getId()])->getPrixHt();
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+            $prixHt = $articleRepository->findOneBy(['id' => $article->getId()])->getPrixHt();
             $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
 
             return $this->render('article/index.html.twig', [
                 'articles' => $articleRepository->findAll(),
-                'marque' => $articleRepository->findOneById(['id' => $article->getId()])->getMarque(),
+                'marque' => $articleRepository->findOneBy(['id' => $article->getId()])->getMarque(),
+                'type_art' => $typeArtRepository->findOneBy(['nom' => $article->getTypeArt()->getNom()]),
                 'reduc' => $reduc,
                 'prix_ht_reduit' => $prixHtReduit,
             ]);
         }
 
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
-        $prixTtc = $articleRepository->findOneById(['id' => $article->getId()])->getPrixTtc();
+        $prixTtc = $articleRepository->findOneBy(['id' => $article->getId()])->getPrixTtc();
         $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
-
+        dd($typeArtRepository->findOneBy(['nom' => $article->getTypeArt()->getNom()]));
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
-            'marque' => $articleRepository->findOneById(['id' => $article->getId()])->getMarque(),
+            'marque' => $articleRepository->findOneBy(['id' => $article->getId()])->getMarque(),
+            'type_art' => $typeArtRepository->findOneBy(['nom' => $article->getTypeArt()->getNom()]),
             'promo' => $promo,
             'prix_ttc_reduit' => $prixTtcReduit,
         ]);
@@ -65,8 +68,8 @@ class ArticleController extends AbstractController
         MarqueRepository $marqueRepository
     ): Response {
         return $this->render('sell_process/articleSelection.html.twig', [
-            'articles' => $articleRepository->findBy(['marque' => $marqueRepository->findOneByNom($slug)]),
-            'marque' => $marqueRepository->findOneByNom($slug)
+            'articles' => $articleRepository->findBy(['marque' => $marqueRepository->findOneBy(['nom' => $slug])]),
+            'marque' => $marqueRepository->findOneBy(['nom' => $slug])
         ]);
     }
 
@@ -110,14 +113,14 @@ class ArticleController extends AbstractController
         $today = date('Y-m-d');
 
         if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
-            $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
-            $prixHt = $articleRepository->findOneById(['id' => $id])->getPrixHt();
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+            $prixHt = $articleRepository->findOneBy(['id' => $id])->getPrixHt();
             $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
 
-            $artComps = $artCompRepository->findByArtId(['artId' => $articleRepository->findOneBy(['id' => $id])]);
+            $artComps = $artCompRepository->findBy(['artId' => $articleRepository->findOneBy(['id' => $id])]);
             $artCompId = [];
             foreach ($artComps as $artcomp) {
-                $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+                $artCompId[] = $articleRepository->findOneBy(['id' => $artcomp->getArtCompId()]);
             }
             $artCompPrixHT = $articleRepository
                 ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixHt();
@@ -125,9 +128,9 @@ class ArticleController extends AbstractController
 
             return $this->render('article/show.html.twig', [
                 'article' => $articleRepository->findOneBy(['id' => $id]),
-                'type_art' => $typeArtRepository->findOneByNom($slug1),
+                'type_art' => $typeArtRepository->findOneBy(['nom' => $slug1]),
                 'art_comps' => $artCompId,
-                'marque' => $marqueRepository->findOneByNom($slug2),
+                'marque' => $marqueRepository->findOneBy(['nom' => $slug2]),
                 'reduc' => $reduc,
                 'prix_ht_reduit' => $prixHtReduit,
                 'art_comp_HT_reduit' => $artCompHTreduit
@@ -135,13 +138,13 @@ class ArticleController extends AbstractController
         }
 
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
-        $prixTtc = $articleRepository->findOneById(['id' => $id])->getPrixTtc();
+        $prixTtc = $articleRepository->findOneBy(['id' => $id])->getPrixTtc();
         $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
 
-        $artComps = $artCompRepository->findByArtId(['artId' => $articleRepository->findOneBy(['id' => $id])]);
+        $artComps = $artCompRepository->findBy(['artId' => $articleRepository->findOneBy(['id' => $id])]);
         $artCompId = [];
         foreach ($artComps as $artcomp) {
-            $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+            $artCompId[] = $articleRepository->findOneBy(['id' => $artcomp->getArtCompId()]);
         }
         $artCompPrixTTC = $articleRepository
             ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixTtc();
@@ -149,9 +152,9 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'article' => $articleRepository->findOneBy(['id' => $id]),
-            'type_art' => $typeArtRepository->findOneByNom($slug1),
+            'type_art' => $typeArtRepository->findOneBy(['nom' => $slug1]),
             'art_comps' => $artCompId,
-            'marque' => $marqueRepository->findOneByNom($slug2),
+            'marque' => $marqueRepository->findOneBy(['nom' => $slug2]),
             'promo' => $promo,
             'prix_ttc_reduit' => $prixTtcReduit,
             'art_comp_TTC_reduit' => $artCompTTCreduit
