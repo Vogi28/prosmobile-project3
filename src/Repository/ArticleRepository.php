@@ -19,6 +19,20 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function findByTypeArtBrand($typeArtId, $marqueId)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.typeArt = :typeArt')
+            ->setParameter('typeArt', $typeArtId)
+            ->andWhere('a.marque = :marque')
+            ->setParameter('marque', $marqueId)
+            ->orderBy('a.id', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

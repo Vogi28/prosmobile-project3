@@ -31,10 +31,11 @@
 <div class="example-wrapper">
     <h1 class="text-md-center">Marques</h1>
 
-{% for brand in brands %}
-    <a href="{{ path('article_marque', {'id': brand.id, 
-    'slug': brand.nom}) }}"><img src="{{ brand.image }}" alt="{{ brand.nom }}"></a>
-{% endfor %}
-    
+	{% for brand in brands %}
+		{% if phones is defined and not null %}
+		<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}"><img src="{{ brand.image }}" alt="{{ brand.nom }}"></a>
+		{% endif %}
+	{% endfor %}
+
 </div>
 {% endblock %}
