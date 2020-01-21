@@ -1,8 +1,8 @@
 <form method="post" action="{{ path('promo_delete', {'id': promo.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette promotion?');">
 	<input type="hidden" name="_method" value="DELETE">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo.id) }}">
-	<button class="btn" title="Supprimer">
-		<i data-fa-symbol="remove" class="fas fa-trash text-danger"></i>
+	<button class="delete-button">
+		<i data-fa-symbol="remove" class="fas fa-trash"></i>
 		<svg class="icon-md">
 			<use xlink:href="#remove"></use>
 		</svg>

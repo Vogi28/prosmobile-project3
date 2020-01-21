@@ -7,9 +7,16 @@
 
 
 a {
-    color: $black-color;
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+}
 
 .card {
     display: flex;
@@ -17,67 +24,106 @@ a {
     height: 100%;
 }
 
-.acc::before {
-    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
-    border-left: 9px solid rgba(0, 0, 0, 0);
-    border-right: 9px solid rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
-    left: 95px;
-    position: absolute;
-    top: -8px;
-}
-
-.acc::after {
-    border-bottom: 8px solid #FFFFFF;
-    border-left: 9px solid rgba(0, 0, 0, 0);
-    border-right: 9px solid rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
-    left: 95px;
-    position: absolute;
-    top: -7px;
-}
-
-.art::before {
-    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
-    border-left: 9px solid rgba(0, 0, 0, 0);
-    border-right: 9px solid rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
-    left: 63px;
-    position: absolute;
-    top: -8px;
-}
-
-.art::after {
-    border-bottom: 8px solid #FFFFFF;
-    border-left: 9px solid rgba(0, 0, 0, 0);
-    border-right: 9px solid rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
-    left: 63px;
-    position: absolute;
-    top: -7px;
-}
-
-.icon-sm {
-    width: 1em;
-    height: 1em;
-}
-
-.icon-md {
-    width: 1.5em;
-    height: 1.5em;
-}
-
-.icon-lg {
-    width: 2em;
-    height: 2em;
-}
-
 .carousel-item {
     height: 400px;;
+}
+
+//navbar
+.account {
+    width: 287px;
+}
+
+.account::after {
+    border-bottom: 8px solid #FFFFFF;
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 95px;
+    position: absolute;
+    top: -7px;
+}
+
+.account::before {
+    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 95px;
+    position: absolute;
+    top: -8px;
+}
+
+.create-account {
+    color: #33B5E5;
+    font-size: 0.7em;
+    margin: 5px;
+}
+
+.links li {
+    margin: 0 10px;
+}
+
+.logged-message {
+    color: #00C851;
+    font-size: 0.7em;
+}
+
+.login-message {
+    font-size: 0.7em;
+}
+
+.logo {
+    color: #00C851 !important;
+}
+
+.new-customer {
+    font-size: 0.7em;
+    margin: 5px;
+}
+
+.phone {
+    align-items: center;
+    background-color: #00C851;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0 10px 0 0;
+}
+
+.product::after {
+    border-bottom: 8px solid #FFFFFF;
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 63px;
+    position: absolute;
+    top: -7px;
+}
+
+.product::before {
+    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 63px;
+    position: absolute;
+    top: -8px;
+}
+
+//dashboard
+.nav-pills .nav-link.active {
+    background-color: #FFFFFF !important;
+}
+
+// forms
+input {
+    height: 35px;
+    width: 300px;
 }
 
 input, input:focus{
@@ -85,10 +131,122 @@ input, input:focus{
     outline: none;
 }
 
-.nav-pills .nav-link.active {
-    background-color: #007E33 !important;
-}
-
 label {
     display: flex;
+    margin: 10px 0;
+}
+
+//buttons
+.add-button, .delete-button, .edit-button, .save-button {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+}
+
+.login-button {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 150px;
+}
+
+.basket-button, .dashboard-button, .logout-button, .profile-button {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #FFBB33;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+}
+
+.facebook-button {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #33B5E5;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+}
+
+//icons
+.icon-sm {
+    height: 1em;
+    width: 1em;
+}
+
+.icon-md {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.icon-lg {
+    height: 2em;
+    width: 2em;
+}
+
+.phone-icon {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+}
+
+.user-icon {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #00C851;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+}
+
+//tabs
+.user-tab {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #00C851;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    padding: 0;
+    width: 50px;
+}
+
+.account-tab, .discount-tab, .order-tab, .product-tab {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #00C851;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    padding: 0;
+    width: 50px;
 }
