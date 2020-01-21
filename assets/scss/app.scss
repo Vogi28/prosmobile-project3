@@ -140,7 +140,7 @@ label {
 }
 
 //buttons
-.add-button, .checkout-button, .edit-button, .save-button {
+.add-button, .checkout-button, .edit-button, .save-button, .show-button {
     align-items: center;
     background-color: #00C851;
     border: none;
@@ -154,9 +154,9 @@ label {
 
 .add-button-sm {
     align-items: center;
-    background-color: #00C851;
+    background-color: #FFFFFF;
     border: none;
-    color: #FFFFFF;
+    color: #00C851;
     display: flex;
     height: 25px;
     justify-content: center;
@@ -178,9 +178,9 @@ label {
 
 .delete-button-sm {
     align-items: center;
-    background-color: #FF4444;
+    background-color: #FFFFFF;
     border: none;
-    color: #FFFFFF;
+    color: #FF4444;
     display: flex;
     height: 25px;
     justify-content: center;
@@ -198,6 +198,18 @@ label {
     justify-content: center;
     padding: 0;
     width: 180px;
+}
+
+.checkout-button {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 100px;
 }
 
 .login-button {

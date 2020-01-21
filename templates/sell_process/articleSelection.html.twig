@@ -3,11 +3,11 @@
 {% block title %}PROSmobile - Articles{% endblock %}
 
 {% block body %}
-
 	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
+				{# administrator part #}
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin_index') }}">
 						Dashboard
@@ -19,33 +19,37 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-                <a href="{{ path('article_sell_phone_brands') }}">
-				Téléphones
-                </a>
+				<a href="{{ path('article_sell_phone_brands') }}">
+					Téléphones
+				</a>
 			</li>
-            <li class="breadcrumb-item active" aria-current="page">
+			<li class="breadcrumb-item active" aria-current="page">
 				{{ brand }}
 			</li>
 		</ol>
 	</nav>
-	{# body #}
-	<h1 class="text-center">Tous les articles {{ brand }}</h1>
+	{# title #}
+	<h1>Tous les articles {{ brand }}</h1>
 	{# administrator part #}
-	{# add button #}
 	{% if is_granted('ROLE_ADMIN') %}
-		<div class="container-fluid mt-4">
+		<div class="container my-5">
 			<div class="row">
-				<a class="btn" href="{{ path('article_new') }}" title="Ajouter">
-					<i data-fa-symbol="add" class="fas fa-plus text-secondary"></i>
-					<svg class="icon-md">
-						<use xlink:href="#add"></use>
-					</svg>
-				</a>
+				{# add button #}
+				<div>
+					<a href="{{ path('article_new') }}">
+						<button class="add-button" title="Ajouter">
+							<i data-fa-symbol="add" class="fas fa-plus"></i>
+							<svg class="icon-md">
+								<use xlink:href="#add"></use>
+							</svg>
+						</button>
+					</a>
+				</div>
 			</div>
 		</div>
 	{% endif %}
 	{# product list #}
-	<div class="container mt-4">
+	<div class="container">
 		<div class="row">
 			{% for article in articles %}
 				{% if article.photo is empty %}
@@ -53,11 +57,11 @@
 				{% else %}
 					{% set photo = article.photo %}
 				{% endif %}
-				<div class="col-4 mt-2" style="height:300px;">
+				<div class="col-6">
 					<div class="media mt-2">
-						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+						<img src="{{ photo }}" class="align-self-start mr-5 img-thumbnail" style="width:250px; height:300px;" alt="...">
 						<div class="media-body">
-							<h5 class="mt-2">{{ article.nom }}</h5>
+							<h5 class="my-4">{{ article.nom }}</h5>
 							{# administrator part #}
 							{% if  is_granted('ROLE_ADMIN') %}
 								<p class="card-text">
@@ -70,7 +74,7 @@
 							<p class="card-text">
 								{{ article.description }}
 							</p>
-							{# user part #}
+							{# individual part #}
 							{% if is_granted('ROLE_PARTICULIER') %}
 								<p class="card-text">
 									{{ article.prixTtc }}
@@ -83,27 +87,30 @@
 								</p>
 							{% endif %}
 							{# buttons #}
-							<div class="container">
-								<div class="row">
+							<div class="container my-5">
+								<div class="row d-flex justify-content-around">
 									{# show product button #}
-									<div class="col-4">
-										<a href="{{ path('article_show', {'id': marque.id,
-										'id2': article.id , 'slug': brand }) }}" title="Afficher">
-											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
-											<svg class="icon-md">
-												<use xlink:href="#show"></use>
-											</svg>
+									<div>
+										<a href="{{ path('article_show', {'id': marque.id, 'id2': article.id , 'slug': brand }) }}">
+											<button class="show-button" title="Afficher">
+												<i data-fa-symbol="show" class="fas fa-eye"></i>
+												<svg class="icon-md">
+													<use xlink:href="#show"></use>
+												</svg>
+											</button>
 										</a>
 									</div>
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
-										<div class="col-4">
+										<div>
 											<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
-												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-												<svg class="icon-md">
-													<use xlink:href="#edit"></use>
-												</svg>
+												<button class="edit-button" title="Modifier">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</button>
 											</a>
 										</div>
 									{% endif %}
@@ -114,7 +121,7 @@
 				</div>
 			{% else %}
 				{# empty #}
-				<div class="">
+				<div>
 					Aucun article n'est enregistré dans cette liste
 				</div>
 			{% endfor %}
