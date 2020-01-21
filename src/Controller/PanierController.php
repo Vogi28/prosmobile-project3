@@ -120,11 +120,12 @@ class PanierController extends AbstractController
         }
 
         $emi->flush();
+        $session->remove('panier');
+        $session->remove('promo');
+        
         $this->addFlash('success', 'Réservation envoyée');
-        // dd($articles);
 
         $mailer->sendReza($this->getUser()->getEmail(), $articles);
-        // dd($articles);
 
         return $this->redirectToRoute('home');
     }

@@ -13,13 +13,13 @@ class DetailCdeProType extends AbstractType
     {
         $options;
         $builder
-            ->add('nomArt')
+            // ->add('nomArt')
             ->add('quantite')
-            ->add('prixHt')
-            ->add('remise')
-            ->add('total')
-            ->add('commandePro')
-            ->add('article')
+            // ->add('prixHt')
+            // ->add('remise')
+            // ->add('total')
+            // ->add('commandePro')
+            // ->add('article')
         ;
     }
 

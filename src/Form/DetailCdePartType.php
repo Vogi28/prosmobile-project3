@@ -13,14 +13,14 @@ class DetailCdePartType extends AbstractType
     {
         $options;
         $builder
-            ->add('nomArt')
+            // ->add('nomArt')
             ->add('quantite')
-            ->add('prixHt')
-            ->add('prixTtc')
-            ->add('promo')
-            ->add('total')
-            ->add('commandePar')
-            ->add('article')
+            // ->add('prixHt')
+            // ->add('prixTtc')
+            // ->add('promo')
+            // ->add('total')
+            // ->add('commandePar')
+            // ->add('article')
         ;
     }
 
