@@ -67,11 +67,10 @@
 								{{ article.description }}
 							</p>
 							{# user part #}
-							{% if is_granted('ROLE_PARTICULIER') %}
+							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
 									<p class="card-text">
-										{# TODO en css : PRIX TTC D'ORIGINE BARRÉ #}
-										{{ article.prixTtc }}
+										<del>{{ article.prixTtc }}</del>
 										€
 									</p>
 									<p class="card-text">
@@ -84,11 +83,11 @@
 										€ TTC
 									</p>
 								{% endif %}
-							{% elseif is_granted('ROLE_PRO') %}
+							{% endif %}
+							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
 									<p class="card-text">
-										{# TODO en css : PRIX HT D'ORIGINE BARRÉ #}
-										{{ article.prixHt }}
+										<del>{{ article.prixHt }}</del>
 										€
 									</p>
 									<p class="card-text">
@@ -101,15 +100,6 @@
 										€ HT
 									</p>
 								{% endif %}
-							{% else %}
-								<p class="card-text">
-									{{ article.prixHt }}
-									€ HT
-								</p>
-								<p class="card-text">
-									{{ article.prixTtc }}
-									€ TTC
-								</p>
 							{% endif %}
 							{# buttons #}
 							<div class="container">
@@ -117,12 +107,13 @@
 									{# show product button #}
 									<div class="col-4">
 										<button class="btn" title="Afficher">
-											<a href="{{ path('article_show', {'id': article.id}) }}">
+											{# TODO corriger la route ci-dessous et décommenter #}
+											{#<a href="{{ path('article_show', {'id': marque.id, 'slug': marque, 'id2': article.id}) }}">
 												<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
 												<svg class="icon-md">
 													<use xlink:href="#show"></use>
 												</svg>
-											</a>
+											</a>#}
 										</button>
 									</div>
 									{# administrator part #}
