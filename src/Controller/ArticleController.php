@@ -22,10 +22,36 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="article_index", methods={"GET"})
      */
-    public function index(ArticleRepository $articleRepository): Response
-    {
+    public function index(
+        Article $article,
+        ArticleRepository $articleRepository,
+        PromoRepository $promoRepository,
+        ProRepository $proRepository
+    ): Response {
+        $today = date('Y-m-d');
+
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
+            $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
+            $prixHt = $articleRepository->findOneById(['id' => $article->getId()])->getPrixHt();
+            $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
+
+            return $this->render('article/index.html.twig', [
+                'articles' => $articleRepository->findAll(),
+                'marque' => $articleRepository->findOneById(['id' => $article->getId()])->getMarque(),
+                'reduc' => $reduc,
+                'prix_ht_reduit' => $prixHtReduit,
+            ]);
+        }
+
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+        $prixTtc = $articleRepository->findOneById(['id' => $article->getId()])->getPrixTtc();
+        $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
+
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
+            'marque' => $articleRepository->findOneById(['id' => $article->getId()])->getMarque(),
+            'promo' => $promo,
+            'prix_ttc_reduit' => $prixTtcReduit,
         ]);
     }
 
