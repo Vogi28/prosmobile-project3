@@ -118,15 +118,15 @@ class PanierController extends AbstractController
                 }
             }
         }
-        
 
-        // $emi->flush();
-        dd($articles);
+        $emi->flush();
+        $this->addFlash('success', 'Réservation envoyée');
+        // dd($articles);
 
         $mailer->sendReza($this->getUser()->getEmail(), $articles);
-        dd($articles);
+        // dd($articles);
 
-        // return $this->render();
+        return $this->redirectToRoute('home');
     }
 
     /**

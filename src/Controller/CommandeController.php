@@ -10,6 +10,7 @@ use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
 use App\Repository\DetailCdePartRepository;
 use App\Repository\DetailCdeProRepository;
+use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,17 +99,35 @@ class CommandeController extends AbstractController
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $cdePar = $cdePar->findOneById($id);
-            dd($dtlCdePartRepository->findByCommandePar($cdePar->getId()));
+            $articles = $dtlCdePartRepository->findByCommandePar($cdePar->getId());
+
+            $total = 0;
+
+            foreach ($articles as $key => $article) {
+                $key;
+                $total =+ $article->getTotal();
+            }
+            
             return $this->render('commande/commande_par/show.html.twig', [
             'commande_par' => $cdePar,
-            'details' => $dtlCdePartRepository->findByCommandePar($cdePar->getId())
+            'details' => $articles,
+            'total' => $total
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             $cdePro = $cdePro->findOneById($id);
+
+            $articles = $dtlCdeProRepository->findByCommandePro($cdePro->getId());
+            $total = 0;
+
+            foreach ($articles as $key => $article) {
+                $key;
+                $total =+ $article->getTotal();
+            }
+
             return $this->render('commande/commande_pro/show.html.twig', [
             'commande_pro' => $cdePro,
-            'details' => $dtlCdeProRepository->findByCommandePro($cdePro->getId())
-
+            'details' => $articles,
+            'total' => $total
             ]);
         }
     }

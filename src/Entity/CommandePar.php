@@ -27,7 +27,7 @@ class CommandePar
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\DetailCdePart",
      *     mappedBy="commandePar",
-     *     orphanRemoval=true
+     *     orphanRemoval=true, cascade={"persist", "remove"}
      *     )
      */
     private $detailCdePart;
