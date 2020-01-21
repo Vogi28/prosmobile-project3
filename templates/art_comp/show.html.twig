@@ -26,6 +26,42 @@
 						<p class="card-text">
 							{{ art_comp.description }}
 						</p>
+						{# user part #}
+						{% if is_granted('ROLE_PRO') == false %}
+							{% if promo is defined %}
+								<p class="card-text">
+									<del>{{ art_comp.prixTtc }}</del>
+									€
+								</p>
+								<p class="card-text">
+									{{ art_comp_TTC_reduit }}
+									€ TTC
+								</p>
+							{% else %}
+								<p class="card-text">
+									{{ art_comp.prixTtc }}
+									€ TTC
+								</p>
+							{% endif %}
+						{% endif %}
+						{% if is_granted('ROLE_PRO') %}
+							{% if reduc is defined and not null %}
+								<p class="card-text">
+									<del>{{ art_comp.prixHt }}</del>
+									€
+								</p>
+								<p class="card-text">
+									{{ art_comp_HT_reduit }}
+									€ HT
+								</p>
+							{% else %}
+								<p class="card-text">
+									{{ art_comp.prixHt }}
+									€ HT
+								</p>
+							{% endif %}
+						{% endif %}
+                        {#
 						{% if is_granted('ROLE_PARTICULIER') %}
 							<p class="mt-4">
 								{{ art_comp.prixTtc }}
@@ -37,6 +73,7 @@
 								€ HT
 							</p>
 						{% endif %}
+						#}
 						{# buttons #}
 						<div class="container">
 							<div class="row">

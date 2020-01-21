@@ -94,6 +94,9 @@ class ArticleController extends AbstractController
             foreach ($artComps as $artcomp) {
                 $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
             }
+            $artCompPrixHT = $articleRepository
+                ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixHt();
+            $artCompHTreduit = (round(($artCompPrixHT*(1-$reduc/100)), 2));
 
             return $this->render('article/show.html.twig', [
                 'article' => $article,
@@ -101,6 +104,7 @@ class ArticleController extends AbstractController
                 'marque' => $marqueRepository->findOneByNom($slug),
                 'reduc' => $reduc,
                 'prix_ht_reduit' => $prixHtReduit,
+                'art_comp_HT_reduit' => $artCompHTreduit
             ]);
         }
 
@@ -114,6 +118,9 @@ class ArticleController extends AbstractController
         foreach ($artComps as $artcomp) {
             $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
         }
+        $artCompPrixTTC = $articleRepository
+            ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixTtc();
+        $artCompTTCreduit = (round(($artCompPrixTTC*(1-$promo/100)), 2));
 
         return $this->render('article/show.html.twig', [
             'article' => $article,
@@ -121,6 +128,7 @@ class ArticleController extends AbstractController
             'marque' => $marqueRepository->findOneByNom($slug),
             'promo' => $promo,
             'prix_ttc_reduit' => $prixTtcReduit,
+            'art_comp_TTC_reduit' => $artCompTTCreduit
         ]);
     }
 
