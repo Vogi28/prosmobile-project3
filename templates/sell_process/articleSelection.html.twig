@@ -90,14 +90,12 @@
 							<div class="container my-5">
 								<div class="row d-flex justify-content-center">
 									{# show product button #}
-									<div class="mx-2">
-										<a href="{{ path('article_show', {'id': marque.id, 'id2': article.id , 'slug': brand }) }}">
-											<button class="show-button" title="Afficher">
-												<i data-fa-symbol="show" class="fas fa-eye"></i>
-												<svg class="icon-md">
-													<use xlink:href="#show"></use>
-												</svg>
-											</button>
+									<div class="col-4">
+										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
+											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+											<svg class="icon-md">
+												<use xlink:href="#show"></use>
+											</svg>
 										</a>
 									</div>
 									{# administrator part #}

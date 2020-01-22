@@ -44,6 +44,7 @@
 	<div class="container mt-4">
 		<div class="row">
 			{% for article in articles %}
+{#				{{  dump(article.marque) }}#}
 				{% if article.photo is empty %}
 					{% set photo ='' %}
 				{% else %}
@@ -74,7 +75,7 @@
 										€
 									</p>
 									<p class="card-text">
-										{{ prix_ttc_reduit }}
+										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} promotion : {{ prixTTcReduit }}
 										€ TTC
 									</p>
 								{% else %}
@@ -91,7 +92,7 @@
 										€
 									</p>
 									<p class="card-text">
-										{{ prix_ht_reduit }}
+										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} prix réduit : {{ prixHtReduit }}
 										€ HT
 									</p>
 								{% else %}
@@ -107,13 +108,12 @@
 									{# show product button #}
 									<div class="col-4">
 										<button class="btn" title="Afficher">
-											{# TODO corriger la route ci-dessous et décommenter #}
-											{#<a href="{{ path('article_show', {'id': marque.id, 'slug': marque, 'id2': article.id}) }}">
+											<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
 												<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
 												<svg class="icon-md">
 													<use xlink:href="#show"></use>
 												</svg>
-											</a>#}
+											</a>
 										</button>
 									</div>
 									{# administrator part #}

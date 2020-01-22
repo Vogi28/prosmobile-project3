@@ -75,7 +75,7 @@ class Article
     private $detailCdePros;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Marque", inversedBy="articles")
+     * @ORM\OneToMany(targetEntity="App\Entity\Marque", mappedBy="articles")
      */
     private $marque;
 
@@ -84,7 +84,6 @@ class Article
         $this->spec = new ArrayCollection();
         $this->detailCdeParts = new ArrayCollection();
         $this->detailCdePros = new ArrayCollection();
-        $this->marque = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,33 +269,15 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|Marque[]
-     */
-    public function getMarque(): Collection
+    public function getMarque(): ?Marque
     {
         return $this->marque;
     }
 
-    public function addMarque(Marque $marque): self
-    {
-        if (!$this->marque->contains($marque)) {
-            $this->marque[] = $marque;
-            $marque->setArticles($this);
-        }
 
-        return $this;
-    }
-
-    public function removeMarque(Marque $marque): self
+    public function setMarque(?Marque $marque): self
     {
-        if ($this->marque->contains($marque)) {
-            $this->marque->removeElement($marque);
-            // set the owning side to null (unless already changed)
-            if ($marque->getArticles() === $this) {
-                $marque->setArticles(null);
-            }
-        }
+        $this->marque = $marque;
 
         return $this;
     }

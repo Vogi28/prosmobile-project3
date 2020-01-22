@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Form\CommandeParType;
 use App\Form\CommandeProType;
+use App\Repository\PromoRepository;
 use App\Repository\ProRepository;
+use App\Repository\TypeArtRepository;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,7 +63,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/commande/{id}/{role}", name="commande_detail", methods={"GET"})
      */
-    
+
     public function details(
         int $id,
         string $role,
@@ -175,10 +178,28 @@ class AdminController extends AbstractController
     /**
      *@Route("/article", name="article_index")
      */
-    public function articleIndex(ArticleRepository $articleRepository)
-    {
+    public function articleIndex(
+        ArticleRepository $articleRepository,
+        PromoRepository $promoRepository,
+        ProRepository $proRepository
+    ): Response {
+        $today = date('Y-m-d');
+
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+
+            return $this->render('article/index.html.twig', [
+                'articles' => $articleRepository->findAll(),
+                'reduc' => $reduc,
+            ]);
+        }
+
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll()
+            'articles' => $articleRepository->findAll(),
+            'promo' => $promo,
+
         ]);
     }
 
@@ -199,7 +220,7 @@ class AdminController extends AbstractController
             } else {
                 $path = 'pro_index';
             }
-            
+
             $entityManager->remove($user);
             $entityManager->flush();
 
@@ -209,7 +230,7 @@ class AdminController extends AbstractController
                 $entityManager->getConnection()->exec('ALTER TABLE pro AUTO_INCREMENT = 1');
             }
 
-            
+
             $entityManager->getConnection()->exec('ALTER TABLE user AUTO_INCREMENT = 1');
         }
 
