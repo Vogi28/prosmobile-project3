@@ -6,11 +6,13 @@ use App\Entity\CommandePar;
 use App\Entity\CommandePro;
 use App\Form\CommandeParType;
 use App\Form\CommandeProType;
+use App\Form\DetailCdePartType;
+use App\Form\DetailCdeProType;
 use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
 use App\Repository\DetailCdePartRepository;
 use App\Repository\DetailCdeProRepository;
-use App\Service\CartService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -139,12 +141,14 @@ class CommandeController extends AbstractController
         Request $request,
         int $id,
         CommandeParRepository $cdePar,
-        CommandeProRepository $cdePro
+        CommandeProRepository $cdePro,
+        DetailCdePartRepository $dtlCdePartRepository,
+        DetailCdeProRepository $dtlCdeProRepository
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
-            $cdePar = $cdePar->findOneById($id);
+            $dtlCdePar = $dtlCdePartRepository->findOneByCommandePar($id);
 
-            $form = $this->createForm(CommandeParType::class, $cdePar);
+            $form = $this->createForm(DetailCdePartType::class, $dtlCdePar);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -152,12 +156,13 @@ class CommandeController extends AbstractController
                 
                 $this->addFlash('success', 'Modification réussi');
 
-                return $this->redirectToRoute('commande_index', ['id' => $cdePar->getParticulier()->getId()]);
+                return $this->redirectToRoute('commande_index', ['id' => $cdePar->findOneById($id)
+                ->getParticulier()->getId()]);
             }
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
-            $cdePro = $cdePro->findOneById($id);
+            $dtlCdePro = $dtlCdeProRepository->findOneByCommandePro($id);
 
-            $form = $this->createForm(CommandeProType::class, $cdePro);
+            $form = $this->createForm(DetailCdeProType::class, $dtlCdePro);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -165,7 +170,8 @@ class CommandeController extends AbstractController
 
                 $this->addFlash('success', 'Modification réussi');
 
-                return $this->redirectToRoute('commande_index', ['id' => $cdePro->getPro()->getId()]);
+                return $this->redirectToRoute('commande_index', ['id' => $cdePro->$cdePro->findOneById($id)
+                ->getPro()->getId()]);
             }
         }
 
@@ -189,7 +195,8 @@ class CommandeController extends AbstractController
         Request $request,
         int $id,
         CommandeParRepository $cdePar,
-        CommandeProRepository $cdePro
+        CommandeProRepository $cdePro,
+        EntityManagerInterface $emi
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $cdePar = $cdePar->findOneById($id);
@@ -199,6 +206,8 @@ class CommandeController extends AbstractController
                 $entityManager->remove($cdePar);
                 $entityManager->flush();
             }
+            $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
+            $emi->getConnection()->exec('ALTER TABLE detail_cde_part AUTO_INCREMENT = 1');
 
             $this->addFlash('success', 'Suppression réussi');
 
@@ -214,6 +223,70 @@ class CommandeController extends AbstractController
             }
 
             $this->addFlash('success', 'Suppression réussi');
+
+            $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
+            $emi->getConnection()->exec('ALTER TABLE detail_cde_pro AUTO_INCREMENT = 1');
+
+            return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getPro()->getId()
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/{id}/detailDel", name="detail_del", methods={"DELETE"})
+     */
+    public function detailDel(
+        Request $request,
+        int $id,
+        DetailCdePartRepository $dtlCdePartRepository,
+        DetailCdeProRepository $dtlCdeProRepository,
+        CommandeParRepository $cdePar,
+        CommandeProRepository $cdePro,
+        EntityManagerInterface $emi
+    ): Response {
+        if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
+            $dtlCdePart = $dtlCdePartRepository->findOneById($id);
+
+            if ($this->isCsrfTokenValid('delete'.$dtlCdePart->getId(), $request->request->get('_token'))) {
+                $emi->remove($dtlCdePart);
+                $emi->flush();
+
+                $id = $dtlCdePart->getCommandePar()->getId();
+                $cdePar = $cdePar->findOneById($id);
+                
+                if ($dtlCdePart->getId() == null) {
+                    $emi->remove($cdePar);
+                    $emi->flush();
+                    $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
+                }
+            }
+
+            $this->addFlash('success', 'Suppression réussi');
+
+            $emi->getConnection()->exec('ALTER TABLE detail_cde_part AUTO_INCREMENT = 1');
+
+            return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getParticulier()->getId()
+            ]);
+        } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
+            $dtlCdePro = $dtlCdeProRepository->findOneById($id);
+            
+            if ($this->isCsrfTokenValid('delete'.$dtlCdePro->getId(), $request->request->get('_token'))) {
+                $emi->remove($dtlCdePro);
+                $emi->flush();
+
+                $id = $dtlCdePro->getCommandePro()->getId();
+                $cdePro = $cdePro->findOneById($id);
+                
+                if ($dtlCdePro->getId() == null) {
+                    $emi->remove($cdePro);
+                    $emi->flush();
+                    $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
+                }
+            }
+
+            $this->addFlash('success', 'Suppression réussi');
+
+            $emi->getConnection()->exec('ALTER TABLE detail_cde_pro AUTO_INCREMENT = 1');
 
             return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getPro()->getId()
             ]);

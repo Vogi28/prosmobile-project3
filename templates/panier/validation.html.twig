@@ -3,107 +3,131 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-
-<div class="">
-    <h1>Recap</h1>
-{# user information #}
-			{% if is_granted('ROLE_PRO') %}
-				<div class="text-center">
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('panier_index') }}">
+					Votre panier
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Récapitulatif de la commande
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Récapitulatif de la commande</h1>
+	{# user information #}
+	<div class="container my-5 p-0">
+		<div class="row">
+			<div class="col-4">
+				<h2>Vos informations</h2>
+				<div class="my-4">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">{{ app.user.pro.prenom }} {{ app.user.pro.nom }}</li>
-						<li class="list-group-item">{{ app.user.pro.adresse }}</li>
-						<li class="list-group-item">{{ app.user.pro.societe }}</li>
-						<li class="list-group-item">{{ app.user.pro.telephone }}</li>
-						<li class="list-group-item">{{ app.user.email }}</li>
-						<li class="list-group-item">{{ app.user.pro.siret }}</li>
+						{# professional part #}
+						{% if is_granted('ROLE_PRO') %}
+							<li class="list-group-item">{{ app.user.pro.prenom }}
+								{{ app.user.pro.nom }}</li>
+							<li class="list-group-item">{{ app.user.pro.adresse }}</li>
+							<li class="list-group-item">{{ app.user.pro.societe }}</li>
+							<li class="list-group-item">{{ app.user.pro.telephone }}</li>
+							<li class="list-group-item">{{ app.user.email }}</li>
+							<li class="list-group-item">{{ app.user.pro.siret }}</li>
+							{# individual part #}
+						{% elseif is_granted('ROLE_PARTICULIER') %}
+							<li class="list-group-item">{{ app.user.particulier.prenom }}
+								{{ app.user.particulier.nom }}</li>
+							<li class="list-group-item">{{ app.user.particulier.adresse }}</li>
+							<li class="list-group-item">{{ app.user.particulier.codePostal }}
+								{{ app.user.particulier.ville }}</li>
+							<li class="list-group-item">{{ app.user.particulier.telephone }}</li>
+							<li class="list-group-item">{{ app.user.email }}</li>
+						{% endif %}
 					</ul>
 				</div>
-            {% elseif is_granted('ROLE_PARTICULIER') %}
-				<div class="text-center">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">{{ app.user.particulier.prenom }} 
-                        {{ app.user.particulier.nom }}</li>
-						<li class="list-group-item">{{ app.user.particulier.adresse }}</li>
-						<li class="list-group-item">{{ app.user.particulier.codePostal }} 
-                        {{ app.user.particulier.ville }}</li>
-						<li class="list-group-item">{{ app.user.particulier.telephone }}</li>
-						<li class="list-group-item">{{ app.user.email }}</li>
-					</ul>
-				</div>
-			{% endif %}
-    
-    {# Commandes informations #}
-    <h2>Votre commande</h2>
-        <table class="table">
-            <thead>
-            {% if is_granted('ROLE_PRO') %}
-                <tr>
-                    <th>Article</th>
-                    <th>HTT</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th></th>
-                </tr>
-            {% else %}
-                <tr>
-                    <th>Article</th>
-                    <th>HTT</th>
-                    <th>TTC</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th></th>
-                </tr>
-            {% endif %}
-            </thead>
-            <tbody>
-             {% for item in panier %}
-                {% if is_granted('ROLE_PRO') %}
-                <tr>
-                     <td>{{ item.article.nom }}</td>
-                     <td>{{ item.article.prixHT }}</td>
-                     <td>{{ item.quantity }}</td>
-                     <td>{{ item.article.prixTTC * item.quantity }}</td>
-                     <td>
-                     {% else %}
-                 <tr>
-                     <td>{{ item.article.nom }}</td>
-                     <td>{{ item.article.prixHT }}</td>
-                     <td>{{ item.article.prixTTC }}</td>
-                     <td>{{ item.quantity }}</td>
-                     <td>{{ item.article.prixTTC * item.quantity }}</td>
-                     {% endif %}
-                 </tr>
-             {% endfor %}
-            </tbody>
-            <tfoot>
-            {% if promo is defined and promo > 0 %}
-                <tr>
-                {% if is_granted('ROLE_PRO') %}
-                    <td colspan="3" class="text-right">Réduction :</td>
-                {% else %}
-                    <td colspan="4" class="text-right">Réduction :</td>
-                {% endif %}
-                    <td> {{ promo }}</td>
-                    <td></td>
-                </tr>
-            {% endif %}
-                <tr>
-                {% if is_granted('ROLE_PRO') %}
-                    <td colspan="3" class="text-right">Total :</td>
-                {% else %}
-                    <td colspan="4" class="text-right">Total :</td>
-                {% endif %}
-                    <td> {{ total }}</td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
-</div>
-{% endblock %}
-{% block footer %}
-    <footer>
-    <div class="text-right">
-        <a href="{{ path('panier_reservation') }}" class="btn btn-success btn-lg">Valider la reservation</a>
-    </div>
-    </footer>
+			</div>
+			{# Commandes informations #}
+			<div class="col-8">
+				<h2>Votre commande</h2>
+				<table class="table my-4">
+					<thead class="thead-dark">
+						{# professional part #}
+						{% if is_granted('ROLE_PRO') %}
+							<tr>
+								<th>Article</th>
+								<th>HTT</th>
+								<th>Quantity</th>
+								<th>Total</th>
+							</tr>
+						{% else %}
+							<tr>
+								<th>Article</th>
+								<th>HTT</th>
+								<th>TTC</th>
+								<th>Quantity</th>
+								<th>Total</th>
+							</tr>
+						{% endif %}
+					</thead>
+					<tbody>
+						{% for item in panier %}
+							<tr>
+								<td>{{ item.article.nom }}</td>
+								<td>{{ item.article.prixHT }}</td>
+								{# professional part #}
+								{% if is_granted('ROLE_PRO') %}
+									{# #}
+								{% else %}
+									<td>{{ item.article.prixTTC }}</td>
+								{% endif %}
+								<td>{{ item.quantity }}</td>
+								<td>{{ item.article.prixTTC * item.quantity }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						{# discount #}
+						{% if promo is defined and promo > 0 %}
+							<tr>
+								{# professional part #}
+								{% if is_granted('ROLE_PRO') %}
+									<td colspan="3" class="text-right">Réduction :</td>
+								{% else %}
+									<td colspan="4" class="text-right">Réduction :</td>
+								{% endif %}
+								<td>{{ promo }}</td>
+							</tr>
+						{% endif %}
+						<tr>
+							{# professional part #}
+							{% if is_granted('ROLE_PRO') %}
+								<td colspan="3" class="text-right">Total :</td>
+							{% else %}
+								<td colspan="4" class="text-right">Total :</td>
+							{% endif %}
+							<td>{{ total }}</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	{# booking button #}
+	<div class="container">
+		<div class="row d-flex justify-content-end">
+			<div>
+				<a href="{{ path('panier_reservation') }}">
+					<button class="booking-button">
+						Valider la réservation
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -108,7 +108,7 @@ class PanierController extends AbstractController
                     $dtlCdePro->setNomArt($article->getNom());
                     $dtlCdePro->setQuantite($qty);
                     $dtlCdePro->setPrixHt($article->getPrixHt());
-                    $dtlCdePro->setRemise($cdePro->getPro->getRemise());
+                    $dtlCdePro->setRemise($cdePro->getPro()->getPourcentRemise());
                     $dtlCdePro->setTotal($qty * ($article->getPrixTtc() * (
                         1 - (($cdePro->getPro()->getPourcentRemise()) / 100))));
                     $dtlCdePro->addArticle($article);
@@ -120,11 +120,12 @@ class PanierController extends AbstractController
         }
 
         $emi->flush();
+        $session->remove('panier');
+        $session->remove('promo');
+        
         $this->addFlash('success', 'Réservation envoyée');
-        // dd($articles);
 
         $mailer->sendReza($this->getUser()->getEmail(), $articles);
-        // dd($articles);
 
         return $this->redirectToRoute('home');
     }
@@ -138,7 +139,7 @@ class PanierController extends AbstractController
         $cartService->addItems($id, $promo);
         
         $this->addFlash('success', 'Ajout au panier réussi');
-
+        
         return $this->redirectToRoute('panier_index');
     }
 

@@ -1,123 +1,87 @@
+{# form #}
 {{ form_start(form) }}
-<div class="container mt-4">
-	<div class="row">
-		<div class="col-lg">
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.nom, 'Nom complet (exemple : "iPhone X noir 32 Go")') }}
-				{{ form_widget(form.nom) }}
-			</div>
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.photo, 'Photo') }}
-				{{ form_widget(form.photo) }}
-			</div>
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.reference, 'Référence comptable') }}
-				{{ form_widget(form.reference) }}
-			</div>
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.description, 'Description') }}
-				{{ form_widget(form.description) }}
-			</div>
+<div class="container my-5">
+	<div class="row d-flex justify-content-center">
+		<div class="mx-3">
+			{{ form_row(form.nom, { 'label': 'Nom' }) }}
+			{{ form_row(form.photo, { 'label': 'Photo' }) }}
+			{{ form_row(form.reference, { 'label': 'Référence' }) }}
+			{{ form_row(form.description, { 'label': 'Description' }) }}
 		</div>
-		<div class="col-lg">
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.prixHt, 'Prix HT') }}
-				{{ form_widget(form.prixHt) }}
-			</div>
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.prixTtc, 'Prix TTC') }}
-				{{ form_widget(form.prixTtc) }}
-			</div>
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.stock, 'Stock disponible') }}
-				{{ form_widget(form.stock) }}
-			</div>
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.typeArt, 'Catégorie') }}
-				{{ form_widget(form.typeArt) }}
-			</div>
+		<div class="mx-3">
+			{{ form_row(form.prixHt, { 'label': 'Prix HT' }) }}
+			{{ form_row(form.prixTtc, { 'label': 'Prix TTC' }) }}
+			{{ form_row(form.stock, { 'label': 'Stock' }) }}
+			{{ form_row(form.typeArt, { 'label': 'Type article' }) }}
 		</div>
-		<div class="col-lg">
-			<div class="d-flex flex-column mt-2">
-				{{ form_label(form.spec, 'Spécifications') }}
-				{#{{ form_widget(form.spec) }}#}
-				<ul class="tags" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
-					{# iterate over each existing tag and render its only field: name #}
-					{% for specs in form.spec %}
-						<li>{{ form_row(specs.nom) }}</li>
-						<li>{{ form_row(specs.valeur) }}</li>
-					{% endfor %}
-				</ul>
-			</div>
+		<div class="mx-3">
+			{#{{ form_widget(form.spec) }}#}
+			<ul class="list-unstyled tags" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
+				{# iterate over each existing tag and render its only field: name #}
+				{% for specs in form.spec %}
+					<li>
+						{{ form_row(specs.nom, { 'label': 'Nom spécification' }) }}
+					</li>
+					<li>
+						{{ form_row(specs.valeur, { 'label': 'Valeur spécification' }) }}
+					</li>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 </div>
-{# save button #}
-<div class="container mt-4">
+{# buttons #}
+<div class="container">
 	<div class="row d-flex justify-content-center">
-		<button class="btn" title="Sauvegarder">
-			<i data-fa-symbol="save" class="fas fa-save text-success"></i>
-			<svg class="icon-md">
-				<use xlink:href="#save"></use>
-			</svg>
-		</button>
+		{# save button #}
+		<div>
+			<button class="save-button" title="Enregistrer">
+				<i data-fa-symbol="save" class="fas fa-save"></i>
+				<svg class="icon-md">
+					<use xlink:href="#save"></use>
+				</svg>
+			</button>
+		</div>
 	</div>
 </div>
 {{ form_end(form) }}
-
+{# add specifications  #}
 {% block javascripts %}
 	{{ encore_entry_script_tags('app') }}
-
-	<script
-			src="https://code.jquery.com/jquery-3.4.1.js"
-			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-			crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 	<script>
 		var $collectionHolder;
-
-		// setup an "add a spec" link
-		var $addTagButton = $('<button type="button" class="add_tag_link">Ajouter une spécification</button>');
-		var $newLinkLi = $('<li></li>').append($addTagButton);
-
-		jQuery(document).ready(function() {
-			// Get the ul that holds the collection of tags
-			$collectionHolder = $('ul.tags');
-
-			// add the "add a tag" anchor and li to the tags ul
-			$collectionHolder.append($newLinkLi);
-
-			// count the current form inputs we have (e.g. 2), use that as the new
-			// index when inserting a new item (e.g. 2)
-			$collectionHolder.data('index', ($collectionHolder.find(':input').length));
-
-			$addTagButton.on('click', function(e) {
-				// add a new tag form (see next code block)
-				addTagForm($collectionHolder, $newLinkLi);
-			});
-		});
-		function addTagForm($collectionHolder, $newLinkLi) {
-			// Get the data-prototype explained earlier
-			var prototype = $collectionHolder.data('prototype');
-
-			// get the new index
-			var index = $collectionHolder.data('index');
-
-			var newForm = prototype;
-			// You need this only if you didn't set 'label' => false in your tags field in TaskType
-			// Replace '__name__label__' in the prototype's HTML to
-			// instead be a number based on how many items we have
-			// newForm = newForm.replace(/__name__label__/g, index);
-
-			// Replace '__name__' in the prototype's HTML to
-			// instead be a number based on how many items we have
-			newForm = newForm.replace(/__name__/g, index);
-
-			// increase the index with one for the next item
-			$collectionHolder.data('index', index + 1);
-
-			// Display the form in the page in an li, before the "Add a spec" link li
-			var $newFormLi = $('<li></li>').append(newForm);
-			$newLinkLi.before($newFormLi);
-		}
+// setup an "add a spec" link
+var $addTagButton = $('<div class="d-flex justify-content-center mt-5"><button class="add-button" title="Ajouter"><i data-fa-symbol="add" class="fas fa-plus"></i><svg class="icon-md"><use xlink:href="#add"></use></svg></button></div>');
+var $newLinkLi = $('<li></li>').append($addTagButton);
+jQuery(document).ready(function () { // Get the ul that holds the collection of tags
+$collectionHolder = $('ul.tags');
+// add the "add a tag" anchor and li to the tags ul
+$collectionHolder.append($newLinkLi);
+// count the current form inputs we have (e.g. 2), use that as the new
+// index when inserting a new item (e.g. 2)
+$collectionHolder.data('index', ($collectionHolder.find(':input').length));
+$addTagButton.on('click', function (e) { // add a new tag form (see next code block)
+addTagForm($collectionHolder, $newLinkLi);
+});
+});
+function addTagForm($collectionHolder, $newLinkLi) { // Get the data-prototype explained earlier
+var prototype = $collectionHolder.data('prototype');
+// get the new index
+var index = $collectionHolder.data('index');
+var newForm = prototype;
+// You need this only if you didn't set 'label' => false in your tags field in TaskType
+// Replace '__name__label__' in the prototype's HTML to
+// instead be a number based on how many items we have
+// newForm = newForm.replace(/__name__label__/g, index);
+// Replace '__name__' in the prototype's HTML to
+// instead be a number based on how many items we have
+newForm = newForm.replace(/__name__/g, index);
+// increase the index with one for the next item
+$collectionHolder.data('index', index + 1);
+// Display the form in the page in an li, before the "Add a spec" link li
+var $newFormLi = $('<li></li>').append(newForm);
+$newLinkLi.before($newFormLi);
+}
 	</script>
 {% endblock %}

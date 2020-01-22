@@ -3,11 +3,11 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-
-{# tree #}
+	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
+				{# administrator part #}
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin_index') }}">
 						Dashboard
@@ -23,19 +23,20 @@
 			</li>
 		</ol>
 	</nav>
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1 class="text-md-center">Marques</h1>
-
-	{% for brand in brands %}
-		{% if phones is defined and not null %}
-		<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}"><img src="{{ brand.image }}" alt="{{ brand.nom }}"></a>
-		{% endif %}
-	{% endfor %}
-
-</div>
+	{# title #}
+	<h1>Marques</h1>
+	{# brand #}
+	<div class="container my-5">
+		<div class="row">
+			{% for brand in brands %}
+				{% if phones is defined and not null %}
+					<div class="col-3 d-flex justify-content-center">
+						<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+							<img src="{{ brand.image }}" alt="{{ brand.nom }}">
+						</a>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

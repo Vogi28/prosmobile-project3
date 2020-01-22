@@ -7,6 +7,7 @@
 
 
 a {
+    color: #33B5E5;
     text-decoration: none;
 }
 
@@ -24,8 +25,9 @@ h1 {
     height: 100%;
 }
 
+//home
 .carousel-item {
-    height: 400px;;
+    height: 300px;;
 }
 
 //navbar
@@ -122,6 +124,7 @@ h1 {
 
 // forms
 input {
+    border: solid 1px #E0E0E0;
     height: 35px;
     width: 300px;
 }
@@ -136,18 +139,87 @@ label {
     margin: 10px 0;
 }
 
+select {
+    border: solid 1px #E0E0E0;
+    padding: 5px;
+}
+
+textarea {
+    border: solid 1px #E0E0E0;
+    padding: 5px;
+}
+
 //buttons
-.add-button, .delete-button, .edit-button, .save-button {
+.add-button, .checkout-button, .edit-button, .save-button, .show-button {
     align-items: center;
     background-color: #00C851;
     border: none;
-    border-radius: 10px;
     color: #FFFFFF;
     display: flex;
     height: 40px;
     justify-content: center;
     padding: 0;
     width: 40px;
+}
+
+.add-button-sm {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #00C851;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    padding: 0;
+    width: 25px;
+}
+
+.delete-button {
+    align-items: center;
+    background-color: #FF4444;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+}
+
+.delete-button-sm {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #FF4444;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    padding: 0;
+    width: 25px;
+}
+
+.booking-button {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 180px;
+}
+
+.checkout-button {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 100px;
 }
 
 .login-button {
