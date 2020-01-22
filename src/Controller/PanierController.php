@@ -109,7 +109,7 @@ class PanierController extends AbstractController
                     $dtlCdePro->setQuantite($qty);
                     $dtlCdePro->setPrixHt($article->getPrixHt());
                     $dtlCdePro->setRemise($cdePro->getPro()->getPourcentRemise());
-                    $dtlCdePro->setTotal($qty * ($article->getPrixTtc() * (
+                    $dtlCdePro->setTotal($qty * ($article->getPrixHt() * (
                         1 - (($cdePro->getPro()->getPourcentRemise()) / 100))));
                     $dtlCdePro->addArticle($article);
                     $dtlCdePro->setCommandePro($cdePro);

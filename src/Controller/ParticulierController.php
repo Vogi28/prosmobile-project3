@@ -6,8 +6,7 @@ use App\Entity\Particulier;
 use App\Entity\User;
 use App\Form\ParticulierFormType;
 use App\Repository\ParticulierRepository;
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\ManagerService;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,7 +45,7 @@ class ParticulierController extends AbstractController
      *@Route("/profile/{id}/infos", name="informations")
      * @return void
      */
-    public function infosForm(User $user, Request $request, EntityManagerInterface $emi)
+    public function infosForm(User $user, Request $request, ManagerService $managerService)
     {
         $particulier = new Particulier();
         $particulier->setUser($user);
@@ -56,8 +55,7 @@ class ParticulierController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $particulier = $form->getData();
-            $emi->persist($particulier);
-            $emi->flush();
+            $managerService->persFlush($particulier);
 
             $this->addFlash('success', 'Enregistrement réussi');
 
@@ -72,17 +70,18 @@ class ParticulierController extends AbstractController
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
      */
-    public function new(Request $request, User $user): Response
-    {
+    public function new(
+        Request $request,
+        User $user,
+        ManagerService $managerService
+    ): Response {
         dd($user);
         $particulier = new Particulier();
         $form = $this->createForm(ParticulierFormType::class, $particulier);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($particulier);
-            $entityManager->flush();
+            $managerService->persFlush($particulier);
 
             $this->addFlash('success', 'Ajout réussi');
 
@@ -136,15 +135,16 @@ class ParticulierController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Particulier $particulier): Response
-    {
+    public function delete(
+        Request $request,
+        Particulier $particulier,
+        ManagerService $managerService
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$particulier->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($particulier);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Suppression réussi');
+            $managerService->persFlush($particulier);
         }
+
+        $this->addFlash('success', 'Suppression réussi');
 
         return $this->redirectToRoute('particulier_index');
     }

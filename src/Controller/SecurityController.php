@@ -7,6 +7,7 @@ use App\Form\EditPasswordType;
 use App\Service\MailerService;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use App\Service\ManagerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,7 @@ class SecurityController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
         LoginFormAuthenticator $authenticator,
+        ManagerService $managerService,
         MailerService $mailer
     ): Response {
         $user = new User();
@@ -48,9 +50,7 @@ class SecurityController extends AbstractController
                 $user->setRoles(['ROLE_PARTICULIER']);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $managerService->persFLush($user);
 
             $this->addFlash('success', 'Enregistrement réussi');
 
@@ -106,7 +106,7 @@ class SecurityController extends AbstractController
         User $user,
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $emi,
+        ManagerService $managerService,
         MailerService $mailer
     ) {
         
@@ -118,9 +118,8 @@ class SecurityController extends AbstractController
                 $user,
                 $form->get('plainPassword')->getData()
             ));
-
-            $emi->persist($user);
-            $emi->flush();
+            
+            $managerService->persFLush($user);
 
             $mailer->sendMdpNotif($user->getEmail());
 

@@ -10,6 +10,7 @@ use App\Repository\MarqueRepository;
 use App\Repository\PromoRepository;
 use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
+use App\Service\ManagerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,16 +77,16 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        ManagerService $managerService
+    ): Response {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
+            $managerService->persFLush($article);
 
             return $this->redirectToRoute('article_index');
         }
@@ -184,14 +185,15 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Article $article): Response
-    {
+    public function delete(
+        Request $request,
+        Article $article,
+        ManagerService $managerService
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($article);
-            $entityManager->flush();
+            $managerService->remFLush($article);
         }
-
+            
         return $this->redirectToRoute('article_index');
     }
 }

@@ -23,6 +23,7 @@ class SellProcessController extends AbstractController
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository
     ): Response {
+        
         $phones = $articleRepository->findByTypeArt('1');
         return $this->render('sell_process/brandIndex.html.twig', [
             'phones' => $phones,
@@ -38,6 +39,8 @@ class SellProcessController extends AbstractController
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository
     ): Response {
+        // $article = $articleRepository->findOneById(1);
+        // dd($article->getMarque()->getKeys());
         $marqueId = $marqueRepository->findOneByNom($slug)->getId();
         $articles = $articleRepository->findByTypeArtBrand('1', $marqueId);
         return $this->render('sell_process/articleSelection.html.twig', [
