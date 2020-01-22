@@ -17,54 +17,73 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1 class="text-center">Commandes</h1>
-	{# body #}
-	<table class="table mt-4">
-		<thead class="thead-dark">
-			<tr>
-				<th>Commande</th>
-				<th>Client ID</th>
-				<th>Nom / Societe</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for commande in commandes %}
-				<tr>
-					<td>{{ commande.id }}</td>
-					{% if commande.particulier is defined %}
-						<td>{{ commande.particulier.id }}</td>
-						<td>
-							{{ commande.particulier.nom }}
-							{{ commande.particulier.prenom }}
-						</td>
-					{% elseif commande.pro is defined %}
-						<td>{{ commande.pro.id }}</td>
-						<td>{{ commande.pro.societe }}</td>
-					{% endif %}
-					<td title="Afficher">
-						{% if commande.particulier is defined %}
-							<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">
-								<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
-								<svg class="icon-md">
-									<use xlink:href="#show"></use>
-								</svg>
-							</a>
-						{% elseif commande.pro is defined %}
-							<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">
-								<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
-								<svg class="icon-md">
-									<use xlink:href="#show"></use>
-								</svg>
-							</a>
-						{% endif %}
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="2">Aucune commande trouvée</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<h1>Commandes</h1>
+	{# table #}
+	<div class="container my-5">
+		<div class="row">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th>Commande</th>
+						<th>Client ID</th>
+						<th>Nom / Societe</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for commande in commandes %}
+						<tr>
+							<td>{{ commande.id }}</td>
+							{# individial part #}
+							{% if commande.particulier is defined %}
+								<td>{{ commande.particulier.id }}</td>
+								<td>
+									{{ commande.particulier.nom }}
+									{{ commande.particulier.prenom }}
+								</td>
+								{# professional part #}
+							{% elseif commande.pro is defined %}
+								<td>{{ commande.pro.id }}</td>
+								<td>{{ commande.pro.societe }}</td>
+							{% endif %}
+							<td>
+								{# individual part #}
+								{% if commande.particulier is defined %}
+									{# show button #}
+									<div>
+										<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">
+											<button class="show-button-sm" title="Afficher">
+												<i data-fa-symbol="add" class="fas fa-eye"></i>
+												<svg class="icon-sm">
+													<use xlink:href="#add"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+									{# professional part #}
+								{% elseif commande.pro is defined %}
+									{# show button #}
+									<div>
+										<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">
+											<button class="show-button-sm" title="Afficher">
+												<i data-fa-symbol="add" class="fas fa-eye"></i>
+												<svg class="icon-sm">
+													<use xlink:href="#add"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						{# empty #}
+						<tr>
+							<td colspan="2">Aucune commande trouvée</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}

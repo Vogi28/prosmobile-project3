@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pro index{% endblock %}
+{% block title %}Pro index
+{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -17,47 +18,57 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1 class="text-center">Comptes professionnels</h1>
-	{# body #}
-	<table class="table mt-4">
-		<thead class="thead-dark">
-			<tr>
-				<th>Prenom</th>
-				<th>Nom</th>
-				<th>Societe</th>
-				<th>Siret</th>
-				<th>Adresse</th>
-				<th>CodePostal</th>
-				<th>Ville</th>
-				<th>Telephone</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for pro in pros %}
-				<tr>
-					<td>{{ pro.prenom }}</td>
-					<td>{{ pro.nom }}</td>
-					<td>{{ pro.societe }}</td>
-					<td>{{ pro.siret }}</td>
-					<td>{{ pro.adresse }}</td>
-					<td>{{ pro.codePostal }}</td>
-					<td>{{ pro.ville }}</td>
-					<td>{{ pro.telephone }}</td>
-					<td>
-						<a href="{{ path('pro_edit', {'id': pro.id}) }}" title="Modifier">
-							<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-							<svg class="icon-md">
-								<use xlink:href="#edit"></use>
-							</svg>
-						</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="10">Aucune données</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<h1>Comptes professionnels</h1>
+	{# table #}
+	<div class="container my-5">
+		<div class="row">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Société</th>
+						<th>Siret</th>
+						<th>Adresse</th>
+						<th>Code postal</th>
+						<th>Ville</th>
+						<th>Téléphone</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for pro in pros %}
+						<tr>
+							<td>{{ pro.prenom }}</td>
+							<td>{{ pro.nom }}</td>
+							<td>{{ pro.societe }}</td>
+							<td>{{ pro.siret }}</td>
+							<td>{{ pro.adresse }}</td>
+							<td>{{ pro.codePostal }}</td>
+							<td>{{ pro.ville }}</td>
+							<td>{{ pro.telephone }}</td>
+							<td>
+								{# show button #}
+								<div>
+									<a href="{{ path('pro_edit', {'id': pro.id}) }}">
+										<button class="edit-button-sm" title="Modifier">
+											<i data-fa-symbol="edit" class="fas fa-pen"></i>
+											<svg class="icon-sm">
+												<use xlink:href="#edit"></use>
+											</svg>
+										</button>
+									</a>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						{# empty #}
+						<tr>
+							<td colspan="10">Aucune données</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}
