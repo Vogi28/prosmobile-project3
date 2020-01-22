@@ -54,9 +54,9 @@ class CartService
     public function addItems($id, $promotion)
     {
         $basket = $this->session->get('panier', []);
-        $promotion = $this->session->get('promo', 0);
+        $promo = $this->session->get('promo', 0);
 
-        $promotion = $promotion;
+        $promo = $promotion;
 
         if (!empty($basket[$id])) {
             $basket[$id]++;
@@ -65,7 +65,7 @@ class CartService
         }
         
         $this->session->set('panier', $basket);
-        $this->session->set('promo', $promotion);
+        $this->session->set('promo', $promo);
     }
 
     public function delItems($id)
