@@ -88,7 +88,7 @@
 							{% endif %}
 							{# buttons #}
 							<div class="container my-5">
-								<div class="row d-flex justify-content-around">
+								<div class="row d-flex justify-content-center">
 									{# show product button #}
 									<div class="col-4">
 										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
@@ -101,7 +101,7 @@
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
-										<div>
+										<div class="mx-2">
 											<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
 												<button class="edit-button" title="Modifier">
 													<i data-fa-symbol="edit" class="fas fa-pen"></i>
