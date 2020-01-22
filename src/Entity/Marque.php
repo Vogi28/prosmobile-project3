@@ -29,14 +29,14 @@ class Marque
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="marque")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="marque")
      */
     private $articles;
 
-    /*public function __construct()
+    public function __construct()
     {
         $this->articles = new ArrayCollection();
-    }*/
+    }
 
     public function getId(): ?int
     {
@@ -67,24 +67,9 @@ class Marque
         return $this;
     }
 
-    public function getArticle(): ?Article
-    {
-        return $this->articles;
-    }
-
-
-    public function setArticle(?Article $articles): self
-    {
-        $this->articles = $articles;
-
-        return $this;
-    }
-}
-
     /**
      * @return Collection|Article[]
      */
-    /*
     public function getArticles(): Collection
     {
         return $this->articles;
@@ -100,7 +85,7 @@ class Marque
         return $this;
     }
 
-    public function removeArticles(Article $article): self
+    public function removeArticle(Article $article): self
     {
         if ($this->articles->contains($article)) {
             $this->articles->removeElement($article);
@@ -112,5 +97,4 @@ class Marque
 
         return $this;
     }
-
-    */
+}
