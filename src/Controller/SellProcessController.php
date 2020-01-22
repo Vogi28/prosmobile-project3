@@ -21,12 +21,15 @@ class SellProcessController extends AbstractController
      */
     public function phones(
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $phones = $articleRepository->findBy(['typeArt' => '1']);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '1'])->getNom();
         return $this->render('sell_process/brandIndex.html.twig', [
             'phones' => $phones,
             'brands' => $marqueRepository->findAll(),
+            'typeArt' => $typeArt,
         ]);
     }
 
@@ -44,21 +47,24 @@ class SellProcessController extends AbstractController
             'controller_name' => 'SellProcessController',
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 
     /**
      * @Route("/composants", name="components")
      */
-    public function componentsIndex(
+    public function components(
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $phones = $articleRepository->findBy(['typeArt' => '3']);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '3'])->getNom();
         return $this->render('sell_process/brandIndex.html.twig', [
             'phones' => $phones,
             'brands' => $marqueRepository->findAll(),
+            'typeArt' => $typeArt,
         ]);
     }
 
@@ -73,7 +79,7 @@ class SellProcessController extends AbstractController
         MarqueRepository $marqueRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
-        $articles = $articleRepository->findByTypeArtBrand('3', $marqueId);
+        $articles = $articleRepository->findByTypeBrandPhone('3', $marqueId);
         return $this->render('sell_process/articleSelection.html.twig', [
             'controller_name' => 'SellProcessController',
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
@@ -85,14 +91,17 @@ class SellProcessController extends AbstractController
     /**
      * @Route("/accessoires", name="accessories")
      */
-    public function accessoriesIndex(
+    public function accessories(
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $phones = $articleRepository->findBy(['typeArt' => '2']);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '2'])->getNom();
         return $this->render('sell_process/brandIndex.html.twig', [
             'phones' => $phones,
             'brands' => $marqueRepository->findAll(),
+            'typeArt' => $typeArt,
         ]);
     }
 
@@ -121,12 +130,15 @@ class SellProcessController extends AbstractController
      */
     public function repairsIndex(
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $phones = $articleRepository->findBy(['typeArt' => '4']);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '4'])->getNom();
         return $this->render('sell_process/brandIndex.html.twig', [
             'phones' => $phones,
             'brands' => $marqueRepository->findAll(),
+            'typeArt' => $typeArt,
         ]);
     }
 
