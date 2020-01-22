@@ -75,7 +75,7 @@ class Article
     private $detailCdePros;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Marque", mappedBy="articles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Marque", inversedBy="articles")
      */
     private $marque;
 
@@ -273,7 +273,6 @@ class Article
     {
         return $this->marque;
     }
-
 
     public function setMarque(?Marque $marque): self
     {

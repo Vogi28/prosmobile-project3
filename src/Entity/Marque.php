@@ -29,7 +29,7 @@ class Marque
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="marque")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="marque")
      */
     private $articles;
 
@@ -68,7 +68,7 @@ class Marque
     }
 
     /**
-     * @return Collection|Marque[]
+     * @return Collection|Article[]
      */
     public function getArticles(): Collection
     {
@@ -85,7 +85,7 @@ class Marque
         return $this;
     }
 
-    public function removeArticles(Article $article): self
+    public function removeArticle(Article $article): self
     {
         if ($this->articles->contains($article)) {
             $this->articles->removeElement($article);
