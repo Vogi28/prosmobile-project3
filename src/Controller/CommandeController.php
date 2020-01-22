@@ -248,12 +248,16 @@ class CommandeController extends AbstractController
             $dtlCdePart = $dtlCdePartRepository->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$dtlCdePart->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($dtlCdePart);
-                dd($dtlCdePart);
-                $entityManager->flush();
-                if (empty($dtlCdePart->getId() == null)) {
-                    $entityManager->remove($cdePar->findOneByDetailCdePart($id));
+                $emi->remove($dtlCdePart);
+                $emi->flush();
+
+                $id = $dtlCdePart->getCommandePar()->getId();
+                $cdePar = $cdePar->findOneById($id);
+                
+                if ($dtlCdePart->getId() == null) {
+                    $emi->remove($cdePar);
+                    $emi->flush();
+                    $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
                 }
             }
 
@@ -264,17 +268,20 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getParticulier()->getId()
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
-            $dtlCdePro = $dtlCdeProRepository->findOnerById($id);
+            $dtlCdePro = $dtlCdeProRepository->findOneById($id);
             
             if ($this->isCsrfTokenValid('delete'.$dtlCdePro->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($dtlCdePro);
-                $entityManager->persist($dtlCdePro);
+                $emi->remove($dtlCdePro);
+                $emi->flush();
 
-                if (empty($dtlCdePro)) {
-                    $entityManager->remove($cdePro->findOneByDetailCdePro($id));
+                $id = $dtlCdePro->getCommandePro()->getId();
+                $cdePro = $cdePro->findOneById($id);
+                
+                if ($dtlCdePro->getId() == null) {
+                    $emi->remove($cdePro);
+                    $emi->flush();
+                    $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
                 }
-                $entityManager->flush();
             }
 
             $this->addFlash('success', 'Suppression réussi');

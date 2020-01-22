@@ -118,7 +118,7 @@ class ArticleController extends AbstractController
             $artComps = $artCompRepository->findByArtId(['artId' => $id2]);
             $artCompId = [];
             foreach ($artComps as $artcomp) {
-                $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+                $artCompId[] = $articleRepository->findOneBy(['id' => $artcomp->getArtCompId()]);
             }
             $artCompPrixHT = $articleRepository
                 ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixHt();
@@ -142,7 +142,7 @@ class ArticleController extends AbstractController
         $artComps = $artCompRepository->findByArtId(['artId' => $id2]);
         $artCompId = [];
         foreach ($artComps as $artcomp) {
-            $artCompId[] = $articleRepository->findOneBy(['typeArt' => $artcomp->getArtCompId()]);
+            $artCompId[] = $articleRepository->findOneBy(['id' => $artcomp->getArtCompId()]);
         }
         $artCompPrixTTC = $articleRepository
             ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixTtc();

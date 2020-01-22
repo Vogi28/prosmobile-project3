@@ -45,43 +45,56 @@
 				<th>Quantity</th>
 				<th>Price</th>
 				<th>Discount</th>
-				<th>Price with Taxes</th>
+				<th>Total</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
+		{% if details is not empty %}
 			{% for detail in details %}
 				<tr>
 					<td>
-						<a href="#">{{ detail.article }}</a>
+						<a href="#">{{ detail.article.0.id }}</a>
 					</td>
 					<td>{{ detail.nomArt }}</td>
-					<td>{{ detail.quantity }}</td>
+					<td>{{ detail.quantite }}</td>
 					<td>{{ detail.prixHT }}</td>
 					<td>{{ detail.remise }}</td>
 					<td>{{ detail.total }}</td>
 					<td>
-						{% if is_granted('ROLE_PRO') %}
-							<a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">
-								<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-								<svg class="icon-md">
-									<use xlink:href="#edit"></use>
-								</svg>
-							</a>
-						{% elseif is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('admin_commande_edit', {'id': commande_pro.id, 'role': 'pro'}) }}">
-								<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-								<svg class="icon-md">
-									<use xlink:href="#edit"></use>
-								</svg>
-							</a>
-						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							<div class="row">
+								<div>
+								<a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">
+									<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+									<svg class="icon-md">
+										<use xlink:href="#edit"></use>
+									</svg>
+								</a>
+								</div>
+								<div>
+									{{ include('commande/detail_cde_pro/_delete_form.html.twig') }}
+								</div>
+							</div>
+						{% elseif is_granted('ROLE_PRO') %}
+						<div class="row">
+							<div>
+								<a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">
+									<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+									<svg class="icon-md">
+										<use xlink:href="#edit"></use>
+									</svg>
+								</a>
+								</div>
+							<div title="Supprimer">
+								{{ include('commande/detail_cde_pro/_delete_form.html.twig') }}
+							{% endif %}
+							</div>
+						</div>
 					</td>
 				</tr>
 			{% endfor %}
+		{% endif %}
 		</tbody>
 	</table>
-	{% if details is not empty %}
-		{{ include('commande/commande_pro/_delete_form.html.twig') }}
-	{% endif %}
 {% endblock %}
