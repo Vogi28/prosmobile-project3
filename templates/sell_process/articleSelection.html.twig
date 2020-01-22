@@ -87,8 +87,7 @@
 								<div class="row">
 									{# show product button #}
 									<div class="col-4">
-										<a href="{{ path('article_show', {'id': marque.id,
-										'id2': article.id , 'slug': brand }) }}" title="Afficher">
+										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
 											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
 											<svg class="icon-md">
 												<use xlink:href="#show"></use>
