@@ -102,7 +102,7 @@
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
 										<div class="mx-2">
-											<a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
 												<button class="edit-button" title="Modifier">
 													<i data-fa-symbol="edit" class="fas fa-pen"></i>
 													<svg class="icon-md">

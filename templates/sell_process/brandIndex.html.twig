@@ -32,7 +32,7 @@
 				{% if phones is defined and not null %}
 					<div class="col-3 d-flex justify-content-center">
 						<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
-							<img src="{{ brand.image }}" alt="{{ brand.nom }}">
+							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
 						</a>
 					</div>
 				{% endif %}
