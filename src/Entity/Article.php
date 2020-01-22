@@ -84,6 +84,7 @@ class Article
         $this->spec = new ArrayCollection();
         $this->detailCdeParts = new ArrayCollection();
         $this->detailCdePros = new ArrayCollection();
+        $this->marque = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,15 +270,33 @@ class Article
         return $this;
     }
 
-    public function getMarque(): ?Marque
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
     {
         return $this->marque;
     }
 
-
-    public function setMarque(?Marque $marque): self
+    public function addMarque(Marque $marque): self
     {
-        $this->marque = $marque;
+        if (!$this->marque->contains($marque)) {
+            $this->marque[] = $marque;
+            $marque->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMarque(Marque $marque): self
+    {
+        if ($this->marque->contains($marque)) {
+            $this->marque->removeElement($marque);
+            // set the owning side to null (unless already changed)
+            if ($marque->getArticle() === $this) {
+                $marque->setArticle(null);
+            }
+        }
 
         return $this;
     }

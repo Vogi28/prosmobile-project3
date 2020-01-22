@@ -24,7 +24,8 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->andWhere('a.typeArt = :typeArt')
             ->setParameter('typeArt', $typeArtId)
-            ->andWhere('a.marque = :marque')
+            // ->andWhere(':marque MEMBER OF a.marque')
+            ->andWhere('a.marque = :marque') // a.marque member of marque
             ->setParameter('marque', $marqueId)
             ->orderBy('a.id', 'ASC')
             // ->setMaxResults(10)

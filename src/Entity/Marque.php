@@ -33,10 +33,10 @@ class Marque
      */
     private $articles;
 
-    public function __construct()
+    /*public function __construct()
     {
         $this->articles = new ArrayCollection();
-    }
+    }*/
 
     public function getId(): ?int
     {
@@ -67,9 +67,24 @@ class Marque
         return $this;
     }
 
+    public function getArticle(): ?Article
+    {
+        return $this->articles;
+    }
+
+
+    public function setArticle(?Article $articles): self
+    {
+        $this->articles = $articles;
+
+        return $this;
+    }
+}
+
     /**
-     * @return Collection|Marque[]
+     * @return Collection|Article[]
      */
+    /*
     public function getArticles(): Collection
     {
         return $this->articles;
@@ -97,4 +112,5 @@ class Marque
 
         return $this;
     }
-}
+
+    */
