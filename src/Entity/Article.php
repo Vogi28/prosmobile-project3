@@ -269,7 +269,7 @@ class Article
         return $this;
     }
 
-    public function getMarque(): ?Marque
+    public function getMarque(): ?Collection
     {
         return $this->marque;
     }

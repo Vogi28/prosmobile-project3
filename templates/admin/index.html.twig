@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dasboard
-{% endblock %}
+{% block title %}Dasboard{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -12,16 +11,14 @@
 			</li>
 		</ol>
 	</nav>
-	{# dashboard #}
+	{# title #}
 	<h1>Dashboard</h1>
-	{# body #}
-	<div class="container-fluid my-5">
-		<div
-			class="row">
+	{# dashboard #}
+	<div class="container my-5">
+		<div class="row">
 			{# dashboard nav #}
-			<div class="col-1 d-flex justify-content-center">
-				<div
-					class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			<div class="col-2 d-flex justify-content-center">
+				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					{# accounts tab icon #}
 					<a class="nav-link mb-4" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true">
 						<div class="account-tab" title="Comptes utilisateurs">
@@ -61,44 +58,47 @@
 				</div>
 			</div>
 			{# tabs menu #}
-			<div class="col-11 d-flex align-items-center">
-				<div
-					class="tab-content" id="v-pills-tabContent">
+			<div class="col-10 d-flex align-items-center">
+				<div class="tab-content" id="v-pills-tabContent">
 					{# accounts menu #}
 					<div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
 						<div class="container">
 							<div class="row">
-								<div class="col-lg" style="width:300px;">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title">Professionnels</h5>
-											<p class="card-text">Informations sur les clients professionnels.</p>
-											{# infos button #}
-											<button class="btn" title="Informations">
-												<a href="{{ path('pro_index')}}">
-													<i data-fa-symbol="show" class="fas fa-eye text-success"></i>
-													<svg class="icon-md">
-														<use xlink:href="#show"></use>
-													</svg>
-												</a>
-											</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg" style="width:300px;">
+								<div class="col-lg">
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title">Particuliers</h5>
 											<p class="card-text">Informations sur les clients particuliers.</p>
-											{# infos button #}
-											<button class="btn" title="Informations">
+											<div class="row d-flex justify-content-center">
+												{# show button #}
 												<a href="{{ path('particulier_index')}}">
-													<i data-fa-symbol="show" class="fas fa-eye text-success"></i>
-													<svg class="icon-md">
-														<use xlink:href="#show"></use>
-													</svg>
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
 												</a>
-											</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Professionnels</h5>
+											<p class="card-text">Informations sur les clients professionnels.</p>
+											<div class="row d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('pro_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -109,20 +109,22 @@
 					<div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">
 						<div class="container">
 							<div class="row">
-								<div class="col-lg" style="width:300px;">
+								<div class="col-lg">
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title">Articles</h5>
 											<p class="card-text">Informations sur articles.</p>
-											{# infos button #}
-											<button class="btn" title="Informations">
+											<div class="row d-flex justify-content-center">
+												{# show button #}
 												<a href="{{ path('admin_article_index')}}">
-													<i data-fa-symbol="show" class="fas fa-eye text-success"></i>
-													<svg class="icon-md">
-														<use xlink:href="#show"></use>
-													</svg>
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
 												</a>
-											</button>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -133,20 +135,22 @@
 					<div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
 						<div class="container">
 							<div class="row">
-								<div class="col-lg" style="width:300px;">
+								<div class="col-lg">
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title">Commandes</h5>
 											<p class="card-text">Informations sur les commandes.</p>
-											{# infos button #}
-											<button class="btn" title="Informations">
+											<div class="row d-flex justify-content-center">
+												{# show button #}
 												<a href="{{ path('admin_commande_index')}}">
-													<i data-fa-symbol="show" class="fas fa-eye text-success"></i>
-													<svg class="icon-md">
-														<use xlink:href="#show"></use>
-													</svg>
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
 												</a>
-											</button>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -157,20 +161,22 @@
 					<div class="tab-pane fade" id="v-pills-discount" role="tabpanel" aria-labelledby="v-pills-discount-tab">
 						<div class="container">
 							<div class="row">
-								<div class="col-lg" style="width:300px;">
+								<div class="col-lg">
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title">Promotions</h5>
 											<p class="card-text">Informations sur les promotions.</p>
-											{# infos button #}
-											<button class="btn" title="Informations">
+											<div class="row d-flex justify-content-center">
+												{# show button #}
 												<a href="{{ path('promo_index')}}">
-													<i data-fa-symbol="show" class="fas fa-eye text-success"></i>
-													<svg class="icon-md">
-														<use xlink:href="#show"></use>
-													</svg>
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
 												</a>
-											</button>
+											</div>
 										</div>
 									</div>
 								</div>
