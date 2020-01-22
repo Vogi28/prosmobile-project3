@@ -18,13 +18,13 @@
 	</nav>
 	{# title #}
 	{% if user.particulier is null %}
-		<h1 class="text-center">
+		<h1>
 			Bonjour
 			{{ user.email }}
 			!
 		</h1>
 	{% else %}
-		<h1 class="text-center">
+		<h1>
 			Bonjour
 			{{ user.particulier.prenom }}
 			{{ user.particulier.nom }}
@@ -32,7 +32,7 @@
 		</h1>
 	{% endif %}
 	{# body #}
-	<div class="container-fluid mt-4">
+	<div class="container my-5">
 		<div class="row">
 			<div class="col-4">
 				{# edit profile menu #}

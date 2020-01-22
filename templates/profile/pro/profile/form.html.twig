@@ -3,19 +3,60 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Informations</h1>
-<div class="container d-flex justify-content-center">
-    {{ form_start(formPro) }}
-        {{ form_row(formPro.prenom, {'attr': {'placeholder': 'Entrer votre prénom'}}) }}
-        {{ form_row(formPro.nom, {'attr': {'placeholder': 'Entrer votre nom'}}) }}
-        {{ form_row(formPro.adresse, {'attr': {'placeholder': 'Entrer votre adresse'}}) }}
-        {{ form_row(formPro.codePostal, {'attr': {'placeholder': 'Entrer votre code postal'}}) }}
-        {{ form_row(formPro.ville, {'attr': {'placeholder': 'Entrer votre ville'}}) }}
-        {{ form_row(formPro.societe, {'attr': {'placeholder': 'Entrer le nom de votre société'}}) }}
-        {{ form_row(formPro.siret, {'attr': {'placeholder': 'Entrer votre SIRET'}}) }}
-        {{ form_row(formPro.telephone) }}
-
-        <button class="btn btn-success">Envoyer</button>
-    {{ form_end(formPro) }}
-</div>
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
+					Mon profil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Informations
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Informations</h1>
+	{# form #}
+	{{ form_start(formPro) }}
+	<div class="container my-5">
+		<div class="row d-flex justify-content-center">
+			{# first column #}
+			<div class="mx-3">
+				{{ form_row(formPro.prenom, { 'label': 'Prénom' }) }}
+				{{ form_row(formPro.nom) }}
+				{{ form_row(formPro.telephone, { 'label': 'Téléphone' }) }}
+			</div>
+			{# second column #}
+			<div class="mx-3">
+				{{ form_start(formPro) }}
+				{{ form_row(formPro.adresse) }}
+				{{ form_row(formPro.codePostal) }}
+				{{ form_row(formPro.ville) }}
+				{{ form_row(formPro.societe, { 'label': 'Société' }) }}
+				{{ form_row(formPro.siret) }}
+			</div>
+		</div>
+	</div>
+	{# buttons #}
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			{# save button #}
+			<div>
+				<button class="save-button" title="Enregistrer">
+					<i data-fa-symbol="save" class="fas fa-save"></i>
+					<svg class="icon-md">
+						<use xlink:href="#save"></use>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formPro) }}
 {% endblock %}
