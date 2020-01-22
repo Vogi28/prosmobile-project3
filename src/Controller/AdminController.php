@@ -16,6 +16,7 @@ use App\Repository\CommandeProRepository;
 use App\Repository\ParticulierRepository;
 use App\Repository\DetailCdeProRepository;
 use App\Repository\DetailCdePartRepository;
+use App\Service\ManagerService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -148,25 +149,24 @@ class AdminController extends AbstractController
         int $id,
         string $role,
         UserRepository $userRepository,
-        EntityManagerInterface $entityManager
+        ManagerService $managerService,
+        EntityManagerInterface $emi
     ): Response {
         if ($role === 'particulier') {
             $userPar = $userRepository->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$userPar->getId(), $request->request->get('_token'))) {
-                $entityManager->remove($userPar);
-                $entityManager->flush();
+                $managerService->remFlush($userPar);
 
-                $entityManager->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
+                $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
             }
         } elseif ($role === 'pro') {
             $userPro = $userRepository->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$userPro->getId(), $request->request->get('_token'))) {
-                $entityManager->remove($userPro);
-                $entityManager->flush();
+                $managerService->remFlush($userPro);
 
-                $entityManager->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
+                $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
             }
         }
 
@@ -210,7 +210,8 @@ class AdminController extends AbstractController
         Request $request,
         int $id,
         UserRepository $userRepository,
-        EntityManagerInterface $entityManager
+        ManagerService $managerService,
+        EntityManagerInterface $emi
     ): Response {
             $user = $userRepository->findOneById($id);
 
@@ -221,17 +222,16 @@ class AdminController extends AbstractController
                 $path = 'pro_index';
             }
 
-            $entityManager->remove($user);
-            $entityManager->flush();
+            $managerService->remFlush($user);
 
             if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
-                $entityManager->getConnection()->exec('ALTER TABLE particulier AUTO_INCREMENT = 1');
+                $emi->getConnection()->exec('ALTER TABLE particulier AUTO_INCREMENT = 1');
             } else {
-                $entityManager->getConnection()->exec('ALTER TABLE pro AUTO_INCREMENT = 1');
+                $emi->getConnection()->exec('ALTER TABLE pro AUTO_INCREMENT = 1');
             }
 
 
-            $entityManager->getConnection()->exec('ALTER TABLE user AUTO_INCREMENT = 1');
+            $emi->getConnection()->exec('ALTER TABLE user AUTO_INCREMENT = 1');
         }
 
         $this->addFlash('success', 'Suppression réussi');

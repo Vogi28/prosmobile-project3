@@ -12,6 +12,7 @@ use App\Repository\CommandeParRepository;
 use App\Repository\CommandeProRepository;
 use App\Repository\DetailCdePartRepository;
 use App\Repository\DetailCdeProRepository;
+use App\Service\ManagerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +46,7 @@ class CommandeController extends AbstractController
     /**
      * @Route("/{id}/new", name="new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerService $managerService): Response
     {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $cdePar = new CommandePar();
@@ -54,9 +55,7 @@ class CommandeController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($cdePar);
-                $entityManager->flush();
+                $managerService->persFLush($cdePar);
 
                 return $this->redirectToRoute('commande_index', ['id' => $cdePar->getParticulier()->getId()]);
             }
@@ -67,10 +66,8 @@ class CommandeController extends AbstractController
             $form->handleRequest($request);
         
             if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($cdePro);
-                $entityManager->flush();
-
+                $managerService->persFLush($cdePro);
+                
                 return $this->redirectToRoute('commande_index', ['id' => $cdePro->getPro()->getId()]);
             }
         }
@@ -196,30 +193,29 @@ class CommandeController extends AbstractController
         int $id,
         CommandeParRepository $cdePar,
         CommandeProRepository $cdePro,
-        EntityManagerInterface $emi
+        EntityManagerInterface $emi,
+        ManagerService $managerService
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $cdePar = $cdePar->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$cdePar->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($cdePar);
-                $entityManager->flush();
+                $managerService->persFLush($cdePar);
             }
+
             $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
             $emi->getConnection()->exec('ALTER TABLE detail_cde_part AUTO_INCREMENT = 1');
 
             $this->addFlash('success', 'Suppression réussi');
 
-            return $this->redirectToRoute('commande_index', ['id' => $this->getUser()->getParticulier()->getId()
+            return $this->redirectToRoute('commande_index', ['id' =>
+            $this->getUser()->getParticulier()->getId()
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             $cdePro = $cdePro->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$cdePro->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($cdePro);
-                $entityManager->flush();
+                $managerService->persFLush($cdePro);
             }
 
             $this->addFlash('success', 'Suppression réussi');
@@ -242,21 +238,21 @@ class CommandeController extends AbstractController
         DetailCdeProRepository $dtlCdeProRepository,
         CommandeParRepository $cdePar,
         CommandeProRepository $cdePro,
-        EntityManagerInterface $emi
+        EntityManagerInterface $emi,
+        ManagerService $managerService
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $dtlCdePart = $dtlCdePartRepository->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$dtlCdePart->getId(), $request->request->get('_token'))) {
-                $emi->remove($dtlCdePart);
-                $emi->flush();
+                $managerService->remFlush($dtlCdePart);
 
                 $id = $dtlCdePart->getCommandePar()->getId();
                 $cdePar = $cdePar->findOneById($id);
                 
                 if ($dtlCdePart->getId() == null) {
-                    $emi->remove($cdePar);
-                    $emi->flush();
+                    $managerService->remFlush($cdePar);
+
                     $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
                 }
             }
@@ -271,15 +267,14 @@ class CommandeController extends AbstractController
             $dtlCdePro = $dtlCdeProRepository->findOneById($id);
             
             if ($this->isCsrfTokenValid('delete'.$dtlCdePro->getId(), $request->request->get('_token'))) {
-                $emi->remove($dtlCdePro);
-                $emi->flush();
+                $managerService->remFlush($dtlCdePro);
 
                 $id = $dtlCdePro->getCommandePro()->getId();
                 $cdePro = $cdePro->findOneById($id);
                 
                 if ($dtlCdePro->getId() == null) {
-                    $emi->remove($cdePro);
-                    $emi->flush();
+                    $managerService->remFlush($cdePro);
+                    
                     $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
                 }
             }

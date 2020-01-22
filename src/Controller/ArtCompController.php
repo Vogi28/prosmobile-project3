@@ -6,6 +6,7 @@ use App\Entity\ArtComp;
 use App\Entity\Article;
 use App\Form\ArtCompType;
 use App\Repository\ArtCompRepository;
+use App\Service\ManagerService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,16 +31,16 @@ class ArtCompController extends AbstractController
     /**
      * @Route("/new", name="art_comp_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        ManagerService $managerService
+    ): Response {
         $artComp = new ArtComp();
         $form = $this->createForm(ArtCompType::class, $artComp);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($artComp);
-            $entityManager->flush();
+            $managerService->persFLush($artComp);
 
             return $this->redirectToRoute('art_comp_index');
         }
@@ -75,12 +76,13 @@ class ArtCompController extends AbstractController
     /**
      * @Route("/{id}", name="art_comp_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ArtComp $artComp): Response
-    {
+    public function delete(
+        Request $request,
+        ArtComp $artComp,
+        ManagerService $managerService
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$artComp->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($artComp);
-            $entityManager->flush();
+            $managerService->remFLush($artComp);
         }
 
         return $this->redirectToRoute('art_comp_index');

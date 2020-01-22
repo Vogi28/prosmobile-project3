@@ -6,7 +6,7 @@ use App\Entity\Pro;
 use App\Entity\User;
 use App\Form\ProFormType;
 use App\Repository\ProRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\ManagerService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,8 +44,11 @@ class ProController extends AbstractController
      *@Route("/profile/{id}/infos", name="informations")
      * @return void
      */
-    public function infosForm(User $user, Request $request, EntityManagerInterface $emi)
-    {
+    public function infosForm(
+        User $user,
+        Request $request,
+        ManagerService $managerService
+    ) {
         $pro = new Pro();
         $pro->setUser($user);
 
@@ -54,8 +57,8 @@ class ProController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $pro = $form->getData();
-            $emi->persist($pro);
-            $emi->flush();
+            $managerService->persFLush($pro);
+            
 
             $this->addFlash('success', 'Enregistrement réussi');
 
@@ -70,16 +73,14 @@ class ProController extends AbstractController
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerService $managerService): Response
     {
         $pro = new Pro();
         $form = $this->createForm(ProFormType::class, $pro);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($pro);
-            $entityManager->flush();
+            $managerService->persFLush($pro);
 
             $this->addFlash('success', 'Ajout réussi');
 
@@ -133,15 +134,16 @@ class ProController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Pro $pro): Response
-    {
+    public function delete(
+        Request $request,
+        Pro $pro,
+        ManagerService $managerService
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$pro->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($pro);
-            $entityManager->flush();
-        }
+            $managerService->remFLush($pro);
 
-        $this->addFlash('success', 'Suppression réussi');
+            $this->addFlash('success', 'Suppression réussi');
+        }
 
         return $this->redirectToRoute('pro_index');
     }
