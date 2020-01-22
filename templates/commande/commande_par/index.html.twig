@@ -22,41 +22,50 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1 class="text-center">Mes commandes</h1>
-	{# body #}
-	<table class="table mt-4">
-		<thead class="thead-dark">
-			<tr>
-				<th>Id</th>
-				<th>ClientID</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for commande_par in commande_pars %}
-				<tr>
-					<td>{{ commande_par.id }}</td>
-					<td>{{ commande_par.particulier.id }}</td>
-					<td>
-					<div class="row">
-					<div title="Afficher">
-						<a href="{{ path('commande_show', {'id': commande_par.id}) }}">
-							<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
-							<svg class="icon-md">
-								<use xlink:href="#show"></use>
-							</svg>
-						</a>
-						</div>
-						<div>
-							{{ include('commande/commande_par/_delete_form.html.twig') }}
-						</div>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="2">Aucune commande trouvée</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<h1>Mes commandes</h1>
+	{# table #}
+	<div class="container my-5">
+		<div class="row">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th>Commande</th>
+						<th>Client ID</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for commande_par in commande_pars %}
+						<tr>
+							<td>{{ commande_par.id }}</td>
+							<td>{{ commande_par.particulier.id }}</td>
+							<td>
+								<div class="row">
+									{# show button #}
+									<div>
+										<a href="{{ path('commande_show', {'id': commande_par.id}) }}">
+											<button class="show-button-sm" title="Afficher">
+												<i data-fa-symbol="add" class="fas fa-eye"></i>
+												<svg class="icon-sm">
+													<use xlink:href="#add"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+									{# delete button #}
+									<div>
+										{{ include('commande/commande_par/_delete_form.html.twig') }}
+									</div>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2">Aucune commande trouvée</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}
