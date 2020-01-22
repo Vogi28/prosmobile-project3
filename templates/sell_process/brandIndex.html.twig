@@ -36,6 +36,32 @@
 						</a>
 					</div>
 				{% endif %}
+				{# TODO : À VÉRIFIER ==> repliquer ci-dessous le if pour composants accessoires et reparations #}
+
+				{% if components is defined and not null %}
+					<div class="col-3 d-flex justify-content-center">
+						<a href="{{ path('article_sell_components_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+						</a>
+					</div>
+				{% endif %}
+
+				{% if accessories is defined and not null %}
+					<div class="col-3 d-flex justify-content-center">
+						<a href="{{ path('article_sell_accessories_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+						</a>
+					</div>
+				{% endif %}
+
+				{% if repairs is defined and not null %}
+					<div class="col-3 d-flex justify-content-center">
+						<a href="{{ path('article_sell_repairs_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+						</a>
+					</div>
+				{% endif %}
+
 			{% endfor %}
 		</div>
 	</div>
