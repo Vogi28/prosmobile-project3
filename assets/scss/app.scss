@@ -147,6 +147,7 @@ select {
 textarea {
     border: solid 1px #E0E0E0;
     padding: 5px;
+    width: 300px;
 }
 
 //buttons
@@ -162,7 +163,7 @@ textarea {
     width: 40px;
 }
 
-.add-button-sm {
+.add-button-sm, .edit-button-sm, .show-button-sm {
     align-items: center;
     background-color: #FFFFFF;
     border: none;

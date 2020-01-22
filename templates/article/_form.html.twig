@@ -16,17 +16,17 @@
 		</div>
 		<div class="mx-3">
 			{#{{ form_widget(form.spec) }}#}
-			<ul class="list-unstyled tags" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
+			<div class="divs" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
 				{# iterate over each existing tag and render its only field: name #}
 				{% for specs in form.spec %}
-					<li>
+					<div>
 						{{ form_row(specs.nom, { 'label': 'Nom spécification' }) }}
-					</li>
-					<li>
+					</div>
+					<div>
 						{{ form_row(specs.valeur, { 'label': 'Valeur spécification' }) }}
-					</li>
+					</div>
 				{% endfor %}
-			</ul>
+			</div>
 		</div>
 	</div>
 </div>
@@ -53,19 +53,19 @@
 		var $collectionHolder;
 // setup an "add a spec" link
 var $addTagButton = $('<div class="d-flex justify-content-center mt-5"><button class="add-button" title="Ajouter"><i data-fa-symbol="add" class="fas fa-plus"></i><svg class="icon-md"><use xlink:href="#add"></use></svg></button></div>');
-var $newLinkLi = $('<li></li>').append($addTagButton);
+var $newLinkDiv = $('<div></div>').append($addTagButton);
 jQuery(document).ready(function () { // Get the ul that holds the collection of tags
-$collectionHolder = $('ul.tags');
+$collectionHolder = $('div.divs');
 // add the "add a tag" anchor and li to the tags ul
-$collectionHolder.append($newLinkLi);
+$collectionHolder.append($newLinkDiv);
 // count the current form inputs we have (e.g. 2), use that as the new
 // index when inserting a new item (e.g. 2)
 $collectionHolder.data('index', ($collectionHolder.find(':input').length));
 $addTagButton.on('click', function (e) { // add a new tag form (see next code block)
-addTagForm($collectionHolder, $newLinkLi);
+addTagForm($collectionHolder, $newLinkDiv);
 });
 });
-function addTagForm($collectionHolder, $newLinkLi) { // Get the data-prototype explained earlier
+function addTagForm($collectionHolder, $newLinkDiv) { // Get the data-prototype explained earlier
 var prototype = $collectionHolder.data('prototype');
 // get the new index
 var index = $collectionHolder.data('index');
@@ -79,9 +79,9 @@ var newForm = prototype;
 newForm = newForm.replace(/__name__/g, index);
 // increase the index with one for the next item
 $collectionHolder.data('index', index + 1);
-// Display the form in the page in an li, before the "Add a spec" link li
-var $newFormLi = $('<li></li>').append(newForm);
-$newLinkLi.before($newFormLi);
+// Display the form in the page in an div, before the "Add a spec" link li
+var $newFormDiv = $('<div></div>').append(newForm);
+$newLinkDiv.before($newFormDiv);
 }
 	</script>
 {% endblock %}
