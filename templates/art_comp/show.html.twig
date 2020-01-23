@@ -1,6 +1,6 @@
-<h1 class="text-center">Articles compatibles</h1>
+<h1>Articles compatibles</h1>
 {# compatible product #}
-<div class="container mt-4">
+<div class="container my-5">
 	<div class="row">
 		{% for art_comp in art_comps %}
 			{% if art_comp.photo is empty %}
@@ -8,85 +8,91 @@
 			{% else %}
 				{% set photo = art_comp.photo %}
 			{% endif %}
-			<div class="col-4 mt-2" style="height:500px;">
-				<div class="media mt-2">
-					<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+			<div class="col-6">
+				<div class="media">
+					<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail img-product" alt="...">
 					<div class="media-body">
-						<h5 class="mt-2">
-							{{ art_comp.nom }}</h5>
+						<h5 class="my-3">{{ art_comp.nom }}</h5>
+						<p>
+							{{ art_comp.description }}
+						</p>
 						{# administrator part #}
 						{% if is_granted('ROLE_ADMIN') %}
-							<p class="mt-4">
+							<p>
 								Référence :
 								{{ art_comp.reference }}
-								- Stock restant :
+							</p>
+							<p>
+								Stock restant :
 								{{ art_comp.stock }}
 							</p>
 						{% endif %}
-						<p class="card-text">
-							{{ art_comp.description }}
-						</p>
-						{# user part #}
+						{# professional part #}
 						{% if is_granted('ROLE_PRO') == false %}
 							{% if promo is defined %}
-								<p class="card-text">
-									<del>{{ art_comp.prixTtc }}</del>
-									€
-								</p>
-								<p class="card-text">
-									{{ art_comp_TTC_reduit }}
-									€ TTC
+								<p class="text-center">
+									<del>
+										{{ art_comp.prixTtc }}
+										€
+									</del>
+									<span class="ml-3">
+										{{ art_comp_TTC_reduit }}
+										€ TTC
+									</span>
 								</p>
 							{% else %}
-								<p class="card-text">
+								<p class="text-center">
 									{{ art_comp.prixTtc }}
 									€ TTC
 								</p>
 							{% endif %}
 						{% endif %}
+						{# professional part #}
 						{% if is_granted('ROLE_PRO') %}
 							{% if reduc is defined and not null %}
 								<p class="card-text">
-									<del>{{ art_comp.prixHt }}</del>
-									€
-								</p>
-								<p class="card-text">
-									{{ art_comp_HT_reduit }}
-									€ HT
+									<del>
+										{{ art_comp.prixHt }}
+										€
+									</del>
+									<span class="ml-3">
+										{{ art_comp_HT_reduit }}
+										€ HT
+									</span>
 								</p>
 							{% else %}
-								<p class="card-text">
+								<p class="text-center">
 									{{ art_comp.prixHt }}
 									€ HT
 								</p>
 							{% endif %}
 						{% endif %}
 						{# buttons #}
-						<div class="container">
+						<div class="row d-flex justify-content-center my-3">
 							<div class="row">
 								{# show product button #}
-								<div class="col-4">
-									<button class="btn" title="Afficher">
-										<a href="{{ path('article_show', {'slug1': type_art.nom, 'slug2': marque.nom, 'id': article.id }) }}">
-											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+								<div class="mx-2">
+									<a href="{{ path('article_show', {'slug1': type_art.nom, 'slug2': marque.nom, 'id': article.id }) }}">
+										<button class="show-button" title="Afficher">
+											<i data-fa-symbol="show" class="fas fa-eye"></i>
 											<svg class="icon-md">
 												<use xlink:href="#show"></use>
 											</svg>
-										</a>
-									</button>
+										</button>
+									</a>
 								</div>
 								{# administrator part #}
 								{% if is_granted('ROLE_ADMIN') %}
 									{# edit button #}
-									<div class="col-4">
-										<button class="btn" title="Modifier">
-											<a href="{{ path('article_edit', {'id': article.id}) }}">
-												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+									<div class="mx-2">
+										<a href="{{ path('article_edit', {'id': article.id}) }}">
+											<button class="edit-button" title="Modifier">
+												<i data-fa-symbol="edit" class="fas fa-pen"></i>
 												<svg class="icon-md">
 													<use xlink:href="#edit"></use>
 												</svg>
-											</a>
-										</button>
+											</button>
+										</a>
 									</div>
 								{% endif %}
 							</div>
