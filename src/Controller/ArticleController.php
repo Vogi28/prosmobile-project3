@@ -68,6 +68,7 @@ class ArticleController extends AbstractController
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository
     ): Response {
+
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articleRepository->findBy(['marque' => $marqueRepository->findOneBy(['nom' => $slug])]),
             'marque' => $marqueRepository->findOneBy(['nom' => $slug])
