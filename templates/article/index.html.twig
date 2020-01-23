@@ -52,7 +52,7 @@
 				{% else %}
 					{% set photo = article.photo %}
 				{% endif %}
-				<div class="col-4">
+				<div class="col-6 my-3">
 					<div class="media">
 						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail img-product" alt="...">
 						<div class="media-body">
@@ -81,7 +81,6 @@
 										</del>
 										<span class="ml-3">
 											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
-											promotion :
 											{{ prixTTcReduit }}
 											€ TTC
 										</span>
@@ -103,7 +102,6 @@
 										</del>
 										<span class="ml-3">
 											{% set prixHtReduit = article.prixHt * (1 - promo / 100) %}
-											prix réduit :
 											{{ prixHtReduit }}
 											€ HT
 										</span>
