@@ -243,8 +243,8 @@ class CommandeController extends AbstractController
         ManagerService $managerService
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
-            $dtlCdePart = $dtlCdePartRepository->findOneById($id)->getId();
-                    dd($dtlCdePart);
+            $dtlCdePart = $dtlCdePartRepository->findOneById($id);
+                    
             if ($this->isCsrfTokenValid('delete'.$dtlCdePart->getId(), $request->request->get('_token'))) {
                 $managerService->remFlush($dtlCdePart);
 

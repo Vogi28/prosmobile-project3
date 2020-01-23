@@ -81,21 +81,21 @@ class PanierController extends AbstractController
             $articles = [];
             foreach ($panier as $id => $qty) {
                 $articles [] = $articleRepository->findOneById($id);
-                foreach ($articles as $article) {
-                    $dtlCdePar = new DetailCdePart();
-                    $dtlCdePar->setNomArt($article->getNom());
-                    $dtlCdePar->setQuantite($qty);
-                    $dtlCdePar->setPrixHt($article->getPrixHt());
-                    $dtlCdePar->setPrixTtc($article->getPrixTtc());
-                    $dtlCdePar->setPromo($cdePar->getPromo()[0]->getPourcentage());
-                    $dtlCdePar->setTotal($qty * ($article->getPrixTtc() * (
-                        1 - (($cdePar->getPromo()[0]->getPourcentage()) / 100))));
-                    // $dtlCdePar->addArticle($article);
-                    $dtlCdePar->setCommandePar($cdePar);
-    
-                    $cdePar->addDetailCdePart($dtlCdePar);
-                    $managerService->persFLush($dtlCdePar);
-                }
+            }
+            foreach ($articles as $article) {
+                $dtlCdePar = new DetailCdePart();
+                $dtlCdePar->setNomArt($article->getNom());
+                $dtlCdePar->setQuantite($qty);
+                $dtlCdePar->setPrixHt($article->getPrixHt());
+                $dtlCdePar->setPrixTtc($article->getPrixTtc());
+                $dtlCdePar->setPromo($cdePar->getPromo()[0]->getPourcentage());
+                $dtlCdePar->setTotal($qty * ($article->getPrixTtc() * (
+                    1 - (($cdePar->getPromo()[0]->getPourcentage()) / 100))));
+                $dtlCdePar->addArticle($article);
+                $dtlCdePar->setCommandePar($cdePar);
+
+                $cdePar->addDetailCdePart($dtlCdePar);
+                $managerService->persFLush($dtlCdePar);
             }
         } elseif ($this->getUser()->getRoles()[0] == 'ROLE_PRO') {
             $cdePro = new CommandePro();
@@ -106,20 +106,20 @@ class PanierController extends AbstractController
             $articles = [];
             foreach ($panier as $id => $qty) {
                 $articles [] = $articleRepository->findOneById($id);
-                foreach ($articles as $article) {
-                    $dtlCdePro = new DetailCdePro();
-                    $dtlCdePro->setNomArt($article->getNom());
-                    $dtlCdePro->setQuantite($qty);
-                    $dtlCdePro->setPrixHt($article->getPrixHt());
-                    $dtlCdePro->setRemise($cdePro->getPro()->getPourcentRemise());
-                    $dtlCdePro->setTotal($qty * ($article->getPrixHt() * (
-                        1 - (($cdePro->getPro()->getPourcentRemise()) / 100))));
-                    $dtlCdePro->addArticle($article);
-                    $dtlCdePro->setCommandePro($cdePro);
+            }
+            foreach ($articles as $article) {
+                $dtlCdePro = new DetailCdePro();
+                $dtlCdePro->setNomArt($article->getNom());
+                $dtlCdePro->setQuantite($qty);
+                $dtlCdePro->setPrixHt($article->getPrixHt());
+                $dtlCdePro->setRemise($cdePro->getPro()->getPourcentRemise());
+                $dtlCdePro->setTotal($qty * ($article->getPrixHt() * (
+                    1 - (($cdePro->getPro()->getPourcentRemise()) / 100))));
+                $dtlCdePro->addArticle($article);
+                $dtlCdePro->setCommandePro($cdePro);
 
-                    $cdePro->addDetailCdePro($dtlCdePro);
-                    $managerService->persFLush($dtlCdePro);
-                }
+                $cdePro->addDetailCdePro($dtlCdePro);
+                $managerService->persFLush($dtlCdePro);
             }
         }
 
