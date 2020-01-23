@@ -127,7 +127,7 @@ h1 {
 }
 
 // forms
-input {
+.custom-form input {
     border: solid 1px #E0E0E0;
     height: 35px;
     width: 300px;
@@ -138,24 +138,25 @@ input, input:focus{
     outline: none;
 }
 
-label {
+.custom-form label {
     display: flex;
     margin: 10px 0;
 }
 
-select {
+.custom-form select {
     border: solid 1px #E0E0E0;
     padding: 5px;
 }
 
-textarea {
+.custom-form textarea {
     border: solid 1px #E0E0E0;
+    height: 300px;
     padding: 5px;
     width: 300px;
 }
 
 //buttons
-.add-button, .checkout-button, .edit-button, .save-button, .show-button {
+.add-basket-button, .add-button, .checkout-button, .edit-button, .save-button, .show-button {
     align-items: center;
     background-color: #00C851;
     border: none;
@@ -277,7 +278,6 @@ textarea {
 
 //icons
 .brand {
-    height: 150px;
     width: 150px;
 }
 
@@ -345,7 +345,7 @@ textarea {
     width: 50px;
 }
 
-.account-tab, .discount-tab, .order-tab, .product-tab {
+.account-tab, .brand-tab, .discount-tab, .order-tab, .product-tab {
     align-items: center;
     background-color: #FFFFFF;
     border: none;
@@ -356,3 +356,26 @@ textarea {
     padding: 0;
     width: 50px;
 }
+
+//media
+.box {
+    height: 250px;
+    width: 750px;
+}
+
+.description-box {
+    height: 200px;
+    width: 500px;
+}
+
+.img-product {
+    width: 250px;
+}
+
+.foot-box {
+    height: 50px;
+    width: 250px;
+}
+
+
+

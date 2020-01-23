@@ -58,44 +58,48 @@
 					{% set photo = article.photo %}
 				{% endif %}
 				<div class="col-6">
-					<div class="media mt-2">
-						<img src="{{ photo }}" class="align-self-start mr-5 img-thumbnail" style="width:250px; height:300px;" alt="...">
+					<div class="media">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail img-product" alt="...">
 						<div class="media-body">
-							<h5 class="my-4">{{ article.nom }}</h5>
-							{# administrator part #}
-							{% if  is_granted('ROLE_ADMIN') %}
-								<p class="card-text">
-									Référence :
-									{{ article.reference }}
-									- Stock restant :
-									{{ article.stock }}
-								</p>
-							{% endif %}
+							<h5 class="my-3">{{ article.nom }}</h5>
 							<p class="card-text">
 								{{ article.description }}
 							</p>
+							{# administrator part #}
+							{% if is_granted('ROLE_ADMIN') %}
+								<p>
+									Référence :
+									{{ article.reference }}
+								</p>
+								<p>
+									Stock restant :
+									{{ article.stock }}
+								</p>
+							{% endif %}
 							{# individual part #}
 							{% if is_granted('ROLE_PARTICULIER') %}
-								<p class="card-text">
+								<p class="text-center">
 									{{ article.prixTtc }}
 									€
 								</p>
 							{% else %}
-								<p class="card-text">
+								<p class="text-center">
 									{{ article.prixHt }}
 									€ HT
 								</p>
 							{% endif %}
 							{# buttons #}
-							<div class="container my-5">
+							<div class="container">
 								<div class="row d-flex justify-content-center">
 									{# show product button #}
-									<div class="col-4">
+									<div class="mx-2">
 										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
-											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
-											<svg class="icon-md">
-												<use xlink:href="#show"></use>
-											</svg>
+											<button class="show-button" title="Afficher">
+												<i data-fa-symbol="show" class="fas fa-eye"></i>
+												<svg class="icon-md">
+													<use xlink:href="#show"></use>
+												</svg>
+											</button>
 										</a>
 									</div>
 									{# administrator part #}

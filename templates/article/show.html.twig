@@ -35,111 +35,115 @@
 	{# title #}
 	<h1>{{ article.nom }}</h1>
 	{# product #}
-	<div class="container mt-4">
+	<div class="container my-5">
 		<div class="row d-flex justify-content-center">
 			{% if article is defined %}
-				<div class="col-4 mt-2" style="height:300px;">
-					<div class="media mt-2">
-						<img src="{{ article.photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="{{ article.nom }}">
-						<div class="media-body">
-							<h5 class="mt-2">{{ article.nom }}</h5>
-							{# administrator part #}
-							{% if  is_granted('ROLE_ADMIN') %}
-								<p class="card-text">
-									Référence :
-									{{ article.reference }}
-									- Stock restant :
-									{{ article.stock }}
-								</p>
-							{% endif %}
-							<p class="card-text" style="font-size: 0.5em;">
-								{{ article.description }}
+				<div class="media">
+					<img src="{{ article.photo }}" class="align-self-start mr-4 img-thumbnail img-product" alt="{{ article.nom }}">
+					<div class="media-body">
+						<h5 class="my-3">{{ article.nom }}</h5>
+						<p>
+							{{ article.description }}
+						</p>
+						{# administrator part #}
+						{% if  is_granted('ROLE_ADMIN') %}
+							<p>
+								Référence :
+								{{ article.reference }}
 							</p>
-							{# user part #}
-							{% if is_granted('ROLE_PRO') == false %}
-								{% if promo is defined %}
-									<p class="card-text">
-										<del>{{ article.prixTtc }}</del>
+							<p>
+								Stock restant :
+								{{ article.stock }}
+              </p>
+						{% endif %}
+						{# professional part #}
+						{% if is_granted('ROLE_PRO') == false %}
+							{% if promo is defined %}
+								<p class="text-center">
+									<del>
+										{{ article.prixTtc }}
 										€
-									</p>
-									<p class="card-text">
+									</del>
+									<span class="ml-3">
 										{{ prix_ttc_reduit }}
 										€ TTC
-									</p>
-								{% else %}
-									<p class="card-text">
-										{{ article.prixTtc }}
-										€ TTC
-									</p>
-								{% endif %}
+									</span>
+								</p>
+							{% else %}
+								<p class="text-center">
+									{{ article.prixTtc }}
+									€ TTC
+								</p>
 							{% endif %}
-							{% if is_granted('ROLE_PRO') %}
-								{% if reduc is defined and not null %}
-									<p class="card-text">
-										<del>{{ article.prixHt }}</del>
+						{% endif %}
+						{# professional part #}
+						{% if is_granted('ROLE_PRO') %}
+							{% if reduc is defined and not null %}
+								<p class="text-center">
+									<del>
+										{{ article.prixHt }}
 										€
-									</p>
-									<p class="card-text">
+									</del>
+									<span class="ml-3">
 										{{ prix_ht_reduit }}
 										€ HT
-									</p>
-								{% else %}
-									<p class="card-text">
-										{{ article.prixHt }}
-										€ HT
-									</p>
-								{% endif %}
+									</span>
+								</p>
+							{% else %}
+								<p class="text-center">
+									{{ article.prixHt }}
+									€ HT
+								</p>
 							{% endif %}
-							{# buttons #}
+						{% endif %}
+						{# buttons #}
+						<div class="row d-flex justify-content-center my-3">
 							{# add to basket button #}
-							<div class="container">
-								<div class="row">
-									<div class="col-4">
-										<button class="btn" title="Ajouter au panier">
-										{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
-											<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
-										{% elseif promo is defined %}
-											<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+							<div class="mx-2">
+								{# professional part #}
+								{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+									<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} ) }}">
+									{% elseif promo is defined %}
+										<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} ) }}">
 										{% else %}
-										<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
-										{% endif %}
-												<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+											<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} ) }}">
+											{% endif %}
+											<button class="add-basket-button" title="Ajouter au panier">
+												<i data-fa-symbol="add-basket" class="fas fa-shopping-cart"></i>
 												<svg class="icon-md">
-													<use xlink:href="#basket"></use>
+													<use xlink:href="#add-basket"></use>
 												</svg>
-											</a>
-										</button>
+											</button>
+										</a>
 									</div>
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
-										<div class="col-4">
-											<button class="btn" title="Modifier">
-												<a href="{{ path('article_edit', {'id': article.id}) }}">
-													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+										<div class="mx-2">
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
+												<button class="edit-button" title="Modifier">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
 													<svg class="icon-md">
 														<use xlink:href="#edit"></use>
 													</svg>
-												</a>
-											</button>
+												</button>
+											</a>
 										</div>
 									{% endif %}
 								</div>
 							</div>
 						</div>
-					</div>
+					{% else %}
+						<div>
+							Aucun article trouvé avec ces critères
+						</div>
+					{% endif %}
 				</div>
-			{% else %}
-				<div>
-					Aucun article trouvé avec ces critères
+			</div>
+			{# compatible products #}
+			<div class="container">
+				<div class="row">
+					{% include ('art_comp/show.html.twig') %}
 				</div>
-			{% endif %}
-		</div>
-	</div>
-	{# compatible products #}
-	<div class="container">
-		<div class="row">
-			{% include ('art_comp/show.html.twig') %}
-		</div>
-	</div>
-{% endblock %}
+			</div>
+		{% endblock %}

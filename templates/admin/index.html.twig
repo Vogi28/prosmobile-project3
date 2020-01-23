@@ -40,7 +40,7 @@
 					{# orders tab icon #}
 					<a class="nav-link mb-4" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">
 						<div class="order-tab" title="Commandes">
-							<i data-fa-symbol="order" class="fas fas fa-box-open"></i>
+							<i data-fa-symbol="order" class="fas fa-box-open"></i>
 							<svg class="icon-lg">
 								<use xlink:href="#order"></use>
 							</svg>
@@ -49,9 +49,18 @@
 					{# discounts tab icon #}
 					<a class="nav-link" id="v-pills-discount-tab" data-toggle="pill" href="#v-pills-discount" role="tab" aria-controls="v-pills-discount" aria-selected="false">
 						<div class="discount-tab" title="Promotions">
-							<i data-fa-symbol="discount" class="fas fas fa-percent"></i>
+							<i data-fa-symbol="discount" class="fas fa-percent"></i>
 							<svg class="icon-lg">
 								<use xlink:href="#discount"></use>
+							</svg>
+						</div>
+					</a>
+					{# brands tab icon #}
+					<a class="nav-link" id="v-pills-brand-tab" data-toggle="pill" href="#v-pills-brand" role="tab" aria-controls="v-pills-brand" aria-selected="false">
+						<div class="brand-tab" title="Marques">
+							<i data-fa-symbol="brand" class="fas fa-copyright"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#brand"></use>
 							</svg>
 						</div>
 					</a>
@@ -169,6 +178,32 @@
 											<div class="row d-flex justify-content-center">
 												{# show button #}
 												<a href="{{ path('promo_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# brands menu #}
+					<div class="tab-pane fade" id="v-pills-brand" role="tabpanel" aria-labelledby="v-pills-brand-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Marques</h5>
+											<p class="card-text">Informations sur les marques.</p>
+											<div class="row d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('article_sell_phone_brands')}}">
 													<button class="show-icon" title="Afficher">
 														<i data-fa-symbol="show" class="fas fa-eye"></i>
 														<svg class="icon-md">
