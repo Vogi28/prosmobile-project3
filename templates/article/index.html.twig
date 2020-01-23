@@ -57,12 +57,10 @@
 							{# administrator part #}
 							{% if  is_granted('ROLE_ADMIN') %}
 								<p class="card-text">
-									Référence :
-									{{ article.reference }}
+									Référence : {{ article.reference }}
 								</p>
 								<p class="card-text">
-									Stock restant :
-									{{ article.stock }}
+									Stock restant : {{ article.stock }}
 								</p>
 							{% endif %}
 							<p class="card-text">
@@ -114,6 +112,23 @@
 											</a>
 										</button>
 									</div>
+									{# add to basket button #}
+											<div class="col-4">
+												<button class="btn" title="Ajouter au panier">
+													{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+													<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+														{% elseif promo is defined and not null %}
+														<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+															{% else %}
+															<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+																{% endif %}
+																<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+																<svg class="icon-md">
+																	<use xlink:href="#basket"></use>
+																</svg>
+															</a>
+												</button>
+											</div>
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}

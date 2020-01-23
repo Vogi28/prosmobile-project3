@@ -17,12 +17,10 @@
 						{# administrator part #}
 						{% if is_granted('ROLE_ADMIN') %}
 							<p class="mt-4">
-								Référence :
-								{{ art_comp.reference }}
+								Référence : {{ art_comp.reference }}
 							</p>
 							<p class="mt-4">
-								Stock restant :
-								{{ art_comp.stock }}
+								Stock restant : {{ art_comp.stock }}
 							</p>
 						{% endif %}
 						<p class="card-text">
@@ -32,34 +30,28 @@
 						{% if is_granted('ROLE_PRO') == false %}
 							{% if promo is defined %}
 								<p class="card-text">
-									<del>{{ art_comp.prixTtc }}</del>
-									€
+									<del>{{ art_comp.prixTtc }}</del> €
 								</p>
 								<p class="card-text">
-									{{ art_comp_TTC_reduit }}
-									€ TTC
+									{{ art_comp_TTC_reduit }} € TTC
 								</p>
 							{% else %}
 								<p class="card-text">
-									{{ art_comp.prixTtc }}
-									€ TTC
+									{{ art_comp.prixTtc }} € TTC
 								</p>
 							{% endif %}
 						{% endif %}
 						{% if is_granted('ROLE_PRO') %}
 							{% if reduc is defined and not null %}
 								<p class="card-text">
-									<del>{{ art_comp.prixHt }}</del>
-									€
+									<del>{{ art_comp.prixHt }}</del> €
 								</p>
 								<p class="card-text">
-									{{ art_comp_HT_reduit }}
-									€ HT
+									{{ art_comp_HT_reduit }} € HT
 								</p>
 							{% else %}
 								<p class="card-text">
-									{{ art_comp.prixHt }}
-									€ HT
+									{{ art_comp.prixHt }} € HT
 								</p>
 							{% endif %}
 						{% endif %}
@@ -77,6 +69,24 @@
 										</a>
 									</button>
 								</div>
+								{# add to basket button #}
+								{# TODO modifier ce qu'il faut dans le bouton ci-dessous #}
+										<div class="col-4">
+											<button class="btn" title="Ajouter au panier">
+												{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+												<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+													{% elseif promo is defined and not null %}
+													<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+														{% else %}
+														<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+															{% endif %}
+															<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+															<svg class="icon-md">
+																<use xlink:href="#basket"></use>
+															</svg>
+														</a>
+											</button>
+										</div>
 								{# administrator part #}
 								{% if is_granted('ROLE_ADMIN') %}
 									{# edit button #}
