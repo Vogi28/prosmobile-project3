@@ -25,78 +25,91 @@
 	{# title #}
 	<h1>Tous les articles disponibles</h1>
 	{# administrator part #}
-	{# add button #}
 	{% if is_granted('ROLE_ADMIN') %}
-		<div class="container-fluid mt-4">
+		<div class="container-fluid my-5">
+			{# add button #}
 			<div class="row">
 				<button class="btn" title="Ajouter">
 					<a href="{{ path('article_new') }}">
-						<i data-fa-symbol="add" class="fas fa-plus text-secondary"></i>
-						<svg class="icon-md">
-							<use xlink:href="#add"></use>
-						</svg>
+						<button class="add-button" title="Ajouter">
+							<i data-fa-symbol="add" class="fas fa-plus"></i>
+							<svg class="icon-md">
+								<use xlink:href="#add"></use>
+							</svg>
+						</button>
 					</a>
 				</button>
 			</div>
 		</div>
 	{% endif %}
 	{# product list #}
-	<div class="container mt-4">
+	<div class="container">
 		<div class="row">
 			{% for article in articles %}
-{#				{{  dump(article.marque) }}#}
+				{#				{{  dump(article.marque) }}#}
 				{% if article.photo is empty %}
 					{% set photo ='' %}
 				{% else %}
 					{% set photo = article.photo %}
 				{% endif %}
-				<div class="col-4 mt-2" style="height:300px;">
-					<div class="media mt-2">
-						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt="...">
+				<div class="col-4">
+					<div class="media">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-thumbnail img-product" alt="...">
 						<div class="media-body">
-							<h5 class="mt-2">{{ article.nom }}</h5>
+							<h5 class="my-3">{{ article.nom }}</h5>
+							<p>
+								{{ article.description }}
+							</p>
 							{# administrator part #}
-							{% if  is_granted('ROLE_ADMIN') %}
-								<p class="card-text">
+							{% if is_granted('ROLE_ADMIN') %}
+								<p>
 									Référence :
 									{{ article.reference }}
-									- Stock restant :
+								</p>
+								<p>
+									Stock restant :
 									{{ article.stock }}
 								</p>
 							{% endif %}
-							<p class="card-text">
-								{{ article.description }}
-							</p>
-							{# user part #}
+							{# professional part #}
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
-									<p class="card-text">
-										<del>{{ article.prixTtc }}</del>
-										€
-									</p>
-									<p class="card-text">
-										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} promotion : {{ prixTTcReduit }}
-										€ TTC
+									<p class="text-center">
+										<del>
+											{{ article.prixTtc }}
+											€
+										</del>
+										<span class="ml-3">
+											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
+											promotion :
+											{{ prixTTcReduit }}
+											€ TTC
+										</span>
 									</p>
 								{% else %}
-									<p class="card-text">
+									<p class="text-center">
 										{{ article.prixTtc }}
 										€ TTC
 									</p>
 								{% endif %}
 							{% endif %}
+							{# professional part #}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
-									<p class="card-text">
-										<del>{{ article.prixHt }}</del>
-										€
-									</p>
-									<p class="card-text">
-										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} prix réduit : {{ prixHtReduit }}
-										€ HT
+									<p class="text-center">
+										<del>
+											{{ article.prixHt }}
+											€
+										</del>
+										<span class="ml-3">
+											{% set prixHtReduit = article.prixHt * (1 - promo / 100) %}
+											prix réduit :
+											{{ prixHtReduit }}
+											€ HT
+										</span>
 									</p>
 								{% else %}
-									<p class="card-text">
+									<p class="text-center">
 										{{ article.prixHt }}
 										€ HT
 									</p>
@@ -104,30 +117,30 @@
 							{% endif %}
 							{# buttons #}
 							<div class="container">
-								<div class="row">
+								<div class="row d-flex justify-content-center">
 									{# show product button #}
-									<div class="col-4">
-										<button class="btn" title="Afficher">
-											<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
-												<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+									<div class="mx-2">
+										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
+											<button class="show-button" title="Afficher">
+												<i data-fa-symbol="show" class="fas fa-eye"></i>
 												<svg class="icon-md">
 													<use xlink:href="#show"></use>
 												</svg>
-											</a>
-										</button>
+											</button>
+										</a>
 									</div>
 									{# administrator part #}
 									{% if is_granted('ROLE_ADMIN') %}
 										{# edit button #}
-										<div class="col-4">
-											<button class="btn" title="Modifier">
-												<a href="{{ path('article_edit', {'id': article.id}) }}">
-													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+										<div class="mx-2">
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
+												<button class="edit-button" title="Modifier">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
 													<svg class="icon-md">
 														<use xlink:href="#edit"></use>
 													</svg>
-												</a>
-											</button>
+												</button>
+											</a>
 										</div>
 									{% endif %}
 								</div>

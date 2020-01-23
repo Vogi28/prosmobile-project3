@@ -127,7 +127,7 @@ h1 {
 }
 
 // forms
-input {
+.custom-form input {
     border: solid 1px #E0E0E0;
     height: 35px;
     width: 300px;
@@ -138,18 +138,19 @@ input, input:focus{
     outline: none;
 }
 
-label {
+.custom-form label {
     display: flex;
     margin: 10px 0;
 }
 
-select {
+.custom-form select {
     border: solid 1px #E0E0E0;
     padding: 5px;
 }
 
-textarea {
+.custom-form textarea {
     border: solid 1px #E0E0E0;
+    height: 300px;
     padding: 5px;
     width: 300px;
 }
