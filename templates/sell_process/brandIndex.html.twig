@@ -85,13 +85,6 @@
 						</a>
 					</div>
 				{% elseif typeArt is same as('Reparation') %}
-					{#
-					{% if repair.photo is empty %}
-						{% set photo ='' %}
-					{% else %}
-						{% set photo = repair.photo %}
-					{% endif %}
-					#}
 					<div class="col-3 d-flex justify-content-center">
 						<a href="{{ path('article_sell_repairs') }}">
 							<img class="brand" src="#" alt="...">

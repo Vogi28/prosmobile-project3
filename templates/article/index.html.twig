@@ -61,7 +61,7 @@
 									{{ article.reference }}
 								</p>
 								<p class="card-text">
-									- Stock restant :
+									Stock restant :
 									{{ article.stock }}
 								</p>
 							{% endif %}
@@ -76,30 +76,27 @@
 										€
 									</p>
 									<p class="card-text">
-										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} promotion : {{ prixTTcReduit }}
+										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} Promo ! {{ prixTTcReduit }}
 										€ TTC
 									</p>
 								{% else %}
 									<p class="card-text">
-										{{ article.prixTtc }}
-										€ TTC
+										{{ article.prixTtc }} € TTC
 									</p>
 								{% endif %}
 							{% endif %}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
 									<p class="card-text">
-										<del>{{ article.prixHt }}</del>
-										€
+										<del>{{ article.prixHt }}</del> €
 									</p>
 									<p class="card-text">
-										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} prix réduit : {{ prixHtReduit }}
+										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} Prix réduit : {{ prixHtReduit }}
 										€ HT
 									</p>
 								{% else %}
 									<p class="card-text">
-										{{ article.prixHt }}
-										€ HT
+										{{ article.prixHt }} € HT
 									</p>
 								{% endif %}
 							{% endif %}

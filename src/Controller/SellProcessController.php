@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Repository\ArticleRepository;
 use App\Repository\MarqueRepository;
+use App\Repository\PromoRepository;
+use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,16 +40,35 @@ class SellProcessController extends AbstractController
         string $slug,
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository,
+        ProRepository $proRepository,
+        PromoRepository $promoRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
         $articles = $articleRepository->findByTypeArtBrand('1', $marqueId);
         $typeArt = $typeArtRepository->findOneBy(['id' => '1'])->getNom();
+        $today = date('Y-m-d');
+
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+
+            return $this->render('sell_process/articleSelection.html.twig', [
+                'articles' => $articles,
+                'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
+                'brand' => $slug,
+                'typeArt' => $typeArt,
+                'reduc' => $reduc,
+            ]);
+        }
+
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
             'typeArt' => $typeArt,
+            'promo' => $promo,
         ]);
     }
 
@@ -75,16 +96,35 @@ class SellProcessController extends AbstractController
         string $slug,
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository,
+        ProRepository $proRepository,
+        PromoRepository $promoRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
         $articles = $articleRepository->findByTypeArtBrand('3', $marqueId);
         $typeArt = $typeArtRepository->findOneBy(['id' => '3'])->getNom();
+        $today = date('Y-m-d');
+
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+
+            return $this->render('sell_process/articleSelection.html.twig', [
+                'articles' => $articles,
+                'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
+                'brand' => $slug,
+                'typeArt' => $typeArt,
+                'reduc' => $reduc,
+            ]);
+        }
+
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
             'typeArt' => $typeArt,
+            'promo' => $promo,
         ]);
     }
 
@@ -112,16 +152,35 @@ class SellProcessController extends AbstractController
         string $slug,
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository,
+        ProRepository $proRepository,
+        PromoRepository $promoRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
         $articles = $articleRepository->findByTypeArtBrand('2', $marqueId);
         $typeArt = $typeArtRepository->findOneBy(['id' => '2'])->getNom();
+        $today = date('Y-m-d');
+
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+
+            return $this->render('sell_process/articleSelection.html.twig', [
+                'articles' => $articles,
+                'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
+                'brand' => $slug,
+                'typeArt' => $typeArt,
+                'reduc' => $reduc,
+            ]);
+        }
+
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
             'typeArt' => $typeArt,
+            'promo' => $promo,
         ]);
     }
 
@@ -149,16 +208,35 @@ class SellProcessController extends AbstractController
         string $slug,
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository,
+        ProRepository $proRepository,
+        PromoRepository $promoRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
         $articles = $articleRepository->findByTypeArtBrand('4', $marqueId);
         $typeArt = $typeArtRepository->findOneBy(['id' => '4'])->getNom();
+        $today = date('Y-m-d');
+
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
+            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
+
+            return $this->render('sell_process/articleSelection.html.twig', [
+                'articles' => $articles,
+                'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
+                'brand' => $slug,
+                'typeArt' => $typeArt,
+                'reduc' => $reduc,
+            ]);
+        }
+
+        $promo = $promoRepository->findOneByDate($today)->getPourcentage();
+
         return $this->render('sell_process/articleSelection.html.twig', [
             'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
             'typeArt' => $typeArt,
+            'promo' => $promo,
         ]);
     }
 }

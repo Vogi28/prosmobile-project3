@@ -48,7 +48,9 @@
 								<p class="card-text">
 									Référence :
 									{{ article.reference }}
-									- Stock restant :
+								</p>
+								<p class="card-text">
+									Stock restant :
 									{{ article.stock }}
 								</p>
 							{% endif %}
@@ -63,7 +65,7 @@
 										€
 									</p>
 									<p class="card-text">
-										{{ prix_ttc_reduit }}
+										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} Promo ! {{ prixTTcReduit }}
 										€ TTC
 									</p>
 								{% else %}
@@ -80,7 +82,7 @@
 										€
 									</p>
 									<p class="card-text">
-										{{ prix_ht_reduit }}
+										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} Prix réduit : {{ prixHtReduit }}
 										€ HT
 									</p>
 								{% else %}
