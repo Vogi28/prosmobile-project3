@@ -53,43 +53,44 @@
 			Réparations
 		{% endif %}
 	</h1>
-	<h2>
+	<h2 class="my-5">
 		{% if typeArt is same as('Telephone') %}
-		choisissez une marque
+			Choisissez une marque
 		{% else %}
-		choisissez la marque du téléphone
+			Choisissez la marque du téléphone
 		{% endif %}
 	</h2>
 	{# brands #}
-	<div class="container my-5">
+	<div class="container">
 		<div class="row">
 			{% for brand in brands %}
-				{% if typeArt is same as('Telephone') %}
-					<div class="col-3 d-flex justify-content-center">
-						<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
-							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-						</a>
+				<div class="col-2 my-3">
+					{% if typeArt is same as('Telephone') %}
+						<div>
+							<a href="{{ path('article_sell_phones_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+							</a>
+						</div>
+					{% elseif typeArt is same as('Composant') %}
+						<div>
+							<a href="{{path('article_sell_components_by_brand',{'id':brand.id,'slug':brand.nom})}}">
+								<imgclass="brand" src=" {{ brand.image }} " alt=" {{ brand.nom }} "></a>
+							</div>
+						{% elseif typeArt is same as('Accessoire') %}
+							<div>
+								<a href="{{ path('article_sell_accessories_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+									<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+								</a>
+							</div>
+						{% elseif typeArt is same as('Reparation') %}
+							<div>
+								<a href="{{ path('article_sell_repairs_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
+									<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+								</a>
+							</div>
+						{% endif %}
 					</div>
-				{% elseif typeArt is same as('Composant') %}
-					<div class="col-3 d-flex justify-content-center">
-						<a href="{{ path('article_sell_components_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
-							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-						</a>
-					</div>
-				{% elseif typeArt is same as('Accessoire') %}
-					<div class="col-3 d-flex justify-content-center">
-						<a href="{{ path('article_sell_accessories_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
-							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-						</a>
-					</div>
-				{% elseif typeArt is same as('Reparation') %}
-					<div class="col-3 d-flex justify-content-center">
-						<a href="{{ path('article_sell_repairs_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
-							<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-						</a>
-					</div>
-				{% endif %}
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}
