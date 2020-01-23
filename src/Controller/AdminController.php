@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
 use App\Form\CommandeParType;
 use App\Form\CommandeProType;
+use App\Repository\MarqueRepository;
 use App\Repository\PromoRepository;
 use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
@@ -180,26 +180,18 @@ class AdminController extends AbstractController
      */
     public function articleIndex(
         ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository,
         PromoRepository $promoRepository,
-        ProRepository $proRepository
+        TypeArtRepository $typeArtRepository
     ): Response {
         $today = date('Y-m-d');
-
-        if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
-            $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
-
-            return $this->render('article/index.html.twig', [
-                'articles' => $articleRepository->findAll(),
-                'reduc' => $reduc,
-            ]);
-        }
-
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
 
-        return $this->render('article/index.html.twig', [
+        return $this->render('admin/article_index.html.twig', [
             'articles' => $articleRepository->findAll(),
             'promo' => $promo,
-
+            'typeArt' => $typeArtRepository->findAll(),
+            'marque' => $marqueRepository->findAll(),
         ]);
     }
 

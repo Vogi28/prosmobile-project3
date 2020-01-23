@@ -280,4 +280,12 @@ class Article
 
         return $this;
     }
+
+   /* public function getArtComp(): ?ArtComp
+    {
+        $id = $this->id;
+        $artComp = ArtComp::class->getOneBy(['artId' => $id])->getArtId()->getNom();
+
+        return $artComp;
+    }*/
 }

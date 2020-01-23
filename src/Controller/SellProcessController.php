@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Entity\TypeArt;
 use App\Repository\ArticleRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\TypeArtRepository;
