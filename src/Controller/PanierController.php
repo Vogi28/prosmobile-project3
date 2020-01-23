@@ -80,11 +80,9 @@ class PanierController extends AbstractController
         
             $articles = [];
             foreach ($panier as $id => $qty) {
-                dump($articles [] = $articleRepository->findOneById($id));
-                
+                $articles [] = $articleRepository->findOneById($id);
                 foreach ($articles as $article) {
                     $dtlCdePar = new DetailCdePart();
-
                     $dtlCdePar->setNomArt($article->getNom());
                     $dtlCdePar->setQuantite($qty);
                     $dtlCdePar->setPrixHt($article->getPrixHt());
@@ -92,7 +90,7 @@ class PanierController extends AbstractController
                     $dtlCdePar->setPromo($cdePar->getPromo()[0]->getPourcentage());
                     $dtlCdePar->setTotal($qty * ($article->getPrixTtc() * (
                         1 - (($cdePar->getPromo()[0]->getPourcentage()) / 100))));
-                    $dtlCdePar->addArticle($article);
+                    // $dtlCdePar->addArticle($article);
                     $dtlCdePar->setCommandePar($cdePar);
     
                     $cdePar->addDetailCdePart($dtlCdePar);
@@ -110,7 +108,6 @@ class PanierController extends AbstractController
                 $articles [] = $articleRepository->findOneById($id);
                 foreach ($articles as $article) {
                     $dtlCdePro = new DetailCdePro();
-
                     $dtlCdePro->setNomArt($article->getNom());
                     $dtlCdePro->setQuantite($qty);
                     $dtlCdePro->setPrixHt($article->getPrixHt());
