@@ -45,7 +45,7 @@ class ArticleType extends AbstractType
             ])
             ->add('artComp', EntityType::class, [
                 'class'       => ArtComp::class,
-                'placeholder' => 'Sélectionnez un article ou une réparation compatible',
+                'placeholder' => 'Sélectionnez un article ou une réparation',
                 'mapped'      => false,
                 'required'    => false,
                 'entry_options' => ['label' => false],
