@@ -2,32 +2,14 @@
 
 namespace App\Service;
 
-use App\Entity\Article;
-use App\Form\ArticleType;
-use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class ManagerService
 {
-    protected $session;
-    protected $articleRepository;
-    protected $request;
-    protected $article;
-    protected $articleType;
     protected $emi;
 
-    public function __construct(
-        ArticleRepository $articleRepository,
-        Request $request,
-        Article $article,
-        ArticleType $articleType,
-        EntityManagerInterface $emi
-    ) {
-        $this->articleRepository = $articleRepository;
-        $this->request = $request;
-        $this->article = $article;
-        $this->articleType = $articleType;
+    public function __construct(EntityManagerInterface $emi)
+    {
         $this->emi = $emi;
     }
 
