@@ -11,6 +11,7 @@ use App\Entity\DetailCdePart;
 use App\Service\MailerService;
 use App\Repository\PromoRepository;
 use App\Repository\ArticleRepository;
+use App\Service\ManagerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -64,23 +65,24 @@ class PanierController extends AbstractController
         ArticleRepository $articleRepository,
         PromoRepository $promoRepository,
         EntityManagerInterface $emi,
-        MailerService $mailer
+        MailerService $mailer,
+        ManagerService $managerService
     ) {
         $panier = $session->get('panier', []);
-
+        
         $date = new DateTime('now');
         if ($this->getUser()->getRoles()[0] == 'ROLE_PARTICULIER') {
             $cdePar = new CommandePar();
-            $dtlCdePar = new DetailCdePart();
             
             $cdePar->setParticulier($this->getUser()->getParticulier());
             $cdePar->addPromo($promoRepository->findOneByDate($date));
             $emi->persist($cdePar);
-            
+        
             $articles = [];
             foreach ($panier as $id => $qty) {
                 $articles [] = $articleRepository->findOneById($id);
                 foreach ($articles as $article) {
+                    $dtlCdePar = new DetailCdePart();
                     $dtlCdePar->setNomArt($article->getNom());
                     $dtlCdePar->setQuantite($qty);
                     $dtlCdePar->setPrixHt($article->getPrixHt());
@@ -88,15 +90,15 @@ class PanierController extends AbstractController
                     $dtlCdePar->setPromo($cdePar->getPromo()[0]->getPourcentage());
                     $dtlCdePar->setTotal($qty * ($article->getPrixTtc() * (
                         1 - (($cdePar->getPromo()[0]->getPourcentage()) / 100))));
-                    $dtlCdePar->addArticle($article);
+                    // $dtlCdePar->addArticle($article);
                     $dtlCdePar->setCommandePar($cdePar);
-                    
-                    $emi->persist($dtlCdePar);
+    
+                    $cdePar->addDetailCdePart($dtlCdePar);
+                    $managerService->persFLush($dtlCdePar);
                 }
             }
         } elseif ($this->getUser()->getRoles()[0] == 'ROLE_PRO') {
             $cdePro = new CommandePro();
-            $dtlCdePro = new DetailCdePro();
             
             $cdePro->setPro($this->getUser()->getPro());
             $emi->persist($cdePro);
@@ -105,6 +107,7 @@ class PanierController extends AbstractController
             foreach ($panier as $id => $qty) {
                 $articles [] = $articleRepository->findOneById($id);
                 foreach ($articles as $article) {
+                    $dtlCdePro = new DetailCdePro();
                     $dtlCdePro->setNomArt($article->getNom());
                     $dtlCdePro->setQuantite($qty);
                     $dtlCdePro->setPrixHt($article->getPrixHt());
@@ -113,13 +116,13 @@ class PanierController extends AbstractController
                         1 - (($cdePro->getPro()->getPourcentRemise()) / 100))));
                     $dtlCdePro->addArticle($article);
                     $dtlCdePro->setCommandePro($cdePro);
-                    
-                    $emi->persist($dtlCdePro);
+
+                    $cdePro->addDetailCdePro($dtlCdePro);
+                    $managerService->persFLush($dtlCdePro);
                 }
             }
         }
 
-        $emi->flush();
         $session->remove('panier');
         $session->remove('promo');
         

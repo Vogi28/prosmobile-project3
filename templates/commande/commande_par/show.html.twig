@@ -64,8 +64,7 @@
 					<td>{{ detail.quantite }}</td>
 					<td>{{ detail.prixHT }}</td>
 					<td>{{ detail.prixTTC }}</td>
-					<td>{{ detail.promo }}</td>
-					<td>{{ total }}</td>
+					<td>{{ detail.total }}</td>
 					<td>
 						{% if is_granted('ROLE_ADMIN') %}
 						<div class="row">
@@ -99,6 +98,16 @@
 					</td>
 				</tr>
 			{% endfor %}
+			<tr>
+				<td colspan="5" class="text-right">Réduction :</td>
+				<td>{{ details.0.promo }}</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="5" class="text-right">Total :</td>
+				<td>{{ total }}</td>
+				<td></td>
+			</tr>
 		{% endif %}
 		</tbody>
 	</table>

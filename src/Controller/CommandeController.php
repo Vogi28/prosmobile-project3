@@ -32,6 +32,7 @@ class CommandeController extends AbstractController
         CommandeParRepository $cdeParRepository,
         CommandeProRepository $cdeProRepository
     ): Response {
+        // dd($cdeProRepository->findOneByPro($id)->getDetailCdePro()->isEmpty());
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             return $this->render('commande/commande_par/index.html.twig', [
             'commande_pars' => $cdeParRepository->findByParticulier($id),
@@ -101,10 +102,10 @@ class CommandeController extends AbstractController
             $articles = $dtlCdePartRepository->findByCommandePar($cdePar->getId());
 
             $total = 0;
-
+            
             foreach ($articles as $key => $article) {
                 $key;
-                $total =+ $article->getTotal();
+                $total += $article->getTotal();
             }
             
             return $this->render('commande/commande_par/show.html.twig', [
@@ -200,7 +201,7 @@ class CommandeController extends AbstractController
             $cdePar = $cdePar->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$cdePar->getId(), $request->request->get('_token'))) {
-                $managerService->persFLush($cdePar);
+                $managerService->remFLush($cdePar);
             }
 
             $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
@@ -215,7 +216,7 @@ class CommandeController extends AbstractController
             $cdePro = $cdePro->findOneById($id);
 
             if ($this->isCsrfTokenValid('delete'.$cdePro->getId(), $request->request->get('_token'))) {
-                $managerService->persFLush($cdePro);
+                $managerService->remFLush($cdePro);
             }
 
             $this->addFlash('success', 'Suppression réussi');
@@ -242,15 +243,15 @@ class CommandeController extends AbstractController
         ManagerService $managerService
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
-            $dtlCdePart = $dtlCdePartRepository->findOneById($id);
-
+            $dtlCdePart = $dtlCdePartRepository->findOneById($id)->getId();
+                    dd($dtlCdePart);
             if ($this->isCsrfTokenValid('delete'.$dtlCdePart->getId(), $request->request->get('_token'))) {
                 $managerService->remFlush($dtlCdePart);
 
                 $id = $dtlCdePart->getCommandePar()->getId();
                 $cdePar = $cdePar->findOneById($id);
-                
-                if ($dtlCdePart->getId() == null) {
+
+                if ($cdePar->getDetailCdePart()->isEmpty() == true) {
                     $managerService->remFlush($cdePar);
 
                     $emi->getConnection()->exec('ALTER TABLE commande_par AUTO_INCREMENT = 1');
@@ -272,13 +273,13 @@ class CommandeController extends AbstractController
                 $id = $dtlCdePro->getCommandePro()->getId();
                 $cdePro = $cdePro->findOneById($id);
                 
-                if ($dtlCdePro->getId() == null) {
+                if ($cdePro->getDetailCdePro()->isEmpty() == true) {
                     $managerService->remFlush($cdePro);
                     
                     $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
                 }
             }
-
+            
             $this->addFlash('success', 'Suppression réussi');
 
             $emi->getConnection()->exec('ALTER TABLE detail_cde_pro AUTO_INCREMENT = 1');
