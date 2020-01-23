@@ -18,10 +18,24 @@
 					</a>
 				{% endif %}
 			</li>
-			<li class="breadcrumb-item">
-				<a href="{{ path('article_sell_phone_brands') }}">
-					Téléphones
-				</a>
+			<li class="breadcrumb-item active" aria-current="page">
+				{% if typeArt is same as('Telephone') %}
+					<a href="{{ path('article_sell_phones') }}">
+						Téléphones
+					</a>
+				{% elseif typeArt is same as('Composant') %}
+					<a href="{{ path('article_sell_components') }}">
+						Composants
+					</a>
+				{% elseif typeArt is same as('Accessoire') %}
+					<a href="{{ path('article_sell_accessories') }}">
+						Accessoires
+					</a>
+				{% elseif typeArt is same as('Reparation') %}
+					<a href="{{ path('article_sell_repairs') }}">
+						Réparations
+					</a>
+				{% endif %}
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
 				{{ brand }}
@@ -29,7 +43,17 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1>Tous les articles {{ brand }}</h1>
+	<h1>
+		{% if typeArt is same as('Telephone') %}
+			Tous les téléphones {{ brand }}
+		{% elseif typeArt is same as('Composant') %}
+			Tous les composants pour téléphones {{ brand }}
+		{% elseif typeArt is same as('Accessoire') %}
+			Tous les accessoires pour téléphones {{ brand }}
+		{% elseif typeArt is same as('Reparation') %}
+			Toutes les réparations pour téléphones {{ brand }}
+		{% endif %}
+	</h1>
 	{# administrator part #}
 	{% if is_granted('ROLE_ADMIN') %}
 		<div class="container my-5">

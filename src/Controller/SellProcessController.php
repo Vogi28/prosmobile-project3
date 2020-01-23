@@ -37,15 +37,17 @@ class SellProcessController extends AbstractController
     public function phonesByBrand(
         string $slug,
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
         $articles = $articleRepository->findByTypeArtBrand('1', $marqueId);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '1'])->getNom();
         return $this->render('sell_process/articleSelection.html.twig', [
-            'controller_name' => 'SellProcessController',
+            'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
-            'articles' => $articles,
+            'typeArt' => $typeArt,
         ]);
     }
 
@@ -66,23 +68,23 @@ class SellProcessController extends AbstractController
         ]);
     }
 
-    // TODO - TERMINER tri par catégorie composant :
-
     /**
      * @Route("/composants/{slug<[a-zA-z]+>}", name="components_by_brand")
      */
     public function componentsByBrand(
         string $slug,
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
-        $articles = $articleRepository->findByTypeBrandPhone('3', $marqueId);
+        $articles = $articleRepository->findByTypeArtBrand('3', $marqueId);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '3'])->getNom();
         return $this->render('sell_process/articleSelection.html.twig', [
-            'controller_name' => 'SellProcessController',
+            'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
-            'articles' => $articles
+            'typeArt' => $typeArt,
         ]);
     }
 
@@ -94,16 +96,14 @@ class SellProcessController extends AbstractController
         MarqueRepository $marqueRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
-        $phones = $articleRepository->findBy(['typeArt' => '2']);
+        $accessories = $articleRepository->findBy(['typeArt' => '2']);
         $typeArt = $typeArtRepository->findOneBy(['id' => '2'])->getNom();
         return $this->render('sell_process/brandIndex.html.twig', [
-            'phones' => $phones,
+            'accessories' => $accessories,
             'brands' => $marqueRepository->findAll(),
             'typeArt' => $typeArt,
         ]);
     }
-
-    // TODO - TERMINER tri par catégorie accessoire :
 
     /**
      * @Route("/accessoires/{slug<[a-zA-z]+>}", name="accessories_by_brand")
@@ -111,15 +111,17 @@ class SellProcessController extends AbstractController
     public function accessoriesByBrand(
         string $slug,
         ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
     ): Response {
         $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
         $articles = $articleRepository->findByTypeArtBrand('2', $marqueId);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '2'])->getNom();
         return $this->render('sell_process/articleSelection.html.twig', [
-            'controller_name' => 'SellProcessController',
+            'articles' => $articles,
             'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
             'brand' => $slug,
-            'articles' => $articles
+            'typeArt' => $typeArt,
         ]);
     }
 
@@ -139,24 +141,24 @@ class SellProcessController extends AbstractController
             'typeArt' => $typeArt,
         ]);
     }
-}
-
-    // TODO - TERMINER tri par catégorie reparation ??????
 
     /**
      * @Route("/reparations/{slug<[a-zA-z]+>}", name="repairs_by_brand")
      */
-//    public function repairsByBrand(
-//        string $slug,
-//        ArticleRepository $articleRepository,
-//        MarqueRepository $marqueRepository
-//    ): Response {
-//        $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
-//        $articles = $articleRepository->findByTypeArtBrand('4', $marqueId);
-//        return $this->render('sell_process/articleSelection.html.twig', [
-//            'controller_name' => 'SellProcessController',
-//            'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
-//            'brand' => $slug,
-//            'articles' => $articles
-//        ]);
-//    }
+    public function repairsByBrand(
+        string $slug,
+        ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository,
+        TypeArtRepository $typeArtRepository
+    ): Response {
+        $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
+        $articles = $articleRepository->findByTypeArtBrand('4', $marqueId);
+        $typeArt = $typeArtRepository->findOneBy(['id' => '4'])->getNom();
+        return $this->render('sell_process/articleSelection.html.twig', [
+            'articles' => $articles,
+            'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
+            'brand' => $slug,
+            'typeArt' => $typeArt,
+        ]);
+    }
+}
