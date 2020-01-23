@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SellProcessController extends AbstractController
 {
     /**
-     * @Route("/telephones", name="phone_brands", methods={"GET"})
+     * @Route("/telephones", name="phones", methods={"GET"})
      */
     public function phones(
         ArticleRepository $articleRepository,
@@ -66,7 +66,7 @@ class SellProcessController extends AbstractController
         ]);
     }
 
-    // TODO - TERMINER tri par cat composant, puis par marque de téléphone, puis par modèle de téléphone compatible :
+    // TODO - TERMINER tri par catégorie composant :
 
     /**
      * @Route("/composants/{slug<[a-zA-z]+>}", name="components_by_brand")
@@ -103,7 +103,7 @@ class SellProcessController extends AbstractController
         ]);
     }
 
-    // TODO - TERMINER tri par cat accessoire, puis par marque de téléphone, puis par modèle de téléphone compatible :
+    // TODO - TERMINER tri par catégorie accessoire :
 
     /**
      * @Route("/accessoires/{slug<[a-zA-z]+>}", name="accessories_by_brand")
@@ -124,39 +124,39 @@ class SellProcessController extends AbstractController
     }
 
     /**
-     * @Route("/reparations", name="repairs")
+     * @Route("/reparations", name="repairs", methods={"GET"})
      */
     public function repairsIndex(
         ArticleRepository $articleRepository,
         MarqueRepository $marqueRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
-        $phones = $articleRepository->findBy(['typeArt' => '4']);
+        $repairs = $articleRepository->findBy(['typeArt' => '4']);
         $typeArt = $typeArtRepository->findOneBy(['id' => '4'])->getNom();
         return $this->render('sell_process/brandIndex.html.twig', [
-            'phones' => $phones,
+            'repairs' => $repairs,
             'brands' => $marqueRepository->findAll(),
             'typeArt' => $typeArt,
         ]);
     }
+}
 
-    // TODO - TERMINER tri par cat reparation, puis par marque de téléphone, puis par modèle de téléphone compatible
+    // TODO - TERMINER tri par catégorie reparation ??????
 
     /**
      * @Route("/reparations/{slug<[a-zA-z]+>}", name="repairs_by_brand")
      */
-    public function repairsByBrand(
-        string $slug,
-        ArticleRepository $articleRepository,
-        MarqueRepository $marqueRepository
-    ): Response {
-        $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
-        $articles = $articleRepository->findByTypeArtBrand('4', $marqueId);
-        return $this->render('sell_process/articleSelection.html.twig', [
-            'controller_name' => 'SellProcessController',
-            'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
-            'brand' => $slug,
-            'articles' => $articles
-        ]);
-    }
-}
+//    public function repairsByBrand(
+//        string $slug,
+//        ArticleRepository $articleRepository,
+//        MarqueRepository $marqueRepository
+//    ): Response {
+//        $marqueId = $marqueRepository->findOneBy(['nom' => $slug])->getId();
+//        $articles = $articleRepository->findByTypeArtBrand('4', $marqueId);
+//        return $this->render('sell_process/articleSelection.html.twig', [
+//            'controller_name' => 'SellProcessController',
+//            'marque' => $marqueRepository->findOneby(['id' => $marqueId]),
+//            'brand' => $slug,
+//            'articles' => $articles
+//        ]);
+//    }
