@@ -24,6 +24,10 @@ h2 {
     text-align: left;
 }
 
+h6 {
+    text-align: center;
+}
+
 .card {
     display: flex;
     justify-content: center;
@@ -363,24 +367,6 @@ input, input:focus{
 }
 
 //media
-.box {
-    height: 250px;
-    width: 750px;
-}
-
-.description-box {
-    height: 200px;
-    width: 500px;
-}
-
 .img-product {
     width: 250px;
 }
-
-.foot-box {
-    height: 50px;
-    width: 250px;
-}
-
-
-
