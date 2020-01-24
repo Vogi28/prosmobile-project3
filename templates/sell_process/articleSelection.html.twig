@@ -147,19 +147,6 @@
 										</button>
 									</a>
 								</div>
-								{# administrator #}
-								{% if is_granted('ROLE_ADMIN') %}
-									{# edit button #}
-									<div class="mx-2">
-										<a href="{{ path('article_edit', {'id': article.id}) }}">
-											<button class="edit-button" title="Modifier">
-												<i data-fa-symbol="edit" class="fas fa-pen"></i>
-												<svg class="icon-md">
-													<use xlink:href="#edit"></use>
-												</svg>
-											</button>
-										</a>
-									</div>
 									{# add to basket button #}
 											<div class="col-4">
 												<button class="btn" title="Ajouter au panier">
@@ -203,5 +190,4 @@
 				</div>
 			{% endfor %}
 		</div>
-	</div>
 {% endblock %}
