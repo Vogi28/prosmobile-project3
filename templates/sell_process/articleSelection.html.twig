@@ -7,7 +7,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
-				{# administrator part #}
+				{# administrator #}
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin_index') }}">
 						Dashboard
@@ -70,25 +70,26 @@
 					</a>
 				</div>
 			</div>
-		</div>
-	{% endif %}
-	{# product list #}
-	<div class="container">
-		<div class="row">
+		{% endif %}
+		{# product list #}
+		<div class="row my-5">
 			{% for article in articles %}
 				{% if article.photo is empty %}
-					{% set photo ='https://via.placeholder.com/150x200' %}
+					{% set photo ='' %}
 				{% else %}
 					{% set photo = article.photo %}
 				{% endif %}
-				<div class="col-6">
-					<div class="media mt-2">
-						<img src="{{ photo }}" class="align-self-start mr-5 img-thumbnail" style="width:250px; height:300px;" alt="...">
+				<div class="col-6 my-3">
+					<div class="media">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ article.nom }}">
 						<div class="media-body">
-							<h5 class="my-4">{{ article.nom }}</h5>
-							{# administrator part #}
-							{% if  is_granted('ROLE_ADMIN') %}
-								<p class="card-text">
+							<h5 class="my-3">{{ article.nom }}</h5>
+							<p>
+								{{ article.description }}
+							</p>
+							{# administrator #}
+							{% if is_granted('ROLE_ADMIN') %}
+								<p>
 									Référence :
 									{{ article.reference }}
 								</p>
@@ -133,16 +134,30 @@
 									</p>
 								{% endif %}
 							{% endif %}
-							{# buttons #}
-							<div class="container my-5">
-								<div class="row d-flex justify-content-center">
-									{# show product button #}
-									<div class="col-4">
-										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
-											<i data-fa-symbol="show" class="fas fa-eye text-secondary"></i>
+							{# button #}
+							<div class="d-flex justify-content-center my-3">
+								{# show button #}
+								<div class="mx-2">
+									<a href="{{ path('article_show', { 'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
+										<button class="show-button" title="Afficher">
+											<i data-fa-symbol="show" class="fas fa-eye"></i>
 											<svg class="icon-md">
 												<use xlink:href="#show"></use>
 											</svg>
+										</button>
+									</a>
+								</div>
+								{# administrator #}
+								{% if is_granted('ROLE_ADMIN') %}
+									{# edit button #}
+									<div class="mx-2">
+										<a href="{{ path('article_edit', {'id': article.id}) }}">
+											<button class="edit-button" title="Modifier">
+												<i data-fa-symbol="edit" class="fas fa-pen"></i>
+												<svg class="icon-md">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</button>
 										</a>
 									</div>
 									{# add to basket button #}
@@ -184,7 +199,7 @@
 			{% else %}
 				{# empty #}
 				<div>
-					Aucun article n'est enregistré dans cette liste
+					Aucun article n'est enregistré dans cette liste.
 				</div>
 			{% endfor %}
 		</div>

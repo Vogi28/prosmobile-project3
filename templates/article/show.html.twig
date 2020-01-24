@@ -7,6 +7,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
+				{# administrator #}
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin_index') }}">
 						Dashboard
@@ -105,28 +106,28 @@
 										{% else %}
 										<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
 										{% endif %}
-												<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
-												<svg class="icon-md">
-													<use xlink:href="#basket"></use>
-												</svg>
-											</a>
+										<button class="add-basket-button" title="Ajouter au panier">
+											<i data-fa-symbol="add-basket" class="fas fa-shopping-cart"></i>
+											<svg class="icon-md">
+												<use xlink:href="#add-basket"></use>
+											</svg>
 										</button>
-									</div>
-									{# administrator part #}
-									{% if is_granted('ROLE_ADMIN') %}
-										{# edit button #}
-										<div class="col-4">
-											<button class="btn" title="Modifier">
-												<a href="{{ path('article_edit', {'id': article.id}) }}">
-													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
-													<svg class="icon-md">
-														<use xlink:href="#edit"></use>
-													</svg>
-												</a>
-											</button>
-										</div>
-									{% endif %}
+									</a>
 								</div>
+								{# administrator #}
+								{% if is_granted('ROLE_ADMIN') %}
+									{# edit button #}
+									<div class="mx-2">
+										<a href="{{ path('article_edit', {'id': article.id}) }}">
+											<button class="edit-button" title="Modifier">
+												<i data-fa-symbol="edit" class="fas fa-pen"></i>
+												<svg class="icon-md">
+													<use xlink:href="#edit"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+								{% endif %}
 							</div>
 						</div>
 					</div>
