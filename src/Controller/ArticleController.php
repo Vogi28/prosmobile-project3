@@ -25,7 +25,6 @@ class ArticleController extends AbstractController
      * @Route("/", name="article_index", methods={"GET"})
      */
     public function index(
-        Article $article,
         ArticleRepository $articleRepository,
         PromoRepository $promoRepository,
         ProRepository $proRepository,
@@ -35,28 +34,22 @@ class ArticleController extends AbstractController
 
         if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
             $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
-            $prixHt = $articleRepository->findOneBy(['id' => $article->getId()])->getPrixHt();
-            $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
 
             return $this->render('article/index.html.twig', [
                 'articles' => $articleRepository->findAll(),
-                'marque' => $articleRepository->findOneBy(['id' => $article->getId()])->getMarque(),
-                'type_art' => $typeArtRepository->findOneBy(['nom' => $article->getTypeArt()->getNom()]),
+                'marque' => $articleRepository->findAll(),
+                'type_art' => $typeArtRepository->findAll(),
                 'reduc' => $reduc,
-                'prix_ht_reduit' => $prixHtReduit,
             ]);
         }
 
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
-        $prixTtc = $articleRepository->findOneBy(['id' => $article->getId()])->getPrixTtc();
-        $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
-        dd($typeArtRepository->findOneBy(['nom' => $article->getTypeArt()->getNom()]));
+
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
-            'marque' => $articleRepository->findOneBy(['id' => $article->getId()])->getMarque(),
-            'type_art' => $typeArtRepository->findOneBy(['nom' => $article->getTypeArt()->getNom()]),
+            'marque' => $articleRepository->findAll(),
+            'type_art' => $typeArtRepository->findAll(),
             'promo' => $promo,
-            'prix_ttc_reduit' => $prixTtcReduit,
         ]);
     }
 
@@ -194,7 +187,7 @@ class ArticleController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $managerService->remFLush($article);
         }
-            
+
         return $this->redirectToRoute('article_index');
     }
 }

@@ -32,21 +32,6 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByTypeBrandPhone($typeArtId, $marqueId)
-    {
-        return $this->createQueryBuilder('a')
-            ->leftjoin('artComp', 'ac', null, 'a.id = ac.artId', null)
-            // EXEMPLE : Join('u', 'phonenumbers', 'p', 'u.id = p.user_id')
-            ->andWhere('a.typeArt = :typeArt')
-            ->setParameter('typeArt', $typeArtId)
-            ->andWhere('a.marque = :marque')
-            ->setParameter('marque', $marqueId)
-            ->orderBy('ac.artId', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

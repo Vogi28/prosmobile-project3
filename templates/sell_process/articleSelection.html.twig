@@ -18,10 +18,24 @@
 					</a>
 				{% endif %}
 			</li>
-			<li class="breadcrumb-item">
-				<a href="{{ path('article_sell_phone_brands') }}">
-					Téléphones
-				</a>
+			<li class="breadcrumb-item active" aria-current="page">
+				{% if typeArt is same as('Telephone') %}
+					<a href="{{ path('article_sell_phones') }}">
+						Téléphones
+					</a>
+				{% elseif typeArt is same as('Composant') %}
+					<a href="{{ path('article_sell_components') }}">
+						Composants
+					</a>
+				{% elseif typeArt is same as('Accessoire') %}
+					<a href="{{ path('article_sell_accessories') }}">
+						Accessoires
+					</a>
+				{% elseif typeArt is same as('Reparation') %}
+					<a href="{{ path('article_sell_repairs') }}">
+						Réparations
+					</a>
+				{% endif %}
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
 				{{ brand }}
@@ -29,21 +43,32 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1>{{ brand }}</h1>
-	{# product #}
-	<div class="container my-5">
-		{# administrator#}
-		{% if is_granted('ROLE_ADMIN') %}
-			{# add button #}
-			<div>
-				<a href="{{ path('article_new') }}">
-					<button class="add-button" title="Ajouter">
-						<i data-fa-symbol="add" class="fas fa-plus"></i>
-						<svg class="icon-md">
-							<use xlink:href="#add"></use>
-						</svg>
-					</button>
-				</a>
+	<h1>
+		{% if typeArt is same as('Telephone') %}
+			Tous les téléphones {{ brand }}
+		{% elseif typeArt is same as('Composant') %}
+			Tous les composants pour téléphones {{ brand }}
+		{% elseif typeArt is same as('Accessoire') %}
+			Tous les accessoires pour téléphones {{ brand }}
+		{% elseif typeArt is same as('Reparation') %}
+			Toutes les réparations pour téléphones {{ brand }}
+		{% endif %}
+	</h1>
+	{# administrator part #}
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="container my-5">
+			<div class="row">
+				{# add button #}
+				<div>
+					<a href="{{ path('article_new') }}">
+						<button class="add-button" title="Ajouter">
+							<i data-fa-symbol="add" class="fas fa-plus"></i>
+							<svg class="icon-md">
+								<use xlink:href="#add"></use>
+							</svg>
+						</button>
+					</a>
+				</div>
 			</div>
 		{% endif %}
 		{# product list #}
@@ -68,22 +93,46 @@
 									Référence :
 									{{ article.reference }}
 								</p>
-								<p>
+								<p class="card-text">
 									Stock restant :
 									{{ article.stock }}
 								</p>
 							{% endif %}
-							{# individual #}
-							{% if is_granted('ROLE_PARTICULIER') %}
-								<p class="text-center">
-									{{ article.prixTtc }}
-									€
-								</p>
-							{% else %}
-								<p class="text-center">
-									{{ article.prixHt }}
-									€ HT
-								</p>
+							<p class="card-text">
+								{{ article.description }}
+							</p>
+							{# user part #}
+							{% if is_granted('ROLE_PRO') == false %}
+								{% if promo is defined and not null %}
+									<p class="card-text">
+										<del>{{ article.prixTtc }}</del>
+										€
+									</p>
+									<p class="card-text">
+										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} Promo ! {{ prixTTcReduit }}
+										€ TTC
+									</p>
+								{% else %}
+									<p class="card-text">
+										{{ article.prixTtc }} € TTC
+									</p>
+								{% endif %}
+							{% endif %}
+							{% if is_granted('ROLE_PRO') %}
+								{% if reduc is defined and not null %}
+									<p class="card-text">
+										<del>{{ article.prixHt }}</del> €
+									</p>
+									<p class="card-text">
+										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} Prix réduit : {{ prixHtReduit }}
+										€ HT
+									</p>
+								{% else %}
+									<p class="card-text">
+										{{ article.prixHt }}
+										€ HT
+									</p>
+								{% endif %}
 							{% endif %}
 							{# button #}
 							<div class="d-flex justify-content-center my-3">
@@ -111,7 +160,38 @@
 											</button>
 										</a>
 									</div>
-								{% endif %}
+									{# add to basket button #}
+											<div class="col-4">
+												<button class="btn" title="Ajouter au panier">
+													{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+													<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+														{% elseif promo is defined and not null %}
+														<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+															{% else %}
+															<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+																{% endif %}
+																<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+																<svg class="icon-md">
+																	<use xlink:href="#basket"></use>
+																</svg>
+															</a>
+												</button>
+											</div>
+									{# administrator part #}
+									{% if is_granted('ROLE_ADMIN') %}
+										{# edit button #}
+										<div class="mx-2">
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
+												<button class="edit-button" title="Modifier">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									{% endif %}
+								</div>
 							</div>
 						</div>
 					</div>

@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\ArtComp;
 use App\Entity\Article;
 use App\Entity\TypeArt;
-use App\Repository\TypeArtRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\AbstractType;
@@ -43,6 +43,20 @@ class ArticleType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
             ])
+            ->add('artComp', EntityType::class, [
+                'class'       => ArtComp::class,
+                'placeholder' => 'Sélectionnez un article ou une réparation',
+                'mapped'      => false,
+                'required'    => false,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+            ])
+            //->add('artComp', EntityType::class, [
+            //     'class' => ArtComp::class,
+            //     'choice_label' => function ($artComp) {
+            //         return $artComp->getArtComp();
+            //     }
+            //])
             //->add('detailCdeParts')
             //->add('detailCdePros')
         ;

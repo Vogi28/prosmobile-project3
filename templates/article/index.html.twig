@@ -53,60 +53,46 @@
 					<div class="media">
 						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ article.nom }}">
 						<div class="media-body">
-							<h5 class="my-3">{{ article.nom }}</h5>
-							<p>
-								{{ article.description }}
-							</p>
-							{# administrator #}
-							{% if is_granted('ROLE_ADMIN') %}
-								<p>
-									Référence :
-									{{ article.reference }}
+							<h5 class="mt-2">{{ article.nom }}</h5>
+							{# administrator part #}
+							{% if  is_granted('ROLE_ADMIN') %}
+								<p class="card-text">
+									Référence : {{ article.reference }}
 								</p>
-								<p>
-									Stock restant :
-									{{ article.stock }}
+								<p class="card-text">
+									Stock restant : {{ article.stock }}
 								</p>
 							{% endif %}
 							{# professional #}
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
-									<p class="text-center">
-										<del>
-											{{ article.prixTtc }}
-											€
-										</del>
-										<span class="ml-3">
-											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
-											{{ prixTTcReduit }}
-											€ TTC
-										</span>
+									<p class="card-text">
+										<del>{{ article.prixTtc }}</del>
+										€
+									</p>
+									<p class="card-text">
+										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} Promo ! {{ prixTTcReduit }}
+										€ TTC
 									</p>
 								{% else %}
-									<p class="text-center">
-										{{ article.prixTtc }}
-										€ TTC
+									<p class="card-text">
+										{{ article.prixTtc }} € TTC
 									</p>
 								{% endif %}
 							{% endif %}
 							{# professional #}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
-									<p class="text-center">
-										<del>
-											{{ article.prixHt }}
-											€
-										</del>
-										<span class="ml-3">
-											{% set prixHtReduit = article.prixHt * (1 - promo / 100) %}
-											{{ prixHtReduit }}
-											€ HT
-										</span>
+									<p class="card-text">
+										<del>{{ article.prixHt }}</del> €
+									</p>
+									<p class="card-text">
+										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} Prix réduit : {{ prixHtReduit }}
+										€ HT
 									</p>
 								{% else %}
-									<p class="text-center">
-										{{ article.prixHt }}
-										€ HT
+									<p class="card-text">
+										{{ article.prixHt }} € HT
 									</p>
 								{% endif %}
 							{% endif %}
@@ -133,6 +119,37 @@
 												<svg class="icon-md">
 													<use xlink:href="#edit"></use>
 												</svg>
+											</a>
+										</button>
+									</div>
+									{# add to basket button #}
+											<div class="col-4">
+												<button class="btn" title="Ajouter au panier">
+													{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+													<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+														{% elseif promo is defined and not null %}
+														<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+															{% else %}
+															<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+																{% endif %}
+																<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+																<svg class="icon-md">
+																	<use xlink:href="#basket"></use>
+																</svg>
+															</a>
+												</button>
+											</div>
+									{# administrator part #}
+									{% if is_granted('ROLE_ADMIN') %}
+										{# edit button #}
+										<div class="col-4">
+											<button class="btn" title="Modifier">
+												<a href="{{ path('article_edit', {'id': article.id}) }}">
+													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</a>
 											</button>
 										</a>
 									</div>

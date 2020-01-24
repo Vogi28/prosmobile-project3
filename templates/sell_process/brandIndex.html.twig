@@ -55,9 +55,11 @@
 	</h1>
 	<h2 class="my-5">
 		{% if typeArt is same as('Telephone') %}
-			Choisissez une marque
-		{% else %}
-			Choisissez la marque du téléphone
+			choisissez une marque
+		{% elseif typeArt is same as('Composant') %}
+			choisissez la marque du téléphone
+		{% elseif typeArt is same as('Accessoire') %}
+			choisissez la marque du téléphone
 		{% endif %}
 	</h2>
 	{# brands #}
@@ -83,14 +85,13 @@
 								</a>
 							</div>
 						{% elseif typeArt is same as('Reparation') %}
-							<div>
-								<a href="{{ path('article_sell_repairs_by_brand', {'id': brand.id, 'slug': brand.nom}) }}">
-									<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-								</a>
-							</div>
-						{% endif %}
+					<div class="col-3 d-flex justify-content-center">
+						<a href="{{ path('article_sell_repairs') }}">
+							<img class="brand" src="#" alt="...">
+						</a>
 					</div>
-				{% endfor %}
-			</div>
+				{% endif %}
+			{% endfor %}
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}
