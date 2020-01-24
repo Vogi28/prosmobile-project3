@@ -187,7 +187,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 40px;
 }
@@ -214,7 +214,7 @@ input, input:focus{
     display: flex;
     height: 25px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 25px;
 }
@@ -241,7 +241,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 40px;
 }
@@ -268,7 +268,7 @@ input, input:focus{
     display: flex;
     height: 25px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 25px;
 }
@@ -295,7 +295,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 180px;
 }
@@ -322,7 +322,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 100px;
 }
@@ -349,7 +349,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 150px;
 }
@@ -376,7 +376,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 40px;
 }
@@ -403,7 +403,7 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 40px;
 }
@@ -430,14 +430,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
-    opacity: 0.2;
+    opacity: 0.5;
     padding: 0;
     width: 40px;
 }
 
 //icons
 .brand {
-    width: 150px;
+    opacity: 1;
+    transition: 0.8s ease;
+    width: 250px;
+}
+
+.brand:hover {
+    opacity: 0.5;
+    width: 250px;
 }
 
 .icon-sm {
