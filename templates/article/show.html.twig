@@ -165,7 +165,7 @@
 			{% endif %}
 		</div>
 	{# compatible products #}
-	{% if artcomp is defined %}
+	{% if art_comps is defined and not null %}
 	<div class="container">
 		<div class="row">
 			{% include ('art_comp/show.html.twig') %}
