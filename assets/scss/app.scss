@@ -165,7 +165,7 @@ input, input:focus{
 }
 
 //buttons
-.add-basket-button, .add-button, .checkout-button, .edit-button, .save-button, .show-button {
+.add-basket-button, .add-button, .edit-button, .save-button, .show-button {
     align-items: center;
     background-color: #00C851;
     border: none;
@@ -173,6 +173,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 40px;
+}
+
+.add-basket-button:hover, .add-button:hover, .edit-button:hover, .save-button:hover, .show-button:hover {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 40px;
 }
@@ -185,6 +200,21 @@ input, input:focus{
     display: flex;
     height: 25px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 25px;
+}
+
+.add-button-sm:hover, .edit-button-sm:hover, .show-button-sm:hover {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #00C851;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 25px;
 }
@@ -197,6 +227,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 40px;
+}
+
+.delete-button:hover {
+    align-items: center;
+    background-color: #FF4444;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 40px;
 }
@@ -209,6 +254,21 @@ input, input:focus{
     display: flex;
     height: 25px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 25px;
+}
+
+.delete-button-sm:hover {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #FF4444;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 25px;
 }
@@ -221,6 +281,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 180px;
+}
+
+.booking-button:hover {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 180px;
 }
@@ -233,6 +308,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 100px;
+}
+
+.checkout-button:hover {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 100px;
 }
@@ -245,6 +335,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 150px;
+}
+
+.login-button:hover {
+    align-items: center;
+    background-color: #00C851;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 150px;
 }
@@ -257,6 +362,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 40px;
+}
+
+.basket-button:hover, .dashboard-button:hover, .logout-button:hover, .profile-button:hover {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #FFBB33;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 40px;
 }
@@ -269,6 +389,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 40px;
+}
+
+.facebook-button:hover {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #33B5E5;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 40px;
 }
@@ -281,6 +416,21 @@ input, input:focus{
     display: flex;
     height: 40px;
     justify-content: center;
+    opacity: 1;
+    padding: 0;
+    transition: 0.8s ease;
+    width: 40px;
+}
+
+.search-button:hover {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: none;
+    color: #00C851;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 0.2;
     padding: 0;
     width: 40px;
 }
