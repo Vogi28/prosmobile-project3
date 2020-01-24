@@ -7,6 +7,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
+				{# administrator #}
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin_index') }}">
 						Dashboard
@@ -23,30 +24,26 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1>Tous les articles disponibles</h1>
-	{# administrator part #}
-	{% if is_granted('ROLE_ADMIN') %}
-		<div class="container-fluid my-5">
+	<h1>Articles disponibles</h1>
+	{# product #}
+	<div class="container my-5">
+		{# administrator #}
+		{% if is_granted('ROLE_ADMIN') %}
 			{# add button #}
-			<div class="row">
-				<button class="btn" title="Ajouter">
-					<a href="{{ path('article_new') }}">
-						<button class="add-button" title="Ajouter">
-							<i data-fa-symbol="add" class="fas fa-plus"></i>
-							<svg class="icon-md">
-								<use xlink:href="#add"></use>
-							</svg>
-						</button>
-					</a>
-				</button>
+			<div>
+				<a href="{{ path('article_new') }}">
+					<button class="add-button" title="Ajouter">
+						<i data-fa-symbol="add" class="fas fa-plus"></i>
+						<svg class="icon-md">
+							<use xlink:href="#add"></use>
+						</svg>
+					</button>
+				</a>
 			</div>
-		</div>
-	{% endif %}
-	{# product list #}
-	<div class="container">
-		<div class="row">
+		{% endif %}
+		{# product list #}
+		<div class="row my-5">
 			{% for article in articles %}
-				{#				{{  dump(article.marque) }}#}
 				{% if article.photo is empty %}
 					{% set photo ='' %}
 				{% else %}
@@ -54,13 +51,13 @@
 				{% endif %}
 				<div class="col-6 my-3">
 					<div class="media">
-						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="...">
+						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ article.nom }}">
 						<div class="media-body">
 							<h5 class="my-3">{{ article.nom }}</h5>
 							<p>
 								{{ article.description }}
 							</p>
-							{# administrator part #}
+							{# administrator #}
 							{% if is_granted('ROLE_ADMIN') %}
 								<p>
 									Référence :
@@ -71,7 +68,7 @@
 									{{ article.stock }}
 								</p>
 							{% endif %}
-							{# professional part #}
+							{# professional #}
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
 									<p class="text-center">
@@ -92,7 +89,7 @@
 									</p>
 								{% endif %}
 							{% endif %}
-							{# professional part #}
+							{# professional #}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
 									<p class="text-center">
@@ -113,35 +110,33 @@
 									</p>
 								{% endif %}
 							{% endif %}
-							{# buttons #}
-							<div class="container">
-								<div class="row d-flex justify-content-center">
-									{# show product button #}
+							{# button #}
+							<div class="d-flex justify-content-center my-3">
+								{# show button #}
+								<div class="mx-2">
+									<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
+										<button class="show-button" title="Afficher">
+											<i data-fa-symbol="show" class="fas fa-eye"></i>
+											<svg class="icon-md">
+												<use xlink:href="#show"></use>
+											</svg>
+										</button>
+									</a>
+								</div>
+								{# administrator #}
+								{% if is_granted('ROLE_ADMIN') %}
+									{# edit button #}
 									<div class="mx-2">
-										<a href="{{ path('article_show', {'slug1': article.typeArt.nom, 'slug2': article.marque.nom, 'id': article.id }) }}">
-											<button class="show-button" title="Afficher">
-												<i data-fa-symbol="show" class="fas fa-eye"></i>
+										<a href="{{ path('article_edit', {'id': article.id}) }}">
+											<button class="edit-button" title="Modifier">
+												<i data-fa-symbol="edit" class="fas fa-pen"></i>
 												<svg class="icon-md">
-													<use xlink:href="#show"></use>
+													<use xlink:href="#edit"></use>
 												</svg>
 											</button>
 										</a>
 									</div>
-									{# administrator part #}
-									{% if is_granted('ROLE_ADMIN') %}
-										{# edit button #}
-										<div class="mx-2">
-											<a href="{{ path('article_edit', {'id': article.id}) }}">
-												<button class="edit-button" title="Modifier">
-													<i data-fa-symbol="edit" class="fas fa-pen"></i>
-													<svg class="icon-md">
-														<use xlink:href="#edit"></use>
-													</svg>
-												</button>
-											</a>
-										</div>
-									{% endif %}
-								</div>
+								{% endif %}
 							</div>
 						</div>
 					</div>
