@@ -1,23 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PROSMOBILE | Recherche
-	{% if typeArt is same as('Telephone') %}
-		téléphone
-	{% elseif typeArt is same as('Composant') %}
-		composant
-	{% elseif typeArt is same as('Accessoire') %}
-		accessoire
-	{% elseif typeArt is same as('Reparation') %}
-		réparation
-	{% endif %}
-{% endblock %}
+{% block title %}PROSMobile - Marques{% endblock %}
 
 {% block body %}
 	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
 			<li class="breadcrumb-item">
-				{# administrator part #}
+				{# administrator #}
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin_index') }}">
 						Dashboard
@@ -29,12 +19,16 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
+				{# phone #}
 				{% if typeArt is same as('Telephone') %}
 					Téléphones
+					{# component #}
 				{% elseif typeArt is same as('Composant') %}
 					Composants
+					{# accessory #}
 				{% elseif typeArt is same as('Accessoire') %}
 					Accessoires
+					{# fix #}
 				{% elseif typeArt is same as('Reparation') %}
 					Réparations
 				{% endif %}
@@ -43,54 +37,67 @@
 	</nav>
 	{# title #}
 	<h1>
+		{# phone #}
 		{% if typeArt is same as('Telephone') %}
 			Téléphones
+			{# component #}
 		{% elseif typeArt is same as('Composant') %}
 			Composants
+			{# accessory #}
 		{% elseif typeArt is same as('Accessoire') %}
 			Accessoires
+			{# fix #}
 		{% elseif typeArt is same as('Reparation') %}
 			Réparations
 		{% endif %}
 	</h1>
-	<h2 class="my-5">
-		{% if typeArt is same as('Telephone') %}
-			choisissez une marque
-		{% elseif typeArt is same as('Composant') %}
-			choisissez la marque du téléphone
-		{% elseif typeArt is same as('Accessoire') %}
-			choisissez la marque du téléphone
-		{% endif %}
-	</h2>
-	{# brands #}
-	<div class="container">
+	{# brand #}
+	<div class="container my-5">
+		{# message #}
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+			{% if typeArt is same as('Telephone') %}
+				Choisissez une marque
+			{% elseif typeArt is same as('Composant') %}
+				Choisissez la marque du téléphone
+			{% elseif typeArt is same as('Accessoire') %}
+				Choisissez la marque du téléphone
+			{% endif %}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 		<div class="row">
 			{% for brand in brands %}
-				<div class="col-2 my-3">
+				<div class="col-3 my-3">
+					{# phone #}
 					{% if typeArt is same as('Telephone') %}
-						<div>
+						<div title="{{ brand.nom }}">
 							<a href="{{ path('article_sell_phones_by_brand', {'slug': brand.nom}) }}">
 								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
 							</a>
 						</div>
+						{# component #}
 					{% elseif typeArt is same as('Composant') %}
-						<div>
+						<div title="{{ brand.nom }}">
 							<a href="{{path('article_sell_components_by_brand',{'slug':brand.nom})}}">
-								<img class="brand" src=" {{ brand.image }} " alt=" {{ brand.nom }} "></a>
-							</div>
-						{% elseif typeArt is same as('Accessoire') %}
-							<div>
-								<a href="{{ path('article_sell_accessories_by_brand', {'slug': brand.nom}) }}">
-									<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-								</a>
-							</div>
-						{% elseif typeArt is same as('Reparation') %}
-							<div class="col-3 d-flex justify-content-center">
-								<a href="{{ path('article_sell_repairs_by_brand', {'slug': brand.nom}) }}">
-									<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
-								</a>
-							</div>
-				{% endif %}
+								<img class="brand" src=" {{ brand.image }} " alt=" {{ brand.nom }} ">
+							</a>
+						</div>
+						{# accessory #}
+					{% elseif typeArt is same as('Accessoire') %}
+						<div title="{{ brand.nom }}">
+							<a href="{{ path('article_sell_accessories_by_brand', {'slug': brand.nom}) }}">
+								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+							</a>
+						</div>
+						{# fix #}
+					{% elseif typeArt is same as('Reparation') %}
+						<div title="{{ brand.nom }}">
+							<a href="{{ path('article_sell_repairs_by_brand', {'slug': brand.nom}) }}">
+								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			{% endfor %}
 		</div>
