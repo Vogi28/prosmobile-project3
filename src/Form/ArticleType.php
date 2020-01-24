@@ -46,6 +46,7 @@ class ArticleType extends AbstractType
             ->add('artComp', EntityType::class, [
                 'class'       => ArtComp::class,
                 'placeholder' => 'Sélectionnez un article ou une réparation',
+                // 'query_builder' => function,
                 'mapped'      => false,
                 'required'    => false,
                 'entry_options' => ['label' => false],
@@ -57,8 +58,6 @@ class ArticleType extends AbstractType
             //         return $artComp->getArtComp();
             //     }
             //])
-            //->add('detailCdeParts')
-            //->add('detailCdePros')
         ;
     }
 
