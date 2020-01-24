@@ -32,6 +32,29 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByTypeAndNom(int $typeArtId, string $string)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.typeArt = :typeArt')
+            ->setParameter('typeArt', $typeArtId)
+            ->andWhere('a.nom LIKE :string')
+            ->setParameter('string', '%'.$string)
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByNomLike(string $string)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.nom LIKE :string')
+            ->setParameter('string', '%'.$string.'%')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
