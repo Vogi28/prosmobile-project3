@@ -19,14 +19,42 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-				<a href="{{ path('article_sell_phones') }}">
-					Téléphones
-				</a>
+				{% if article.typeArt.nom is same as('Telephone') %}
+					<a href="{{ path('article_sell_phones') }}">
+						Téléphones
+					</a>
+				{% elseif type_art is same as('Composant') %}
+					<a href="{{ path('article_sell_components') }}">
+						Composants
+					</a>
+				{% elseif type_art is same as('Accessoire') %}
+					<a href="{{ path('article_sell_accessories') }}">
+						Accessoires
+					</a>
+				{% elseif type_art is same as('Reparation') %}
+					<a href="{{ path('article_sell_repairs') }}">
+						Réparations
+					</a>
+				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-				<a href="#">
-					{{ marque.nom }}
-				</a>
+				{% if type_art is same as('Telephone') %}
+					<a href="{{ path('article_sell_phones_by_brand', {'slug': marque}) }}">
+						{{ marque }}
+					</a>
+				{% elseif type_art is same as('Composant') %}
+					<a href="{{ path('article_sell_components_by_brand', {'slug': marque}) }}">
+						{{ marque }}
+					</a>
+				{% elseif type_art is same as('Accessoire') %}
+					<a href="{{ path('article_sell_accessories_by_brand', {'slug': marque}) }}">
+						{{ marque }}
+					</a>
+				{% elseif type_art is same as('Reparation') %}
+					<a href="{{ path('article_sell_repairs_by_brand', {'slug': marque}) }}">
+						{{ marque }}
+					</a>
+				{% endif %}
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
 				Fiche produit
