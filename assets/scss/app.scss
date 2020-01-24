@@ -437,13 +437,13 @@ input, input:focus{
 
 //icons
 .brand {
-    opacity: 1;
+    filter: grayscale(100%);
     transition: 0.8s ease;
     width: 250px;
 }
 
 .brand:hover {
-    opacity: 0.5;
+    filter: grayscale(0%);
     width: 250px;
 }
 
