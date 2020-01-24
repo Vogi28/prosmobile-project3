@@ -76,7 +76,7 @@
 					{% elseif typeArt is same as('Composant') %}
 						<div>
 							<a href="{{path('article_sell_components_by_brand',{'id':brand.id,'slug':brand.nom})}}">
-								<imgclass="brand" src=" {{ brand.image }} " alt=" {{ brand.nom }} "></a>
+								<img class="brand" src=" {{ brand.image }} " alt=" {{ brand.nom }} "></a>
 							</div>
 						{% elseif typeArt is same as('Accessoire') %}
 							<div>
@@ -85,12 +85,13 @@
 								</a>
 							</div>
 						{% elseif typeArt is same as('Reparation') %}
-					<div class="col-3 d-flex justify-content-center">
-						<a href="{{ path('article_sell_repairs') }}">
-							<img class="brand" src="#" alt="...">
-						</a>
-					</div>
+							<div class="col-3 d-flex justify-content-center">
+								<a href="{{ path('article_sell_repairs') }}">
+									<img class="brand" src="#" alt="...">
+								</a>
+							</div>
 				{% endif %}
+				</div>
 			{% endfor %}
 		</div>
 	</div>

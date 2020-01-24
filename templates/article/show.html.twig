@@ -19,7 +19,7 @@
 				{% endif %}
 			</li>
 			<li class="breadcrumb-item">
-				<a href="{{ path('article_sell_phone_brands') }}">
+				<a href="{{ path('article_sell_phones') }}">
 					Téléphones
 				</a>
 			</li>
@@ -95,9 +95,7 @@
 							{% endif %}
 							{# buttons #}
 							{# add to basket button #}
-							<div class="container">
-								<div class="row">
-									<div class="col-4">
+									<div class="mx-2">
 										<button class="btn" title="Ajouter au panier">
 										{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
 											<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
@@ -112,8 +110,8 @@
 												<use xlink:href="#add-basket"></use>
 											</svg>
 										</button>
-									</a>
-								</div>
+										</a>
+									</div>
 								{# administrator #}
 								{% if is_granted('ROLE_ADMIN') %}
 									{# edit button #}
@@ -138,7 +136,6 @@
 				</div>
 			{% endif %}
 		</div>
-	</div>
 	{# compatible products #}
 	{% if artcomp is defined %}
 	<div class="container">
