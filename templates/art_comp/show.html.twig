@@ -15,25 +15,31 @@
 						{# administrator #}
 						{% if is_granted('ROLE_ADMIN') %}
 							<p class="mt-4">
-								Référence : {{ art_comp.reference }}
+								Référence :
+								{{ art_comp.reference }}
 							</p>
 							<p class="mt-4">
-								Stock restant : {{ art_comp.stock }}
+								Stock restant :
+								{{ art_comp.stock }}
 							</p>
 						{% endif %}
 						{# professional #}
 						{% if is_granted('ROLE_PRO') == false %}
 							{% if promo is defined %}
 								<p class="card-text">
-									<del>{{ art_comp.prixTtc }}</del> €
+									<del>{{ art_comp.prixTtc }}</del>
+									€
 								</p>
 								<p class="card-text">
-									{% set prixTTcReduit = art_comp.prixTtc * (1 - promo / 100) %} Promo ! {{ prixTTcReduit }}
+									{% set prixTTcReduit = art_comp.prixTtc * (1 - promo / 100) %}
+									Promo !
+									{{ prixTTcReduit }}
 									€ TTC
 								</p>
 							{% else %}
 								<p class="card-text">
-									{{ art_comp.prixTtc }} € TTC
+									{{ art_comp.prixTtc }}
+									€ TTC
 								</p>
 							{% endif %}
 						{% endif %}
@@ -41,20 +47,25 @@
 						{% if is_granted('ROLE_PRO') %}
 							{% if reduc is defined and not null %}
 								<p class="card-text">
-									<del>{{ art_comp.prixHt }}</del> €
+									<del>{{ art_comp.prixHt }}</del>
+									€
 								</p>
 								<p class="card-text">
-									{% set prixHtReduit = art_comp.prixHt * (1 - promo / 100) %} Prix réduit : {{ prixHtReduit }}
+									{% set prixHtReduit = art_comp.prixHt * (1 - promo / 100) %}
+									Prix réduit :
+									{{ prixHtReduit }}
 									€ HT
 								</p>
 							{% else %}
 								<p class="card-text">
-									{{ art_comp.prixHt }} € HT
+									{{ art_comp.prixHt }}
+									€ HT
 								</p>
 							{% endif %}
 						{% endif %}
 						{# button #}
-						<div class="d-flex justify-content-center my-3">
+						<div
+							class="d-flex justify-content-center my-3">
 							{# show button #}
 							<div class="mx-2">
 								<a href="{{ path('article_show', {'slug1': type_art.nom, 'slug2': marque.nom, 'id': article.id }) }}">
@@ -80,46 +91,45 @@
 									</a>
 								</div>
 							{% endif %}
-								{# add to basket button #}
-								{# TODO modifier ce qu'il faut dans le bouton ci-dessous #}
-										<div class="col-4">
-											<button class="btn" title="Ajouter au panier">
-												{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
-												<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
-													{% elseif promo is defined and not null %}
-													<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
-														{% else %}
-														<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
-															{% endif %}
-															<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
-															<svg class="icon-md">
-																<use xlink:href="#basket"></use>
-															</svg>
-														</a>
-											</button>
-										</div>
-								{# administrator part #}
-								{% if is_granted('ROLE_ADMIN') %}
-									{# edit button #}
-									<div class="col-4">
-										<button class="btn" title="Modifier">
-											<a href="{{ path('article_edit', {'id': article.id}) }}">
-												<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+							{# add to basket button #}
+							<div class="mx-2">
+								{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+									<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+									{% elseif promo is defined and not null %}
+										<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+										{% else %}
+											<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+											{% endif %}
+											<button class="add-basket-button" title="Ajouter au panier">
+												<i data-fa-symbol="add-basket" class="fas fa-shopping-cart"></i>
 												<svg class="icon-md">
-													<use xlink:href="#edit"></use>
+													<use xlink:href="#add-basket"></use>
 												</svg>
-											</a>
-										</button>
+											</button>
+										</a>
 									</div>
-								{% endif %}
+									{# administrator #}
+									{% if is_granted('ROLE_ADMIN') %}
+										{# edit button #}
+										<div class="mx-2">
+											<a href="{{ path('article_edit', {'id': article.id}) }}">
+												<button class="edit-button" title="Modifier">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									{% endif %}
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				{% else %}
+					<div>
+						Aucun article compatible enregistré dans cette liste
+					</div>
+				{% endfor %}
 			</div>
-		{% else %}
-			<div>
-				Aucun article compatible enregistré dans cette liste
-			</div>
-		{% endfor %}
-	</div>
-</div>
+		</div>
