@@ -17,12 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/article")
+ * @Route("/article", name="article_")
  */
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(
         ArticleRepository $articleRepository,
@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/marque/{slug<[a-zA-z]+>}", name="article_marque", methods={"GET"})
+     * @Route("/marque/{slug<[a-zA-z]+>}", name="marque", methods={"GET"})
      */
     public function oneBrandindex(
         string $slug,
@@ -69,7 +69,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      */
     public function new(
         Request $request,
@@ -92,7 +92,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{slug1<[a-zA-z]+>}/{slug2<[a-zA-z]+>}/{id}", name="article_show", methods={"GET"})
+     * @Route("/{slug1<[a-zA-z]+>}/{slug2<[a-zA-z]+>}/{id}", name="show", methods={"GET"})
      */
     public function show(
         string $slug2,
@@ -157,7 +157,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article): Response
     {
@@ -177,7 +177,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
@@ -189,5 +189,31 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('article_index');
+    }
+
+    /**
+     * @Route("/recherche", name="search", methods={"GET"})
+     */
+    public function searchArticles(Request $request, ArticleRepository $articleRepository)
+    {
+        $search = $request->query->get('search');
+        $search = trim(str_replace('é', 'e', $search));
+        
+        if (preg_match("/reparation/i", $search) == true) {
+            $articles = $articleRepository->findBy(['typeArt' => 4]);
+        } elseif (preg_match("/batterie/i", $search) == true ||
+        preg_match("/vitre/i", $search) == true) {
+            $articles = $articleRepository->findBy(['typeArt' => 3]);
+        } elseif (preg_match("/coque/i", $search) == true ||
+        preg_match("/verre/i", $search) == true ||
+        preg_match("/chargeur/i", $search) == true) {
+            $articles = $articleRepository->findByTypeAndNom(2, $search);
+        } else {
+            $articles = $articleRepository->findByNomLike($search);
+        }
+        
+        return $this->render('search.html.twig', [
+            'articles' => $articles
+        ]);
     }
 }
