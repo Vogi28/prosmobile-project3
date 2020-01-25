@@ -73,14 +73,14 @@
 							</p>
 							{# administrator #}
 							{% if is_granted('ROLE_ADMIN') %}
-								<p>
+								<span class="badge badge-secondary inventory">
 									Référence :
 									{{ article.reference }}
-								</p>
-								<p>
+								</span>
+								<span class="badge badge-secondary inventory">
 									Stock restant :
 									{{ article.stock }}
-								</p>
+								</span>
 							{% endif %}
 							{# professional #}
 							{% if is_granted('ROLE_PRO') == false %}
