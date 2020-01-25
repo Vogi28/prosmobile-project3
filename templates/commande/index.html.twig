@@ -22,7 +22,7 @@
 	<div class="container my-5">
 		<div class="row">
 			<table class="table">
-				<thead class="thead-dark">
+				<thead class="custom-thead">
 					<tr>
 						<th>Commande</th>
 						<th>Client ID</th>
@@ -34,20 +34,20 @@
 					{% for commande in commandes %}
 						<tr>
 							<td>{{ commande.id }}</td>
-							{# individial part #}
+							{# individial #}
 							{% if commande.particulier is defined %}
 								<td>{{ commande.particulier.id }}</td>
 								<td>
 									{{ commande.particulier.nom }}
 									{{ commande.particulier.prenom }}
 								</td>
-								{# professional part #}
+								{# professional #}
 							{% elseif commande.pro is defined %}
 								<td>{{ commande.pro.id }}</td>
 								<td>{{ commande.pro.societe }}</td>
 							{% endif %}
 							<td>
-								{# individual part #}
+								{# individual #}
 								{% if commande.particulier is defined %}
 									{# show button #}
 									<div>
@@ -60,7 +60,7 @@
 											</button>
 										</a>
 									</div>
-									{# professional part #}
+									{# professional #}
 								{% elseif commande.pro is defined %}
 									{# show button #}
 									<div>

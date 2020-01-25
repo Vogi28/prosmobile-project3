@@ -19,18 +19,16 @@
 	{# title #}
 	<h1>Votre panier</h1>
 	{# basket #}
-	{% if panier is empty %}
-		<div class="container my-5">
-			<div class="row">
+	<div class="container my-5">
+		{% if panier is empty %}
+			<div>
 				Votre panier est vide
 			</div>
-		</div>
-	{% else %}
-		<div class="container">
+		{% else %}
 			<div class="row">
-				<table class="table my-5">
-					<thead class="thead-dark">
-						{# professional part #}
+				<table class="table">
+					<thead class="custom-thead">
+						{# professional #}
 						{% if is_granted('ROLE_PRO') %}
 							<tr>
 								<th>Article</th>
@@ -55,7 +53,7 @@
 							<tr>
 								<td>{{ item.article.nom }}</td>
 								<td>{{ item.article.prixHT }}</td>
-								{# professional part #}
+								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
 									{# #}
 								{% else %}
@@ -96,34 +94,38 @@
 						{# discount #}
 						{% if promo is defined and promo > 0 %}
 							<tr>
-								{# professional part #}
+								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
 									<td colspan="3" class="text-right">Réduction :</td>
 								{% else %}
 									<td colspan="4" class="text-right">Réduction :</td>
 								{% endif %}
-								<td>{{ promo }} %</td>
+								<td>
+									{{ promo }}
+									%
+								</td>
 								<td></td>
 							</tr>
 						{% endif %}
 						<tr>
-							{# professional part #}
+							{# professional #}
 							{% if is_granted('ROLE_PRO') %}
 								<td colspan="3" class="text-right">Total :</td>
 							{% else %}
 								<td colspan="4" class="text-right">Total :</td>
 							{% endif %}
-							<td>{{ total }} €</td>
+							<td>
+								{{ total }}
+								€
+							</td>
 							<td></td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
-		</div>
-	{% endif %}
-	{# checkout button #}
-	<div class="container">
-		<div class="row d-flex justify-content-end">
+		{% endif %}
+		{# checkout button #}
+		<div class="d-flex justify-content-end my-3">
 			{% if panier is not empty %}
 				<div>
 					<a href="{{ path('panier_validation')}}">

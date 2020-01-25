@@ -24,15 +24,11 @@
 	{# title #}
 	<h1>Caractéristiques de la promotion</h1>
 	{# include promo form #}
-	<div class="container">
-		<div class="row d-flex justify-content-center">
-			{{ include('promo/_form.html.twig') }}
-		</div>
+	<div class="d-flex justify-content-center">
+		{{ include('promo/_form.html.twig') }}
 	</div>
-	{# delete button #}
-	<div class="container mt-3">
-		<div class="row d-flex justify-content-center">
-			{{ include('promo/_delete_form.html.twig') }}
-		</div>
+	{# include delete button #}
+	<div class="d-flex justify-content-center mb-3">
+		{{ include('promo/_delete_form.html.twig') }}
 	</div>
 {% endblock %}

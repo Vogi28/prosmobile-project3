@@ -3,12 +3,10 @@
 {% block title %}PROSMOBILE{% endblock %}
 
 {% block body %}
-{# <pre>
-	{{ dump(details.0.article.0.id) }}
-</pre> #}
 	{# tree #}
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb bg-white rounded-0">
+		{# administrator #}
 			{% if is_granted('ROLE_ADMIN') %}
 				<li class="breadcrumb-item">
 					<a href="{{ path('admin_index') }}">
@@ -20,6 +18,7 @@
 						Commandes
 					</a>
 				</li>
+				{# individual #}
 			{% elseif is_granted('ROLE_PARTICULIER') %}
 				<li class="breadcrumb-item">
 					<a href="{{ path('particulier_profile', {'id' : app.user.id}) }}">
@@ -38,10 +37,10 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1 class="text-center">Détails commandes</h1>
+	<h1>Détails commandes</h1>
 	{# body #}
-	<table class="table mt-4">
-		<thead class="thead-dark">
+	<table class="table my-5">
+		<thead class="custom-thead">
 			<tr>
 				<th>Article ID</th>
 				<th>Article name</th>
@@ -66,6 +65,7 @@
 					<td>{{ detail.prixTTC }}</td>
 					<td>{{ detail.total }}</td>
 					<td>
+					{# administrator #}
 						{% if is_granted('ROLE_ADMIN') %}
 						<div class="row">
 							<div>

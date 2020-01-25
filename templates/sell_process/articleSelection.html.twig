@@ -45,16 +45,16 @@
 	{# title #}
 	<h1>
 		{% if typeArt is same as('Telephone') %}
-			Tous les téléphones
+			Téléphones
 			{{ brand }}
 		{% elseif typeArt is same as('Composant') %}
-			Tous les composants pour téléphones
+			Composants téléphones
 			{{ brand }}
 		{% elseif typeArt is same as('Accessoire') %}
-			Tous les accessoires pour téléphones
+			Accessoires téléphones
 			{{ brand }}
 		{% elseif typeArt is same as('Reparation') %}
-			Toutes les réparations pour téléphones
+			Réparations téléphones
 			{{ brand }}
 		{% endif %}
 	</h1>
@@ -82,11 +82,25 @@
 				{% else %}
 					{% set photo = article.photo %}
 				{% endif %}
-				<div class="col-6 my-3">
+				<div class="col my-3">
 					<div class="media">
 						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ article.nom }}">
 						<div class="media-body">
 							<h5 class="my-3">{{ article.nom }}</h5>
+							{# discount bagde #}
+							{% if promo is defined and not null %}
+								<h5>
+									<span class="badge badge-secondary discount">
+										Promotion
+									</span>
+								</h5>
+							{% elseif reduc is defined and not null %}
+								<h5>
+									<span class="badge badge-secondary discount">
+										Prix réduit
+									</span>
+								</h5>
+							{% endif %}
 							<p>
 								{{ article.description }}
 							</p>
@@ -104,20 +118,19 @@
 							{# professional #}
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined and not null %}
-									<p class="text-center">
+									<p class="text-center price">
 										<del>
 											{{ article.prixTtc }}
 											€
 										</del>
 										<span class="ml-3">
 											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
-											Promo !
 											{{ prixTTcReduit }}
 											€ TTC
 										</span>
 									</p>
 								{% else %}
-									<p class="text-center">
+									<p class="text-center price">
 										{{ article.prixTtc }}
 										€ TTC
 									</p>
@@ -126,20 +139,19 @@
 							{# professional #}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
-									<p class="text-center">
+									<p class="text-center price">
 										<del>
 											{{ article.prixHt }}
 											€
 										</del>
 										<span class="ml-3">
 											{% set prixHtReduit = article.prixHt * (1 - promo / 100) %}
-											Prix réduit :
 											{{ prixHtReduit }}
 											€ HT
 										</span>
 									</p>
 								{% else %}
-									<p class="text-center">
+									<p class="text-center price">
 										{{ article.prixHt }}
 										€ HT
 									</p>
@@ -194,11 +206,11 @@
 								</div>
 							</div>
 						</div>
-				{% else %}
-					{# empty #}
-					<div>
-						Aucun article n'est enregistré dans cette liste.
-					</div>
-				{% endfor %}
-			</div>
-		{% endblock %}
+					{% else %}
+						{# empty #}
+						<div>
+							Aucun article n'est enregistré dans cette liste.
+						</div>
+					{% endfor %}
+				</div>
+			{% endblock %}
