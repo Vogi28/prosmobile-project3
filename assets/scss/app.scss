@@ -54,7 +54,7 @@ h6 {
     top          : -8px;
 }
 
-.create-account {
+.create-account-link {
     color    : $link-color;
     font-size: 0.7em;
     margin   : 5px;
@@ -115,9 +115,9 @@ h6 {
 }
 
 .search-input {
-    border-color: #FFFFFF;
-    transition  : 0.8s ease;
-    width       : 350px !important;
+    border    : solid 1px #E0E0E0;
+    transition: 0.8s ease;
+    width     : 350px !important;
 
     &:hover {
         border-color: $primary-color;
@@ -131,13 +131,13 @@ h6 {
 
 // forms
 .custom-form input {
-    border: solid #E0E0E0;
-    height      : 35px;
-    padding     : 20px;
-    width       : 300px;
+    border : solid 1px #E0E0E0;
+    height : 35px;
+    padding: 20px;
+    width  : 300px;
 
-    &:focus {
-        outline: none;
+    &:hover {
+        border-color: $primary-color;
     }
 }
 
@@ -158,8 +158,44 @@ h6 {
     width  : 300px;
 }
 
+.form-control {
+    -webkit-appearance: none;
+    border-radius     : 0;
+    box-shadow        : none !important;
+    outline           : none !important;
+
+    &:focus {
+        border-color: $primary-color;
+    }
+}
+
+.radio-form label {
+    display: flex;
+    margin : 10px 0;
+}
+
+.radio-form input {
+    -moz-appearance   : none;
+    -webkit-appearance: none;
+    appearance        : none;
+    background-color  : #FFFFFF;
+    border            : solid 1px #E0E0E0;
+    height            : 15px;
+    margin-left       : 15px;
+    width             : 15px;
+
+    &:checked {
+        background-color: $primary-color;
+    }
+
+    &:hover {
+        border: solid 1px $primary-color;
+    }
+}
+
 //buttons
 .add-basket-button,
+.save-button,
 .show-button {
     align-items     : center;
     background-color: $primary-color;
@@ -180,7 +216,7 @@ h6 {
 
 .add-button,
 .edit-button,
-.save-button {
+.save-button-admin {
     align-items     : center;
     background-color: $admin-color;
     border          : none;
@@ -330,6 +366,7 @@ h6 {
     }
 }
 
+.create-account,
 .login-button {
     align-items     : center;
     background-color: $primary-color;
@@ -456,7 +493,7 @@ h6 {
 
 .inventory {
     background-color: $admin-color;
-    padding: 5px;
+    padding         : 5px;
 }
 
 .brand-message {
