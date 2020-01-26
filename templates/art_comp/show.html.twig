@@ -4,40 +4,55 @@
 <div class="container my-5">
 	<div class="row">
 		{% for art_comp in art_comps %}
-			<div class="col-6 my-3">
+			<div class="col my-3">
 				<div class="media">
 					<img src="{{ art_comp.photo }}" class="align-self-start mr-4 img-product" alt="{{ art_comp.nom }}">
 					<div class="media-body">
 						<h5 class="my-3">{{ art_comp.nom }}</h5>
+						{# discount bagde #}
+						{% if promo is defined %}
+							<h5>
+								<span class="badge badge-secondary discount">
+									Promotion
+								</span>
+							</h5>
+						{% elseif reduc is defined and not null %}
+							<h5>
+								<span class="badge badge-secondary discount">
+									Prix réduit
+								</span>
+							</h5>
+						{% endif %}
 						<p>
 							{{ art_comp.description }}
 						</p>
 						{# administrator #}
 						{% if is_granted('ROLE_ADMIN') %}
-							<p class="mt-4">
+							<span class="badge badge-secondary inventory">
 								Référence :
 								{{ art_comp.reference }}
-							</p>
-							<p class="mt-4">
+							</span>
+							<span class="badge badge-secondary inventory">
 								Stock restant :
 								{{ art_comp.stock }}
-							</p>
+							</span>
 						{% endif %}
 						{# professional #}
 						{% if is_granted('ROLE_PRO') == false %}
 							{% if promo is defined %}
-								<p class="card-text">
-									<del>{{ art_comp.prixTtc }}</del>
-									€
-								</p>
-								<p class="card-text">
-									{% set prixTTcReduit = art_comp.prixTtc * (1 - promo / 100) %}
-									Promo !
-									{{ prixTTcReduit }}
-									€ TTC
+								<p class="text-center price">
+									<del>
+										{{ art_comp.prixTtc }}
+										€
+									</del>
+									<span class="ml-3">
+										{% set prixTTcReduit = art_comp.prixTtc * (1 - promo / 100) %}
+										{{ prixTTcReduit }}
+										€ TTC
+									</span>
 								</p>
 							{% else %}
-								<p class="card-text">
+								<p class="text-center price">
 									{{ art_comp.prixTtc }}
 									€ TTC
 								</p>
@@ -46,26 +61,26 @@
 						{# professional #}
 						{% if is_granted('ROLE_PRO') %}
 							{% if reduc is defined and not null %}
-								<p class="card-text">
-									<del>{{ art_comp.prixHt }}</del>
-									€
-								</p>
-								<p class="card-text">
-									{% set prixHtReduit = art_comp.prixHt * (1 - promo / 100) %}
-									Prix réduit :
-									{{ prixHtReduit }}
-									€ HT
+								<p class="text-center price">
+									<del>
+										{{ art_comp.prixHt }}
+										€
+									</del>
+									<span class="ml-3">
+										{% set prixHtReduit = art_comp.prixHt * (1 - promo / 100) %}
+										{{ prixHtReduit }}
+										€ HT
+									</span>
 								</p>
 							{% else %}
-								<p class="card-text">
+								<p class="text-center price">
 									{{ art_comp.prixHt }}
 									€ HT
 								</p>
 							{% endif %}
 						{% endif %}
 						{# button #}
-						<div
-							class="d-flex justify-content-center my-3">
+						<div class="d-flex justify-content-center my-3">
 							{# show button #}
 							<div class="mx-2">
 								<a href="{{ path('article_show', {'slug1': type_art.nom, 'slug2': marque.nom, 'id': art_comp.id }) }}">
@@ -77,20 +92,6 @@
 									</button>
 								</a>
 							</div>
-							{# administrator #}
-							{% if is_granted('ROLE_ADMIN') %}
-								{# edit button #}
-								<div class="mx-2">
-									<a href="{{ path('article_edit', {'id': article.id}) }}">
-										<button class="edit-button" title="Modifier">
-											<i data-fa-symbol="edit" class="fas fa-pen"></i>
-											<svg class="icon-md">
-												<use xlink:href="#edit"></use>
-											</svg>
-										</button>
-									</a>
-								</div>
-							{% endif %}
 							{# add to basket button #}
 							<div class="mx-2">
 								{% if is_granted('ROLE_PRO') and reduc is defined and not null %}

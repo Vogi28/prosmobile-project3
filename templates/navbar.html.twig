@@ -11,8 +11,8 @@
 			{# search bar #}
 			<li class="nav-item">
 				<form class="form-inline" action="{{ path('article_search') }}">
-					<input class="form-control search-input mr-4" name="search" type="search" placeholder="Rechercher" aria-label="Search">
-					<button class="search-button" type="submit" title="Rechercher">
+					<input class="form-control search-input" name="search" type="search" placeholder="Rechercher" aria-label="Search">
+					<button class="search-button ml-4" type="submit" title="Rechercher">
 						<i data-fa-symbol="search" class="fas fa-search"></i>
 						<svg class="icon-md">
 							<use xlink:href="#search"></use>
@@ -192,7 +192,7 @@
 									<span class="new-customer">
 										Nouveau client ?
 									</span>
-									<a class="create-account" href="{{ path('register')}}">
+									<a class="create-account-link" href="{{ path('register')}}">
 										Créez votre compte
 									</a>
 								</div>

@@ -1,21 +1,21 @@
 {# form #}
 {{ form_start(form) }}
-<div class="container my-5 custom-form">
-	<div class="row d-flex justify-content-center">
-		<div class="mx-3">
+<div class="container mt-5">
+	<div class="d-flex justify-content-center custom-form">
+		{# first column #}
+		<div class="col">
 			{{ form_row(form.nom) }}
 			{{ form_row(form.photo) }}
 			{{ form_row(form.pourcentage) }}
 		</div>
-		<div class="mx-3">
+		{# second column #}
+		<div class="col">
 			{{ form_row(form.debut) }}
 			{{ form_row(form.fin) }}
 		</div>
 	</div>
-</div>
-{# buttons #}
-<div class="container">
-	<div class="row d-flex justify-content-center">
+	{# button #}
+	<div class="d-flex justify-content-center mt-5 mb-3">
 		{# save button #}
 		<div>
 			<button class="save-button" title="Enregistrer">

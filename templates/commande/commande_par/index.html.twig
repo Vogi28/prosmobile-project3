@@ -27,7 +27,7 @@
 	<div class="container my-5">
 		<div class="row">
 			<table class="table">
-				<thead class="thead-dark">
+				<thead class="custom-thead">
 					<tr>
 						<th>Commande</th>
 						<th>Client ID</th>
@@ -52,7 +52,7 @@
 											</button>
 										</a>
 									</div>
-									{# delete button #}
+									{# include delete button #}
 									<div>
 										{{ include('commande/commande_par/_delete_form.html.twig') }}
 									</div>

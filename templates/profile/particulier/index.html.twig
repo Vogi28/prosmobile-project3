@@ -22,7 +22,7 @@
 	<div class="container my-5">
 		<div class="row">
 			<table class="table">
-				<thead class="thead-dark">
+				<thead class="custom-thead">
 					<tr>
 						<th>Prénom</th>
 						<th>Nom</th>
@@ -43,7 +43,7 @@
 							<td>{{ particulier.ville }}</td>
 							<td>{{ particulier.telephone }}</td>
 							<td>
-								{# show button #}
+								{# edit button #}
 								<div>
 									<a href="{{ path('particulier_edit', {'id': particulier.id}) }}">
 										<button class="edit-button-sm" title="Modifier">
@@ -57,6 +57,7 @@
 							</td>
 						</tr>
 					{% else %}
+						{# empty #}
 						<tr>
 							<td colspan="8">Aucune données</td>
 						</tr>
