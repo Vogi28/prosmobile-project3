@@ -22,9 +22,28 @@ h6 {
     text-align: center;
 }
 
+.message-close-button {
+    color      : $primary-color;
+    text-shadow: none;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.success-message {
+    background-color: $info-color;
+    border          : none;
+    border-radius   : 0;
+    color           : #FFFFFF;
+}
+
 //home
-.carousel-item {
-    height: 200px;
+.discount-message {
+    background-color: $info-color;
+    border          : none;
+    border-radius   : 0;
+    color           : #FFFFFF;
 }
 
 //navbar
@@ -482,6 +501,12 @@ h6 {
 }
 
 //product
+.brand-message {
+    background-color: $info-color;
+    border          : none;
+    border-radius   : 0;
+    color           : #FFFFFF;
+}
 
 .price {
     font-size: 1.5em;
@@ -496,27 +521,7 @@ h6 {
     padding         : 5px;
 }
 
-.brand-message {
-    background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
-}
-
-.discount-message {
-    background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
-}
-
-.success-message {
-    background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
-}
-
+//table
 .custom-thead {
     background-color: $tertiary-color;
     color           : #FFFFFF;
