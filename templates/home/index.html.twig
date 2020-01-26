@@ -6,15 +6,15 @@
 	{# message #}
 	<div class="alert alert-info alert-dismissible fade show discount-message my-5" role="alert">
 		{% for promo in promos %}
-			<span>
 				{{ promo.nom }}
+				<strong>
 				: Remise de
 				{{ promo.pourcentage }}
 				% sur les articles.
-			</span>
+			</strong>
 		{% endfor %}
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
+			<span aria-hidden="true" class="message-close-button">&times;</span>
 		</button>
 	</div>
 {% endblock %}
