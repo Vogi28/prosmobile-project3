@@ -3,18 +3,25 @@
 {% block title %}PROSMobile - Accueil{% endblock %}
 
 {% block body %}
-	{# message #}
-	<div class="alert alert-info alert-dismissible fade show discount-message my-5" role="alert">
+	{# home #}
+	<div class="container-fluid my-5">
 		{% for promo in promos %}
-				{{ promo.nom }}
-				<strong>
-				: Remise de
-				{{ promo.pourcentage }}
-				% sur les articles.
-			</strong>
+			{# message #}
+			{% if promo is defined and not null %}
+				<div class="alert alert-info alert-dismissible fade show discount-message" role="alert">
+					{{ promo.nom }}
+					<strong>
+						: Remise de
+						{{ promo.pourcentage }}
+						% sur les articles.
+					</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true" class="message-close-button">&times;</span>
+					</button>
+				</div>
+				{% else %}
+				{# #}
+			{% endif %}
 		{% endfor %}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true" class="message-close-button">&times;</span>
-		</button>
 	</div>
 {% endblock %}

@@ -109,7 +109,7 @@
 					{# professional #}
 					{% if is_granted('ROLE_PRO') == false %}
 						{% if promo is defined and not null %}
-							<p class="text-center price">
+							<p class="text-center price mt-3">
 								<del>
 									{{ article.prixTtc }}
 									€
@@ -121,7 +121,7 @@
 								</span>
 							</p>
 						{% else %}
-							<p class="text-center price">
+							<p class="text-center price mt-3">
 								{{ article.prixTtc }}
 								€ TTC
 							</p>
@@ -130,7 +130,7 @@
 					{# professional #}
 					{% if is_granted('ROLE_PRO') %}
 						{% if reduc is defined and not null %}
-							<p class="text-center price">
+							<p class="text-center price mt-3">
 								<del>
 									{{ article.prixHt }}
 									€
@@ -142,7 +142,7 @@
 								</span>
 							</p>
 						{% else %}
-							<p class="text-center price">
+							<p class="text-center price mt-3">
 								{{ article.prixHt }}
 								€ HT
 							</p>
