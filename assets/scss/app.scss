@@ -23,8 +23,7 @@ h6 {
 }
 
 .message-close-button {
-    color      : $primary-color;
-    text-shadow: none;
+    color: #FFFFFF;
 
     &:hover {
         opacity: 0.5;
@@ -234,8 +233,7 @@ h6 {
 }
 
 .add-button,
-.edit-button,
-.save-button-admin {
+.edit-button {
     align-items     : center;
     background-color: $admin-color;
     border          : none;
@@ -501,6 +499,11 @@ h6 {
 }
 
 //product
+.admin-discount {
+    background-color: $admin-color;
+    padding         : 5px;
+}
+
 .brand-message {
     background-color: $info-color;
     border          : none;
