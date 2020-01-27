@@ -187,11 +187,11 @@ class AdminController extends AbstractController
         $today = date('Y-m-d');
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
 
-        return $this->render('admin/article_index.html.twig', [
+        return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
-            'promo' => $promo,
-            'typeArt' => $typeArtRepository->findAll(),
             'marque' => $marqueRepository->findAll(),
+            'typeArt' => $typeArtRepository->findAll(),
+            'promo' => $promo,
         ]);
     }
 

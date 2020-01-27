@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\ArtComp;
 use App\Entity\Article;
 use App\Entity\TypeArt;
-use App\Repository\ArtCompRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\AbstractType;

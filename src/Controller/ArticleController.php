@@ -26,6 +26,7 @@ class ArticleController extends AbstractController
      */
     public function index(
         ArticleRepository $articleRepository,
+        MarqueRepository $marqueRepository,
         PromoRepository $promoRepository,
         ProRepository $proRepository,
         TypeArtRepository $typeArtRepository
@@ -37,8 +38,8 @@ class ArticleController extends AbstractController
 
             return $this->render('article/index.html.twig', [
                 'articles' => $articleRepository->findAll(),
-                'marque' => $articleRepository->findAll(),
-                'type_art' => $typeArtRepository->findAll(),
+                'marque' => $marqueRepository->findAll(),
+                'typeArt' => $typeArtRepository->findAll(),
                 'reduc' => $reduc,
             ]);
         }
@@ -47,8 +48,8 @@ class ArticleController extends AbstractController
 
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
-            'marque' => $articleRepository->findAll(),
-            'type_art' => $typeArtRepository->findAll(),
+            'marque' => $marqueRepository->findAll(),
+            'typeArt' => $typeArtRepository->findAll(),
             'promo' => $promo,
         ]);
     }
@@ -188,7 +189,7 @@ class ArticleController extends AbstractController
     {
         $search = $request->query->get('search');
         $search = trim(str_replace('é', 'e', $search));
-        
+
         if (preg_match("/reparation/i", $search) == true) {
             $articles = $articleRepository->findBy(['typeArt' => 4]);
         } elseif (preg_match("/batterie/i", $search) == true ||
@@ -201,7 +202,7 @@ class ArticleController extends AbstractController
         } else {
             $articles = $articleRepository->findByNomLike($search);
         }
-        
+
         return $this->render('search.html.twig', [
             'articles' => $articles
         ]);
