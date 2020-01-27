@@ -115,7 +115,7 @@
 									{{ article.stock }}
 								</span>
 							{% endif %}
-							{# professional #}
+							{# individual #}
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined and not null %}
 									<p class="text-center price mt-3">
@@ -145,7 +145,7 @@
 											€
 										</del>
 										<span class="ml-3">
-											{% set prixHtReduit = article.prixHt * (1 - promo / 100) %}
+											{% set prixHtReduit = article.prixHt * (1 - reduc / 100) %}
 											{{ prixHtReduit }}
 											€ HT
 										</span>

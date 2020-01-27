@@ -120,13 +120,26 @@ h6 {
     padding         : 0 10px 0 0;
 }
 
+.product {
+    width: auto;
+
+    &:hover {
+        >a {
+            &:hover {
+                background-color: $link-color;
+                color           : #FFFFFF;
+            }
+        }
+    }
+}
+
 .product::after {
     border-bottom: 8px solid #FFFFFF;
     border-left  : 9px solid rgba(0, 0, 0, 0);
     border-right : 9px solid rgba(0, 0, 0, 0);
     content      : "";
     display      : inline-block;
-    left         : 63px;
+    left         : 80px;
     position     : absolute;
     top          : -7px;
 }
@@ -137,7 +150,7 @@ h6 {
     border-right : 9px solid rgba(0, 0, 0, 0);
     content      : "";
     display      : inline-block;
-    left         : 63px;
+    left         : 80px;
     position     : absolute;
     top          : -8px;
 }
