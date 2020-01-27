@@ -1,0 +1,23 @@
+{# form #}
+{{ form_start(form) }}
+<div class="container mt-5">
+	<div class="d-flex justify-content-center custom-form">
+		<div class="col">
+			{{ form_row(form.nom) }}
+			{{ form_row(form.image) }}
+		</div>
+	</div>
+	{# button #}
+	<div class="d-flex justify-content-center mt-5 mb-3">
+		{# save button #}
+		<div>
+			<button class="save-button" title="Enregistrer">
+				<i data-fa-symbol="save" class="fas fa-save"></i>
+				<svg class="icon-md">
+					<use xlink:href="#save"></use>
+				</svg>
+			</button>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}

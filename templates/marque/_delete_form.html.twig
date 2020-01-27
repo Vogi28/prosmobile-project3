@@ -1,0 +1,10 @@
+<form method="post" action="{{ path('marque_delete', {'id': marque.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette marque?');">
+	<input type="hidden" name="_method" value="DELETE">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ marque.id) }}">
+	<button class="delete-button" title="Supprimer">
+		<i data-fa-symbol="remove" class="fas fa-trash"></i>
+		<svg class="icon-md">
+			<use xlink:href="#remove"></use>
+		</svg>
+	</button>
+</form>
