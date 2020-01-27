@@ -7,14 +7,18 @@ use App\Form\ArticleType;
 use App\Repository\ArtCompRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\MarqueRepository;
+use App\Repository\ParticulierRepository;
 use App\Repository\PromoRepository;
 use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
 use App\Service\ManagerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/article", name="article_")
@@ -181,6 +185,24 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
+    /**
+     * @Route("/live", name="live_search", methods={"GET"})
+     */
+    public function liveSearch(
+        Request $request,
+        ArticleRepository $articleRepository
+    ) {
+        $string = strip_tags(trim(str_replace('é', 'e', $request->query->get('search'))));
+
+        $request = $articleRepository->findByNomLike($string);
+        $articles = [];
+        foreach ($request as $article) {
+            dump($article->getNom());
+            $articles [] = $article->getNom();
+        }
+
+        return $this->json($articles, 200);
+    }
 
     /**
      * @Route("/recherche", name="search", methods={"GET"})
@@ -188,21 +210,37 @@ class ArticleController extends AbstractController
     public function searchArticles(Request $request, ArticleRepository $articleRepository)
     {
         $search = $request->query->get('search');
+        // $search = explode(' ', trim(str_replace('é', 'e', $search)));
         $search = trim(str_replace('é', 'e', $search));
+        dd($search);
 
-        if (preg_match("/reparation/i", $search) == true) {
-            $articles = $articleRepository->findBy(['typeArt' => 4]);
-        } elseif (preg_match("/batterie/i", $search) == true ||
-        preg_match("/vitre/i", $search) == true) {
-            $articles = $articleRepository->findBy(['typeArt' => 3]);
-        } elseif (preg_match("/coque/i", $search) == true ||
-        preg_match("/verre/i", $search) == true ||
-        preg_match("/chargeur/i", $search) == true) {
-            $articles = $articleRepository->findByTypeAndNom(2, $search);
-        } else {
+        // foreach ($search as $word) {
+            // dump($word);
+            
+            // if (preg_match("/\breparation\b/i", $word) == true)
+            // {
+            //     $articles = $articleRepository->findBy(['typeArt' => 4]);
+            //     break;
+            // }
+            // elseif (preg_match("/\bbatterie\b/i", $word) == true ||
+            // preg_match("/\bvitre\b/i", $word) == true)
+            // {
+            //     $articles = $articleRepository->findBy(['typeArt' => 3]);
+            //     break;
+            // }
+            // elseif (preg_match("/\bcoque\b/i", $word) == true ||
+            // preg_match("/\bverre\b/i", $word) == true ||
+            // preg_match("/\bchargeur\b/i", $word) == true)
+            // {
+            //     $articles = $articleRepository->findByTypeAndNom(2, $search);
+            //     break;
+            // }
+        // }
+        // if (!isset($articles))
+        // {
+            // $search = implode(' ', $search);
             $articles = $articleRepository->findByNomLike($search);
-        }
-
+        // }
         return $this->render('search.html.twig', [
             'articles' => $articles
         ]);

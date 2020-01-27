@@ -47,4 +47,17 @@ class ParticulierRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByNomLike(string $string)
+    {
+        $articles = $this->createQueryBuilder('a')
+            ->where('a.prenom LIKE :string')
+            ->setParameter('string', '%'.$string.'%')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery();
+    
+        $articles->setMaxResults(5);
+            return $articles->getResult()
+        ;
+    }
 }
