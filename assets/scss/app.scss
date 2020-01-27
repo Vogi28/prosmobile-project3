@@ -1,6 +1,22 @@
 @import "~bootstrap/scss/bootstrap";
 @import "vars";
 
+//everywhere
+.message-close-button {
+    color: #FFFFFF;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.success-message {
+    background-color: $info-color;
+    border          : none;
+    border-radius   : 0;
+    color           : #FFFFFF;
+}
+
 a {
     color: $link-color;
 
@@ -22,21 +38,6 @@ h6 {
     text-align: center;
 }
 
-.message-close-button {
-    color: #FFFFFF;
-
-    &:hover {
-        opacity: 0.5;
-    }
-}
-
-.success-message {
-    background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
-}
-
 //home
 .discount-message {
     background-color: $info-color;
@@ -46,30 +47,14 @@ h6 {
 }
 
 //navbar
-.account {
-    width: 287px;
+.account-box {
+    width: 250px;
 }
 
-.account::after {
-    border-bottom: 8px solid #FFFFFF;
-    border-left  : 9px solid rgba(0, 0, 0, 0);
-    border-right : 9px solid rgba(0, 0, 0, 0);
-    content      : "";
-    display      : inline-block;
-    left         : 95px;
-    position     : absolute;
-    top          : -7px;
-}
-
-.account::before {
-    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
-    border-left  : 9px solid rgba(0, 0, 0, 0);
-    border-right : 9px solid rgba(0, 0, 0, 0);
-    content      : "";
-    display      : inline-block;
-    left         : 95px;
-    position     : absolute;
-    top          : -8px;
+.block {
+    >li {
+        margin-left: 30px;
+    }
 }
 
 .create-account-link {
@@ -78,17 +63,9 @@ h6 {
     margin   : 5px;
 }
 
-.links li {
-    border-bottom: solid 5px transparent;
-    text-align   : center;
-    width        : 120px;
-
-    &:hover {
-        -webkit-transition: all 0.8s ease;
-        border-bottom     : solid 5px $primary-color;
-        text-align        : center;
-        transition        : all 0.8s ease;
-        width             : 120px;
+.link {
+    >li {
+        margin: 0 15px;
     }
 }
 
@@ -110,7 +87,7 @@ h6 {
     margin   : 5px;
 }
 
-.phone {
+.phone-block {
     align-items     : center;
     background-color: $primary-color;
     color           : #FFFFFF;
@@ -118,41 +95,6 @@ h6 {
     height          : 40px;
     justify-content : center;
     padding         : 0 10px 0 0;
-}
-
-.product {
-    width: auto;
-
-    &:hover {
-        >a {
-            &:hover {
-                background-color: $link-color;
-                color           : #FFFFFF;
-            }
-        }
-    }
-}
-
-.product::after {
-    border-bottom: 8px solid #FFFFFF;
-    border-left  : 9px solid rgba(0, 0, 0, 0);
-    border-right : 9px solid rgba(0, 0, 0, 0);
-    content      : "";
-    display      : inline-block;
-    left         : 80px;
-    position     : absolute;
-    top          : -7px;
-}
-
-.product::before {
-    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
-    border-left  : 9px solid rgba(0, 0, 0, 0);
-    border-right : 9px solid rgba(0, 0, 0, 0);
-    content      : "";
-    display      : inline-block;
-    left         : 80px;
-    position     : absolute;
-    top          : -8px;
 }
 
 .search-input {
@@ -174,6 +116,12 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 //dashboard
+.dashboard-card {
+    border: none;
+    height: 200px;
+    width : 200px;
+}
+
 .nav-pills .nav-link.active {
     background-color: #FFFFFF !important;
 }
@@ -218,11 +166,6 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 }
 
-.radio-form label {
-    display: flex;
-    margin : 10px 0;
-}
-
 .radio-form input {
     -moz-appearance   : none;
     -webkit-appearance: none;
@@ -240,6 +183,11 @@ input[type="search"]::-webkit-search-cancel-button {
     &:hover {
         border: solid 1px $primary-color;
     }
+}
+
+.radio-form label {
+    display: flex;
+    margin : 10px 0;
 }
 
 //buttons
@@ -296,62 +244,6 @@ input[type="search"]::-webkit-search-cancel-button {
     padding         : 0;
     transition      : 0.8s ease;
     width           : 25px;
-
-    &:hover {
-        opacity: 0.5;
-    }
-}
-
-.delete-button {
-    align-items     : center;
-    background-color: $warning-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    opacity         : 1;
-    padding         : 0;
-    transition      : 0.8s ease;
-    width           : 40px;
-
-    &:hover {
-        opacity: 0.5;
-    }
-}
-
-.delete-button-sm {
-    align-items     : center;
-    background-color: #FFFFFF;
-    border          : none;
-    color           : $warning-color;
-    display         : flex;
-    height          : 25px;
-    justify-content : center;
-    opacity         : 1;
-    padding         : 0;
-    transition      : 0.8s ease;
-    width           : 25px;
-
-    &:hover {
-        opacity: 0.5;
-    }
-}
-
-.dashboard-button,
-.logout-button,
-.profile-button {
-    align-items     : center;
-    background-color: #FFFFFF;
-    border          : none;
-    color           : $link-color;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    opacity         : 1;
-    padding         : 0;
-    transition      : 0.8s ease;
-    width           : 40px;
 
     &:hover {
         opacity: 0.5;
@@ -427,6 +319,62 @@ input[type="search"]::-webkit-search-cancel-button {
     padding         : 0;
     transition      : 0.8s ease;
     width           : 150px;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.delete-button {
+    align-items     : center;
+    background-color: $warning-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    opacity         : 1;
+    padding         : 0;
+    transition      : 0.8s ease;
+    width           : 40px;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.delete-button-sm {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $warning-color;
+    display         : flex;
+    height          : 25px;
+    justify-content : center;
+    opacity         : 1;
+    padding         : 0;
+    transition      : 0.8s ease;
+    width           : 25px;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.dashboard-button,
+.logout-button,
+.profile-button {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $link-color;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    opacity         : 1;
+    padding         : 0;
+    transition      : 0.8s ease;
+    width           : 40px;
 
     &:hover {
         opacity: 0.5;
@@ -524,35 +472,36 @@ input[type="search"]::-webkit-search-cancel-button {
     width           : 50px;
 }
 
-//media
-.img-product {
-    width: 250px;
-}
-
 //product
 .admin-discount {
     background-color: $admin-color;
     padding         : 5px;
 }
 
-.brand-message {
+.discount {
     background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
+}
+
+.img-product {
+    width: 250px;
+}
+
+.inventory {
+    background-color: $admin-color;
+    padding         : 5px;
 }
 
 .price {
     font-size: 1.5em;
 }
 
-.discount {
-    background-color: $info-color;
-}
+//brand
 
-.inventory {
-    background-color: $admin-color;
-    padding         : 5px;
+.brand-message {
+    background-color: $info-color;
+    border          : none;
+    border-radius   : 0;
+    color           : #FFFFFF;
 }
 
 //table
