@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    {% include "navbar.html.twig" %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-     {# {% if app.request.hasPreviousSession %}
-    <div class="messages">
-        {% for type, messages in app.flashes %}
-            {% for message in messages %} #}
-                {# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
-                {# <div class="alert alert-dismissible alert-{{ type }} fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                    {{ message|trans }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-    </div>
-{% endif %} #}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		{% include "navbar.html.twig" %}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success success-message">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{# {% if app.request.hasPreviousSession %}
+		    <div class="messages">
+		        {% for type, messages in app.flashes %}
+		            {% for message in messages %} #}
+		{# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
+		{# <div class="alert alert-dismissible alert-{{ type }} fade in" role="alert">
+		                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		                        <span aria-hidden="true">&times;</span>
+		                    </button>
+		
+		                    {{ message|trans }}
+		                </div>
+		            {% endfor %}
+		        {% endfor %}
+		    </div>
+		{% endif %} #}
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

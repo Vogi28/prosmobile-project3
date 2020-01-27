@@ -49,50 +49,78 @@
 				{% else %}
 					{% set photo = article.photo %}
 				{% endif %}
-				<div class="col-6 my-3">
+				<div class="col my-3">
 					<div class="media">
 						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ article.nom }}">
 						<div class="media-body">
-							<h5 class="mt-2">{{ article.nom }}</h5>
-							{# administrator part #}
-							{% if  is_granted('ROLE_ADMIN') %}
-								<p class="card-text">
-									Référence : {{ article.reference }}
-								</p>
-								<p class="card-text">
-									Stock restant : {{ article.stock }}
-								</p>
+							<h5 class="my-3">{{ article.nom }}</h5>
+							{# discount bagde #}
+							{% if promo is defined %}
+								<h5>
+									<span class="badge badge-secondary discount">
+										Promotion
+									</span>
+								</h5>
+							{% elseif reduc is defined and not null %}
+								<h5>
+									<span class="badge badge-secondary discount">
+										Prix réduit
+									</span>
+								</h5>
 							{% endif %}
-							{# professional #}
+							<p>
+								{{ article.description }}
+							</p>
+							{# administrator #}
+							{% if is_granted('ROLE_ADMIN') %}
+								<span class="badge badge-secondary inventory">
+									Référence :
+									{{ article.reference }}
+								</span>
+								<span class="badge badge-secondary inventory">
+									Stock restant :
+									{{ article.stock }}
+								</span>
+							{% endif %}
+							{# individual #}
 							{% if is_granted('ROLE_PRO') == false %}
 								{% if promo is defined %}
-									<p class="card-text">
-										<del>{{ article.prixTtc }}</del>
-										€
-									</p>
-									<p class="card-text">
-										{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %} Promo ! {{ prixTTcReduit }}
-										€ TTC
+									<p class="text-center price mt-3">
+										<del>
+											{{ article.prixTtc }}
+											€
+										</del>
+										<span class="ml-3">
+											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
+											{{ prixTTcReduit }}
+											€ TTC
+										</span>
 									</p>
 								{% else %}
-									<p class="card-text">
-										{{ article.prixTtc }} € TTC
+									<p class="text-center price mt-3">
+										{{ article.prixTtc }}
+										€ TTC
 									</p>
 								{% endif %}
 							{% endif %}
 							{# professional #}
 							{% if is_granted('ROLE_PRO') %}
 								{% if reduc is defined and not null %}
-									<p class="card-text">
-										<del>{{ article.prixHt }}</del> €
-									</p>
-									<p class="card-text">
-										{% set prixHtReduit = article.prixHt * (1 - promo / 100) %} Prix réduit : {{ prixHtReduit }}
-										€ HT
+									<p class="text-center price mt-3">
+										<del>
+											{{ article.prixHt }}
+											€
+										</del>
+										<span class="ml-3">
+											{% set prixHtReduit = article.prixHt * (1 - reduc / 100) %}
+											{{ prixHtReduit }}
+											€ HT
+										</span>
 									</p>
 								{% else %}
-									<p class="card-text">
-										{{ article.prixHt }} € HT
+									<p class="text-center price mt-3">
+										{{ article.prixHt }}
+										€ HT
 									</p>
 								{% endif %}
 							{% endif %}
@@ -109,61 +137,48 @@
 										</button>
 									</a>
 								</div>
-								{# administrator #}
-								{% if is_granted('ROLE_ADMIN') %}
-									{# edit button #}
-									<div class="mx-2">
-										<a href="{{ path('article_edit', {'id': article.id}) }}">
-											<button class="edit-button" title="Modifier">
-												<i data-fa-symbol="edit" class="fas fa-pen"></i>
-												<svg class="icon-md">
-													<use xlink:href="#edit"></use>
-												</svg>
-											</a>
-										</button>
-									</div>
-									{# add to basket button #}
-											<div class="col-4">
-												<button class="btn" title="Ajouter au panier">
-													{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
-													<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
-														{% elseif promo is defined and not null %}
-														<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
-															{% else %}
-															<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
-																{% endif %}
-																<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
-																<svg class="icon-md">
-																	<use xlink:href="#basket"></use>
-																</svg>
-															</a>
-												</button>
-											</div>
-									{# administrator part #}
-									{% if is_granted('ROLE_ADMIN') %}
-										{# edit button #}
-										<div class="col-4">
-											<button class="btn" title="Modifier">
-												<a href="{{ path('article_edit', {'id': article.id}) }}">
-													<i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+								{# add to basket button #}
+								<div class="mx-2">
+									{# professional #}
+									{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
+										<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+										{% elseif promo is defined and not null %}
+											<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+											{% else %}
+												<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+												{% endif %}
+												<button class="add-basket-button" title="Ajouter au panier">
+													<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
 													<svg class="icon-md">
-														<use xlink:href="#edit"></use>
+														<use xlink:href="#basket"></use>
 													</svg>
+												</button>
+											</a>
+										</div>
+										{# administrator #}
+										{% if is_granted('ROLE_ADMIN') %}
+											{# edit button #}
+											<div class="mx-2">
+												<a href="{{ path('article_edit', {'id': article.id}) }}">
+													<button class="edit-button" title="Modifier">
+														<i data-fa-symbol="edit" class="fas fa-pen"></i>
+														<svg class="icon-md">
+															<use xlink:href="#edit"></use>
+														</svg>
+													</button>
 												</a>
-											</button>
-										</a>
+											</div>
+										{% endif %}
 									</div>
-								{% endif %}
+								</div>
 							</div>
 						</div>
-					</div>
+					{% else %}
+						{# empty #}
+						<div>
+							Aucun article n'est enregistré dans cette liste
+						</div>
+					{% endfor %}
 				</div>
-			{% else %}
-				{# empty #}
-				<div>
-					Aucun article n'est enregistré dans cette liste
-				</div>
-			{% endfor %}
-		</div>
-	</div>
-{% endblock %}
+			</div>
+		{% endblock %}

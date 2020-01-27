@@ -73,16 +73,9 @@ class User implements UserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -92,12 +85,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -129,13 +119,14 @@ class User implements UserInterface
         return $this->particulier;
     }
 
-    public function setParticulier(Particulier $particulier): self
+    public function setParticulier(?Particulier $particulier): self
     {
         $this->particulier = $particulier;
 
-        // set the owning side of the relation if necessary
-        if ($particulier->getUser() !== $this) {
-            $particulier->setUser($this);
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $particulier ? null : $this;
+        if ($particulier->getUser() !== $newUser) {
+            $particulier->setUser($newUser);
         }
 
         return $this;
@@ -146,13 +137,14 @@ class User implements UserInterface
         return $this->pro;
     }
 
-    public function setPro(Pro $pro): self
+    public function setPro(?Pro $pro): self
     {
         $this->pro = $pro;
 
-        // set the owning side of the relation if necessary
-        if ($pro->getUser() !== $this) {
-            $pro->setUser($this);
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $pro ? null : $this;
+        if ($pro->getUser() !== $newUser) {
+            $pro->setUser($newUser);
         }
 
         return $this;

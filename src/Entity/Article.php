@@ -76,6 +76,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Marque", inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $marque;
 
@@ -280,12 +281,4 @@ class Article
 
         return $this;
     }
-
-   /* public function getArtComp(): ?ArtComp
-    {
-        $id = $this->id;
-        $artComp = ArtComp::class->getOneBy(['artId' => $id])->getArtId()->getNom();
-
-        return $artComp;
-    }*/
 }

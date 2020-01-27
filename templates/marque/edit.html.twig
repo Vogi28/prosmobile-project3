@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PROSMobile - Caractéristiques de la promotion{% endblock %}
+{% block title %}PROSMobile - Configuration de la marque{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -12,23 +12,23 @@
 				</a>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="{{ path('promo_index') }}">
-					Gestion des promotions
+				<a href="{{ path('marque_index') }}">
+					Gestion des marques
 				</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
-				Configurer la promotion
+				Configurer la marque
 			</li>
 		</ol>
 	</nav>
 	{# title #}
-	<h1>Caractéristiques de la promotion</h1>
-	{# include promo form #}
+	<h1>Configuration de la marque</h1>
+	{# include brand form #}
 	<div class="d-flex justify-content-center">
-		{{ include('promo/_form.html.twig') }}
+		{{ include('marque/_form.html.twig', {'button_label': 'Update'}) }}
 	</div>
 	{# include delete button #}
 	<div class="d-flex justify-content-center mb-3">
-		{{ include('promo/_delete_form.html.twig') }}
+		{{ include('marque/_delete_form.html.twig') }}
 	</div>
 {% endblock %}

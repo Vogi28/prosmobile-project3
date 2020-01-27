@@ -22,7 +22,7 @@
 	<div class="container my-5">
 		<div class="row">
 			<table class="table">
-				<thead class="thead-dark">
+				<thead class="custom-thead">
 					<tr>
 						<th>Prénom</th>
 						<th>Nom</th>
@@ -47,7 +47,7 @@
 							<td>{{ pro.ville }}</td>
 							<td>{{ pro.telephone }}</td>
 							<td>
-								{# show button #}
+								{# edit button #}
 								<div>
 									<a href="{{ path('pro_edit', {'id': pro.id}) }}">
 										<button class="edit-button-sm" title="Modifier">

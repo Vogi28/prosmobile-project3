@@ -64,15 +64,11 @@
 				<div class="row d-flex justify-content-center">
 					<div class="mx-3">
 						{# Choose multiple compatible articles #}
-						<div class="divs" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
-							{# iterate over each existing tag and render its only field: name #}
-							{# TODO corriger la div suivante #}
-							{% for artcomps in form.artComp %}
-								<div>
-									{{ form_row(artComp.nom, { 'label': 'Nom' }) }}
-								</div>
-							{% endfor %}
-						</div>
+						{#<div class="divs" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
+
+							#}{# TODO formulaire pour ajouter une compatibilité entre deux articles #}{#
+
+						</div>#}
 					</div>
 				</div>
 			</div>

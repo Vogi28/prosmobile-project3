@@ -54,7 +54,7 @@
 	{# brand #}
 	<div class="container my-5">
 		{# message #}
-		<div class="alert alert-info alert-dismissible fade show" role="alert">
+		<div class="alert alert-info alert-dismissible fade show brand-message" role="alert">
 			{% if typeArt is same as('Telephone') %}
 				Choisissez une marque
 			{% elseif typeArt is same as('Composant') %}
@@ -65,12 +65,12 @@
 				Choisissez la marque du téléphone
 			{% endif %}
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
+				<span aria-hidden="true" class="message-close-button">&times;</span>
 			</button>
 		</div>
 		<div class="row">
 			{% for brand in brands %}
-				<div class="col-3 my-3">
+				<div class="col my-3">
 					{# phone #}
 					{% if typeArt is same as('Telephone') %}
 						<div title="{{ brand.nom }}">

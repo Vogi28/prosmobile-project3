@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PROSMobile - Liste des promotions{% endblock %}
+{% block title %}PROSMobile - Liste des marques
+{% endblock %}
 
 {% block body %}
 	{# tree #}
@@ -12,17 +13,18 @@
 				</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">
-				Gestion des promotions
+				Gestion des marques
 			</li>
 		</ol>
 	</nav>
 	{# title #}
-	<h1>Liste des promotions</h1>
+	<h1>Liste des marques</h1>
 	{# button #}
-	<div class="container my-5">
+	<div
+		class="container my-5">
 		{# add button #}
 		<div>
-			<a href="{{ path('promo_new') }}">
+			<a href="{{ path('marque_new') }}">
 				<button class="add-button" title="Ajouter">
 					<i data-fa-symbol="add" class="fas fa-plus"></i>
 					<svg class="icon-md">
@@ -33,27 +35,23 @@
 		</div>
 		{# discount list #}
 		<div class="row my-5">
-			{% for promo in promos %}
+			{% for marque in marques %}
+				{% if marque.image is empty %}
+					{% set image ='' %}
+				{% else %}
+					{% set image = marque.image %}
+				{% endif %}
 				<div class="col">
 					<div class="media">
+						<img src="{{ image }}" class="align-self-start mr-4 img-product" alt="{{ marque.nom }}">
 						<div class="media-body">
-							<h5 class="my-3">{{ promo.nom }}</h5>
-							<p>
-								Du
-								{{ promo.debut ? promo.debut|date('d/m/Y') : '' }}
-								jusqu'au
-								{{ promo.fin ? promo.fin|date('d/m/Y') : '' }}
-							</p>
-							<span class="badge badge-secondary admin-discount">
-								Promotion :
-								{{ promo.pourcentage }}
-								%
-							</span>
+							<h5 class="my-3">{{ marque.nom }}</h5>
 							{# button #}
-							<div class="d-flex justify-content-center my-5">
+							<div
+								class="d-flex justify-content-center my-5">
 								{# edit button #}
 								<div>
-									<a href="{{ path('promo_edit', {'id': promo.id}) }}">
+									<a href="{{ path('marque_edit', {'id': marque.id}) }}">
 										<button class="edit-button" title="Modifier">
 											<i data-fa-symbol="edit" class="fas fa-pen"></i>
 											<svg class="icon-md">
@@ -69,7 +67,7 @@
 			{% else %}
 				{# empty #}
 				<div>
-					Aucune promotion trouvée
+					Aucune marque trouvée
 				</div>
 			{% endfor %}
 		</div>
