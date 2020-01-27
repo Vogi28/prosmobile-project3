@@ -6,7 +6,6 @@ use App\Entity\Promo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,16 +17,6 @@ class PromoType extends AbstractType
 
         $builder
             ->add('nom')
-            ->add('photo', UrlType::class, [
-                'label' => 'Photo',
-                'default_protocol' => 'https',
-                'required' => false,
-                'attr' => [
-                    'placeholder' => '',
-                    'pattern' => '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?
-                    [a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
-                ]
-            ])
             ->add('debut', DateType::class, [
                 'label' => 'Date de début de la promotion',
                 'widget' => 'single_text',
