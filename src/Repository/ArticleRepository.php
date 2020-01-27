@@ -32,27 +32,42 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByTypeAndNom(int $typeArtId, string $string)
+    public function findByTypeAndNom(int $typeArtId, array $array)
     {
-        return $this->createQueryBuilder('a')
+        $count = count($array);
+        for ($i=0; $i < $count; $i++) {
+            $articles = $this->createQueryBuilder('a')
             ->andWhere('a.typeArt = :typeArt')
             ->setParameter('typeArt', $typeArtId)
             ->andWhere('a.nom LIKE :string')
-            ->setParameter('string', '%'.$string)
+            ->setParameter('string', $array[$i].'%')
             ->orderBy('a.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
+            ->getQuery();
+        }
+        
+            return $articles->getResult();
     }
 
+    // public function findByNomLike(string $string)
+    // {
+    //     return $this->createQueryBuilder('a')
+    //         ->where('a.nom LIKE :string')
+    //         ->setParameter('string', '%'.$string.'%')
+    //         ->orderBy('a.id', 'ASC')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
     public function findByNomLike(string $string)
     {
-        return $this->createQueryBuilder('a')
+        $articles = $this->createQueryBuilder('a')
             ->where('a.nom LIKE :string')
             ->setParameter('string', '%'.$string.'%')
             ->orderBy('a.id', 'ASC')
-            ->getQuery()
-            ->getResult()
+            ->getQuery();
+    
+        ;
+            return $articles->setMaxResults(5)->getResult()
         ;
     }
     // /**
