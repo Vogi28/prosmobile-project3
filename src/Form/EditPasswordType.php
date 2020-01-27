@@ -37,7 +37,7 @@ class EditPasswordType extends AbstractType
                 'first_options' => ['label' => 'Nouveau mot de passe', 'attr'
                 => ['placeholder' => 'Entrez votre nouveau mot de passe']],
                 'second_options' => [
-                    'label' => 'Nouveau mot de passe',
+                    'label' => 'Confirmer nouveau mot de passe',
                     'attr' => ['placeholder' => 'Confirmez votre nouveau mot de passe']
                 ],
                 'mapped' => false,

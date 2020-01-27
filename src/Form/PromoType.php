@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Promo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,11 @@ class PromoType extends AbstractType
         $options;
 
         $builder
-            ->add('nom')
+            ->add('nom', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Entrez un nom de promotion'
+                ]
+            ])
             ->add('debut', DateType::class, [
                 'label' => 'Date de début de la promotion',
                 'widget' => 'single_text',

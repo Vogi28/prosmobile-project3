@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -31,6 +32,7 @@ class RegistrationFormType extends AbstractType
                 'required' => false
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les Termes et Conditions',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -44,9 +46,9 @@ class RegistrationFormType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' =>
-                'Entrer votre mot de passe']],
+                'Entrez votre mot de passe']],
                 'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' =>
-                'Confirmer mot de passe']],
+                'Confirmez mot de passe']],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
