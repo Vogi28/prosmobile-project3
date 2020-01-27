@@ -79,7 +79,17 @@ h6 {
 }
 
 .links li {
-    margin: 0 10px;
+    border-bottom: solid 5px transparent;
+    text-align   : center;
+    width        : 120px;
+
+    &:hover {
+        -webkit-transition: all 0.8s ease;
+        border-bottom     : solid 5px $primary-color;
+        text-align        : center;
+        transition        : all 0.8s ease;
+        width             : 120px;
+    }
 }
 
 .logged-message {
@@ -133,13 +143,21 @@ h6 {
 }
 
 .search-input {
-    border    : solid 1px #E0E0E0;
+    border    : solid 1px #FFFFFF;
     transition: 0.8s ease;
-    width     : 350px !important;
+    width     : 120px !important;
 
     &:hover {
         border-color: $primary-color;
     }
+
+    &:focus {
+        width: 400px !important;
+    }
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
 }
 
 //dashboard
