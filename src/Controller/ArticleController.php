@@ -197,21 +197,26 @@ class ArticleController extends AbstractController
         $request = $articleRepository->findByNomLike($string);
         $articles = [];
         foreach ($request as $article) {
-            dump($article->getNom());
-            $articles [] = $article->getNom();
+            $articles [] = [
+                'nom' => $article->getNom(),
+                'id' => $article->getId()];
         }
 
         return $this->json($articles, 200);
     }
 
     /**
-     * @Route("/recherche", name="search", methods={"GET"})
+     * @Route("/recherche/{slug}", name="search", methods={"GET"})
      */
-    public function searchArticles(Request $request, ArticleRepository $articleRepository)
+    public function searchArticles(string $slug, Request $request, ArticleRepository $articleRepository)
     {
+        // dd($slug);
+
         $search = $request->query->get('search');
-        // $search = explode(' ', trim(str_replace('é', 'e', $search)));
-        $search = trim(str_replace('é', 'e', $search));
+        $search = explode(' ', trim(str_replace('é', 'e', $search)));
+        // $search = strip_tags(trim(str_replace('é', 'e', $search)));
+        $article = $articleRepository->findOneByNom($slug);
+        dd($article);
         dd($search);
 
         // foreach ($search as $word) {
