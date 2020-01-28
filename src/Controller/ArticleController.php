@@ -194,7 +194,7 @@ class ArticleController extends AbstractController
     ) {
         $string = strip_tags(trim(str_replace('é', 'e', $request->query->get('search'))));
 
-        $request = $articleRepository->findByNomLike($string);
+        $request = $articleRepository->findByNomLive($string);
         $articles = [];
         foreach ($request as $article) {
             $articles [] = [
@@ -206,46 +206,15 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/recherche/{slug}", name="search", methods={"GET"})
+     * @Route("/recherche", name="search", methods={"GET"})
      */
-    public function searchArticles(string $slug, Request $request, ArticleRepository $articleRepository)
+    public function searchArticles(Request $request, ArticleRepository $articleRepository)
     {
-        // dd($slug);
-
         $search = $request->query->get('search');
-        $search = explode(' ', trim(str_replace('é', 'e', $search)));
-        // $search = strip_tags(trim(str_replace('é', 'e', $search)));
-        $article = $articleRepository->findOneByNom($slug);
-        dd($article);
-        dd($search);
+        $search = explode(' ', strip_tags(trim(str_replace('é', 'e', $search))));
 
-        // foreach ($search as $word) {
-            // dump($word);
-            
-            // if (preg_match("/\breparation\b/i", $word) == true)
-            // {
-            //     $articles = $articleRepository->findBy(['typeArt' => 4]);
-            //     break;
-            // }
-            // elseif (preg_match("/\bbatterie\b/i", $word) == true ||
-            // preg_match("/\bvitre\b/i", $word) == true)
-            // {
-            //     $articles = $articleRepository->findBy(['typeArt' => 3]);
-            //     break;
-            // }
-            // elseif (preg_match("/\bcoque\b/i", $word) == true ||
-            // preg_match("/\bverre\b/i", $word) == true ||
-            // preg_match("/\bchargeur\b/i", $word) == true)
-            // {
-            //     $articles = $articleRepository->findByTypeAndNom(2, $search);
-            //     break;
-            // }
-        // }
-        // if (!isset($articles))
-        // {
-            // $search = implode(' ', $search);
-            $articles = $articleRepository->findByNomLike($search);
-        // }
+        $articles = $articleRepository->findByNomLike($search);
+
         return $this->render('search.html.twig', [
             'articles' => $articles
         ]);
