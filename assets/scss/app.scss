@@ -4,10 +4,6 @@
 //everywhere
 .message-close-button {
     color: #FFFFFF;
-
-    &:hover {
-        opacity: 0.5;
-    }
 }
 
 .success-message {
@@ -100,7 +96,7 @@ h6 {
 .product-box {
     >a {
         &:hover {
-            background-color: $info-color;
+            background-color: $primary-color;
             color           : #FFFFFF;
         }
     }
@@ -215,7 +211,13 @@ input[type="search"]::-webkit-search-cancel-button {
     height          : 40px;
     justify-content : center;
     padding         : 0;
+    transition      : 1s ease;
     width           : 40px;
+
+    &:hover {
+        opacity   : 0.5;
+        transition: 1s ease;
+    }
 }
 
 .add-button-sm,
@@ -229,7 +231,13 @@ input[type="search"]::-webkit-search-cancel-button {
     height          : 25px;
     justify-content : center;
     padding         : 0;
+    transition      : 1s ease;
     width           : 25px;
+
+    &:hover {
+        opacity   : 0.5;
+        transition: 1s ease;
+    }
 }
 
 .basket-button,
@@ -264,7 +272,13 @@ input[type="search"]::-webkit-search-cancel-button {
     height          : 40px;
     justify-content : center;
     padding         : 0;
+    transition      : 1s ease;
     width           : 150px;
+
+    &:hover {
+        opacity   : 0.5;
+        transition: 1s ease;
+    }
 }
 
 .delete-button {
@@ -276,7 +290,13 @@ input[type="search"]::-webkit-search-cancel-button {
     height          : 40px;
     justify-content : center;
     padding         : 0;
+    transition      : 1s ease;
     width           : 40px;
+
+    &:hover {
+        opacity   : 0.5;
+        transition: 1s ease;
+    }
 }
 
 .delete-button-sm {
@@ -288,7 +308,13 @@ input[type="search"]::-webkit-search-cancel-button {
     height          : 25px;
     justify-content : center;
     padding         : 0;
+    transition      : 1s ease;
     width           : 25px;
+
+    &:hover {
+        opacity   : 0.5;
+        transition: 1s ease;
+    }
 }
 
 .dashboard-button,
