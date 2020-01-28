@@ -144,11 +144,14 @@
 					</table>
 				</div>
 				{# booking button #}
-				<div class="d-flex justify-content-end my-3">
+				<div class="d-flex justify-content-center my-5">
 					<div>
 						<a href="{{ path('panier_reservation') }}">
-							<button class="booking-button">
-								Valider la réservation
+							<button class="booking-button" title="Valider la réservation">
+								<i data-fa-symbol="booking" class="fas fa-check"></i>
+								<svg class="icon-md">
+									<use xlink:href="#booking"></use>
+								</svg>
 							</button>
 						</a>
 					</div>
