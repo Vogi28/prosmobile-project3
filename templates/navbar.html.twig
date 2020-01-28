@@ -63,7 +63,7 @@
 							Identifiez-vous
 						</span>
 					{% endif %}
-					<div class="dropdown-menu account-box rounded-0" aria-labelledby="navbarDropdown">
+					<div class="dropdown-menu rounded-0 account-box" aria-labelledby="navbarDropdown">
 						{% if app.user %}
 							{# individual #}
 							{% if is_granted('ROLE_PARTICULIER')%}
@@ -72,7 +72,7 @@
 									<div class="row">
 										{# user account type #}
 										<div class="col-4">
-											<div class="user-icon" title="Particulier">
+											<div class="user-icon">
 												<i data-fa-symbol="user" class="fas fa-user"></i>
 												<svg class="icon-md">
 													<use xlink:href="#user"></use>
@@ -110,7 +110,7 @@
 									<div class="row">
 										{# user account type #}
 										<div class="col-4">
-											<div class="user-icon" title="Professionnel">
+											<div class="user-icon">
 												<i data-fa-symbol="pro-user" class="fas fa-user-tie"></i>
 												<svg class="icon-md">
 													<use xlink:href="#pro-user"></use>
@@ -148,7 +148,7 @@
 									<div class="row">
 										{# user account type #}
 										<div class="col-4">
-											<div class="user-icon" title="Administrateur">
+											<div class="user-icon">
 												<i data-fa-symbol="admin-user" class="fas fa-user-tie"></i>
 												<svg class="icon-md">
 													<use xlink:href="#admin-user"></use>
@@ -229,7 +229,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Articles
 				</a>
-				<div class="dropdown-menu rounded-0" aria-labelledby="dropdownMenuButton">
+				<div class="dropdown-menu rounded-0 product-box" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="{{ path('article_sell_phones')}}">
 						Téléphones
 					</a>
