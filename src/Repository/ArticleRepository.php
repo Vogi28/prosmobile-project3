@@ -48,28 +48,35 @@ class ArticleRepository extends ServiceEntityRepository
             return $articles->getResult();
     }
 
-    // public function findByNomLike(string $string)
-    // {
-    //     return $this->createQueryBuilder('a')
-    //         ->where('a.nom LIKE :string')
-    //         ->setParameter('string', '%'.$string.'%')
-    //         ->orderBy('a.id', 'ASC')
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
-    public function findByNomLike(string $string)
+    public function findByNomLive(string $string)
     {
-        $articles = $this->createQueryBuilder('a')
+        return $this->createQueryBuilder('a')
             ->where('a.nom LIKE :string')
             ->setParameter('string', '%'.$string.'%')
             ->orderBy('a.id', 'ASC')
-            ->getQuery();
-    
-        ;
-            return $articles->setMaxResults(5)->getResult()
+            ->getQuery()
+            ->getResult()
         ;
     }
+
+    public function findByNomLike(array $array)
+    {
+        $articles = [];
+        $count = count($array);
+        for ($i=0; $i < $count; $i++) {
+            $article = $this->createQueryBuilder('a')
+            ->where('a.nom LIKE :string')
+            ->setParameter('string', '%'.$array[$i].'%')
+            ->orWhere('a.nom LIKE :string')
+            ->setParameter('string', '%'.$array[$i].'%')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery();
+            $articles[] = $article->getResult();
+        }
+        
+        return $articles;
+    }
+    
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
