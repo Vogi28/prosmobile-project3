@@ -125,12 +125,15 @@
 			</div>
 		{% endif %}
 		{# checkout button #}
-		<div class="d-flex justify-content-end my-3">
+		<div class="d-flex justify-content-center my-5">
 			{% if panier is not empty %}
 				<div>
 					<a href="{{ path('panier_validation')}}">
-						<button class="checkout-button">
-							Checkout
+						<button class="checkout-button" title="Checkout">
+							<i data-fa-symbol="checkout" class="fas fa-shopping-cart"></i>
+							<svg class="icon-md">
+								<use xlink:href="#checkout"></use>
+							</svg>
 						</button>
 					</a>
 				</div>
