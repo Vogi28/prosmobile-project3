@@ -198,8 +198,12 @@ class ArticleController extends AbstractController
         $articles = [];
         foreach ($request as $article) {
             $articles [] = [
+                'id' => $article->getId(),
+                'type_art' => $article->getTypeArt()->getNom(),
                 'nom' => $article->getNom(),
-                'id' => $article->getId()];
+                'marque' => $article->getMarque()->getNom(),
+                
+            ];
         }
 
         return $this->json($articles, 200);
@@ -211,12 +215,14 @@ class ArticleController extends AbstractController
     public function searchArticles(Request $request, ArticleRepository $articleRepository)
     {
         $search = $request->query->get('search');
-        $search = explode(' ', strip_tags(trim(str_replace('é', 'e', $search))));
-
-        $articles = $articleRepository->findByNomLike($search);
-
-        return $this->render('search.html.twig', [
-            'articles' => $articles
-        ]);
+        if (!empty($search)) {
+            $search = explode(' ', strip_tags(trim(str_replace('é', 'e', $search))));
+            $articles = $articleRepository->findByNomLike($search);
+            return $this->render('search.html.twig', [
+                'articles' => $articles
+            ]);
+        }
+        
+        return $this->render('search.html.twig');
     }
 }

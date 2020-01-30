@@ -67,8 +67,6 @@ class ArticleRepository extends ServiceEntityRepository
             $article = $this->createQueryBuilder('a')
             ->where('a.nom LIKE :string')
             ->setParameter('string', '%'.$array[$i].'%')
-            ->orWhere('a.nom LIKE :string')
-            ->setParameter('string', '%'.$array[$i].'%')
             ->orderBy('a.id', 'ASC')
             ->getQuery();
             $articles[] = $article->getResult();

@@ -36,6 +36,8 @@
 		{% endif %}
 		{# product list #}
 		<div class="row my-5">
+		{% if articles is defined %}
+		
 			{% for article in articles %}
 				{% for item in article %}
 					
@@ -168,14 +170,15 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			{% else %}
-				{# empty #}
-				<div>
-					Aucun article n'est trouvé.
-				</div>
-			</div>
 				{% endfor %}
-			{% endfor %}		
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% else %}
+	{# empty #}
+	<div>
+		<h1>Aucun article n'est trouvé.</h1>
+	</div>
+{% endif %}
 		{% endblock %}
