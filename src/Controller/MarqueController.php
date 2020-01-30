@@ -39,6 +39,8 @@ class MarqueController extends AbstractController
             $entityManager->persist($marque);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La nouvelle marque à été ajoutée');
+
             return $this->redirectToRoute('marque_index');
         }
 
@@ -69,6 +71,8 @@ class MarqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'La marque à été modifiée');
+
             return $this->redirectToRoute('marque_index');
         }
 
@@ -83,10 +87,12 @@ class MarqueController extends AbstractController
      */
     public function delete(Request $request, Marque $marque): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$marque->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $marque->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($marque);
             $entityManager->flush();
+
+            $this->addFlash('success', 'La marque à été supprimée');
         }
 
         return $this->redirectToRoute('marque_index');
