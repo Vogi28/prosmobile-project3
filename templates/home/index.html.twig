@@ -9,17 +9,18 @@
 			{% for promo in promos %}
 				{# message #}
 				{% if promo is defined and not null %}
-					<div class="col">
-						<div class="alert alert-info alert-dismissible fade show discount-message" role="alert">
-							{{ promo.nom }}
-							<strong>
-								: Remise de
-								{{ promo.pourcentage }}
-								% sur les articles.
-							</strong>
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span aria-hidden="true" class="message-close-button">&times;</span>
-							</button>
+					<div class="toast fade show" id="myToast" data-delay="10000">
+						<div class="toast-header">
+							<strong class="mr-auto">
+								<i class="fa fa-mobile-alt mr-2"></i>
+								PROSMobile</strong>
+							<small>Promotion</small>
+							<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+						</div>
+						<div class="toast-body">
+							{{ promo.nom }}, remise de
+							{{ promo.pourcentage }}
+							% sur les articles.
 						</div>
 					</div>
 					{% else %}

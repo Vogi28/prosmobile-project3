@@ -6,13 +6,6 @@
     color: #FFFFFF;
 }
 
-.success-message {
-    background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
-}
-
 a {
     color: $link-color;
 
@@ -20,6 +13,10 @@ a {
         color          : $primary-color;
         text-decoration: none;
     }
+}
+
+del {
+    color: $tertiary-color;
 }
 
 h1 {
@@ -32,14 +29,6 @@ h2 {
 
 h6 {
     text-align: center;
-}
-
-//home
-.discount-message {
-    background-color: $info-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
 }
 
 //navbar
@@ -66,11 +55,12 @@ h6 {
 }
 
 .logged-message {
-    color    : $primary-color;
+    color    : $online-color;
     font-size: 0.7em;
 }
 
 .login-message {
+    color    : $tertiary-color;
     font-size: 0.7em;
 }
 
@@ -373,6 +363,18 @@ button:focus {
     width : 2em;
 }
 
+.message-icon {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 10px;
+    justify-content : center;
+    padding         : 0;
+    width           : 10px;
+}
+
 .phone-icon {
     align-items     : center;
     background-color: $primary-color;
@@ -458,11 +460,11 @@ button:focus {
 }
 
 .price {
+    color    : $tertiary-color;
     font-size: 1.5em;
 }
 
 //brand
-
 .brand-message {
     background-color: $info-color;
     border          : none;
@@ -474,4 +476,25 @@ button:focus {
 .custom-thead {
     background-color: $tertiary-color;
     color           : #FFFFFF;
+}
+
+//message
+.toast {
+    border       : solid 1px #ffffff;
+    border-radius: 0;
+    box-shadow   : none;
+    position     : fixed;
+    top          : 130px;
+    right        : 15px;
+    width        : 350px;
+
+}
+
+.toast-body {
+    background-color: $primary-color;
+    color           : #FFFFFF;
+}
+
+.toast-header {
+    background-color: transparent;
 }
