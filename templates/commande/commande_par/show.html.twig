@@ -69,7 +69,7 @@
 									{# administrator #}
 									{% if is_granted('ROLE_ADMIN') %}
 										<div class="row">
-											<div>
+											<div class="mx-1">
 												<a href="{{ path('commande_edit', {'id': commande_par.id}) }}">
 													<button class="edit-button-sm" title="Modifier">
 														<i data-fa-symbol="edit" class="fas fa-pen"></i>
@@ -79,7 +79,7 @@
 													</button>
 												</a>
 											</div>
-											<div>
+											<div class="mx-1">
 												{{ include('commande/detail_cde_part/_delete_form.html.twig') }}
 											</div>
 										</div>
@@ -87,7 +87,7 @@
 									{% elseif is_granted('ROLE_PARTICULIER') %}
 										<div class="row">
 											{# edit button #}
-											<div>
+											<div class="mx-1">
 												<a href="{{ path('commande_edit', {'id': commande_par.id}) }}">
 													<button class="edit-button-sm" title="Modifier">
 														<i data-fa-symbol="edit" class="fas fa-pen"></i>
@@ -97,7 +97,7 @@
 													</button>
 												</a>
 											</div>
-											<div>
+											<div class="mx-1">
 												{{ include('commande/detail_cde_part/_delete_form.html.twig') }}
 											</div>
 										</div>

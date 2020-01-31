@@ -7,11 +7,13 @@
 }
 
 a {
-    color: $link-color;
+    color     : $link-color;
+    transition: 1s ease;
 
     &:hover {
         color          : $primary-color;
         text-decoration: none;
+        transition     : 1s ease;
     }
 }
 
@@ -85,24 +87,33 @@ h6 {
 
 .product-box {
     >a {
+        transition: 1s ease;
+
         &:hover {
             background-color: $primary-color;
             color           : #FFFFFF;
+            transition      : 1s ease;
         }
     }
 }
 
+.result-search {
+    position: fixed;
+}
+
 .search-input {
     border    : solid 1px #FFFFFF;
-    transition: 0.8s ease;
+    transition: 1s ease;
     width     : 120px !important;
 
     &:hover {
         border-color: $primary-color;
+        transition  : 1s ease;
     }
 
     &:focus {
-        width: 400px !important;
+        transition: 1s ease;
+        width     : 400px !important;
     }
 }
 
@@ -123,13 +134,15 @@ input[type="search"]::-webkit-search-cancel-button {
 
 // forms
 .custom-form input {
-    border : solid 1px #E0E0E0;
-    height : 35px;
-    padding: 20px;
-    width  : 300px;
+    border    : solid 1px #E0E0E0;
+    height    : 35px;
+    padding   : 20px;
+    transition: 1s ease;
+    width     : 300px;
 
     &:hover {
         border-color: $primary-color;
+        transition  : 1s ease;
     }
 }
 
@@ -155,9 +168,11 @@ input[type="search"]::-webkit-search-cancel-button {
     border-radius     : 0;
     box-shadow        : none !important;
     outline           : none !important;
+    transition        : 1s ease;
 
     &:focus {
         border-color: $primary-color;
+        transition  : 1s ease;
     }
 }
 
@@ -169,14 +184,17 @@ input[type="search"]::-webkit-search-cancel-button {
     border            : solid 1px #E0E0E0;
     height            : 15px;
     margin-left       : 15px;
+    transition        : 1s ease;
     width             : 15px;
 
     &:checked {
         background-color: $primary-color;
+        transition      : 1s ease;
     }
 
     &:hover {
-        border: solid 1px $primary-color;
+        border    : solid 1px $primary-color;
+        transition: 1s ease;
     }
 }
 

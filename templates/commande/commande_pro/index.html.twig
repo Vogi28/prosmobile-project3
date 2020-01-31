@@ -27,7 +27,7 @@
 	<div class="container my-5">
 		<div class="row">
 			<table class="table">
-				<thead class="thead-dark">
+				<thead class="custom-thead">
 					<tr>
 						<th>Commande</th>
 						<th>Client ID</th>
@@ -42,7 +42,7 @@
 							<td>
 								<div class="row">
 									{# show button #}
-									<div>
+									<div class="mx-1">
 										<a href="{{ path('commande_show', {'id': commande_pro.id}) }}">
 											<button class="show-button-sm" title="Afficher">
 												<i data-fa-symbol="add" class="fas fa-eye"></i>
@@ -53,7 +53,7 @@
 										</a>
 									</div>
 									{# delete button #}
-									<div>
+									<div class="mx-1">
 										{{ include('commande/commande_pro/_delete_form.html.twig') }}
 									</div>
 								</td>
