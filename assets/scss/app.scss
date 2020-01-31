@@ -7,13 +7,11 @@
 }
 
 a {
-    color     : $link-color;
-    transition: 1s ease;
+    color: $link-color;
 
     &:hover {
         color          : $primary-color;
         text-decoration: none;
-        transition     : 1s ease;
     }
 }
 
@@ -87,12 +85,10 @@ h6 {
 
 .product-box {
     >a {
-        transition: 1s ease;
 
         &:hover {
             background-color: $primary-color;
             color           : #FFFFFF;
-            transition      : 1s ease;
         }
     }
 }
@@ -474,12 +470,13 @@ button:focus {
 
 .inventory {
     background-color: $admin-color;
+    border-radius   : 0;
     padding         : 5px;
 }
 
 .price {
     color    : $tertiary-color;
-    font-size: 1.5em;
+    font-size: 1.7em;
 }
 
 //brand
