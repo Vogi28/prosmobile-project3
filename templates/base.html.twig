@@ -11,20 +11,7 @@
 	</head>
 	<body>
 		{% include "navbar.html.twig" %}
-		{% for message in app.flashes('success') %}
-			<div class="toast fade show" id="myToast" data-delay="3000">
-						<div class="toast-header">
-							<strong class="mr-auto">
-								<i class="fa fa-mobile-alt mr-2"></i>
-								PROSMobile</strong>
-							<small>Message</small>
-							<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-						</div>
-						<div class="toast-body">
-							{{ message }}
-						</div>
-					</div>
-		{% endfor %}
+			<div id = "toast-container"></div>
 		{# {% if app.request.hasPreviousSession %}
 		    <div class="messages">
 		        {% for type, messages in app.flashes %}
@@ -80,10 +67,64 @@
             });
     </script>
     <script>
-$(document).ready(function(){
-    $("#myToast").toast('show');
-});
+		{% for message in app.flashes('success') %}
+    createToast('PROSMobile', 'message', '{{ message }}');
+        function createToast(title, smallText, text) {
+            let id = new Date().getTime();
+            let html = `<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="3000" id=${id}>
+                <div class="toast-header">
+                    <i class="fa fa-mobile-alt mr-2"></i>
+                    <strong class="mr-auto">${title}</strong>
+                    <small>${smallText}</small>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    ${text}
+                </div>
+            </div>`;
+
+            document.getElementById('toast-container').innerHTML += html;
+            $(`#${id}`).toast('show');
+        }
+        $('body').on('click','.close',function(){
+          $(this).closest('.toast').toast('hide')
+        })
+        
+		{% endfor %}
 </script>
+    <script>
+		{% for promo in promos %}
+				{# message #}
+				{% if promo is defined and not null %}
+    createToast('PROSMobile', 'message', '{{ promo.nom }}', '{{ promo.pourcentage }}');
+        function createToast(title, smallText, firstWord, secondWord) {
+            let id = new Date().getTime();
+            let html = `<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="10000" id=${id}>
+                <div class="toast-header">
+                    <i class="fa fa-mobile-alt mr-2"></i>
+                    <strong class="mr-auto">${title}</strong>
+                    <small>${smallText}</small>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    ${firstWord} : remise de ${secondWord} % sur les articles
+                </div>
+            </div>`;
+
+            document.getElementById('toast-container2').innerHTML += html;
+            $(`#${id}`).toast('show');
+        }
+        $('body').on('click','.close',function(){
+          $(this).closest('.toast').toast('hide')
+        })
+					{% else %}
+					{# #}
+				{% endif %}
+			{% endfor %}
 </script>
     {% block footer %}{% endblock %}
     </body>

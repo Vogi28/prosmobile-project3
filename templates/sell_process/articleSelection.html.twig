@@ -120,12 +120,12 @@
 								{% if promo is defined and not null %}
 									<p class="text-center price mt-3">
 										<del>
-											{{ article.prixTtc }}
+											{{ article.prixTtc|round }}
 											€
 										</del>
 										<span class="ml-3">
 											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
-											{{ prixTTcReduit }}
+											{{ prixTTcReduit|round }}
 											€ TTC
 										</span>
 									</p>
@@ -141,12 +141,12 @@
 								{% if reduc is defined and not null %}
 									<p class="text-center price mt-3">
 										<del>
-											{{ article.prixHt }}
+											{{ article.prixHt|round }}
 											€
 										</del>
 										<span class="ml-3">
 											{% set prixHtReduit = article.prixHt * (1 - reduc / 100) %}
-											{{ prixHtReduit }}
+											{{ prixHtReduit|round }}
 											€ HT
 										</span>
 									</p>

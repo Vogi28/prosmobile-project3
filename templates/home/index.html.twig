@@ -6,27 +6,7 @@
 	{# home #}
 	<div class="container-fluid my-5">
 		<div class="row">
-			{% for promo in promos %}
-				{# message #}
-				{% if promo is defined and not null %}
-					<div class="toast fade show" id="myToast" data-delay="10000">
-						<div class="toast-header">
-							<strong class="mr-auto">
-								<i class="fa fa-mobile-alt mr-2"></i>
-								PROSMobile</strong>
-							<small>Promotion</small>
-							<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-						</div>
-						<div class="toast-body">
-							{{ promo.nom }}, remise de
-							{{ promo.pourcentage }}
-							% sur les articles.
-						</div>
-					</div>
-					{% else %}
-					{# #}
-				{% endif %}
-			{% endfor %}
+			<div id = "toast-container2"></div>
 		</div>
 	</div>
 {% endblock %}

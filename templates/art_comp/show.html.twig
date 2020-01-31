@@ -42,18 +42,18 @@
 							{% if promo is defined %}
 								<p class="text-center price mt-3">
 									<del>
-										{{ art_comp.prixTtc }}
+										{{ art_comp.prixTtc|round }}
 										€
 									</del>
 									<span class="ml-3">
 										{% set prixTTcReduit = art_comp.prixTtc * (1 - promo / 100) %}
-										{{ prixTTcReduit }}
+										{{ prixTTcReduit|round }}
 										€ TTC
 									</span>
 								</p>
 							{% else %}
 								<p class="text-center price mt-3">
-									{{ art_comp.prixTtc }}
+									{{ art_comp.prixTtc|round }}
 									€ TTC
 								</p>
 							{% endif %}
@@ -63,18 +63,18 @@
 							{% if reduc is defined and not null %}
 								<p class="text-center price mt-3">
 									<del>
-										{{ art_comp.prixHt }}
+										{{ art_comp.prixHt|round }}
 										€
 									</del>
 									<span class="ml-3">
 										{% set prixHtReduit = art_comp.prixHt * (1 - reduc / 100) %}
-										{{ prixHtReduit }}
+										{{ prixHtReduit|round }}
 										€ HT
 									</span>
 								</p>
 							{% else %}
 								<p class="text-center price mt-3">
-									{{ art_comp.prixHt }}
+									{{ art_comp.prixHt|round }}
 									€ HT
 								</p>
 							{% endif %}
