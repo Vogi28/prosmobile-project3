@@ -41,8 +41,8 @@
 	{# table #}
 	<div class="container my-5">
 		<div class="row">
-			<table class="table">
-				<thead class="custom-thead">
+			<table class="table custom-table">
+				<thead>
 					<tr>
 						<th>Article ID</th>
 						<th>Article name</th>
@@ -110,12 +110,12 @@
 				<tfoot>
 					<tr>
 						<td colspan="5" class="text-right">Réduction :</td>
-						<td>{{ details.0.promo }}</td>
+						<td>{{ details.0.promo }} %</td>
 						<td></td>
 					</tr>
 					<tr>
 						<td colspan="5" class="text-right">Total :</td>
-						<td>{{ total }}</td>
+						<td>{{ total }} €</td>
 						<td></td>
 					</tr>
 				</tfoot>

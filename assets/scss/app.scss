@@ -44,7 +44,7 @@ h6 {
 
 .create-account-link {
     color    : $link-color;
-    font-size: 0.7em;
+    font-size: .7em;
     margin   : 5px;
 }
 
@@ -56,12 +56,12 @@ h6 {
 
 .logged-message {
     color    : $online-color;
-    font-size: 0.7em;
+    font-size: .7em;
 }
 
 .login-message {
     color    : $tertiary-color;
-    font-size: 0.7em;
+    font-size: .7em;
 }
 
 .logo {
@@ -69,7 +69,7 @@ h6 {
 }
 
 .new-customer {
-    font-size: 0.7em;
+    font-size: .7em;
     margin   : 5px;
 }
 
@@ -219,7 +219,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width           : 40px;
 
     &:hover {
-        opacity   : 0.5;
+        opacity   : .5;
         transition: 1s ease;
     }
 }
@@ -239,7 +239,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width           : 25px;
 
     &:hover {
-        opacity   : 0.5;
+        opacity   : .5;
         transition: 1s ease;
     }
 }
@@ -280,7 +280,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width           : 150px;
 
     &:hover {
-        opacity   : 0.5;
+        opacity   : .5;
         transition: 1s ease;
     }
 }
@@ -298,7 +298,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width           : 40px;
 
     &:hover {
-        opacity   : 0.5;
+        opacity   : .5;
         transition: 1s ease;
     }
 }
@@ -316,7 +316,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width           : 25px;
 
     &:hover {
-        opacity   : 0.5;
+        opacity   : .5;
         transition: 1s ease;
     }
 }
@@ -488,14 +488,24 @@ button:focus {
 }
 
 //table
-.custom-thead {
-    background-color: $tertiary-color;
-    color           : #FFFFFF;
+.custom-table {
+    >thead th {
+        border: none;
+    }
+
+    >th,
+    td {
+        border: none;
+    }
+
+    >tfoot {
+        border-top: solid 1px #E0E0E0;
+    }
 }
 
 //message
 .toast {
-    border       : solid 1px #ffffff;
+    border       : none;
     border-radius: 0;
     box-shadow   : none;
     position     : fixed;
@@ -508,8 +518,10 @@ button:focus {
 .toast-body {
     background-color: $primary-color;
     color           : #FFFFFF;
+    opacity         : .5;
 }
 
 .toast-header {
-    background-color: transparent;
+    background-color: #FFFFFF;
+    opacity         : .5;
 }

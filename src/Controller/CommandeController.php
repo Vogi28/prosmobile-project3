@@ -121,7 +121,7 @@ class CommandeController extends AbstractController
 
             foreach ($articles as $key => $article) {
                 $key;
-                $total =+ $article->getTotal();
+                $total += $article->getTotal();
             }
 
             return $this->render('commande/commande_pro/show.html.twig', [
