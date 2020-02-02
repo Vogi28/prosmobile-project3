@@ -17,168 +17,119 @@
 		</ol>
 	</nav>
 	{# title #}
-	<h1>Recherche</h1>
+	<h1>Résultat recherche</h1>
 	{# search #}
 	<div class="container my-5">
-		{# administrator #}
-		{% if is_granted('ROLE_ADMIN') %}
-			{# add button #}
-			<div>
-				<a href="{{ path('article_new') }}">
-					<button class="add-button" title="Ajouter">
-						<i data-fa-symbol="add" class="fas fa-plus"></i>
-						<svg class="icon-md">
-							<use xlink:href="#add"></use>
-						</svg>
-					</button>
-				</a>
-			</div>
-		{% endif %}
 		{# product list #}
 		<div class="row my-5">
-		{% if articles is defined %}
-		
-			{% for article in articles %}
-				{% for item in article %}
-					
-				{% if item.photo is empty %}
-					{% set photo ='' %}
-				{% else %}
-					{% set photo = item.photo %}
-				{% endif %}
-				<div class="col my-3">
-					<div class="media">
-						<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ item.nom }}">
-						<div class="media-body">
-							<h5 class="my-3">{{ item.nom }}</h5>
-							{# discount bagde #}
-							{% if promo is defined %}
-								<h5>
-									<span class="badge badge-secondary discount">
-										Promotion
-									</span>
-								</h5>
-							{% elseif reduc is defined and not null %}
-								<h5>
-									<span class="badge badge-secondary discount">
-										Prix réduit
-									</span>
-								</h5>
-							{% endif %}
-							<p>
-								{{ item.description }}
-							</p>
-							{# administrator #}
-							{% if is_granted('ROLE_ADMIN') %}
-								<span class="badge badge-secondary inventory">
-									Référence :
-									{{ item.reference }}
-								</span>
-								<span class="badge badge-secondary inventory">
-									Stock restant :
-									{{ item.stock }}
-								</span>
-							{% endif %}
-							{# individual #}
-							{% if is_granted('ROLE_PRO') == false %}
-								{% if promo is defined %}
-									<p class="text-center price mt-3">
-										<del>
-											{{ item.prixTtc }}
-											€
-										</del>
-										<span class="ml-3">
-											{% set prixTTcReduit = item.prixTtc * (1 - promo / 100) %}
-											{{ prixTTcReduit }}
-											€ TTC
+			{% if articles is defined %}
+				{% for article in articles %}
+					{% for item in article %}
+						{% if item.photo is empty %}
+							{% set photo ='' %}
+						{% else %}
+							{% set photo = item.photo %}
+						{% endif %}
+						<div class="col my-3">
+							<div class="media">
+								<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ item.nom }}">
+								<div class="media-body">
+									<h5 class="my-3">{{ item.nom }}</h5>
+									{# discount bagde #}
+									{% if promo is defined %}
+										<h5>
+											<span class="badge badge-secondary discount">
+												Promotion
+											</span>
+										</h5>
+									{% elseif reduc is defined and not null %}
+										<h5>
+											<span class="badge badge-secondary discount">
+												Prix réduit
+											</span>
+										</h5>
+									{% endif %}
+									<p>
+										{{ item.description }}
+									</p>
+									{# administrator #}
+									{% if is_granted('ROLE_ADMIN') %}
+										<span class="badge badge-secondary inventory">
+											Référence :
+											{{ item.reference }}
 										</span>
-									</p>
-								{% else %}
-									<p class="text-center price mt-3">
-										{{ item.prixTtc }}
-										€ TTC
-									</p>
-								{% endif %}
-							{% endif %}
-							{# professional #}
-							{% if is_granted('ROLE_PRO') %}
-								{% if reduc is defined and not null %}
-									<p class="text-center price mt-3">
-										<del>
-											{{ item.prixHt }}
-											€
-										</del>
-										<span class="ml-3">
-											{% set prixHtReduit = item.prixHt * (1 - reduc / 100) %}
-											{{ prixHtReduit }}
-											€ HT
+										<span class="badge badge-secondary inventory">
+											Stock restant :
+											{{ item.stock }}
 										</span>
-									</p>
-								{% else %}
-									<p class="text-center price mt-3">
-										{{ item.prixHt }}
-										€ HT
-									</p>
-								{% endif %}
-							{% endif %}
-							{# button #}
-							<div class="d-flex justify-content-center my-3">
-								{# show button #}
-								<div class="mx-2">
-									<a href="{{ path('article_show', {'slug1': item.typeArt.nom, 'slug2': item.marque.nom, 'id': item.id }) }}">
-										<button class="show-button" title="Afficher">
-											<i data-fa-symbol="show" class="fas fa-eye"></i>
-											<svg class="icon-md">
-												<use xlink:href="#show"></use>
-											</svg>
-										</button>
-									</a>
-								</div>
-								{# add to basket button #}
-								<div class="mx-2">
+									{% endif %}
+									{# individual #}
+									{% if is_granted('ROLE_PRO') == false %}
+										{% if promo is defined %}
+											<p class="text-center price mt-3">
+												<del>
+													{{ item.prixTtc|round }}
+													€
+												</del>
+												<span class="ml-3">
+													{% set prixTTcReduit = item.prixTtc * (1 - promo / 100) %}
+													{{ prixTTcReduit|round }}
+													€ TTC
+												</span>
+											</p>
+										{% else %}
+											<p class="text-center price mt-3">
+												{{ item.prixTtc|round }}
+												€ TTC
+											</p>
+										{% endif %}
+									{% endif %}
 									{# professional #}
-									{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
-										<a href="{{ path('panier_add', {'id': item.id, 'promo': reduc} )}}">
-										{% elseif promo is defined and not null %}
-											<a href="{{ path('panier_add', {'id': item.id, 'promo': promo} )}}">
-											{% else %}
-												<a href="{{ path('panier_add', {'id': item.id, 'promo': 0} )}}">
-												{% endif %}
-												<button class="add-basket-button" title="Ajouter au panier">
-													<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
+									{% if is_granted('ROLE_PRO') %}
+										{% if reduc is defined and not null %}
+											<p class="text-center price mt-3">
+												<del>
+													{{ item.prixHt|round }}
+													€
+												</del>
+												<span class="ml-3">
+													{% set prixHtReduit = item.prixHt * (1 - reduc / 100) %}
+													{{ prixHtReduit|round }}
+													€ HT
+												</span>
+											</p>
+										{% else %}
+											<p class="text-center price mt-3">
+												{{ item.prixHt|round }}
+												€ HT
+											</p>
+										{% endif %}
+									{% endif %}
+									{# button #}
+									<div class="d-flex justify-content-center my-3">
+										{# show button #}
+										<div class="mx-2">
+											<a href="{{ path('article_show', {'slug1': item.typeArt.nom, 'slug2': item.marque.nom, 'id': item.id }) }}">
+												<button class="show-button" title="Afficher">
+													<i data-fa-symbol="show" class="fas fa-eye"></i>
 													<svg class="icon-md">
-														<use xlink:href="#basket"></use>
+														<use xlink:href="#show"></use>
 													</svg>
 												</button>
 											</a>
 										</div>
-										{# administrator #}
-										{% if is_granted('ROLE_ADMIN') %}
-											{# edit button #}
-											<div class="mx-2">
-												<a href="{{ path('article_edit', {'id': item.id}) }}">
-													<button class="edit-button" title="Modifier">
-														<i data-fa-symbol="edit" class="fas fa-pen"></i>
-														<svg class="icon-md">
-															<use xlink:href="#edit"></use>
-														</svg>
-													</button>
-												</a>
-											</div>
-										{% endif %}
 									</div>
 								</div>
 							</div>
 						</div>
+					{% endfor %}
 				{% endfor %}
-			{% endfor %}
-			</div>
+			{% else %}
+				{# empty #}
+				<div>
+					Aucun article n'est trouvé.
+				</div>
+			{% endif %}
 		</div>
 	</div>
-	{% else %}
-	{# empty #}
-	<div>
-		<h1>Aucun article n'est trouvé.</h1>
-	</div>
-{% endif %}
-		{% endblock %}
+{% endblock %}

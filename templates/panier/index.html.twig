@@ -26,13 +26,13 @@
 			</div>
 		{% else %}
 			<div class="row">
-				<table class="table">
-					<thead class="custom-thead">
+				<table class="table custom-table">
+					<thead>
 						{# professional #}
 						{% if is_granted('ROLE_PRO') %}
 							<tr>
 								<th>Article</th>
-								<th>HTT</th>
+								<th>Prix HT</th>
 								<th>Quantité</th>
 								<th>Total</th>
 								<th></th>
@@ -40,8 +40,8 @@
 						{% else %}
 							<tr>
 								<th>Article</th>
-								<th>HTT</th>
-								<th>TTC</th>
+								<th>Prix HT</th>
+								<th>Prix TTC</th>
 								<th>Quantité</th>
 								<th>Total</th>
 								<th></th>

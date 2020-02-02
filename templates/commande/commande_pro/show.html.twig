@@ -41,14 +41,13 @@
 	{# body #}
 	<div class="container my-5">
 		<div class="row">
-			<table class="table">
-				<thead class="custom-thead">
+			<table class="table custom-table">
+				<thead>
 					<tr>
-						<th>Article ID</th>
-						<th>Article name</th>
-						<th>Quantity</th>
-						<th>Price</th>
-						<th>Discount</th>
+						<th>Article</th>
+						<th>Quantité</th>
+						<th>Prix HT</th>
+						<th>Remise</th>
 						<th>Total</th>
 						<th>Actions</th>
 					</tr>
@@ -57,19 +56,16 @@
 					{% if details is not empty %}
 						{% for detail in details %}
 							<tr>
-								<td>
-									<a href="#">{{ detail.id }}</a>
-								</td>
 								<td>{{ detail.nomArt }}</td>
 								<td>{{ detail.quantite }}</td>
-								<td>{{ detail.prixHT }}</td>
-								<td>{{ detail.remise }}</td>
-								<td>{{ detail.total }}</td>
+								<td>{{ detail.prixHT }} €</td>
+								<td>{{ detail.remise }} %</td>
+								<td>{{ detail.total }} €</td>
 								<td>
 									{# administrator #}
 									{% if is_granted('ROLE_ADMIN') %}
 										<div class="row">
-											<div>
+											<div class="mx-1">
 												<a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">
 													<button class="edit-button-sm" title="Modifier">
 														<i data-fa-symbol="edit" class="fas fa-pen"></i>
@@ -79,7 +75,7 @@
 													</button>
 												</a>
 											</div>
-											<div>
+											<div class="mx-1">
 												{{ include('commande/detail_cde_pro/_delete_form.html.twig') }}
 											</div>
 										</div>
@@ -87,7 +83,7 @@
 									{% elseif is_granted('ROLE_PRO') %}
 										<div class="row">
 											{# edit button #}
-											<div>
+											<div class="mx-1">
 												<a href="{{ path('commande_edit', {'id': commande_pro.id}) }}">
 													<button class="edit-button-sm" title="Modifier">
 														<i data-fa-symbol="edit" class="fas fa-pen"></i>
@@ -97,7 +93,7 @@
 													</button>
 												</a>
 											</div>
-											<div>
+											<div class="mx-1">
 												{{ include('commande/detail_cde_pro/_delete_form.html.twig') }}
 											</div>
 										</div>
@@ -107,6 +103,13 @@
 						{% endfor %}
 					{% endif %}
 				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4" class="text-right">Total :</td>
+						<td>{{ total }} €</td>
+						<td></td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>

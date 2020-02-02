@@ -3,88 +3,100 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!{% endblock %}
+			{% block title %}PROSMobile{% endblock %}
 		</title>
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 	</head>
 	<body>
+		{# include navbar #}
 		{% include "navbar.html.twig" %}
-		{% for message in app.flashes('success') %}
-			<div class="toast fade show" id="myToast" data-delay="3000">
-						<div class="toast-header">
-							<strong class="mr-auto">
-								<i class="fa fa-mobile-alt mr-2"></i>
-								PROSMobile</strong>
-							<small>Message</small>
-							<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-						</div>
-						<div class="toast-body">
-							{{ message }}
-						</div>
-					</div>
-		{% endfor %}
-		{# {% if app.request.hasPreviousSession %}
-		    <div class="messages">
-		        {% for type, messages in app.flashes %}
-		            {% for message in messages %} #}
-		{# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
-		{# <div class="alert alert-dismissible alert-{{ type }} fade in" role="alert">
-		                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		                        <span aria-hidden="true">&times;</span>
-		                    </button>
-		
-		                    {{ message|trans }}
-		                </div>
-		            {% endfor %}
-		        {% endfor %}
-		    </div>
-		{% endif %} #}
-        {% block body %}{% endblock %}
-        
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function(){
-            $('#search').keyup(function(){
-                $('#result-search').html('');
-              
-                let search = $(this).val();
+		{# scroll to top button #}
+		<div class="scroll-top" title="Retour vers le haut">
+			<button onclick="scrollToTop()" class="back-top-button"> 
+      			<i data-fa-symbol="up" class="fas fa-chevron-up"></i>
+				<svg class="icon-md">
+					<use xlink:href="#up"></use>
+				</svg>
+  			</button> 
+		</div>
+		{# flash message #}
+		<div id="flash-message-toast"></div>
+		{% block body %}{% endblock %}
 
-                if(search.length > 2){
-                    $.get({
-                        url : "{{ path('article_live_search') }}",
-                        data : 'search=' + search,
-                        dataType : "json",
-                        }).done(function(response){
-                            if(response != ""){
-                                response.forEach(element => {
-                                    let route = "/article/"+element.type_art+"/"+element.marque+"/"+element.id;
-                                    let content = `<div style="margin-top:20px"><a href="`+route+`">`+element.nom+`</a></div>`;
-                                    $('#result-search').append(content);
-                                });
-                            }
-                            else
-                            {
-                                $('#result-search').innerHTML = "<div style='font-size:20px; text-align:center; margin-top: 20px'>No product found</div>"
-                            }
-                        });
-                    }
-                });
-            });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $("#myToast").toast('show');
-        });
-    </script>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		{# search result #}
+		<script>
+			$(document).ready(function () {
+$('#search').keyup(function () {
+$('#result-search').html('');
+let search = $(this).val();
 
-{% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    {% block footer %}{% endblock %}
-    </body>
+if (search.length > 2) {
+$.get({
+url: "{{ path('article_live_search') }}",
+data: 'search=' + search,
+dataType: "json"
+}).done(function (response) {
+if (response != "") {
+console.log(response);
+response.forEach(element => {
+console.log(element.nom);
+let route = "/article/recherche/" + element.nom;
+let content = `<div style="margin-top:20px"><a href="` + route + `">` + element.nom + `</a></div>`;
+$('#result-search').append(content);
+});
+} else {
+$('#result-search').innerHTML = "<div style='font-size:20px; text-align:center; margin-top: 20px'>No product found</div>"
+}
+});
+}
+});
+});
+		</script>
+		{# flash message #}
+		<script>
+			{% for message in app.flashes('success') %}
+createToast('PROSMobile', 'Message', '{{ message }}');
+function createToast(title, smallText, message) {
+let id = new Date().getTime();
+let html = `<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="3000" id=${id}>
+                <div class="toast-header">
+                    <i class="fa fa-mobile-alt mr-2"></i>
+                    <strong class="mr-auto">${title}</strong>
+                    <small>${smallText}</small>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            </div>`;
+
+document.getElementById('flash-message-toast').innerHTML += html;
+$(`#${id}`).toast('show');
+}
+$('body').on('click', '.close', function () {
+$(this).closest('.toast').toast('show')
+})
+			{% endfor %}
+		</script>
+		{# scroll to top #}
+		<script> 
+        function scrollToTop() { 
+            window.scrollTo(0, 0); 
+        } 
+    </script> 
+	</body>
 </html>
