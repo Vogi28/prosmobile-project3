@@ -97,6 +97,7 @@ class PanierController extends AbstractController
                 $cdePar->addDetailCdePart($dtlCdePar);
                 $managerService->persFLush($dtlCdePar);
             }
+            $mailer->sendReza($this->getUser()->getEmail(), $articles, $cdePar);
         } elseif ($this->getUser()->getRoles()[0] == 'ROLE_PRO') {
             $cdePro = new CommandePro();
             
@@ -121,14 +122,15 @@ class PanierController extends AbstractController
                 $cdePro->addDetailCdePro($dtlCdePro);
                 $managerService->persFLush($dtlCdePro);
             }
+            
+            $mailer->sendReza($this->getUser()->getEmail(), $articles, $cdePro);
         }
-
+        
         $session->remove('panier');
         $session->remove('promo');
         
         $this->addFlash('success', 'Réservation envoyée');
 
-        $mailer->sendReza($this->getUser()->getEmail(), $articles);
 
         return $this->redirectToRoute('home');
     }
@@ -136,14 +138,20 @@ class PanierController extends AbstractController
     /**
      * @Route("/add/{id}/{promo}", name="add")
      */
-    public function add($id, $promo, CartService $cartService)
-    {
+    public function add(
+        $id,
+        $promo,
+        CartService $cartService,
+        SessionInterface $session
+    ) {
            
         $cartService->addItems($id, $promo);
         
         $this->addFlash('success', 'Ajout au panier réussi');
         
-        return $this->redirectToRoute('panier_index');
+        $panier = $session->get('panier', []);
+
+        return $this->json($panier[1], 200);
     }
 
     /**

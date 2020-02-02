@@ -52,20 +52,22 @@
 						{% for item in panier %}
 							<tr>
 								<td>{{ item.article.nom }}</td>
-								<td>{{ item.article.prixHT }}</td>
 								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
-									{# #}
+									<td class="js-price">{{ item.article.prixHT }}</td>
+									<td class="itemQtt">{{ item.quantity }}</td>
+									<td class="itemTtl">{{ item.article.prixHT * item.quantity }}</td>
 								{% else %}
-									<td>{{ item.article.prixTTC }}</td>
+									<td>{{ item.article.prixHT }}</td>
+									<td class="js-price">{{ item.article.prixTTC }}</td>
+									<td class="itemQtt">{{ item.quantity }}</td>
+									<td class="itemTtl">{{ item.article.prixTTC * item.quantity }}</td>
 								{% endif %}
-								<td>{{ item.quantity }}</td>
-								<td>{{ item.article.prixHT * item.quantity }}</td>
 								<td>
 									<div class="row">
 										{# add button #}
 										<div class="mx-1">
-											<a href="{{ path('panier_add', {'id': item.article.id, 'promo': promo}) }}">
+											<a href="{{ path('panier_add', {'id': item.article.id, 'promo': promo}) }}" class="addBtn">
 												<button class="add-button-sm" title="Ajouter">
 													<i data-fa-symbol="add" class="fas fa-plus"></i>
 													<svg class="icon-sm">
@@ -96,14 +98,11 @@
 							<tr>
 								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
-									<td colspan="3" class="text-right">Réduction :</td>
+									<td colspan="3" class="text-right">Réduction (%):</td>
 								{% else %}
-									<td colspan="4" class="text-right">Réduction :</td>
+									<td colspan="4" class="text-right">Réduction (%):</td>
 								{% endif %}
-								<td>
-									{{ promo }}
-									%
-								</td>
+								<td class="promo">{{ promo }}</td>
 								<td></td>
 							</tr>
 						{% endif %}
@@ -114,10 +113,7 @@
 							{% else %}
 								<td colspan="4" class="text-right">Total :</td>
 							{% endif %}
-							<td>
-								{{ total }}
-								€
-							</td>
+							<td class="total">{{ total }} €</td>
 							<td></td>
 						</tr>
 					</tfoot>
@@ -140,4 +136,24 @@
 			{% endif %}
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		$(document).ready(function(){
+			$('a.addBtn').click(function(event){
+				event.preventDefault();
+
+				const url = this.href;
+				let price = $('.js-price').text();
+				let promo = $('.promo').text();
+
+				$.get({url: url}).done(function(response) {
+					$('.itemQtt').replaceWith("<td class='itemQtt'>"+response+"</td>")
+					$('.itemTtl').replaceWith("<td class='itemTtl'>"+response * price+"</td>")
+					$('.total').replaceWith("<td class='total'>"+parseInt(response * price * (1 - promo / 100))+" €</td>")
+				});
+			});
+		});
+	</script>
 {% endblock %}

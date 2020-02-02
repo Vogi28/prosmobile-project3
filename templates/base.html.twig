@@ -42,9 +42,7 @@
 		    </div>
 		{% endif %} #}
         {% block body %}{% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -53,6 +51,7 @@
         $(document).ready(function(){
             $('#search').keyup(function(){
                 $('#result-search').html('');
+              
                 let search = $(this).val();
 
                 if(search.length > 2){
@@ -62,10 +61,8 @@
                         dataType : "json",
                         }).done(function(response){
                             if(response != ""){
-                                console.log(response);
                                 response.forEach(element => {
-                                    console.log(element.nom);
-                                    let route = "/article/recherche/"+element.nom;
+                                    let route = "/article/"+element.type_art+"/"+element.marque+"/"+element.id;
                                     let content = `<div style="margin-top:20px"><a href="`+route+`">`+element.nom+`</a></div>`;
                                     $('#result-search').append(content);
                                 });
@@ -80,11 +77,14 @@
             });
     </script>
     <script>
-$(document).ready(function(){
-    $("#myToast").toast('show');
-});
-</script>
-</script>
+        $(document).ready(function(){
+            $("#myToast").toast('show');
+        });
+    </script>
+
+{% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     {% block footer %}{% endblock %}
     </body>
 </html>
