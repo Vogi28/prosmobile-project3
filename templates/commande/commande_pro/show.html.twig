@@ -44,11 +44,10 @@
 			<table class="table custom-table">
 				<thead>
 					<tr>
-						<th>Article ID</th>
-						<th>Article name</th>
-						<th>Quantity</th>
-						<th>Price</th>
-						<th>Discount</th>
+						<th>Article</th>
+						<th>Quantité</th>
+						<th>Prix HT</th>
+						<th>Remise</th>
 						<th>Total</th>
 						<th>Actions</th>
 					</tr>
@@ -57,14 +56,11 @@
 					{% if details is not empty %}
 						{% for detail in details %}
 							<tr>
-								<td>
-									<a href="#">{{ detail.id }}</a>
-								</td>
 								<td>{{ detail.nomArt }}</td>
 								<td>{{ detail.quantite }}</td>
-								<td>{{ detail.prixHT }}</td>
-								<td>{{ detail.remise }}</td>
-								<td>{{ detail.total }}</td>
+								<td>{{ detail.prixHT }} €</td>
+								<td>{{ detail.remise }} %</td>
+								<td>{{ detail.total }} €</td>
 								<td>
 									{# administrator #}
 									{% if is_granted('ROLE_ADMIN') %}
@@ -109,7 +105,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5" class="text-right">Total :</td>
+						<td colspan="4" class="text-right">Total :</td>
 						<td>{{ total }} €</td>
 						<td></td>
 					</tr>
