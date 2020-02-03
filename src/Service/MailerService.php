@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class MailerService
 {
@@ -37,22 +38,26 @@ class MailerService
         $this->mailer->send($email);
     }
 
-    public function sendReza(string $customer, array $articles)
+    public function sendReza(string $customer, array $articles, $commande)
     {
         $articles;
-        $email = (new Email())
+        $commande;
+        $email = (new TemplatedEmail())
                 ->from('username@domain.com')
                 ->to($customer)
-                ->subject('Réservation')
-                ->text('Votre commande numéro **** a bien ete enregistre');
+                ->subject('Réservation numéro '.$commande->getId())
+                ->text('Bienvenue chez PROSmobile');
+                
+                
         
         $this->mailer->send($email);
-
-        $email2 = (new Email())
+        
+            $email2 = (new TemplatedEmail())
                 ->from('username@domain.com')
                 ->to('shinjuo.ng@gmail.com')
-                ->subject('Réservation')
-                ->text('Bienvenue chez PROSmobile');
+                ->subject('Votre réservation numéro '.$commande->getId().' a bien ete enregistre')
+                ->htmlTemplate('mailTemplate/customersMailTemplate.html.twig')
+                ->context(['articles' => $articles]);
         
         $this->mailer->send($email2);
     }

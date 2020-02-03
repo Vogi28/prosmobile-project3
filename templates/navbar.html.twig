@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 	{# brand #}
 	<a class="navbar-brand logo" href="{{ path('home') }}">
 		PROSMOBILE
@@ -7,24 +7,24 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse flex-column" id="navbarSupportedContent">
-		<ul class="navbar-nav flex-row ml-auto">
+		<ul class="navbar-nav flex-row ml-auto block">
 			{# search bar #}
 			<li class="nav-item">
-				<form class="form-inline" action="{{ path('article_search')}}">
+				<form class="form-inline" action="{{ path('article_search') }}">
 					<input class="form-control search-input mr-4" name="search" type="search" id="search" placeholder="Rechercher" aria-label="Search">
 					<button class="search-button" type="submit" title="Rechercher">
-						<i data-fa-symbol="search" class="fas fa-search"></i>
+						<i data-fa-symbol="search-icon" class="fas fa-search"></i>
 						<svg class="icon-md">
-							<use xlink:href="#search"></use>
+							<use xlink:href="#search-icon"></use>
 						</svg>
 					</button>
 				</form>
-			<div style="margin-top: 20px;">
+				<div class="result-search">
 					<div id="result-search"></div>
 				</div>
 			</li>
 			{# prosmobile facebook #}
-			<li class="nav-item ml-4">
+			<li class="nav-item">
 				<a href="https://fr-fr.facebook.com/prosmbile" target="_blank">
 					<button class="facebook-button" title="PROSMobile Facebook">
 						<i data-fa-symbol="facebook" class="fab fa-facebook-f"></i>
@@ -35,7 +35,7 @@
 				</a>
 			</li>
 			{# basket #}
-			<li class="nav-item ml-4">
+			<li class="nav-item">
 				<a href="{{ path('panier_index') }}">
 					<button class="basket-button" title="Mon Panier">
 						<i data-fa-symbol="basket" class="fas fa-shopping-cart"></i>
@@ -46,15 +46,17 @@
 				</a>
 			</li>
 			{# account #}
-			<li class="nav-item dropdown ml-4">
+			<li class="nav-item dropdown p-0">
 				<div class="d-flex flex-column">
 					{% if app.user %}
 						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Mon compte
 						</a>
-						<span class="logged-message">
-							Vous êtes connecté(e)
-						</span>
+						<div class="row d-flex justify-content-start align-items-center m-0">
+							<span class="logged-message">
+								Connecté(e)
+							</span>
+						</div>
 					{% else %}
 						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Mon compte
@@ -63,7 +65,7 @@
 							Identifiez-vous
 						</span>
 					{% endif %}
-					<div class="dropdown-menu account rounded-0 mt-3" aria-labelledby="navbarDropdown">
+					<div class="dropdown-menu rounded-0 mt-3 account-box" aria-labelledby="navbarDropdown">
 						{% if app.user %}
 							{# individual #}
 							{% if is_granted('ROLE_PARTICULIER')%}
@@ -72,7 +74,7 @@
 									<div class="row">
 										{# user account type #}
 										<div class="col-4">
-											<div class="user-icon" title="Particulier">
+											<div class="user-icon">
 												<i data-fa-symbol="user" class="fas fa-user"></i>
 												<svg class="icon-md">
 													<use xlink:href="#user"></use>
@@ -110,7 +112,7 @@
 									<div class="row">
 										{# user account type #}
 										<div class="col-4">
-											<div class="user-icon" title="Professionnel">
+											<div class="user-icon">
 												<i data-fa-symbol="pro-user" class="fas fa-user-tie"></i>
 												<svg class="icon-md">
 													<use xlink:href="#pro-user"></use>
@@ -148,7 +150,7 @@
 									<div class="row">
 										{# user account type #}
 										<div class="col-4">
-											<div class="user-icon" title="Administrateur">
+											<div class="user-icon">
 												<i data-fa-symbol="admin-user" class="fas fa-user-tie"></i>
 												<svg class="icon-md">
 													<use xlink:href="#admin-user"></use>
@@ -205,7 +207,7 @@
 				</div>
 			</li>
 			{# phone number container #}
-			<li class="nav-item ml-4">
+			<li class="nav-item">
 				<div class="container">
 					<div class="row">
 						{# phone icon #}
@@ -216,7 +218,7 @@
 							</svg>
 						</div>
 						{# phone number #}
-						<span class="phone">
+						<span class="phone-block">
 							03 88 62 98 01
 						</span>
 					</div>
@@ -224,12 +226,12 @@
 			</li>
 		</ul>
 		{# links #}
-		<ul class="navbar-nav mx-auto links">
+		<ul class="navbar-nav mx-auto link">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Articles
 				</a>
-				<div class="dropdown-menu product rounded-0 mt-3" aria-labelledby="dropdownMenuButton">
+				<div class="dropdown-menu rounded-0 product-box" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="{{ path('article_sell_phones')}}">
 						Téléphones
 					</a>

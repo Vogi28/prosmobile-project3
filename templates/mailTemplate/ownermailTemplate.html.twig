@@ -1,0 +1,17 @@
+{% for article in articles %}
+    <div class="col my-3">
+        <h5 class="my-3">{{ article.nom }}</h5>
+        <p>
+            {{ article.description }}
+        </p>
+        <span class="badge badge-secondary inventory">
+            Stock restant :
+            {{ article.stock }}
+        </span>
+        <p class="text-center price mt-3">
+            {{ article.prixTtc }}
+            € TTC
+        </p>
+    </div>
+{% endfor %}
+			

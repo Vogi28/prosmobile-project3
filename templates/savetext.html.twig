@@ -1,48 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}PROSmobile - Articles{% endblock %}
-
-{% block body %}
-	{# tree #}
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb bg-white rounded-0">
-			<li class="breadcrumb-item">
-				{# administrator #}
-				{% if is_granted('ROLE_ADMIN') %}
-					<a href="{{ path('admin_index') }}">
-						Dashboard
-					</a>
-				{% else %}
-					<a href="{{ path('home') }}">
-						Accueil
-					</a>
-				{% endif %}
-			</li>
-			<li class="breadcrumb-item active" aria-current="page">
-				Articles
-			</li>
-		</ol>
-	</nav>
-	{# title #}
-	<h1>Articles disponibles</h1>
-	{# product #}
-	<div class="container my-5">
-		{# administrator #}
-		{% if is_granted('ROLE_ADMIN') %}
-			{# add button #}
-			<div class="row">
-				<a href="{{ path('article_new') }}">
-					<button class="add-button" title="Ajouter">
-						<i data-fa-symbol="add" class="fas fa-plus"></i>
-						<svg class="icon-md">
-							<use xlink:href="#add"></use>
-						</svg>
-					</button>
-				</a>
-			</div>
-		{% endif %}
-		{# product list #}
-		<div class="row my-5">
+<div class="row my-5">
 			{% for article in articles %}
 				{% if article.photo is empty %}
 					{% set photo ='' %}
@@ -87,18 +43,18 @@
 								{% if promo is defined %}
 									<p class="text-center price mt-3">
 										<del>
-											{{ article.prixTtc|round }}
+											{{ article.prixTtc }}
 											€
 										</del>
 										<span class="ml-3">
 											{% set prixTTcReduit = article.prixTtc * (1 - promo / 100) %}
-											{{ prixTTcReduit|round }}
+											{{ prixTTcReduit }}
 											€ TTC
 										</span>
 									</p>
 								{% else %}
 									<p class="text-center price mt-3">
-										{{ article.prixTtc|round }}
+										{{ article.prixTtc }}
 										€ TTC
 									</p>
 								{% endif %}
@@ -108,18 +64,18 @@
 								{% if reduc is defined and not null %}
 									<p class="text-center price mt-3">
 										<del>
-											{{ article.prixHt|round }}
+											{{ article.prixHt }}
 											€
 										</del>
 										<span class="ml-3">
 											{% set prixHtReduit = article.prixHt * (1 - reduc / 100) %}
-											{{ prixHtReduit|round }}
+											{{ prixHtReduit }}
 											€ HT
 										</span>
 									</p>
 								{% else %}
 									<p class="text-center price mt-3">
-										{{ article.prixHt|round }}
+										{{ article.prixHt }}
 										€ HT
 									</p>
 								{% endif %}
@@ -173,12 +129,12 @@
 								</div>
 							</div>
 						</div>
-					{% else %}
-						{# empty #}
-						<div>
-							Aucun article n'est enregistré dans cette liste
-						</div>
-					{% endfor %}
+					</div>
+				</div>
+			{% else %}
+				{# empty #}
+				<div>
+					Aucun article n'est trouvé.
 				</div>
 			</div>
-		{% endblock %}
+			{% endfor %}
