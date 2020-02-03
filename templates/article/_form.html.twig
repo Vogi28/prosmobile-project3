@@ -13,7 +13,7 @@
 	{# Premier onglet : créer/éditer la fiche article #}
 	<div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-home-tab">
 		<div class="container my-5">
-			<div class="row d-flex justify-content-center">
+			<div class="row d-flex justify-content-center custom-form">
 				<div class="mx-3">
 					{{ form_row(form.nom, { 'label': 'Nom' }) }}
 					{{ form_row(form.photo, { 'label': 'Photo' }) }}
@@ -25,6 +25,7 @@
 					{{ form_row(form.prixTtc, { 'label': 'Prix TTC' }) }}
 					{{ form_row(form.stock, { 'label': 'Stock' }) }}
 					{{ form_row(form.typeArt, { 'label': 'Type article' }) }}
+					{{ form_row(form.marque, { 'label': 'Marque du téléphone' }) }}
 				</div>
 				<div class="mx-3">
 					{# Add multiple specs #}
@@ -61,29 +62,18 @@
 	<div class="tab-pane fade" id="pills-comp" role="tabpanel" aria-labelledby="pills-profile-tab">
 		<div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-home-tab">
 			<div class="container my-5">
-				<div class="row d-flex justify-content-center">
+				<div class="row d-flex justify-content-center custom-form">
 					<div class="mx-3">
-						{# Choose multiple compatible articles #}
-						{#<div class="divs" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
-
-							#}{# TODO formulaire pour ajouter une compatibilité entre deux articles #}{#
-
-						</div>#}
+							{# Add multiple compatible articles #}
+							{#<div class="divs" data-prototype="{{ form_widget(form.articleTarget.vars.prototype)|e('html_attr') }}">#}
+								 {#iterate over each existing tag and render its only field: name#}
+								{#{% for articleTargets in form.articleTarget %}
+									<div>
+										{{ form_row(articleTarget.nom, { 'label': "Nom de l'article compatible" }) }}
+									</div>
+								{% endfor %}
+							</div>#}
 					</div>
-				</div>
-			</div>
-		</div>
-		{# buttons #}
-		<div class="container">
-			<div class="row d-flex justify-content-center">
-				{# save button #}
-				<div>
-					<button class="save-button" title="Enregistrer">
-						<i data-fa-symbol="save" class="fas fa-save"></i>
-						<svg class="icon-md">
-							<use xlink:href="#save"></use>
-						</svg>
-					</button>
 				</div>
 			</div>
 		</div>

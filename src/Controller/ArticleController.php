@@ -104,18 +104,17 @@ class ArticleController extends AbstractController
         string $slug1,
         int $id,
         ArticleRepository $articleRepository,
-        ArtCompRepository $artCompRepository,
         MarqueRepository $marqueRepository,
         PromoRepository $promoRepository,
         ProRepository $proRepository,
         TypeArtRepository $typeArtRepository
     ): Response {
         $today = date('Y-m-d');
-        $artComps = $artCompRepository->findBy(['artId' => $articleRepository->findOneBy(['id' => $id])]);
+        $artTargets = $articleRepository->find($id)->getArtTarget();
 
-        $artCompId = [];
-        foreach ($artComps as $artComp) {
-            $artCompId[] = $articleRepository->findOneBy(['id' => $artComp->getArtCompId()]);
+        $artTargetId = [];
+        foreach ($artTargets as $artTarget) {
+            $artTargetId[] = $articleRepository->findOneBy(['id' => $artTarget->getId()]);
         }
 
         if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
@@ -123,14 +122,10 @@ class ArticleController extends AbstractController
             $prixHt = $articleRepository->findOneBy(['id' => $id])->getPrixHt();
             $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
 
-//            $artCompPrixHT = $articleRepository
-//                ->findOneBy(['id' => $artCompRepository->findOneBy(['artId' => $artcomp->getArtId()])])->getPrixHt();
-//            $artCompHTreduit = (round(($artCompPrixHT*(1-$reduc/100)), 2));
-
             return $this->render('article/show.html.twig', [
                 'article' => $articleRepository->findOneBy(['id' => $id]),
                 'type_art' => $typeArtRepository->findOneBy(['nom' => $slug1]),
-                'art_comps' => $artCompId,
+                'art_comps' => $artTargetId,
                 'marque' => $marqueRepository->findOneBy(['nom' => $slug2]),
                 'reduc' => $reduc,
                 'prix_ht_reduit' => $prixHtReduit,
@@ -144,7 +139,7 @@ class ArticleController extends AbstractController
         return $this->render('article/show.html.twig', [
             'article' => $articleRepository->findOneBy(['id' => $id]),
             'type_art' => $typeArtRepository->findOneBy(['nom' => $slug1]),
-            'art_comps' => $artCompId,
+            'art_comps' => $artTargetId,
             'marque' => $marqueRepository->findOneBy(['nom' => $slug2]),
             'promo' => $promo,
             'prix_ttc_reduit' => $prixTtcReduit,
@@ -215,6 +210,7 @@ class ArticleController extends AbstractController
     public function searchArticles(Request $request, ArticleRepository $articleRepository)
     {
         $search = $request->query->get('search');
+
         if (!empty($search)) {
             $search = explode(' ', strip_tags(trim(str_replace('é', 'e', $search))));
             $articles = $articleRepository->findByNomLike($search);
