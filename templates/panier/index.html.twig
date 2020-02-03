@@ -54,14 +54,14 @@
 								<td>{{ item.article.nom }}</td>
 								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
-									<td class="js-price">{{ item.article.prixHT }}</td>
+									<td class="js-price">{{ item.article.prixHT }} €</td>
 									<td class="itemQtt">{{ item.quantity }}</td>
-									<td class="itemTtl">{{ item.article.prixHT * item.quantity }}</td>
+									<td class="itemTtl">{{ item.article.prixHT * item.quantity }} €</td>
 								{% else %}
-									<td>{{ item.article.prixHT }}</td>
-									<td class="js-price">{{ item.article.prixTTC }}</td>
+									<td>{{ item.article.prixHT }} €</td>
+									<td class="js-price">{{ item.article.prixTTC }} €</td>
 									<td class="itemQtt">{{ item.quantity }}</td>
-									<td class="itemTtl">{{ item.article.prixTTC * item.quantity }}</td>
+									<td class="itemTtl">{{ item.article.prixTTC * item.quantity }} €</td>
 								{% endif %}
 								<td>
 									<div class="row">
@@ -98,11 +98,11 @@
 							<tr>
 								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
-									<td colspan="3" class="text-right">Réduction (%):</td>
+									<td colspan="3" class="text-right">Réduction :</td>
 								{% else %}
-									<td colspan="4" class="text-right">Réduction (%):</td>
+									<td colspan="4" class="text-right">Réduction :</td>
 								{% endif %}
-								<td class="promo">{{ promo }}</td>
+								<td class="promo">{{ promo }} %</td>
 								<td></td>
 							</tr>
 						{% endif %}
@@ -136,9 +136,10 @@
 			{% endif %}
 		</div>
 	</div>
-{% endblock %}
 
-{% block javascripts %}
+	{% block javascripts %}
+		{{ encore_entry_script_tags('app') }}
+	{% endblock %}
 	<script>
 		$(document).ready(function(){
 			$('a.addBtn').click(function(event){
