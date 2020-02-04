@@ -12,6 +12,7 @@ use App\Repository\PromoRepository;
 use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
 use App\Service\ManagerService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class ArticleController extends AbstractController
     ): Response {
         $today = date('Y-m-d');
 
-        if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
             $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
 
             return $this->render('article/index.html.twig', [
@@ -117,10 +118,10 @@ class ArticleController extends AbstractController
             $artTargetId[] = $articleRepository->findOneBy(['id' => $artTarget->getId()]);
         }
 
-        if ($this->getUser() !== null && $this->getUser()->getRoles()[0]=="ROLE_PRO") {
+        if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
             $reduc = $proRepository->findOneBy(['id' => $this->getUser()->getPro()])->getPourcentRemise();
             $prixHt = $articleRepository->findOneBy(['id' => $id])->getPrixHt();
-            $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
+            $prixHtReduit = (round(($prixHt * (1 - $reduc / 100)), 2)); // arrondit 2 chiffres après la virgule
 
             return $this->render('article/show.html.twig', [
                 'article' => $articleRepository->findOneBy(['id' => $id]),
@@ -134,7 +135,7 @@ class ArticleController extends AbstractController
 
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
         $prixTtc = $articleRepository->findOneBy(['id' => $id])->getPrixTtc();
-        $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
+        $prixTtcReduit = (round(($prixTtc * (1 - $promo / 100)), 2)); // arrondit 2 chiffres après la virgule
 
         return $this->render('article/show.html.twig', [
             'article' => $articleRepository->findOneBy(['id' => $id]),
@@ -172,11 +173,14 @@ class ArticleController extends AbstractController
     public function delete(
         Request $request,
         Article $article,
+        EntityManagerInterface $emi,
         ManagerService $managerService
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $managerService->remFLush($article);
         }
+
+        $emi->getConnection()->exec('ALTER TABLE article AUTO_INCREMENT = 1');
 
         return $this->redirectToRoute('article_index');
     }
@@ -192,12 +196,12 @@ class ArticleController extends AbstractController
         $request = $articleRepository->findByNomLive($string);
         $articles = [];
         foreach ($request as $article) {
-            $articles [] = [
+            $articles[] = [
                 'id' => $article->getId(),
                 'type_art' => $article->getTypeArt()->getNom(),
                 'nom' => $article->getNom(),
                 'marque' => $article->getMarque()->getNom(),
-                
+
             ];
         }
 
@@ -218,7 +222,7 @@ class ArticleController extends AbstractController
                 'articles' => $articles
             ]);
         }
-        
+
         return $this->render('search.html.twig');
     }
 }

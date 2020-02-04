@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\ParticulierFormType;
 use App\Repository\ParticulierRepository;
 use App\Service\ManagerService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,13 +29,13 @@ class ParticulierController extends AbstractController
             'particuliers' => $partiRepository->findAll()
         ]);
     }
-    
+
     /**
      * @Route("/profile/{id}", name="profile")
      */
     public function profile(User $user)
     {
-    
+
         return $this->render('profile/particulier/profile/index.html.twig', [
             'controller_name' => 'ParticulierController',
             'user' => $user
@@ -138,10 +139,13 @@ class ParticulierController extends AbstractController
     public function delete(
         Request $request,
         Particulier $particulier,
+        EntityManagerInterface $emi,
         ManagerService $managerService
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$particulier->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $particulier->getId(), $request->request->get('_token'))) {
             $managerService->persFlush($particulier);
+
+            $emi->getConnection()->exec('ALTER TABLE particulier AUTO_INCREMENT = 1');
         }
 
         $this->addFlash('success', 'Suppression réussi');
