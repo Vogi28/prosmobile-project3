@@ -141,6 +141,22 @@ class PanierController extends AbstractController
     public function add(
         $id,
         $promo,
+        CartService $cartService
+    ) {
+           
+        $cartService->addItems($id, $promo);
+        
+        $this->addFlash('success', 'Ajout au panier réussi');
+        
+        return $this->redirectToRoute('panier_index');
+    }
+
+    /**
+     * @Route("/add/{id}/{promo}/js", name="addJs")
+     */
+    public function addJs(
+        $id,
+        $promo,
         CartService $cartService,
         SessionInterface $session
     ) {
@@ -151,7 +167,7 @@ class PanierController extends AbstractController
         
         $panier = $session->get('panier', []);
 
-        return $this->json($panier[1], 200);
+        return $this->json(['quantity' => $panier[$id]], 200);
     }
 
     /**

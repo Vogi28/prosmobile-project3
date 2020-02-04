@@ -50,7 +50,7 @@
 					</thead>
 					<tbody>
 						{% for item in panier %}
-							<tr>
+							<tr class="item">
 								<td>{{ item.article.nom }}</td>
 								{# professional #}
 								{% if is_granted('ROLE_PRO') %}
@@ -67,7 +67,7 @@
 									<div class="row">
 										{# add button #}
 										<div class="mx-1">
-											<a href="{{ path('panier_add', {'id': item.article.id, 'promo': promo}) }}" class="addBtn">
+											<a href="{{ path('panier_addJs', {'id': item.article.id, 'promo': promo}) }}" class="addBtn">
 												<button class="add-button-sm" title="Ajouter">
 													<i data-fa-symbol="add" class="fas fa-plus"></i>
 													<svg class="icon-sm">
@@ -136,7 +136,7 @@
 			{% endif %}
 		</div>
 	</div>
-
+  
 	{% block javascripts %}
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
@@ -145,16 +145,42 @@
 			$('a.addBtn').click(function(event){
 				event.preventDefault();
 
-				const url = this.href;
-				let price = $('.js-price').text();
-				let promo = $('.promo').text();
+	{% block javascripts %}
+		{{ encore_entry_script_tags('app') }}
+	{% endblock %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script>
+			$(document).ready(function(){
+				$('tr.item').each(function() {
+					const itemQtt = $(this).find('td.itemQtt');
+					const itemTtl = $(this).find('td.itemTtl');
+					const price = $(this).find('td.js-price').text();
+					const promo = $('td.promo').text();
+					const tdCount = $(this).find('td.itemQtt');
+					
+					
+					$(this).find('a.addBtn').click(function(event){
+						event.preventDefault();
 
-				$.get({url: url}).done(function(response) {
-					$('.itemQtt').replaceWith("<td class='itemQtt'>"+response+"</td>")
-					$('.itemTtl').replaceWith("<td class='itemTtl'>"+response * price+"</td>")
-					$('.total').replaceWith("<td class='total'>"+parseInt(response * price * (1 - promo / 100))+" €</td>")
+						const url = $(this).attr('href');
+						
+						$.get({url: url}).done(function(response) {
+							itemQtt.replaceWith("<td class='itemQtt'>"+response.quantity+"</td>")
+							itemTtl.replaceWith("<td class='itemTtl'>"+response.quantity * price+"</td>")
+							let total = 0;
+							$('td.itemTtl').each(function(){
+								total = total + parseInt($(this).text());
+							});
+							
+							//$('td.total').replaceWith("<td class='total'>"+parseInt(response.quantity * price * //(1 - promo / 100))+" €</td>")
+							$('td.total').replaceWith("<td class='total'>"+total+" €</td>")
+						});
+					});
 				});
 			});
-		});
-	</script>
+		</script>
 {% endblock %}
+
+
