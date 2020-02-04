@@ -31,6 +31,14 @@ h6 {
     text-align: center;
 }
 
+// home
+.text {
+    >h4 {
+        color : $primary-color;
+        height: 60px;
+    }
+}
+
 //navbar
 .account-box {
     border: solid 1px $border-color;
@@ -131,8 +139,8 @@ input[type="search"]::-webkit-search-cancel-button {
 // forms
 .custom-form input {
     border    : solid 1px $border-color;
-    height    : 35px;
-    padding   : 20px;
+    height    : 40px;
+    padding   : 0 10px;
     transition: 1s ease;
     width     : 300px;
 
@@ -148,14 +156,16 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .custom-form select {
-    border : solid $border-color;
-    padding: 20px;
+    border : solid 1px $border-color;
+    height : 40px;
+    padding: 0 10px;
+    width  : 300px;
 }
 
 .custom-form textarea {
-    border : solid $border-color;
+    border : solid 1px $border-color;
     height : 300px;
-    padding: 20px;
+    padding: 10px;
     width  : 300px;
 }
 
@@ -482,7 +492,7 @@ button:focus {
 
 //brand
 .brand-message {
-    background-color: $info-color;
+    background-color: $primary-color;
     border          : none;
     border-radius   : 0;
     color           : #FFFFFF;
