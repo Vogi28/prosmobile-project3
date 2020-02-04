@@ -44,8 +44,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	{# discount message #}
 	<script>
-		{% if promo is defined and not null %}
-			{% for promo in promos %}
+		{% for promo in promos %}
+			{% if promo is defined and not null %}
 createToast('PROSMobile', 'Message', '{{ promo.nom }}', '{{ promo.pourcentage }}');
 function createToast(title, smallText, firstWord, secondWord) {
 let id = new Date().getTime();
@@ -68,9 +68,9 @@ $(`#${id}`).toast('show');
 $('body').on('click', '.close', function () {
 $(this).closest('.toast').toast('show')
 })
-			{% endfor %}
-		{% else %}
-		{# #}
-		{% endif %}
+			{% else %}
+				{# #}
+			{% endif %}
+		{% endfor %}
 	</script>
 {% endblock %}
