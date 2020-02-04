@@ -51,7 +51,7 @@ class CommandeController extends AbstractController
     {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $cdePar = new CommandePar();
-            
+
             $form = $this->createForm(CommandeParType::class, $cdePar);
             $form->handleRequest($request);
 
@@ -65,10 +65,10 @@ class CommandeController extends AbstractController
 
             $form = $this->createForm(CommandeProType::class, $cdePro);
             $form->handleRequest($request);
-        
+
             if ($form->isSubmitted() && $form->isValid()) {
                 $managerService->persFLush($cdePro);
-                
+
                 return $this->redirectToRoute('commande_index', ['id' => $cdePro->getPro()->getId()]);
             }
         }
@@ -89,7 +89,6 @@ class CommandeController extends AbstractController
     /**
      * @Route("/detail/{id}", name="show", methods={"GET"})
      */
-    
     public function details(
         $id,
         CommandeParRepository $cdePar,
@@ -102,12 +101,12 @@ class CommandeController extends AbstractController
             $articles = $dtlCdePartRepository->findByCommandePar($cdePar->getId());
 
             $total = 0;
-            
+            dd($articles);
             foreach ($articles as $key => $article) {
                 $key;
                 $total += $article->getTotal();
             }
-            
+
             return $this->render('commande/commande_par/show.html.twig', [
             'commande_par' => $cdePar,
             'details' => $articles,
@@ -151,7 +150,7 @@ class CommandeController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
-                
+
                 $this->addFlash('success', 'Modification réussi');
 
                 return $this->redirectToRoute('commande_index', ['id' => $cdePar->findOneById($id)
@@ -244,7 +243,7 @@ class CommandeController extends AbstractController
     ): Response {
         if ($this->getUser()->getRoles()[0] === 'ROLE_PARTICULIER') {
             $dtlCdePart = $dtlCdePartRepository->findOneById($id);
-                    
+
             if ($this->isCsrfTokenValid('delete'.$dtlCdePart->getId(), $request->request->get('_token'))) {
                 $managerService->remFlush($dtlCdePart);
 
@@ -266,20 +265,20 @@ class CommandeController extends AbstractController
             ]);
         } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
             $dtlCdePro = $dtlCdeProRepository->findOneById($id);
-            
+
             if ($this->isCsrfTokenValid('delete'.$dtlCdePro->getId(), $request->request->get('_token'))) {
                 $managerService->remFlush($dtlCdePro);
 
                 $id = $dtlCdePro->getCommandePro()->getId();
                 $cdePro = $cdePro->findOneById($id);
-                
+
                 if ($cdePro->getDetailCdePro()->isEmpty() == true) {
                     $managerService->remFlush($cdePro);
-                    
+
                     $emi->getConnection()->exec('ALTER TABLE commande_pro AUTO_INCREMENT = 1');
                 }
             }
-            
+
             $this->addFlash('success', 'Suppression réussi');
 
             $emi->getConnection()->exec('ALTER TABLE detail_cde_pro AUTO_INCREMENT = 1');
