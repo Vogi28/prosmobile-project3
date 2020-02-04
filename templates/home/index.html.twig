@@ -5,6 +5,31 @@
 {% block body %}
 	{# discount message #}
 	<div id="discount-message-toast"></div>
+
+	<div>
+		<h1>Vente et réparation de smartphones et tablettes</h1>
+
+		<h2>Nous réparons tous les smartphones !</h2>
+
+		<p>Nos réparations sont garanties 6 mois.</p>
+		<p>Prosmobile répare les tablettes : Samsung, Ipad, etc...
+		Nous proposons des services de réparation de vitre, écran LCD cassés, remplacement de batterie, de boutons et même la désoxydation.</p>
+
+		<h2>Rapide & Professionel</h2>
+
+		<p>Votre appareil est entre les meilleures mains : Rapidité, expertise et professionnalisme sont nos principales priorités.</p>
+		<p>Prosmobile, professionnel reconnu sur Strasbourg et dans toute la région, pour toutes les réparations de téléphones portables,
+		mobiles, smartphones : Iphone, Samsung, etc...</p>
+		<p>Un déplacement à votre domicile est possible, contactez-nous!</p>
+
+		<h2>Commandes, réservations, rendez-vous</h2>
+
+		<p>Grâce à PROSmobile, vous pouvez trouver tout ce dont vous avez besoin.</p>
+		<p>Nous vendons des appareils d'occasion reconditionnés par nos soins à des tarifs attractifs.</p>
+		<p>PROSmobile, c'est aussi des tarifs avantageux pour les professionnels, n'hésitez pas à nous contacter pour en savoir plus !</p>
+
+	</div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -18,8 +43,8 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	{# discount message #}
 	<script>
-		{% for promo in promos %}
-			{% if promo is defined and not null %}
+		{% if promo is defined and not null %}
+			{% for promo in promos %}
 createToast('PROSMobile', 'Message', '{{ promo.nom }}', '{{ promo.pourcentage }}');
 function createToast(title, smallText, firstWord, secondWord) {
 let id = new Date().getTime();
@@ -42,9 +67,9 @@ $(`#${id}`).toast('show');
 $('body').on('click', '.close', function () {
 $(this).closest('.toast').toast('show')
 })
-			{% else %}
-				{# #}
-			{% endif %}
-		{% endfor %}
+			{% endfor %}
+		{% else %}
+		{# #}
+		{% endif %}
 	</script>
 {% endblock %}
