@@ -45,7 +45,6 @@
 	{# discount message #}
 	<script>
 		{% if promo is defined and not null %}
-			{% for promo in promos %}
 createToast('PROSMobile', 'Message', '{{ promo.nom }}', '{{ promo.pourcentage }}');
 function createToast(title, smallText, firstWord, secondWord) {
 let id = new Date().getTime();
@@ -68,7 +67,6 @@ $(`#${id}`).toast('show');
 $('body').on('click', '.close', function () {
 $(this).closest('.toast').toast('show')
 })
-			{% endfor %}
 		{% else %}
 		{# #}
 		{% endif %}
