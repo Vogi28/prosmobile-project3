@@ -12,22 +12,22 @@
 <div class="tab-content" id="pills-tabContent">
 	{# Premier onglet : créer/éditer la fiche article #}
 	<div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-home-tab">
-		<div class="container my-5">
-			<div class="row d-flex justify-content-center custom-form">
-				<div class="mx-3">
+		<div class="container mt-5">
+			<div class="d-flex justify-content-center custom-form">
+				<div class="col">
 					{{ form_row(form.nom, { 'label': 'Nom' }) }}
 					{{ form_row(form.photo, { 'label': 'Photo' }) }}
 					{{ form_row(form.reference, { 'label': 'Référence' }) }}
 					{{ form_row(form.description, { 'label': 'Description' }) }}
 				</div>
-				<div class="mx-3">
+				<div class="col">
 					{{ form_row(form.prixHt, { 'label': 'Prix HT' }) }}
 					{{ form_row(form.prixTtc, { 'label': 'Prix TTC' }) }}
 					{{ form_row(form.stock, { 'label': 'Stock' }) }}
 					{{ form_row(form.typeArt, { 'label': 'Type article' }) }}
 					{{ form_row(form.marque, { 'label': 'Marque du téléphone' }) }}
 				</div>
-				<div class="mx-3">
+				<div class="col">
 					{# Add multiple specs #}
 					<div class="divs" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
 						{# iterate over each existing tag and render its only field: name #}
@@ -45,7 +45,7 @@
 		</div>
 		{# buttons #}
 		<div class="container">
-			<div class="row d-flex justify-content-center">
+			<div class="d-flex justify-content-center mt-5 mb-3">
 				{# save button #}
 				<div>
 					<button class="save-button" title="Enregistrer">
@@ -61,9 +61,9 @@
 	{# Second onglet : articles complémentaires #}
 	<div class="tab-pane fade" id="pills-comp" role="tabpanel" aria-labelledby="pills-profile-tab">
 		<div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-home-tab">
-			<div class="container my-5">
-				<div class="row d-flex justify-content-center custom-form">
-					<div class="mx-3">
+			<div class="container mt-5">
+				<div class="d-flex justify-content-center custom-form">
+					<div class="col">
 							{# Add multiple compatible articles #}
 							{#<div class="divs" data-prototype="{{ form_widget(form.articleTarget.vars.prototype)|e('html_attr') }}">#}
 								 {#iterate over each existing tag and render its only field: name#}

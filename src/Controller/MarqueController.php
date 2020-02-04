@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Marque;
 use App\Form\MarqueType;
 use App\Repository\MarqueRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,12 +86,14 @@ class MarqueController extends AbstractController
     /**
      * @Route("/{id}", name="marque_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Marque $marque): Response
+    public function delete(Request $request, Marque $marque, EntityManagerInterface $emi): Response
     {
         if ($this->isCsrfTokenValid('delete' . $marque->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($marque);
             $entityManager->flush();
+
+            $emi->getConnection()->exec('ALTER TABLE marque AUTO_INCREMENT = 1');
 
             $this->addFlash('success', 'La marque à été supprimée');
         }

@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\ProFormType;
 use App\Repository\ProRepository;
 use App\Service\ManagerService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ProController extends AbstractController
 {
-/**
+    /**
      * @Route("/", name="index", methods={"GET"})
      */
     public function index(ProRepository $proRepository): Response
@@ -29,7 +30,7 @@ class ProController extends AbstractController
         ]);
     }
 
-       /**
+    /**
      * @Route("/profile/{id}", name="profile")
      */
     public function profile(User $user)
@@ -58,7 +59,7 @@ class ProController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pro = $form->getData();
             $managerService->persFLush($pro);
-            
+
 
             $this->addFlash('success', 'Enregistrement réussi');
 
@@ -137,10 +138,13 @@ class ProController extends AbstractController
     public function delete(
         Request $request,
         Pro $pro,
+        EntityManagerInterface $emi,
         ManagerService $managerService
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$pro->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $pro->getId(), $request->request->get('_token'))) {
             $managerService->remFLush($pro);
+
+            $emi->getConnection()->exec('ALTER TABLE pro AUTO_INCREMENT = 1');
 
             $this->addFlash('success', 'Suppression réussi');
         }
