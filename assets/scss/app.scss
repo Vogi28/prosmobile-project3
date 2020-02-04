@@ -33,12 +33,13 @@ h6 {
 
 //navbar
 .account-box {
-    width: 250px;
+    border: solid 1px $border-color;
+    width : 283px;
 }
 
 .block {
     >li {
-        margin-left: 30px;
+        margin-left: 20px;
     }
 }
 
@@ -50,7 +51,7 @@ h6 {
 
 .link {
     >li {
-        margin: 0 15px;
+        margin: 0 10px;
     }
 }
 
@@ -84,6 +85,8 @@ h6 {
 }
 
 .product-box {
+    border: solid 1px $border-color;
+
     >a {
 
         &:hover {
@@ -99,16 +102,12 @@ h6 {
 
 .search-input {
     background-color: transparent;
-    border          : solid 1px #FFFFFF;
+    border          : solid 1px transparent;
     transition      : 1s ease;
-    width           : 120px !important;
-
-    &:hover {
-        border-color: $primary-color;
-        transition  : 1s ease;
-    }
+    width           : 0 !important;
 
     &:focus {
+        border    : solid 1px $border-color !important;
         transition: 1s ease;
         width     : 400px !important;
     }
@@ -131,7 +130,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 // forms
 .custom-form input {
-    border    : solid 1px #E0E0E0;
+    border    : solid 1px $border-color;
     height    : 35px;
     padding   : 20px;
     transition: 1s ease;
@@ -149,12 +148,12 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .custom-form select {
-    border : solid #E0E0E0;
+    border : solid $border-color;
     padding: 20px;
 }
 
 .custom-form textarea {
-    border : solid #E0E0E0;
+    border : solid $border-color;
     height : 300px;
     padding: 20px;
     width  : 300px;
@@ -178,7 +177,7 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance        : none;
     background-color  : #FFFFFF;
-    border            : solid 1px #E0E0E0;
+    border            : solid 1px $border-color;
     height            : 15px;
     margin-left       : 15px;
     transition        : 1s ease;
@@ -501,7 +500,7 @@ button:focus {
     }
 
     >tfoot {
-        border-top: solid 1px #E0E0E0;
+        border-top: solid 1px $border-color;
     }
 }
 
@@ -511,8 +510,8 @@ button:focus {
     border-radius: 0;
     box-shadow   : none;
     position     : fixed;
-    top          : 130px;
-    right        : 15px;
+    top          : 80px;
+    right        : 16px;
     width        : 350px;
 
 }
