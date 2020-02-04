@@ -76,16 +76,34 @@ class AdminController extends AbstractController
 
         if ($role === 'particulier') {
             $cdePar = $cdePar->findOneById($id);
+
+            $articles = $dtlCdePartRepository->findByCommandePar($cdePar->getId());
+            $total = 0;
+
+            foreach ($articles as $key => $article) {
+                $key;
+                $total += $article->getTotal();
+            }
             return $this->render('commande/commande_par/show.html.twig', [
-            'commande_par' => $cdePar,
-            'details' => $dtlCdePartRepository->findByCommandePar($cdePar->getId())
+                'commande_par' => $cdePar,
+                'details' => $articles,
+                'total' => $total
             ]);
         } elseif ($role === 'pro') {
             $cdePro = $cdePro->findOneById($id);
-            return $this->render('commande/commande_pro/show.html.twig', [
-            'commande_pro' => $cdePro,
-            'details' => $dtlCdeProRepository->findByCommandePro($cdePro->getId())
 
+            $articles = $dtlCdeProRepository->findByCommandePro($cdePro->getId());
+            $total = 0;
+
+            foreach ($articles as $key => $article) {
+                $key;
+                $total += $article->getTotal();
+            }
+
+            return $this->render('commande/commande_pro/show.html.twig', [
+                'commande_pro' => $cdePro,
+                'details' => $articles,
+                'total' => $total
             ]);
         }
     }
