@@ -99,6 +99,13 @@
 								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
 							</a>
 						</div>
+					{% else %}
+						<div class="alert alert-info alert-dismissible fade show brand-message" role="alert">
+							Pas d'article enregistré, le site est encore en construction.
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true" class="message-close-button">&times;</span>
+							</button>
+						</div>
 					{% endif %}
 				</div>
 			{% endfor %}
