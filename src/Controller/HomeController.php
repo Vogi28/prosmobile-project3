@@ -14,8 +14,10 @@ class HomeController extends AbstractController
      */
     public function homeSlider(PromoRepository $promoRepository): Response
     {
+        $today = date('Y-m-d');
+
         return $this->render('home/index.html.twig', [
-            'promos' => $promoRepository->findAll(),
+            'promo' => $promoRepository->findOneByDate($today),
         ]);
     }
 }

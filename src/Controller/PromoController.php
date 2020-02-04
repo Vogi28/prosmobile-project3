@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Promo;
 use App\Form\PromoType;
 use App\Repository\PromoRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,12 +86,14 @@ class PromoController extends AbstractController
     /**
      * @Route("/{id}", name="promo_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Promo $promo): Response
+    public function delete(Request $request, Promo $promo, EntityManagerInterface $emi): Response
     {
         if ($this->isCsrfTokenValid('delete' . $promo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($promo);
             $entityManager->flush();
+
+            $emi->getConnection()->exec('ALTER TABLE promo AUTO_INCREMENT = 1');
 
             $this->addFlash('success', 'La promotion à été supprimée');
         }

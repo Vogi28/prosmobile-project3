@@ -9,6 +9,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\PromoRepository;
 use App\Repository\ProRepository;
 use App\Repository\TypeArtRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,7 +68,7 @@ class TypeArtController extends AbstractController
         if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
             $reduc = $proRepository->findOneById($this->getUser()->getPro())->getPourcentRemise();
             $prixHt = $articleRepository->findOneById(['id' => $article->getId()])->getPrixHt();
-            $prixHtReduit = (round(($prixHt*(1-$reduc/100)), 2)); // arrondit 2 chiffres après la virgule
+            $prixHtReduit = (round(($prixHt * (1 - $reduc / 100)), 2)); // arrondit 2 chiffres après la virgule
 
             return $this->render('type_art/show.html.twig', [
                 'type_art' => $typeArt,
@@ -78,7 +79,7 @@ class TypeArtController extends AbstractController
         }
         $promo = $promoRepository->findOneByDate($today)->getPourcentage();
         $prixTtc = $articleRepository->findOneById(['id' => $article->getId()])->getPrixTtc();
-        $prixTtcReduit = (round(($prixTtc*(1-$promo/100)), 2)); // arrondit 2 chiffres après la virgule
+        $prixTtcReduit = (round(($prixTtc * (1 - $promo / 100)), 2)); // arrondit 2 chiffres après la virgule
 
         return $this->render('type_art/show.html.twig', [
             'type_art' => $typeArt,
@@ -111,12 +112,14 @@ class TypeArtController extends AbstractController
     /**
      * @Route("/{id}", name="type_art_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, TypeArt $typeArt): Response
+    public function delete(Request $request, TypeArt $typeArt, EntityManagerInterface $emi): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$typeArt->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $typeArt->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($typeArt);
             $entityManager->flush();
+
+            $emi->getConnection()->exec('ALTER TABLE type_art AUTO_INCREMENT = 1');
         }
 
         return $this->redirectToRoute('type_art_index');

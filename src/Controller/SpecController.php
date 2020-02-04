@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Spec;
 use App\Form\SpecType;
 use App\Repository\SpecRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,12 +82,14 @@ class SpecController extends AbstractController
     /**
      * @Route("/{id}", name="spec_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Spec $spec): Response
+    public function delete(Request $request, Spec $spec, EntityManagerInterface $emi): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$spec->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $spec->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($spec);
             $entityManager->flush();
+
+            $emi->getConnection()->exec('ALTER TABLE spec AUTO_INCREMENT = 1');
         }
 
         return $this->redirectToRoute('spec_index');

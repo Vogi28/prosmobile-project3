@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
 	{# brand #}
 	<a class="navbar-brand logo" href="{{ path('home') }}">
 		PROSMOBILE
@@ -6,18 +6,52 @@
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="collapse navbar-collapse flex-column" id="navbarSupportedContent">
-		<ul class="navbar-nav flex-row ml-auto block">
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		{# links #}
+		<ul class="navbar-nav link">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" dropdown-toggle href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Articles
+				</a>
+				<div class="dropdown-menu rounded-0 mt-2 product-box" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="{{ path('article_sell_phones')}}">
+						Téléphones
+					</a>
+					<a class="dropdown-item" href="{{ path('article_sell_components')}}">
+						Composants
+					</a>
+					<a class="dropdown-item" href="{{ path('article_sell_accessories')}}">
+						Accessoires
+					</a>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('article_sell_repairs')}}">
+					Réparation
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					Magasin
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					Contact
+				</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto block">
 			{# search bar #}
 			<li class="nav-item">
 				<form class="form-inline" action="{{ path('article_search') }}">
 					<input class="form-control search-input mr-4" name="search" type="search" id="search" placeholder="Rechercher" aria-label="Search">
-					<button class="search-button" type="submit" title="Rechercher">
+					<a href="#search" class="search-button" title="Rechercher">
 						<i data-fa-symbol="search-icon" class="fas fa-search"></i>
 						<svg class="icon-md">
 							<use xlink:href="#search-icon"></use>
 						</svg>
-					</button>
+					</a>
 				</form>
 				<div class="result-search">
 					<div id="result-search"></div>
@@ -65,7 +99,7 @@
 							Identifiez-vous
 						</span>
 					{% endif %}
-					<div class="dropdown-menu rounded-0 mt-3 account-box" aria-labelledby="navbarDropdown">
+					<div class="dropdown-menu rounded-0 mt-2 account-box" aria-labelledby="navbarDropdown">
 						{% if app.user %}
 							{# individual #}
 							{% if is_granted('ROLE_PARTICULIER')%}
@@ -223,40 +257,6 @@
 						</span>
 					</div>
 				</div>
-			</li>
-		</ul>
-		{# links #}
-		<ul class="navbar-nav mx-auto link">
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Articles
-				</a>
-				<div class="dropdown-menu rounded-0 product-box" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="{{ path('article_sell_phones')}}">
-						Téléphones
-					</a>
-					<a class="dropdown-item" href="{{ path('article_sell_components')}}">
-						Composants
-					</a>
-					<a class="dropdown-item" href="{{ path('article_sell_accessories')}}">
-						Accessoires
-					</a>
-				</div>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{{ path('article_sell_repairs')}}">
-					Réparation
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">
-					Magasin
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">
-					Contact
-				</a>
 			</li>
 		</ul>
 	</div>

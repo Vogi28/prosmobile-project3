@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Marque;
 use App\Entity\TypeArt;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -37,11 +38,20 @@ class ArticleType extends AbstractType
                 'class' => TypeArt::class,
                 'choice_label' => 'nom'
             ])
+            ->add('marque', EntityType::class, [
+                'class' => Marque::class,
+                'choice_label' => 'nom'
+            ])
             ->add('spec', CollectionType::class, [
                 'entry_type' => SpecType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true
-            ]);
+            ])
+            /*->add('articleTarget', CollectionType::class, [
+                'entry_type' => ArticleType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true
+            ])*/;
     }
 
     public function configureOptions(OptionsResolver $resolver)
