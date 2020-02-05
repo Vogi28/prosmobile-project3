@@ -97,15 +97,20 @@
 			{% endfor %}
 		</script>
     {# scroll to top #}
-    <script> 
-        function scrollToTop() { 
-            window.scrollTo(0, 0); 
-        } 
-	</script>
-	<script>
-	$(document).ready(function() {
-    $(".dropdown-toggle").dropdown();
-});
-</script>
+        <script> 
+            function scrollToTop() { 
+                window.scrollTo(0, 0); 
+            } 
+	    </script>
+	    <script>
+	    $(document).ready(function() {
+        $(".dropdown-toggle").dropdown();
+        });
+        </script>
+        <script>
+        $('.search-button').click(function(){
+        $(this).parent().toggleClass('open');
+        });
+        </script>
 	</body>
 </html>

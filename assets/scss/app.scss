@@ -93,7 +93,6 @@ h6 {
     border: solid 1px $border-color;
 
     >a {
-
         &:hover {
             background-color: $primary-color;
             color           : #FFFFFF;
@@ -520,7 +519,6 @@ button:focus {
     top          : 80px;
     right        : 16px;
     width        : 350px;
-
 }
 
 .toast-header {
@@ -541,4 +539,117 @@ button:focus {
     position: fixed;
     bottom  : 50px;
     right   : 50px;
+}
+
+.search {
+    background-color: $search-bg-color;
+    height          : 40px;
+    overflow        : hidden;
+    position        : relative;
+    transition      : $transition;
+    width           : 100px;
+
+    &:before {
+        background-color: $icon-color;
+        content         : '';
+        display         : block;
+        height          : 40px;
+        position        : relative;
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    &.open {
+        width: 420px;
+
+        &:before {
+            height  : 40px;
+            position: absolute;
+        }
+    }
+}
+
+.search-box {
+    background: transparent;
+    border    : none;
+    box-shadow: none;
+    height    : 100%;
+    padding   : 20px 100px 20px 45px;
+    width     : 100%;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.search-button {
+    cursor  : pointer;
+    display : block;
+    height  : 40px;
+    position: absolute;
+    right   : 0;
+    top     : 0;
+    width   : 40px;
+}
+
+.search-icon {
+    width        : 20px;
+    height       : 20px;
+    border-radius: 10px;
+    border       : solid 4px $icon-color;
+    display      : block;
+    position     : absolute;
+    top          : 7px;
+    transition   : $transition;
+    right        : 12px;
+
+    &:before {
+        content         : '';
+        width           : 4px;
+        height          : 10px;
+        position        : absolute;
+        right           : -6px;
+        top             : 11px;
+        display         : block;
+        background-color: $icon-color;
+        transform       : rotate(-45deg);
+        transition      : $transition;
+    }
+
+    &:after {
+        background-color: $icon-color;
+        content         : '';
+        display         : block;
+        height          : 10px;
+        position        : absolute;
+        right           : -6px;
+        top             : 11px;
+        transform       : rotate(-45deg);
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    .open & {
+        border-radius: 10px;
+        margin       : 0;
+        height       : 20px;
+        position     : absolute;
+        top          : 7px;
+        right        : 12px;
+        width        : 20px;
+
+        &:before {
+            transform: rotate(45deg);
+            right    : 4px;
+            top      : -3px;
+            height   : 18px;
+        }
+
+        &:after {
+            transform: rotate(-230deg);
+            right    : 4px;
+            top      : -3px;
+            height   : 18px;
+        }
+    }
 }
