@@ -177,7 +177,7 @@ class PanierController extends AbstractController
     {
         $cartService->delItems($id);
 
-        $this->addFlash('success', 'Suppression réussi');
+        $this->addFlash('success', 'Suppression réussie');
 
         return $this->redirectToRoute('panier_index');
     }
