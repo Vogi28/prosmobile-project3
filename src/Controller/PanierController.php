@@ -143,7 +143,7 @@ class PanierController extends AbstractController
         $promo,
         CartService $cartService
     ) {
-           
+        
         $cartService->addItems($id, $promo);
         
         $this->addFlash('success', 'Ajout au panier réussi');

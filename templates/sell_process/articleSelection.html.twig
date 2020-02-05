@@ -174,11 +174,11 @@
 								<div class="mx-2">
 									{# professional #}
 									{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
-										<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}">
+										<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}" class="addItem">
 										{% elseif promo is defined and not null %}
-											<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}">
+											<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}" class="addItem">
 											{% else %}
-												<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}">
+												<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}" class="addItem">
 												{% endif %}
 												<button class="add-basket-button" title="Ajouter au panier">
 													<i data-fa-symbol="basket" class="fas fa-shopping-cart text-success"></i>
@@ -213,4 +213,26 @@
 						</div>
 					{% endfor %}
 				</div>
+
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function(){
+			$('a.addItem').each(function(){
+				$(this).click(function(event){
+					event.preventDefault();
+
+					let goToBasket = confirm('Aller au panier ?');
+
+					if(goToBasket === true){
+						window.location.replace($(this).attr('href'));
+					}
+					else{
+						$.get({url:$(this).attr('href')+'/js'});
+					}
+
+				});
+			});
+		});
+	</script>
 			{% endblock %}
