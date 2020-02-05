@@ -45,14 +45,12 @@
 			{# search bar #}
 			<li class="nav-item">
 				<form class="form-inline search" action="{{ path('article_search') }}">
-					<input class="form-control search-box mr-4" name="search" type="search" id="search" placeholder="Rechercher" aria-label="Search">
+					<input class="form-control search-box" type="search" placeholder="Rechercher" aria-label="Search" id="search" name="search">
 					<span class="search-button">
 						<span class="search-icon"></span>
 					</span>
 				</form>
-				<div class="result-search">
-					<div id="result-search"></div>
-				</div>
+				<div class="search-result-box" id="search-result"></div>
 			</li>
 			{# prosmobile facebook #}
 			<li class="nav-item">

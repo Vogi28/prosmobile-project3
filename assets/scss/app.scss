@@ -1,11 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "vars";
 
-//everywhere
-.message-close-button {
-    color: #FFFFFF;
-}
-
 a {
     color: $link-color;
 
@@ -16,7 +11,7 @@ a {
 }
 
 del {
-    color: $tertiary-color;
+    color: $quaternary-color;
 }
 
 h1 {
@@ -38,7 +33,7 @@ h6 {
 
 //navbar
 .account-box {
-    border: solid 1px $border-color;
+    border: solid 1px $tertiary-color;
     width : 283px;
 }
 
@@ -66,7 +61,7 @@ h6 {
 }
 
 .login-message {
-    color    : $tertiary-color;
+    color    : $quaternary-color;
     font-size: .7em;
 }
 
@@ -90,7 +85,7 @@ h6 {
 }
 
 .product-box {
-    border: solid 1px $border-color;
+    border: solid 1px $tertiary-color;
 
     >a {
         &:hover {
@@ -100,21 +95,117 @@ h6 {
     }
 }
 
-.result-search {
-    position: fixed;
+.search {
+    background-color: transparent;
+    height          : 40px;
+    overflow        : hidden;
+    position        : relative;
+    transition      : $transition;
+    width           : 64px;
+
+    &:before {
+        background-color: $primary-color;
+        content         : '';
+        display         : block;
+        height          : 40px;
+        position        : relative;
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    &.open {
+        width: 250px;
+
+        &:before {
+            height  : 40px;
+            position: absolute;
+        }
+    }
 }
 
-.search-input {
-    background-color: transparent;
-    border          : solid 1px transparent;
-    transition      : 1s ease;
-    width           : 0 !important;
+.search-box {
+    background  : transparent;
+    border      : none;
+    padding-left: 20px;
 
     &:focus {
-        border    : solid 1px $border-color !important;
-        transition: 1s ease;
-        width     : 400px !important;
+        outline: none;
     }
+}
+
+.search-button {
+    cursor  : pointer;
+    display : block;
+    height  : 40px;
+    position: absolute;
+    right   : 0;
+    top     : 0;
+    width   : 40px;
+}
+
+.search-icon {
+    border       : solid 4px $primary-color;
+    border-radius: 10px;
+    display      : block;
+    height       : 20px;
+    position     : absolute;
+    right        : 12px;
+    top          : 7px;
+    transition   : $transition;
+    width        : 20px;
+
+    &:before {
+        background-color: $primary-color;
+        content         : '';
+        display         : block;
+        height          : 10px;
+        position        : absolute;
+        right           : -6px;
+        top             : 11px;
+        transform       : rotate(-45deg);
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    &:after {
+        background-color: $primary-color;
+        content         : '';
+        display         : block;
+        height          : 10px;
+        position        : absolute;
+        right           : -6px;
+        top             : 11px;
+        transform       : rotate(-45deg);
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    .open & {
+        &:before {
+            height   : 18px;
+            right    : 4px;
+            top      : -3px;
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            height   : 18px;
+            right    : 4px;
+            top      : -3px;
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+.search-result {
+    margin: 10px 0;
+}
+
+.search-result-box {
+    background-color: #FFFFFF;
+    margin          : 10px 0;
+    padding         : 0 20px;
+    position        : fixed;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -122,6 +213,22 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 //dashboard
+.account-tab,
+.brand-tab,
+.discount-tab,
+.order-tab,
+.product-tab {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 50px;
+    justify-content : center;
+    padding         : 0;
+    width           : 50px;
+}
+
 .dashboard-card {
     border: none;
     height: 200px;
@@ -132,9 +239,21 @@ input[type="search"]::-webkit-search-cancel-button {
     background-color: #FFFFFF !important;
 }
 
+.user-tab {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 50px;
+    justify-content : center;
+    padding         : 0;
+    width           : 50px;
+}
+
 // forms
 .custom-form input {
-    border    : solid 1px $border-color;
+    border    : solid 1px $tertiary-color;
     height    : 40px;
     padding   : 0 10px;
     transition: 1s ease;
@@ -152,14 +271,14 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .custom-form select {
-    border : solid 1px $border-color;
+    border : solid 1px $tertiary-color;
     height : 40px;
     padding: 0 10px;
     width  : 300px;
 }
 
 .custom-form textarea {
-    border : solid 1px $border-color;
+    border : solid 1px $tertiary-color;
     height : 300px;
     padding: 10px;
     width  : 300px;
@@ -183,7 +302,7 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance        : none;
     background-color  : #FFFFFF;
-    border            : solid 1px $border-color;
+    border            : solid 1px $tertiary-color;
     height            : 15px;
     margin-left       : 15px;
     transition        : 1s ease;
@@ -432,43 +551,14 @@ button:focus {
     width           : 40px;
 }
 
-//tabs
-.user-tab {
-    align-items     : center;
-    background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 50px;
-    justify-content : center;
-    padding         : 0;
-    width           : 50px;
-}
-
-.account-tab,
-.brand-tab,
-.discount-tab,
-.order-tab,
-.product-tab {
-    align-items     : center;
-    background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 50px;
-    justify-content : center;
-    padding         : 0;
-    width           : 50px;
-}
-
 //product
 .admin-discount {
-    background-color: $admin-color;
+    background-color: $secondary-color;
     padding         : 5px;
 }
 
 .discount {
-    background-color: $info-color;
+    background-color: $secondary-color;
 }
 
 .img-product {
@@ -476,13 +566,13 @@ button:focus {
 }
 
 .inventory {
-    background-color: $admin-color;
+    background-color: $secondary-color;
     border-radius   : 0;
     padding         : 5px;
 }
 
 .price {
-    color    : $tertiary-color;
+    color    : $quaternary-color;
     font-size: 1.7em;
 }
 
@@ -506,7 +596,7 @@ button:focus {
     }
 
     >tfoot {
-        border-top: solid 1px $border-color;
+        border-top: solid 1px $tertiary-color;
     }
 }
 
@@ -539,117 +629,4 @@ button:focus {
     position: fixed;
     bottom  : 50px;
     right   : 50px;
-}
-
-.search {
-    background-color: $search-bg-color;
-    height          : 40px;
-    overflow        : hidden;
-    position        : relative;
-    transition      : $transition;
-    width           : 100px;
-
-    &:before {
-        background-color: $icon-color;
-        content         : '';
-        display         : block;
-        height          : 40px;
-        position        : relative;
-        transition      : $transition;
-        width           : 4px;
-    }
-
-    &.open {
-        width: 420px;
-
-        &:before {
-            height  : 40px;
-            position: absolute;
-        }
-    }
-}
-
-.search-box {
-    background: transparent;
-    border    : none;
-    box-shadow: none;
-    height    : 100%;
-    padding   : 20px 100px 20px 45px;
-    width     : 100%;
-
-    &:focus {
-        outline: none;
-    }
-}
-
-.search-button {
-    cursor  : pointer;
-    display : block;
-    height  : 40px;
-    position: absolute;
-    right   : 0;
-    top     : 0;
-    width   : 40px;
-}
-
-.search-icon {
-    width        : 20px;
-    height       : 20px;
-    border-radius: 10px;
-    border       : solid 4px $icon-color;
-    display      : block;
-    position     : absolute;
-    top          : 7px;
-    transition   : $transition;
-    right        : 12px;
-
-    &:before {
-        content         : '';
-        width           : 4px;
-        height          : 10px;
-        position        : absolute;
-        right           : -6px;
-        top             : 11px;
-        display         : block;
-        background-color: $icon-color;
-        transform       : rotate(-45deg);
-        transition      : $transition;
-    }
-
-    &:after {
-        background-color: $icon-color;
-        content         : '';
-        display         : block;
-        height          : 10px;
-        position        : absolute;
-        right           : -6px;
-        top             : 11px;
-        transform       : rotate(-45deg);
-        transition      : $transition;
-        width           : 4px;
-    }
-
-    .open & {
-        border-radius: 10px;
-        margin       : 0;
-        height       : 20px;
-        position     : absolute;
-        top          : 7px;
-        right        : 12px;
-        width        : 20px;
-
-        &:before {
-            transform: rotate(45deg);
-            right    : 4px;
-            top      : -3px;
-            height   : 18px;
-        }
-
-        &:after {
-            transform: rotate(-230deg);
-            right    : 4px;
-            top      : -3px;
-            height   : 18px;
-        }
-    }
 }

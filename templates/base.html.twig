@@ -41,7 +41,7 @@
 		<script>
 			$(document).ready(function () {
                 $('#search').keyup(function () {
-                    $('#result-search').html('');
+                    $('#search-result').html('');
                     let search = $(this).val();
 
                     if (search.length > 2) {
@@ -54,14 +54,14 @@
                             response.forEach(element => {
 
                             let route = "/article/recherche/" + element.nom;
-                            let content = `<div style="margin-top:20px"><a href="` + route + `">` + 
+                            let content = `<div class="search-result"><a href="` + route + `">` + 
                             element.nom + `</a></div>`;
                             
-                            $('#result-search').append(content);
+                            $('#search-result').append(content);
                             });
                             } 
                             else {
-                            $('#result-search').innerHTML = "<div style='font-size:20px; text-align:center; margin-top: 20px'>No product found</div>"
+                            $('#search-result').innerHTML = "<div class='search-result-box'>No product found</div>"
                             }
                         });
                     }
