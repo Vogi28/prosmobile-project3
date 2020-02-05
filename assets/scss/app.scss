@@ -1,6 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
 @import "vars";
-
 //everywhere
 .message-close-button {
     color: #FFFFFF;
@@ -8,9 +7,8 @@
 
 a {
     color: $link-color;
-
     &:hover {
-        color          : $primary-color;
+        color: $primary-color;
         text-decoration: none;
     }
 }
@@ -39,7 +37,7 @@ h6 {
 //navbar
 .account-box {
     border: solid 1px $border-color;
-    width : 283px;
+    width: 283px;
 }
 
 .block {
@@ -49,9 +47,9 @@ h6 {
 }
 
 .create-account-link {
-    color    : $link-color;
+    color: $link-color;
     font-size: .7em;
-    margin   : 5px;
+    margin: 5px;
 }
 
 .link {
@@ -61,12 +59,12 @@ h6 {
 }
 
 .logged-message {
-    color    : $online-color;
+    color: $online-color;
     font-size: .7em;
 }
 
 .login-message {
-    color    : $tertiary-color;
+    color: $tertiary-color;
     font-size: .7em;
 }
 
@@ -76,27 +74,25 @@ h6 {
 
 .new-customer {
     font-size: .7em;
-    margin   : 5px;
+    margin: 5px;
 }
 
 .phone-block {
-    align-items     : center;
+    align-items: center;
     background-color: $primary-color;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0 10px 0 0;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0 10px 0 0;
 }
 
 .product-box {
     border: solid 1px $border-color;
-
     >a {
-
         &:hover {
             background-color: $primary-color;
-            color           : #FFFFFF;
+            color: #FFFFFF;
         }
     }
 }
@@ -107,14 +103,13 @@ h6 {
 
 .search-input {
     background-color: transparent;
-    border          : solid 1px transparent;
-    transition      : 1s ease;
-    width           : 0 !important;
-
+    border: solid 1px transparent;
+    transition: 1s ease;
+    width: 0 !important;
     &:focus {
-        border    : solid 1px $border-color !important;
+        border: solid 1px $border-color !important;
         transition: 1s ease;
-        width     : 400px !important;
+        width: 400px !important;
     }
 }
 
@@ -126,7 +121,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .dashboard-card {
     border: none;
     height: 200px;
-    width : 200px;
+    width: 200px;
 }
 
 .nav-pills .nav-link.active {
@@ -135,75 +130,71 @@ input[type="search"]::-webkit-search-cancel-button {
 
 // forms
 .custom-form input {
-    border    : solid 1px $border-color;
-    height    : 40px;
-    padding   : 0 10px;
+    border: solid 1px $border-color;
+    height: 40px;
+    padding: 0 10px;
     transition: 1s ease;
-    width     : 300px;
-
+    width: 300px;
     &:hover {
         border-color: $primary-color;
-        transition  : 1s ease;
+        transition: 1s ease;
     }
 }
 
 .custom-form label {
     display: flex;
-    margin : 10px 0;
+    margin: 10px 0;
 }
 
 .custom-form select {
-    border : solid 1px $border-color;
-    height : 40px;
+    border: solid 1px $border-color;
+    height: 40px;
     padding: 0 10px;
-    width  : 300px;
+    width: 300px;
 }
 
 .custom-form textarea {
-    border : solid 1px $border-color;
-    height : 300px;
+    border: solid 1px $border-color;
+    height: 300px;
     padding: 10px;
-    width  : 300px;
+    width: 300px;
 }
 
 .form-control {
     -webkit-appearance: none;
-    border-radius     : 0;
-    box-shadow        : none !important;
-    outline           : none !important;
-    transition        : 1s ease;
-
+    border-radius: 0;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: 1s ease;
     &:focus {
         border-color: $primary-color;
-        transition  : 1s ease;
+        transition: 1s ease;
     }
 }
 
 .radio-form input {
-    -moz-appearance   : none;
+    -moz-appearance: none;
     -webkit-appearance: none;
-    appearance        : none;
-    background-color  : #FFFFFF;
-    border            : solid 1px $border-color;
-    height            : 15px;
-    margin-left       : 15px;
-    transition        : 1s ease;
-    width             : 15px;
-
+    appearance: none;
+    background-color: #FFFFFF;
+    border: solid 1px $border-color;
+    height: 15px;
+    margin-left: 15px;
+    transition: 1s ease;
+    width: 15px;
     &:checked {
         background-color: $primary-color;
-        transition      : 1s ease;
+        transition: 1s ease;
     }
-
     &:hover {
-        border    : solid 1px $primary-color;
+        border: solid 1px $primary-color;
         transition: 1s ease;
     }
 }
 
 .radio-form label {
     display: flex;
-    margin : 10px 0;
+    margin: 10px 0;
 }
 
 //buttons
@@ -214,19 +205,18 @@ input[type="search"]::-webkit-search-cancel-button {
 .edit-button,
 .save-button,
 .show-button {
-    align-items     : center;
+    align-items: center;
     background-color: $primary-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 40px;
-
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 40px;
     &:hover {
-        opacity   : .5;
+        opacity: .5;
         transition: 1s ease;
     }
 }
@@ -234,19 +224,18 @@ input[type="search"]::-webkit-search-cancel-button {
 .add-button-sm,
 .edit-button-sm,
 .show-button-sm {
-    align-items     : center;
+    align-items: center;
     background-color: $primary-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 25px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 25px;
-
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 25px;
     &:hover {
-        opacity   : .5;
+        opacity: .5;
         transition: 1s ease;
     }
 }
@@ -255,76 +244,72 @@ input[type="search"]::-webkit-search-cancel-button {
 .basket-button,
 .facebook-button,
 .search-button {
-    align-items     : center;
+    align-items: center;
     background-color: transparent;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 40px;
-
+    border: none;
+    color: $primary-color;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 40px;
     &:hover {
-        -ms-transform    : scale(1.3);
+        -ms-transform: scale(1.3);
         -webkit-transform: scale(1.3);
-        transform        : scale(1.3);
-        transition       : 1s ease;
+        transform: scale(1.3);
+        transition: 1s ease;
     }
 }
 
 .create-account,
 .login-button {
-    align-items     : center;
+    align-items: center;
     background-color: $primary-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 150px;
-
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 150px;
     &:hover {
-        opacity   : .5;
+        opacity: .5;
         transition: 1s ease;
     }
 }
 
 .delete-button {
-    align-items     : center;
+    align-items: center;
     background-color: $warning-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 40px;
-
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 40px;
     &:hover {
-        opacity   : .5;
+        opacity: .5;
         transition: 1s ease;
     }
 }
 
 .delete-button-sm {
-    align-items     : center;
+    align-items: center;
     background-color: $warning-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 25px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 25px;
-
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 25px;
     &:hover {
-        opacity   : .5;
+        opacity: .5;
         transition: 1s ease;
     }
 }
@@ -332,22 +317,21 @@ input[type="search"]::-webkit-search-cancel-button {
 .dashboard-button,
 .logout-button,
 .profile-button {
-    align-items     : center;
+    align-items: center;
     background-color: #FFFFFF;
-    border          : none;
-    color           : $link-color;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    transition      : 1s ease;
-    width           : 40px;
-
+    border: none;
+    color: $link-color;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    transition: 1s ease;
+    width: 40px;
     &:hover {
-        -ms-transform    : scale(1.3);
+        -ms-transform: scale(1.3);
         -webkit-transform: scale(1.3);
-        transform        : scale(1.3);
-        transition       : 1s ease;
+        transform: scale(1.3);
+        transition: 1s ease;
     }
 }
 
@@ -357,93 +341,92 @@ button:focus {
 
 //icons
 .brand {
-    filter    : grayscale(100%);
+    filter: grayscale(100%);
     transition: 1s ease;
-    width     : 250px;
-
+    width: 250px;
     &:hover {
-        -ms-transform    : scale(1.3);
+        -ms-transform: scale(1.3);
         -webkit-transform: scale(1.3);
-        filter           : grayscale(0%);
-        transform        : scale(1.3);
-        transition       : 1s ease;
+        filter: grayscale(0%);
+        transform: scale(1.3);
+        transition: 1s ease;
     }
 }
 
 .icon-sm {
     height: 1em;
-    width : 1em;
+    width: 1em;
 }
 
 .icon-md {
     height: 1.5em;
-    width : 1.5em;
+    width: 1.5em;
 }
 
 .icon-lg {
     height: 2em;
-    width : 2em;
+    width: 2em;
 }
 
 .message-icon {
-    align-items     : center;
+    align-items: center;
     background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 10px;
-    justify-content : center;
-    padding         : 0;
-    width           : 10px;
+    border: none;
+    color: $primary-color;
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    padding: 0;
+    width: 10px;
 }
 
 .phone-icon {
-    align-items     : center;
+    align-items: center;
     background-color: $primary-color;
-    border          : none;
-    color           : #FFFFFF;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    width           : 40px;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
 }
 
 .show-icon {
-    align-items     : center;
+    align-items: center;
     background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    width           : 40px;
+    border: none;
+    color: $primary-color;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
 }
 
 .user-icon {
-    align-items     : center;
+    align-items: center;
     background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 40px;
-    justify-content : center;
-    padding         : 0;
-    width           : 40px;
+    border: none;
+    color: $primary-color;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
 }
 
 //tabs
 .user-tab {
-    align-items     : center;
+    align-items: center;
     background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 50px;
-    justify-content : center;
-    padding         : 0;
-    width           : 50px;
+    border: none;
+    color: $primary-color;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    padding: 0;
+    width: 50px;
 }
 
 .account-tab,
@@ -451,21 +434,21 @@ button:focus {
 .discount-tab,
 .order-tab,
 .product-tab {
-    align-items     : center;
+    align-items: center;
     background-color: #FFFFFF;
-    border          : none;
-    color           : $primary-color;
-    display         : flex;
-    height          : 50px;
-    justify-content : center;
-    padding         : 0;
-    width           : 50px;
+    border: none;
+    color: $primary-color;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    padding: 0;
+    width: 50px;
 }
 
 //product
 .admin-discount {
     background-color: $admin-color;
-    padding         : 5px;
+    padding: 5px;
 }
 
 .discount {
@@ -478,21 +461,21 @@ button:focus {
 
 .inventory {
     background-color: $admin-color;
-    border-radius   : 0;
-    padding         : 5px;
+    border-radius: 0;
+    padding: 5px;
 }
 
 .price {
-    color    : $tertiary-color;
+    color: $tertiary-color;
     font-size: 1.7em;
 }
 
 //brand
 .brand-message {
     background-color: $primary-color;
-    border          : none;
-    border-radius   : 0;
-    color           : #FFFFFF;
+    border: none;
+    border-radius: 0;
+    color: #FFFFFF;
 }
 
 //table
@@ -500,12 +483,10 @@ button:focus {
     >thead th {
         border: none;
     }
-
     >th,
     td {
         border: none;
     }
-
     >tfoot {
         border-top: solid 1px $border-color;
     }
@@ -513,14 +494,13 @@ button:focus {
 
 //message
 .toast {
-    border       : none;
+    border: none;
     border-radius: 0;
-    box-shadow   : none;
-    position     : fixed;
-    top          : 80px;
-    right        : 16px;
-    width        : 350px;
-
+    box-shadow: none;
+    position: fixed;
+    top: 80px;
+    right: 16px;
+    width: 350px;
 }
 
 .toast-header {
@@ -529,7 +509,7 @@ button:focus {
 
 .toast-body {
     background-color: $primary-color;
-    color           : #FFFFFF;
+    color: #FFFFFF;
 }
 
 // scrollbar
@@ -539,6 +519,110 @@ button:focus {
 
 .scroll-top {
     position: fixed;
-    bottom  : 50px;
-    right   : 50px;
+    bottom: 50px;
+    right: 50px;
+}
+
+.search {
+    background-color: $search-bg-color;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+    transition: $transition;
+    width: 100px;
+    &:before {
+        background-color: $icon-color;
+        content: '';
+        display: block;
+        height: 40px;
+        position: relative;
+        transition: $transition;
+        width: 4px;
+    }
+    &.open {
+        width: 420px;
+        &:before {
+            height: 40px;
+            position: absolute;
+        }
+    }
+}
+
+.search-box {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    height: 100%;
+    padding: 20px 100px 20px 45px;
+    width: 100%;
+    &:focus {
+        outline: none;
+    }
+}
+
+.search-button {
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: solid 4px $icon-color;
+    display: block;
+    position: absolute;
+    top: 7px;
+    transition: $transition;
+    right: 12px;
+    &:before {
+        content: '';
+        width: 4px;
+        height: 10px;
+        position: absolute;
+        right: -6px;
+        top: 11px;
+        display: block;
+        background-color: $icon-color;
+        transform: rotate(-45deg);
+        transition: $transition;
+    }
+    &:after {
+        background-color: $icon-color;
+        content: '';
+        display: block;
+        height: 10px;
+        position: absolute;
+        right: -6px;
+        top: 11px;
+        transform: rotate(-45deg);
+        transition: $transition;
+        width: 4px;
+    }
+    .open & {
+        border-radius: 10px;
+        margin: 0;
+        height: 20px;
+        position: absolute;
+        top: 7px;
+        right: 12px;
+        width: 20px;
+        &:before {
+            transform: rotate(45deg);
+            right: 4px;
+            top: -3px;
+            height: 18px;
+        }
+        &:after {
+            transform: rotate(-230deg);
+            right: 4px;
+            top: -3px;
+            height: 18px;
+        }
+    }
 }
