@@ -136,51 +136,39 @@
 			{% endif %}
 		</div>
 	</div>
-  
-	{% block javascripts %}
-		{{ encore_entry_script_tags('app') }}
-	{% endblock %}
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	
+	{# script panier bouton add JS #}
 	<script>
 		$(document).ready(function(){
-			$('a.addBtn').click(function(event){
-				event.preventDefault();
+			$('tr.item').each(function() {
+				const itemQtt = $(this).find('td.itemQtt');
+				const itemTtl = $(this).find('td.itemTtl');
+				const price = parseInt($(this).find('td.js-price').text());
+				const promo = parseInt($('td.promo').text());
+				$(this).find('a.addBtn').click(function(event){
+					event.preventDefault();
 
-	{% block javascripts %}
-		{{ encore_entry_script_tags('app') }}
-	{% endblock %}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		<script>
-			$(document).ready(function(){
-				$('tr.item').each(function() {
-					const itemQtt = $(this).find('td.itemQtt');
-					const itemTtl = $(this).find('td.itemTtl');
-					const price = $(this).find('td.js-price').text();
-					const promo = $('td.promo').text();
-					const tdCount = $(this).find('td.itemQtt');
+					const url = $(this).attr('href');
 					
 					
-					$(this).find('a.addBtn').click(function(event){
-						event.preventDefault();
-
-						const url = $(this).attr('href');
-						
-						$.get({url: url}).done(function(response) {
-							itemQtt.replaceWith("<td class='itemQtt'>"+response.quantity+"</td>")
-							itemTtl.replaceWith("<td class='itemTtl'>"+response.quantity * price+"</td>")
-							let total = 0;
-							$('td.itemTtl').each(function(){
-								total = total + parseInt($(this).text());
-							});
-							
-							//$('td.total').replaceWith("<td class='total'>"+parseInt(response.quantity * price * //(1 - promo / 100))+" €</td>")
-							$('td.total').replaceWith("<td class='total'>"+total+" €</td>")
+					$.get({url: url}).done(function(response) {
+						itemQtt.html(response.quantity);
+						itemTtl.html(parseInt(response.quantity * price));
+						let total = 0;
+						$('td.itemTtl').each(function(){
+							total = total + parseInt($(this).text());
 						});
+						
+						$('td.total').html(total);
 					});
 				});
 			});
-		</script>
+		});
+	</script>
 {% endblock %}
 
 
