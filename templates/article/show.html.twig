@@ -287,11 +287,11 @@
 								{# add to basket button #}
 								<div class="mx-2">
 									{% if is_granted('ROLE_PRO') and reduc is defined and not null %}
-									<a href="{{ path('panier_add', {'id': article.id, 'promo': reduc} )}}" class="addItem">
+									<a href="{{ path('panier_add', {'id': art_comp.id, 'promo': reduc} )}}" class="addItem">
 										{% elseif promo is defined and not null %}
-										<a href="{{ path('panier_add', {'id': article.id, 'promo': promo} )}}" class="addItem">
+										<a href="{{ path('panier_add', {'id': art_comp.id, 'promo': promo} )}}" class="addItem">
 											{% else %}
-											<a href="{{ path('panier_add', {'id': article.id, 'promo': 0} )}}" class="addItem">
+											<a href="{{ path('panier_add', {'id': art_comp.id, 'promo': 0} )}}" class="addItem">
 												{% endif %}
 												<button class="add-basket-button" title="Ajouter au panier">
 													<i data-fa-symbol="add-basket" class="fas fa-shopping-cart"></i>
@@ -337,7 +337,6 @@
 					let goToBasket = confirm('Aller au panier ?');
 
 					if(goToBasket === true){
-						//$.get({url:$(this).attr('href')});
 						window.location.replace($(this).attr('href'));
 					}
 					else{
