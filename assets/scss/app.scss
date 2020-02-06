@@ -101,7 +101,7 @@ h6 {
     overflow        : hidden;
     position        : relative;
     transition      : $transition;
-    width           : 64px;
+    width           : 40px;
 
     &:before {
         background-color: $primary-color;
@@ -110,7 +110,6 @@ h6 {
         height          : 40px;
         position        : relative;
         transition      : $transition;
-        width           : 4px;
     }
 
     &.open {
@@ -124,9 +123,10 @@ h6 {
 }
 
 .search-box {
-    background  : transparent;
-    border      : none;
-    padding-left: 20px;
+    background   : transparent;
+    border       : none;
+    border-bottom: solid 4px $primary-color;
+    padding-left : 20px;
 
     &:focus {
         outline: none;
