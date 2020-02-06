@@ -60,7 +60,6 @@ class ProController extends AbstractController
             $pro = $form->getData();
             $managerService->persFLush($pro);
 
-
             $this->addFlash('success', 'Enregistrement réussi');
 
             return $this->redirectToRoute('pro_profile', ['id' => $pro->getUser()->getId()]);
@@ -81,8 +80,11 @@ class ProController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $managerService->persFLush($pro);
+            if ($this->getUser() !== null && $this->getUser()->getRoles()[0] == "ROLE_PRO") {
+                $pro->setPourcentRemise(0);
+            }
 
+            $managerService->persFLush($pro);
             $this->addFlash('success', 'Ajout réussi');
 
             return $this->redirectToRoute('pro_index');
@@ -109,23 +111,39 @@ class ProController extends AbstractController
      */
     public function edit(Request $request, Pro $pro): Response
     {
+        // Get pourcentRemise before the professional gets modified
+        // by the form.
+        $pourcentRemise = $pro->getPourcentRemise();
         $form = $this->createForm(ProFormType::class, $pro);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+    // SET remise côté User : attention si la remise est déjà existante, ça ne doit pas la modifier
             if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN') {
-                $this->addFlash('success', 'Modification réussi');
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Modification réussie');
 
                 return $this->redirectToRoute('pro_index');
             } elseif ($this->getUser()->getRoles()[0] === 'ROLE_PRO') {
-                $this->addFlash('success', 'Modification réussi');
+                $entityManager = $this->getDoctrine()->getManager();
+                // Set the pourcentRemise fetched before the professional gets
+                // modified by the form.
+                $pro->setPourcentRemise($pourcentRemise);
+
+                $entityManager->persist($pro);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Modification réussie');
 
                 return $this->redirectToRoute('pro_profile', ["id" => $this->getUser()->getId()]);
             }
         }
 
+        $userRoles = $this->getUser()->getRoles();
+
+        if (!in_array('ROLE_ADMIN', $userRoles)) {
+            $form->remove('pourcentRemise');
+        }
         return $this->render('profile/pro/edit.html.twig', [
             'pro' => $pro,
             'form' => $form->createView(),

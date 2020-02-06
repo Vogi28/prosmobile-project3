@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
             $this->addFlash('success', 'Enregistrement réussi');
 
             $mailer->sendRegNotif($user->getEmail());
-            
+
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
@@ -109,7 +109,7 @@ class SecurityController extends AbstractController
         ManagerService $managerService,
         MailerService $mailer
     ) {
-        
+
         $form = $this->createForm(EditPasswordType::class, $user);
         $form->handleRequest($request);
 
@@ -118,13 +118,13 @@ class SecurityController extends AbstractController
                 $user,
                 $form->get('plainPassword')->getData()
             ));
-            
+
             $managerService->persFLush($user);
 
             $mailer->sendMdpNotif($user->getEmail());
 
             $this->addFlash('success', 'Changement de mot de passe réussi');
-            
+
             if ($user->getRoles()[0] === 'ROLE_PARTICULIER') {
                 return $this->redirectToRoute("particulier_profile", ["id" => $user->getId()]);
             } elseif ($user->getRoles()[0] == 'ROLE_PRO') {
