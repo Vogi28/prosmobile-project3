@@ -53,6 +53,11 @@ class ProFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrez un numéro de téléphone'
                 ]
+            ])
+            ->add('pourcentRemise', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Entrez le pourcentage de remise réservé aux professionnels'
+                ]
             ]);
     }
 
