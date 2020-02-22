@@ -1,3 +1,13 @@
-$primary-color: #f76c6c;
-$secondary-color: #f99797;
-$warm-color: #ffd64f;
+$link-color      : #4DB6AC;
+$online-color    : #00C851;
+$primary-color   : #00796B;
+$secondary-color : #FFD54F;
+$tertiary-color  : #E0E0E0;
+$quaternary-color: #4B515D;
+$transition      : all 1s ease;
+
+* {
+    box-sizing: border-box;
+}
+
+$warning-color: #E64A19;

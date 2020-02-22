@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSmobile |{{ type_art.nom }}{% endblock %}
+
+{% block body %}
+{# tree #}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white rounded-0">
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_index') }}">
+                    Dashboard
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Articles par catégorie
+            </li>
+        </ol>
+    </nav>
+    {# body #}
+    <h1 class="text-center">Liste des articles de la catégorie '{{ type_art.nom }}' </h1>
+    {# article list #}
+    <div class="container mt-4">
+        <div class="row">
+            {% if articles is defined and not null %}
+                {% for article in articles %}
+                <div class="col-4 mt-2" style="height:300px;">
+                    <div class="media mt-2">
+                        <img src="{{ article.photo }}" class="align-self-start mr-4 img-thumbnail" style="width:150px; height:200px;" alt='{{ article.nom }}'>
+                        <div class="media-body">
+                            <h5 class="mt-2">{{ article.nom }}</h5>
+                            {# administrator part #}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <p class="card-text">
+                                    Référence :
+                                    {{ article.reference }}
+                                    - Stock restant :
+                                    {{ article.stock }}
+                                </p>
+                            {% endif %}
+                            <p class="card-text">
+                                {{ article.description }}
+                            </p>
+                            {# user part #}
+                            {% if is_granted('ROLE_PARTICULIER') %}
+                                {% if promo is defined %}
+                                    <p class="card-text">
+                                        {# TODO en css : PRIX TTC D'ORIGINE BARRÉ #}
+                                        {{ article.prixTtc }} €
+                                    </p>
+                                    <p class="card-text">
+                                        {{ prix_ttc_reduit }} € TTC
+                                    </p>
+                                {% else %}
+                                    <p class="card-text">
+                                        {{ article.prixTtc }} € TTC
+                                    </p>
+                                {% endif %}
+                            {% elseif is_granted('ROLE_PRO') %}
+                                {% if reduc is defined and not null %}
+                                    <p class="card-text">
+                                        {# TODO en css : PRIX HT D'ORIGINE BARRÉ #}
+                                        {{ article.prixHt }} €
+                                    </p>
+                                    <p class="card-text">
+                                        {{ prix_ht_reduit }} € HT
+                                    </p>
+                                {% else %}
+                                    <p class="card-text">
+                                        {{ article.prixHt }} € HT
+                                    </p>
+                                {% endif %}
+                            {% else %}
+                                <p class="card-text">
+                                    {{ article.prixHt }} € HT
+                                </p>
+                                <p class="card-text">
+                                    {{ article.prixTtc }} € TTC
+                                </p>
+                            {% endif %}
+                            {# buttons #}
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="{{ path('panier_add', {'id': article.id} )}}" title="Ajouter au panier">
+                                            <i data-fa-symbol="basket" class="fas fa-shopping-basket text-success"></i>
+                                            <svg class="icon-md">
+                                                <use xlink:href="#basket"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    {# administrator part #}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        {# edit button #}
+                                        <div class="col-4">
+                                            <a href="{{ path('article_edit', {'id': article.id}) }}" title="Modifier">
+                                                <i data-fa-symbol="edit" class="fas fa-pen text-secondary"></i>
+                                                <svg class="icon-md">
+                                                    <use xlink:href="#edit"></use>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="">
+                    Aucun article trouvé dans cette catégorie.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

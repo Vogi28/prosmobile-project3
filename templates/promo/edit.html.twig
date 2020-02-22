@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Caractéristiques de la promotion{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('promo_index') }}">
+					Gestion des promotions
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Configurer la promotion
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Caractéristiques de la promotion</h1>
+	{# include promo form #}
+	<div class="d-flex justify-content-center">
+		{{ include('promo/_form.html.twig') }}
+	</div>
+	{# include delete button #}
+	<div class="d-flex justify-content-center mb-3">
+		{{ include('promo/_delete_form.html.twig') }}
+	</div>
+{% endblock %}

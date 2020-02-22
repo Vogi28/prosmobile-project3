@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DetailCdePro index{% endblock %}
+
+{% block body %}
+    <h1>DetailCdePro index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomArt</th>
+                <th>Quantite</th>
+                <th>PrixHt</th>
+                <th>Remise</th>
+                <th>Total</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for detail_cde_pro in detail_cde_pros %}
+            <tr>
+                <td>{{ detail_cde_pro.id }}</td>
+                <td>{{ detail_cde_pro.nomArt }}</td>
+                <td>{{ detail_cde_pro.quantite }}</td>
+                <td>{{ detail_cde_pro.prixHt }}</td>
+                <td>{{ detail_cde_pro.remise }}</td>
+                <td>{{ detail_cde_pro.total }}</td>
+                <td>
+                    <a href="{{ path('detail_cde_pro_show', {'id': detail_cde_pro.id}) }}">show</a>
+                    <a href="{{ path('detail_cde_pro_edit', {'id': detail_cde_pro.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('detail_cde_pro_new') }}">Create new</a>
+{% endblock %}

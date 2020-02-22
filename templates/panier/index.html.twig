@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Votre panier
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Votre panier</h1>
+	{# basket #}
+	<div class="container my-5">
+		{% if panier is empty %}
+			<div>
+				Votre panier est vide
+			</div>
+		{% else %}
+			<div class="row">
+				<table class="table custom-table">
+					<thead>
+						{# professional #}
+						{% if is_granted('ROLE_PRO') %}
+							<tr>
+								<th>Article</th>
+								<th>Prix HT</th>
+								<th>Quantité</th>
+								<th>Total</th>
+								<th></th>
+							</tr>
+						{% else %}
+							<tr>
+								<th>Article</th>
+								<th>Prix HT</th>
+								<th>Prix TTC</th>
+								<th>Quantité</th>
+								<th>Total</th>
+								<th></th>
+							</tr>
+						{% endif %}
+					</thead>
+					<tbody>
+						{% for item in panier %}
+							<tr class="item">
+								<td>{{ item.article.nom }}</td>
+								{# professional #}
+								{% if is_granted('ROLE_PRO') %}
+									<td class="js-price">{{ item.article.prixHT }} €</td>
+									<td class="itemQtt">{{ item.quantity }}</td>
+									<td class="itemTtl">{{ item.article.prixHT * item.quantity }} €</td>
+								{% else %}
+									<td>{{ item.article.prixHT }} €</td>
+									<td class="js-price">{{ item.article.prixTTC }} €</td>
+									<td class="itemQtt">{{ item.quantity }}</td>
+									<td class="itemTtl">{{ item.article.prixTTC * item.quantity }} €</td>
+								{% endif %}
+								<td>
+									<div class="row">
+										{# add button #}
+										<div class="mx-1">
+											<a href="{{ path('panier_addJs', {'id': item.article.id, 'promo': promo}) }}" class="addBtn">
+												<button class="add-button-sm" title="Ajouter">
+													<i data-fa-symbol="add" class="fas fa-plus"></i>
+													<svg class="icon-sm">
+														<use xlink:href="#add"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+										{# delete button #}
+										<div class="mx-1">
+											<a href="{{ path('panier_delete', {'id': item.article.id}) }}">
+												<button class="delete-button-sm" title="Supprimer">
+													<i data-fa-symbol="remove" class="fas fa-trash"></i>
+													<svg class="icon-sm">
+														<use xlink:href="#remove"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						{# discount #}
+						{% if promo is defined and promo > 0 %}
+							<tr>
+								{# professional #}
+								{% if is_granted('ROLE_PRO') %}
+									<td colspan="3" class="text-right">Réduction :</td>
+								{% else %}
+									<td colspan="4" class="text-right">Réduction :</td>
+								{% endif %}
+								<td class="promo">{{ promo }} %</td>
+								<td></td>
+							</tr>
+						{% endif %}
+						<tr>
+							{# professional #}
+							{% if is_granted('ROLE_PRO') %}
+								<td colspan="3" class="text-right">Total :</td>
+							{% else %}
+								<td colspan="4" class="text-right">Total :</td>
+							{% endif %}
+							<td class="total">{{ total }} €</td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		{% endif %}
+		{# checkout button #}
+		<div class="d-flex justify-content-center my-5">
+			{% if panier is not empty %}
+				<div>
+					<a href="{{ path('panier_validation')}}">
+						<button class="checkout-button" title="Checkout">
+							<i data-fa-symbol="checkout" class="fas fa-shopping-cart"></i>
+							<svg class="icon-md">
+								<use xlink:href="#checkout"></use>
+							</svg>
+						</button>
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	
+	{# script panier bouton add JS #}
+	<script>
+		$(document).ready(function(){
+			$('tr.item').each(function() {
+				const itemQtt = $(this).find('td.itemQtt');
+				const itemTtl = $(this).find('td.itemTtl');
+				const price = parseInt($(this).find('td.js-price').text());
+				const promo = parseInt($('td.promo').text());
+				
+				$(this).find('a.addBtn').click(function(event){
+					event.preventDefault();
+
+					const url = $(this).attr('href');
+					
+					
+					$.get({url: url}).done(function(response) {
+						itemQtt.html(response.quantity);
+						itemTtl.html(parseInt(response.quantity * price));
+						let total = 0;
+						$('td.itemTtl').each(function(){
+							total = total + parseInt($(this).text());
+						});
+						
+						$('td.total').html(total);
+					});
+				});
+			});
+		});
+	</script>
+{% endblock %}
+
+

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Liste des marques{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Gestion des marques
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Gestion des marques</h1>
+	{# button #}
+	<div class="container my-5">
+		{# add button #}
+		<div class="row">
+			<a href="{{ path('marque_new') }}">
+				<button class="add-button" title="Ajouter">
+					<i data-fa-symbol="add" class="fas fa-plus"></i>
+					<svg class="icon-md">
+						<use xlink:href="#add"></use>
+					</svg>
+				</button>
+			</a>
+		</div>
+		{# brand list #}
+		<div class="row my-5">
+			{% for marque in marques %}
+				{% if marque.image is empty %}
+					{% set image ='' %}
+				{% else %}
+					{% set image = marque.image %}
+				{% endif %}
+				<div class="col my-3">
+					<div title="{{ marque.nom }}">
+						{# edit button #}
+						<a href="{{ path('marque_edit', {'id': marque.id}) }}">
+							<img src="{{ image }}" class="brand" alt="{{ marque.nom }}">
+						</a>
+					</div>
+				</div>
+			{% else %}
+				{# empty #}
+				<div>
+					Aucune marque trouvée
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

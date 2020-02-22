@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Ajouter une marque{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('marque_index') }}">
+					Gestion des marques
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Nouvelle marque
+			</li>
+		</ol>
+	</nav>
+	{# title#}
+	<h1>Ajouter une marque</h1>
+	{# include brand form #}
+	<div class="d-flex justify-content-center">
+		{{ include('marque/_form.html.twig') }}
+	</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Article{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('article_index') }}">
+					Gestion des articles
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Nouvel article
+			</li>
+		</ol>
+	</nav>
+	{# body#}
+	<h1>Ajouter un nouvel article</h1>
+	{# include article form #}
+	<div class="d-flex justify-content-center">
+		{{ include('article/_form.html.twig') }}
+	</div>
+{% endblock %}

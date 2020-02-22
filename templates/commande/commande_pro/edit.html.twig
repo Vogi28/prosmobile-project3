@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer Commande{% endblock %}
+
+{% block body %}
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+        {% if is_granted('ROLE_PRO') %}
+			<li class="breadcrumb-item">
+				<a href="{{ path('pro_profile', {'id' : app.user.id}) }}">
+					Profile
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('commande_index', {'id' : app.user.pro.id}) }}">
+					Commandes
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('commande_show', {'id' : commande_pro.id}) }}">
+					Detail commande
+				</a>
+			</li>
+        {% elseif is_granted('ROLE_ADMIN') %}
+            <li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('admin_commande_index') }}">
+					Commandes
+				</a>
+			</li>
+            <li class="breadcrumb-item">
+				<a href="{{ path('admin_commande_detail', {'id' : commande_pro.id, 
+                'role' : 'pro'}) }}">
+					Details commande
+				</a>
+			</li>
+        {% endif %}
+			<li class="breadcrumb-item active" aria-current="page">
+				Editer commande
+			</li>
+		</ol>
+	</nav>
+
+    <h1 class="text-center">Editer commande</h1>
+    
+    <div class="d-flex justify-content-center">
+        {{ include('commande/commande_pro/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+    
+
+    {{ include('commande/commande_pro/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,9 +1,632 @@
+@import "~bootstrap/scss/bootstrap";
 @import "vars";
 
-body {
+a {
+    color: $link-color;
+
+    &:hover {
+        color          : $primary-color;
+        text-decoration: none;
+    }
+}
+
+del {
+    color: $quaternary-color;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: left;
+}
+
+h6 {
+    text-align: center;
+}
+
+// home
+.img-media {
+    width: 400px;
+}
+
+//navbar
+.account-box {
+    border: solid 1px $tertiary-color;
+    width : 283px;
+}
+
+.block {
+    >li {
+        margin-left: 20px;
+    }
+}
+
+.create-account-link {
+    color    : $link-color;
+    font-size: .7em;
+    margin   : 5px;
+}
+
+.link {
+    >li {
+        margin: 0 10px;
+    }
+}
+
+.logged-message {
+    color    : $online-color;
+    font-size: .7em;
+}
+
+.login-message {
+    color    : $quaternary-color;
+    font-size: .7em;
+}
+
+.logo {
+    color: $primary-color !important;
+}
+
+.new-customer {
+    font-size: .7em;
+    margin   : 5px;
+}
+
+.phone-block {
+    align-items     : center;
+    background-color: $primary-color;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0 10px 0 0;
+}
+
+.product-box {
+    border: solid 1px $tertiary-color;
+
+    >a {
+        &:hover {
+            background-color: $primary-color;
+            color           : #FFFFFF;
+        }
+    }
+}
+
+.search {
+    background-color: transparent;
+    height          : 40px;
+    overflow        : hidden;
+    position        : relative;
+    transition      : $transition;
+    width           : 40px;
+
+    &:before {
+        background-color: $primary-color;
+        content         : '';
+        display         : block;
+        height          : 40px;
+        position        : relative;
+        transition      : $transition;
+    }
+
+    &.open {
+        width: 250px;
+
+        &:before {
+            height  : 40px;
+            position: absolute;
+        }
+    }
+}
+
+.search-box {
+    background   : transparent;
+    border       : none;
+    border-bottom: solid 4px $primary-color;
+    padding-left : 20px;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.search-button {
+    cursor  : pointer;
+    display : block;
+    height  : 40px;
+    position: absolute;
+    right   : 0;
+    top     : 0;
+    width   : 40px;
+}
+
+.search-icon {
+    border       : solid 4px $primary-color;
+    border-radius: 10px;
+    display      : block;
+    height       : 20px;
+    position     : absolute;
+    right        : 12px;
+    top          : 7px;
+    transition   : $transition;
+    width        : 20px;
+
+    &:before {
+        background-color: $primary-color;
+        content         : '';
+        display         : block;
+        height          : 10px;
+        position        : absolute;
+        right           : -6px;
+        top             : 11px;
+        transform       : rotate(-45deg);
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    &:after {
+        background-color: $primary-color;
+        content         : '';
+        display         : block;
+        height          : 10px;
+        position        : absolute;
+        right           : -6px;
+        top             : 11px;
+        transform       : rotate(-45deg);
+        transition      : $transition;
+        width           : 4px;
+    }
+
+    .open & {
+        &:before {
+            height   : 18px;
+            right    : 4px;
+            top      : -3px;
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            height   : 18px;
+            right    : 4px;
+            top      : -3px;
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+.search-result {
+    margin: 20px 0;
+}
+
+.search-result-box {
+    background-color: #FFFFFF;
+    margin          : 20px 0;
+    padding         : 0 20px;
+    position        : fixed;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+//dashboard
+.account-tab,
+.brand-tab,
+.discount-tab,
+.order-tab,
+.product-tab {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 50px;
+    justify-content : center;
+    padding         : 0;
+    width           : 50px;
+}
+
+.dashboard-card {
+    border: none;
+    height: 200px;
+    width : 200px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #FFFFFF !important;
+}
+
+.user-tab {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 50px;
+    justify-content : center;
+    padding         : 0;
+    width           : 50px;
+}
+
+// forms
+.custom-form input {
+    border    : solid 1px $tertiary-color;
+    height    : 40px;
+    padding   : 0 10px;
+    transition: 1s ease;
+    width     : 300px;
+
+    &:hover {
+        border-color: $primary-color;
+        transition  : 1s ease;
+    }
+}
+
+.custom-form label {
+    display: flex;
+    margin : 10px 0;
+}
+
+.custom-form select {
+    border : solid 1px $tertiary-color;
+    height : 40px;
+    padding: 0 10px;
+    width  : 300px;
+}
+
+.custom-form textarea {
+    border : solid 1px $tertiary-color;
+    height : 300px;
+    padding: 10px;
+    width  : 300px;
+}
+
+.form-control {
+    -webkit-appearance: none;
+    border-radius     : 0;
+    box-shadow        : none !important;
+    outline           : none !important;
+    transition        : 1s ease;
+
+    &:focus {
+        border-color: $primary-color;
+        transition  : 1s ease;
+    }
+}
+
+.radio-form input {
+    -moz-appearance   : none;
+    -webkit-appearance: none;
+    appearance        : none;
+    background-color  : #FFFFFF;
+    border            : solid 1px $tertiary-color;
+    height            : 15px;
+    margin-left       : 15px;
+    transition        : 1s ease;
+    width             : 15px;
+
+    &:checked {
+        background-color: $primary-color;
+        transition      : 1s ease;
+    }
+
+    &:hover {
+        border    : solid 1px $primary-color;
+        transition: 1s ease;
+    }
+}
+
+.radio-form label {
+    display: flex;
+    margin : 10px 0;
+}
+
+//buttons
+.add-basket-button,
+.add-button,
+.booking-button,
+.checkout-button,
+.edit-button,
+.save-button,
+.show-button {
+    align-items     : center;
+    background-color: $primary-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 40px;
+
+    &:hover {
+        opacity   : .5;
+        transition: 1s ease;
+    }
+}
+
+.add-button-sm,
+.edit-button-sm,
+.show-button-sm {
+    align-items     : center;
+    background-color: $primary-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 25px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 25px;
+
+    &:hover {
+        opacity   : .5;
+        transition: 1s ease;
+    }
+}
+
+.back-top-button,
+.basket-button,
+.facebook-button,
+.search-button {
+    align-items     : center;
+    background-color: transparent;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 40px;
+
+    &:hover {
+        -ms-transform    : scale(1.3);
+        -webkit-transform: scale(1.3);
+        transform        : scale(1.3);
+        transition       : 1s ease;
+    }
+}
+
+.create-account,
+.login-button {
+    align-items     : center;
+    background-color: $primary-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 150px;
+
+    &:hover {
+        opacity   : .5;
+        transition: 1s ease;
+    }
+}
+
+.delete-button {
+    align-items     : center;
+    background-color: $warning-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 40px;
+
+    &:hover {
+        opacity   : .5;
+        transition: 1s ease;
+    }
+}
+
+.delete-button-sm {
+    align-items     : center;
+    background-color: $warning-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 25px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 25px;
+
+    &:hover {
+        opacity   : .5;
+        transition: 1s ease;
+    }
+}
+
+.dashboard-button,
+.logout-button,
+.profile-button {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $link-color;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    transition      : 1s ease;
+    width           : 40px;
+
+    &:hover {
+        -ms-transform    : scale(1.3);
+        -webkit-transform: scale(1.3);
+        transform        : scale(1.3);
+        transition       : 1s ease;
+    }
+}
+
+button:focus {
+    outline: none;
+}
+
+//icons
+.brand {
+    filter    : grayscale(100%);
+    transition: 1s ease;
+    width     : 250px;
+
+    &:hover {
+        -ms-transform    : scale(1.3);
+        -webkit-transform: scale(1.3);
+        filter           : grayscale(0%);
+        transform        : scale(1.3);
+        transition       : 1s ease;
+    }
+}
+
+.icon-sm {
+    height: 1em;
+    width : 1em;
+}
+
+.icon-md {
+    height: 1.5em;
+    width : 1.5em;
+}
+
+.icon-lg {
+    height: 2em;
+    width : 2em;
+}
+
+.message-icon {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 10px;
+    justify-content : center;
+    padding         : 0;
+    width           : 10px;
+}
+
+.phone-icon {
+    align-items     : center;
+    background-color: $primary-color;
+    border          : none;
+    color           : #FFFFFF;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    width           : 40px;
+}
+
+.show-icon {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    width           : 40px;
+}
+
+.user-icon {
+    align-items     : center;
+    background-color: #FFFFFF;
+    border          : none;
+    color           : $primary-color;
+    display         : flex;
+    height          : 40px;
+    justify-content : center;
+    padding         : 0;
+    width           : 40px;
+}
+
+//product
+.admin-discount {
+    background-color: $secondary-color;
+    padding         : 5px;
+}
+
+.discount {
     background-color: $secondary-color;
 }
 
-a {
-    color: $warm-color;
+.img-product {
+    width: 250px;
+}
+
+.inventory {
+    background-color: $secondary-color;
+    border-radius   : 0;
+    padding         : 5px;
+}
+
+.price {
+    color    : $quaternary-color;
+    font-size: 1.7em;
+}
+
+//brand
+.brand-message {
+    background-color: $primary-color;
+    border          : none;
+    border-radius   : 0;
+    color           : #FFFFFF;
+}
+
+//table
+.custom-table {
+    >thead th {
+        border: none;
+    }
+
+    >th,
+    td {
+        border: none;
+    }
+
+    >tfoot {
+        border-top: solid 1px $tertiary-color;
+    }
+}
+
+//message
+.toast {
+    border       : none;
+    border-radius: 0;
+    box-shadow   : none;
+    position     : fixed;
+    top          : 80px;
+    right        : 16px;
+    width        : 350px;
+}
+
+.toast-header {
+    background-color: #FFFFFF;
+}
+
+.toast-body {
+    background-color: $primary-color;
+    color           : #FFFFFF;
+}
+
+// scrollbar
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.scroll-top {
+    position: fixed;
+    bottom  : 50px;
+    right   : 50px;
 }

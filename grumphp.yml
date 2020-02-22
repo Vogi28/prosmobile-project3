@@ -9,7 +9,7 @@ parameters:
               config
               ./vendor/autoload.php
             configuration: ./phpstan.neon
-            level: max
+            level: 0
         phpmd:
             whitelist_patterns:
                 - 'src'

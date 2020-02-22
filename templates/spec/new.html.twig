@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle spécification{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une nouvelle spécification</h1>
+
+    {{ include('spec/_form.html.twig') }}
+
+    <a href="{{ path('spec_index') }}">Retour à la liste</a>
+{% endblock %}

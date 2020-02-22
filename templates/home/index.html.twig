@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Accueil
+{% endblock %}
+
+{% block body %}
+	{# discount message #}
+	<div id="discount-message-toast"></div>
+	{# about #}
+	<div class="container my-5">
+		<div
+			="flex-column">
+			{# first row #}
+			<div class="media my-5">
+				<img src="https://www.skyprotect.com/dam/jcr:90240f56-0d3b-478a-b509-93a9156e1f13/tablet-hero.png" class="align-self-start mr-4 img-media" alt="">
+				<div class="media-body">
+					<h5 class="my-3">Nous réparons tous les smartphones !</h5>
+					<p>
+						Nos réparations sont garanties 6 mois.
+					</p>
+					<p>
+						PROSMobile répare les tablettes : Samsung, Ipad, etc... proposons des services de réparation de vitre, écran LCD cassés, remplacement de batterie, de boutons et même la désoxydation.
+					</p>
+				</div>
+			</div>
+			{# second row #}
+			<div class="media my-5">
+				<div class="media-body">
+					<h5 class="my-3">Rapide & Professionel</h5>
+					<p>
+						Votre appareil est entre les meilleures mains : Rapidité, expertise et professionnalisme sont nos principales priorités.
+					</p>
+					<p>
+						PROSMobile, professionnel reconnu sur Strasbourg et dans toute la région, pour toutes les réparations de téléphones portables, mobiles, smartphones : Iphone, Samsung, etc...
+					</p>
+					<p>
+						Un déplacement à votre domicile est possible, contactez-nous!
+					</p>
+				</div>
+				<img src="https://www.samsung.com/global/galaxy/galaxy-fold/images/galaxy-fold_highlight_kv_silver_end.png" class="align-self-start ml-4 img-media" alt="">
+			</div>
+			{# third row #}
+			<div class="media my-5">
+				<img src="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/sfaq/sfaq-iphone_2x.png" class="align-self-start mr-4 img-media" alt="">
+				<div class="media-body">
+					<h5 class="my-3">Commandes, réservations, rendez-vous</h5>
+					<p>
+						Grâce à PROSMobile, vous pouvez trouver tout ce dont vous avez besoin.
+					</p>
+					<p>
+						Nous vendons des appareils d'occasion reconditionnés par nos soins à des tarifs attractifs.
+					</p>
+					<p>
+						PROSMobile, c'est aussi des tarifs avantageux pour les professionnels, n'hésitez pas à nous contacter pour en savoir plus !
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	{# discount message #}
+	<script>
+		{% if promo is defined and not null %}
+			createToast('PROSMobile', 'Message', '{{ promo.nom }}', '{{ promo.pourcentage }}');
+			function createToast(title, smallText, firstWord, secondWord) {
+				let id = new Date().getTime();
+				let html = `
+				<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="10000" id="${id}">
+					<div class="toast-header">
+						<i class="fa fa-mobile-alt mr-2"></i>
+						<strong class="mr-auto">${title}</strong>
+						<small>${smallText}</small>
+						<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="toast-body">
+						${firstWord} : remise de ${secondWord} % sur les articles
+					</div>
+				</div>`;
+			document.getElementById('discount-message-toast').innerHTML += html;
+			$ (`#${id}`).toast('show');
+			}
+			$('body').on('click', '.close', function () {
+			$(this).closest('.toast').toast('show')
+			})
+		{% else %}
+			{# #}	
+		{% endif %}
+	</script>
+{% endblock %}

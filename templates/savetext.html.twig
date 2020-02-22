@@ -1,0 +1,27 @@
+
+
+{% block javascripts %}
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		function onClickBtnAdd(){
+			event.preventDefault();
+				
+				const url = this.querySelector('a.addBtn').href;
+				const price = this.querySelector('td.js-price').textContent;
+				const tdQttCount = this.querySelector('td.itemQtt');
+				const tdTtlCount = this.querySelector('td.itemTtl');
+				console.log(price);
+				this.querySelector('a.addBtn').addEventListener('click', function(){
+					axios.get(url).then(function(response) {
+						tdQttCount.textContent = response.data.quantity;
+						thdTtlCount.textContent = response.data.quantity * price;
+					});
+				})
+					
+			};
+
+		document.querySelectorAll('tr.item').forEach(function (link){
+			link.addEventListener('click', onClickBtnAdd);
+		});
+	</script>
+{% endblock %}

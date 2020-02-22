@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Liste des promotions{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Gestion des promotions
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Gestion des promotions</h1>
+	{# button #}
+	<div class="container my-5">
+		{# add button #}
+		<div class="row">
+			<a href="{{ path('promo_new') }}">
+				<button class="add-button" title="Ajouter">
+					<i data-fa-symbol="add" class="fas fa-plus"></i>
+					<svg class="icon-md">
+						<use xlink:href="#add"></use>
+					</svg>
+				</button>
+			</a>
+		</div>
+		{# discount list #}
+		<div class="row my-5">
+			{% for promo in promos %}
+				<div class="col">
+					<div class="media">
+						<div class="media-body">
+							<h5 class="my-3">{{ promo.nom }}</h5>
+							<p>
+								Du
+								{{ promo.debut ? promo.debut|date('d/m/Y') : '' }}
+								jusqu'au
+								{{ promo.fin ? promo.fin|date('d/m/Y') : '' }}
+							</p>
+							<span class="badge badge-secondary admin-discount">
+								Promotion :
+								{{ promo.pourcentage }}
+								%
+							</span>
+							{# button #}
+							<div class="d-flex justify-content-center my-5">
+								{# edit button #}
+								<div>
+									<a href="{{ path('promo_edit', {'id': promo.id}) }}">
+										<button class="edit-button" title="Modifier">
+											<i data-fa-symbol="edit" class="fas fa-pen"></i>
+											<svg class="icon-md">
+												<use xlink:href="#edit"></use>
+											</svg>
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				{# empty #}
+				<div>
+					Aucune promotion trouvée
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Commandes
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Commandes</h1>
+	{# table #}
+	<div class="container my-5">
+		<div class="row">
+			<table class="table custom-table">
+				<thead>
+					<tr>
+						<th>Commande</th>
+						<th>ID Client</th>
+						<th>Nom / Société</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for commande in commandes %}
+						<tr>
+							<td>{{ commande.id }}</td>
+							{# individial #}
+							{% if commande.particulier is defined %}
+								<td>{{ commande.particulier.id }}</td>
+								<td>
+									{{ commande.particulier.nom }}
+									{{ commande.particulier.prenom }}
+								</td>
+								{# professional #}
+							{% elseif commande.pro is defined %}
+								<td>{{ commande.pro.id }}</td>
+								<td>{{ commande.pro.societe }}</td>
+							{% endif %}
+							<td>
+								{# individual #}
+								{% if commande.particulier is defined %}
+									{# show button #}
+									<div>
+										<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'particulier'}) }}">
+											<button class="show-button-sm" title="Afficher">
+												<i data-fa-symbol="add" class="fas fa-eye"></i>
+												<svg class="icon-sm">
+													<use xlink:href="#add"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+									{# professional #}
+								{% elseif commande.pro is defined %}
+									{# show button #}
+									<div>
+										<a href="{{ path('admin_commande_detail', {'id': commande.id, 'role': 'pro'}) }}">
+											<button class="show-button-sm" title="Afficher">
+												<i data-fa-symbol="add" class="fas fa-eye"></i>
+												<svg class="icon-sm">
+													<use xlink:href="#add"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						{# empty #}
+						<tr>
+							<td colspan="2">Aucune commande trouvée</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

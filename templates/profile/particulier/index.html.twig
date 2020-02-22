@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Particulier index{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Comptes particuliers
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Comptes particuliers</h1>
+	{# table #}
+	<div class="container my-5">
+		<div class="row">
+			<table class="table custom-table">
+				<thead>
+					<tr>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Adresse</th>
+						<th>Code postal</th>
+						<th>Ville</th>
+						<th>Téléphone</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for particulier in particuliers %}
+						<tr>
+							<td>{{ particulier.prenom }}</td>
+							<td>{{ particulier.nom }}</td>
+							<td>{{ particulier.adresse }}</td>
+							<td>{{ particulier.codePostal }}</td>
+							<td>{{ particulier.ville }}</td>
+							<td>{{ particulier.telephone }}</td>
+							<td>
+								{# edit button #}
+								<div>
+									<a href="{{ path('particulier_edit', {'id': particulier.id}) }}">
+										<button class="edit-button-sm" title="Modifier">
+											<i data-fa-symbol="edit" class="fas fa-pen"></i>
+											<svg class="icon-sm">
+												<use xlink:href="#edit"></use>
+											</svg>
+										</button>
+									</a>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						{# empty #}
+						<tr>
+							<td colspan="8">Aucune données</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

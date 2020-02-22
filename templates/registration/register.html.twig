@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Inscription
+			</li>
+		</ol>
+	</nav>
+	{# form #}
+	{{ form_start(registrationForm) }}
+	<div class="container my-5">
+		<div class="d-flex justify-content-center">
+			<div>
+				<div class="custom-form">
+					{{ form_row(registrationForm.email) }}
+					{{ form_row(registrationForm.plainPassword.first) }}
+					{{ form_row(registrationForm.plainPassword.second) }}
+				</div>
+				<div class="mt-3 radio-form">
+					{{ form_row(registrationForm.pros) }}
+					{{ form_row(registrationForm.agreeTerms) }}
+				</div>
+			</div>
+		</div>
+		{# create account button #}
+		<div class="d-flex justify-content-center mt-5">
+			<button class="create-account">
+				{{ button_label|default('Créer le compte') }}
+			</button>
+		</div>
+	</div>
+	{{ form_end(registrationForm) }}
+{% endblock %}

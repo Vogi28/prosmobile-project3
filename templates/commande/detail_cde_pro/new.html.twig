@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DetailCdePro{% endblock %}
+
+{% block body %}
+    <h1>Create new DetailCdePro</h1>
+
+    {{ include('detail_cde_pro/_form.html.twig') }}
+
+    <a href="{{ path('detail_cde_pro_index') }}">back to list</a>
+{% endblock %}

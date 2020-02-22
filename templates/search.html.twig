@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSmobile - Recherche{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Recherche
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Résultat recherche</h1>
+	{# search #}
+	<div class="container my-5">
+		{# product list #}
+		<div class="row my-5">
+			{% if articles is defined %}
+				{% for article in articles %}
+					{% for item in article %}
+						{% if item.photo is empty %}
+							{% set photo ='' %}
+						{% else %}
+							{% set photo = item.photo %}
+						{% endif %}
+						<div class="col my-3">
+							<div class="media">
+								<img src="{{ photo }}" class="align-self-start mr-4 img-product" alt="{{ item.nom }}">
+								<div class="media-body">
+									<h5 class="my-3">{{ item.nom }}</h5>
+									{# discount bagde #}
+									{% if promo is defined %}
+										<h5>
+											<span class="badge badge-secondary discount">
+												Promotion
+											</span>
+										</h5>
+									{% elseif reduc is defined and not null %}
+										<h5>
+											<span class="badge badge-secondary discount">
+												Prix réduit
+											</span>
+										</h5>
+									{% endif %}
+									<p>
+										{{ item.description }}
+									</p>
+									{# administrator #}
+									{% if is_granted('ROLE_ADMIN') %}
+										<span class="badge badge-secondary inventory">
+											Référence :
+											{{ item.reference }}
+										</span>
+										<span class="badge badge-secondary inventory">
+											Stock restant :
+											{{ item.stock }}
+										</span>
+									{% endif %}
+									{# individual #}
+									{% if is_granted('ROLE_PRO') == false %}
+										{% if promo is defined %}
+											<p class="text-center price mt-3">
+												<del>
+													{{ item.prixTtc|round }}
+													€
+												</del>
+												<span class="ml-3">
+													{% set prixTTcReduit = item.prixTtc * (1 - promo / 100) %}
+													{{ prixTTcReduit|round }}
+													€ TTC
+												</span>
+											</p>
+										{% else %}
+											<p class="text-center price mt-3">
+												{{ item.prixTtc|round }}
+												€ TTC
+											</p>
+										{% endif %}
+									{% endif %}
+									{# professional #}
+									{% if is_granted('ROLE_PRO') %}
+										{% if reduc is defined and not null %}
+											<p class="text-center price mt-3">
+												<del>
+													{{ item.prixHt|round }}
+													€
+												</del>
+												<span class="ml-3">
+													{% set prixHtReduit = item.prixHt * (1 - reduc / 100) %}
+													{{ prixHtReduit|round }}
+													€ HT
+												</span>
+											</p>
+										{% else %}
+											<p class="text-center price mt-3">
+												{{ item.prixHt|round }}
+												€ HT
+											</p>
+										{% endif %}
+									{% endif %}
+									{# button #}
+									<div class="d-flex justify-content-center my-3">
+										{# show button #}
+										<div class="mx-2">
+											<a href="{{ path('article_show', {'slug1': item.typeArt.nom, 'slug2': item.marque.nom, 'id': item.id }) }}">
+												<button class="show-button" title="Afficher">
+													<i data-fa-symbol="show" class="fas fa-eye"></i>
+													<svg class="icon-md">
+														<use xlink:href="#show"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% endfor %}
+			{% else %}
+				{# empty #}
+				<div>
+					Aucun article n'est trouvé.
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

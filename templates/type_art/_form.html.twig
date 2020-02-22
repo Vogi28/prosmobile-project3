@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg">
+            <div class="d-flex flex-column mt-2">
+                {{ form_label(form.nom, 'Nom de la catégorie') }}
+                {{ form_widget(form.nom) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-2">
+    <div class="row">
+        <button class="btn btn-success" style="width:150px;">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}

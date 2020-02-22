@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			{# individual #}
+			{% if is_granted('ROLE_PARTICULIER') %}
+				<li class="breadcrumb-item">
+					<a href="{{ path('particulier_profile', {'id' : app.user.id }) }}">
+						Profile
+					</a>
+				</li>
+				{# professional #}
+			{% elseif is_granted('ROLE_PRO') %}
+				<li class="breadcrumb-item">
+					<a href="{{ path('pro_profile', {'id' : app.user.id }) }}">
+						Mon profil
+					</a>
+				</li>
+			{% endif %}
+			<li class="breadcrumb-item active" aria-current="page">
+				Modification du mot de passe
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Modification du mot de passe</h1>
+	{# form #}
+	{{ form_start(formPass) }}
+	<div class="container my-5">
+		<div class="d-flex justify-content-center custom-form">
+			<div>
+				{{ form_row(formPass.oldPassword) }}
+				{{ form_row(formPass.plainPassword.first) }}
+				{{ form_row(formPass.plainPassword.second) }}
+			</div>
+		</div>
+		{# button #}
+		<div class="d-flex justify-content-center mt-5">
+			{# save button #}
+			<div>
+				<button class="save-button" title="Enregistrer">
+					<i data-fa-symbol="save" class="fas fa-save"></i>
+					<svg class="icon-md">
+						<use xlink:href="#save"></use>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formPass) }}
+{% endblock %}

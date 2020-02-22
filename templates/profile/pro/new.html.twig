@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Pro{% endblock %}
+
+{% block body %}
+    <h1>Create new Pro</h1>
+
+    {{ include('pro/_form.html.twig') }}
+
+    <a href="{{ path('pro_index') }}">back to list</a>
+{% endblock %}

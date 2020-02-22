@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('particulier_profile', { 'id' : app.user.id }) }}">
+					Mon profil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Informations
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Informations</h1>
+	{# form #}
+	{{ form_start(formParticulier) }}
+	<div class="container my-5">
+		<div class="d-flex justify-content-center custom-form">
+			{# first column #}
+			<div class="col">
+				{{ form_row(formParticulier.prenom, { 'label': 'Prénom' }) }}
+				{{ form_row(formParticulier.nom) }}
+				{{ form_row(formParticulier.telephone, { 'label': 'Téléphone' }) }}
+			</div>
+			{# second column #}
+			<div class="col">
+				{{ form_row(formParticulier.adresse) }}
+				{{ form_row(formParticulier.codePostal) }}
+				{{ form_row(formParticulier.ville) }}
+			</div>
+		</div>
+		{# button #}
+		<div class="d-flex justify-content-center mt-5">
+			{# save button #}
+			<div>
+				<button class="save-button" title="Enregistrer">
+					<i data-fa-symbol="save" class="fas fa-save"></i>
+					<svg class="icon-md">
+						<use xlink:href="#save"></use>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formParticulier) }}
+{% endblock %}

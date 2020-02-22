@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Marques{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				{# administrator #}
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('admin_index') }}">
+						Dashboard
+					</a>
+				{% else %}
+					<a href="{{ path('home') }}">
+						Accueil
+					</a>
+				{% endif %}
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				{# phone #}
+				{% if typeArt is same as('Telephone') %}
+					Téléphones
+					{# component #}
+				{% elseif typeArt is same as('Composant') %}
+					Composants
+					{# accessory #}
+				{% elseif typeArt is same as('Accessoire') %}
+					Accessoires
+					{# fix #}
+				{% elseif typeArt is same as('Reparation') %}
+					Réparations
+				{% endif %}
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>
+		{# phone #}
+		{% if typeArt is same as('Telephone') %}
+			Téléphones
+			{# component #}
+		{% elseif typeArt is same as('Composant') %}
+			Composants
+			{# accessory #}
+		{% elseif typeArt is same as('Accessoire') %}
+			Accessoires
+			{# fix #}
+		{% elseif typeArt is same as('Reparation') %}
+			Réparations
+		{% endif %}
+	</h1>
+	{# brand #}
+	<div class="container my-5">
+		{# message #}
+		<div class="alert alert-info alert-dismissible fade show brand-message" role="alert">
+			{% if typeArt is same as('Telephone') %}
+				Choisissez une marque
+			{% elseif typeArt is same as('Composant') %}
+				Choisissez la marque du téléphone
+			{% elseif typeArt is same as('Accessoire') %}
+				Choisissez la marque du téléphone
+			{% elseif typeArt is same as('Reparation') %}
+				Choisissez la marque du téléphone
+			{% endif %}
+		</div>
+		<div class="row">
+			{% for brand in brands %}
+				<div class="col my-3">
+					{# phone #}
+					{% if typeArt is same as('Telephone') %}
+						<div title="{{ brand.nom }}">
+							<a href="{{ path('article_sell_phones_by_brand', {'slug': brand.nom}) }}">
+								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+							</a>
+						</div>
+						{# component #}
+					{% elseif typeArt is same as('Composant') %}
+						<div title="{{ brand.nom }}">
+							<a href="{{path('article_sell_components_by_brand',{'slug':brand.nom})}}">
+								<img class="brand" src=" {{ brand.image }} " alt=" {{ brand.nom }} ">
+							</a>
+						</div>
+						{# accessory #}
+					{% elseif typeArt is same as('Accessoire') %}
+						<div title="{{ brand.nom }}">
+							<a href="{{ path('article_sell_accessories_by_brand', {'slug': brand.nom}) }}">
+								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+							</a>
+						</div>
+						{# fix #}
+					{% elseif typeArt is same as('Reparation') %}
+						<div title="{{ brand.nom }}">
+							<a href="{{ path('article_sell_repairs_by_brand', {'slug': brand.nom}) }}">
+								<img class="brand" src="{{ brand.image }}" alt="{{ brand.nom }}">
+							</a>
+						</div>
+					{% else %}
+						<div class="alert alert-info alert-dismissible fade show brand-message" role="alert">
+							Pas d'article enregistré, le site est encore en construction.
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true" class="message-close-button">&times;</span>
+							</button>
+						</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

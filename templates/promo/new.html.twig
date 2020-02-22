@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMobile - Ajouter une promotion{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('promo_index') }}">
+					Gestion des promotions
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Nouvelle promotion
+			</li>
+		</ol>
+	</nav>
+	{# title#}
+	<h1>Ajouter une promotion</h1>
+	{# include promo form #}
+	<div class="d-flex justify-content-center">
+		{{ include('promo/_form.html.twig') }}
+	</div>
+{% endblock %}

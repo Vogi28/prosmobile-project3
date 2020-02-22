@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Particulier{% endblock %}
+
+{% block body %}
+<!-- tree -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('admin_index') }}">
+					Dashboard
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('particulier_index') }}">
+					Index particulier
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Profile
+			</li>
+		</ol>
+	</nav>
+
+    <h1 class="text-center">Particulier</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ particulier.id }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ particulier.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ particulier.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ particulier.adresse }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ particulier.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ particulier.ville }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ particulier.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><a href="{{ path('particulier_edit', {'id': particulier.id}) }}">edit</a></p>
+    {% if is_granted('ROLE_ADMIN') %}
+        <p>{{ include('profile/particulier/_delete_form.html.twig') }}</p>
+    {% endif %}
+
+{% endblock %}

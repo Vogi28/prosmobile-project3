@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PROSMOBILE{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('pro_profile', {'id' : app.user.id}) }}">
+					Mon profil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Mes commandes
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Mes commandes</h1>
+	{# table #}
+	<div class="container my-5">
+		<div class="row">
+			<table class="table custom-table">
+				<thead>
+					<tr>
+						<th>Commande</th>
+						<th>ID Client</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for commande_pro in commande_pros %}
+						<tr>
+							<td>{{ commande_pro.id }}</td>
+							<td>{{ commande_pro.pro.id }}</td>
+							<td>
+								<div class="row">
+									{# show button #}
+									<div class="mx-1">
+										<a href="{{ path('commande_show', {'id': commande_pro.id}) }}">
+											<button class="show-button-sm" title="Afficher">
+												<i data-fa-symbol="add" class="fas fa-eye"></i>
+												<svg class="icon-sm">
+													<use xlink:href="#add"></use>
+												</svg>
+											</button>
+										</a>
+									</div>
+									{# delete button #}
+									<div class="mx-1">
+										{{ include('commande/commande_pro/_delete_form.html.twig') }}
+									</div>
+								</td>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2">Aucune commande trouvée</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item">
+				<a href="{{ path('home') }}">
+					Accueil
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				Mon profil
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	{% if user.pro is null %}
+		<h1>
+			Bonjour
+			{{ user.email }}
+			!
+		</h1>
+	{% else %}
+		<h1>
+			Bonjour
+			{{ user.pro.prenom }}
+			{{ user.pro.nom }}
+			!
+		</h1>
+	{% endif %}
+	{# body #}
+	<div class="container my-5">
+		<div class="row">
+			<div class="col">
+				{# edit profile menu #}
+				<nav class="nav flex-column">
+					{% if user.pro is null %}
+						<a class="nav-link" href="{{ path('pro_informations', {'id': user.id}) }}">Informations</a>
+					{% else %}
+						<a class="nav-link" href="{{ path('pro_edit', {'id': user.pro.id}) }}">Mise a jour des informations</a>
+						<a class="nav-link" href="{{ path('changer_mdp', {'id': user.id}) }}">Changer mot de passe</a>
+						<a class="nav-link" href="{{ path('commande_index', {'id': user.pro.id}) }}">Commandes</a>
+						<a class="nav-link" href="#">Rendez-vous</a>
+					{% endif %}
+				</nav>
+			</div>
+			{# user information #}
+			{% if user.pro is not null %}
+				{# first column #}
+				<div class="col">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">{{ user.pro.prenom }}</li>
+						<li class="list-group-item">{{ user.pro.nom }}</li>
+						<li class="list-group-item">{{ user.pro.telephone }}</li>
+						<li class="list-group-item">{{ user.pro.societe }}</li>
+						<li class="list-group-item">{{ user.pro.adresse }}</li>
+						<li class="list-group-item">{{ user.email }}</li>
+						<li class="list-group-item">{{ user.pro.siret }}</li>
+					</ul>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

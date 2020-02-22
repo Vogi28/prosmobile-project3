@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Spec{% endblock %}
+
+{% block body %}
+    <h1>Spec</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ spec.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ spec.nom }}</td>
+            </tr>
+            <tr>
+                <th>Valeur</th>
+                <td>{{ spec.valeur }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('spec_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('spec_edit', {'id': spec.id}) }}">Modifier</a>
+
+    {{ include('spec/_delete_form.html.twig') }}
+{% endblock %}

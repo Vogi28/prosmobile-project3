@@ -1,0 +1,122 @@
+{# form #}
+{{ form_start(form) }}
+{# Pills #}
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-article" role="tab" aria-controls="pills-home" aria-selected="true">Fiche produit</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-comp" role="tab" aria-controls="pills-profile" aria-selected="false">Articles et réparations compatibles</a>
+	</li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+	{# Premier onglet : créer/éditer la fiche article #}
+	<div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-home-tab">
+		<div class="container mt-5">
+			<div class="d-flex justify-content-center custom-form">
+				<div class="col">
+					{{ form_row(form.nom, { 'label': 'Nom' }) }}
+					{{ form_row(form.photo, { 'label': 'Photo' }) }}
+					{{ form_row(form.reference, { 'label': 'Référence' }) }}
+					{{ form_row(form.description, { 'label': 'Description' }) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.prixHt, { 'label': 'Prix HT' }) }}
+					{{ form_row(form.prixTtc, { 'label': 'Prix TTC' }) }}
+					{{ form_row(form.stock, { 'label': 'Stock' }) }}
+					{{ form_row(form.typeArt, { 'label': 'Type article' }) }}
+					{{ form_row(form.marque, { 'label': 'Marque du téléphone' }) }}
+				</div>
+				<div class="col">
+					{# Add multiple specs #}
+					<div class="divs" data-prototype="{{ form_widget(form.spec.vars.prototype)|e('html_attr') }}">
+						{# iterate over each existing tag and render its only field: name #}
+						{% for specs in form.spec %}
+							<div>
+								{{ form_row(specs.nom, { 'label': 'Nom spécification' }) }}
+							</div>
+							<div>
+								{{ form_row(specs.valeur, { 'label': 'Valeur spécification' }) }}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{# buttons #}
+		<div class="container">
+			<div class="d-flex justify-content-center mt-5 mb-3">
+				{# save button #}
+				<div>
+					<button class="save-button" title="Enregistrer">
+						<i data-fa-symbol="save" class="fas fa-save"></i>
+						<svg class="icon-md">
+							<use xlink:href="#save"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{# Second onglet : articles complémentaires #}
+	<div class="tab-pane fade" id="pills-comp" role="tabpanel" aria-labelledby="pills-profile-tab">
+		<div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-home-tab">
+			<div class="container mt-5">
+				<div class="d-flex justify-content-center custom-form">
+					<div class="col">
+							{# Add multiple compatible articles #}
+							{#<div class="divs" data-prototype="{{ form_widget(form.articleTarget.vars.prototype)|e('html_attr') }}">#}
+								 {#iterate over each existing tag and render its only field: name#}
+								{#{% for articleTargets in form.articleTarget %}
+									<div>
+										{{ form_row(articleTarget.nom, { 'label': "Nom de l'article compatible" }) }}
+									</div>
+								{% endfor %}
+							</div>#}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+	<script>
+		var $collectionHolder;
+		// setup an "add a spec" link
+		var $addTagButton = $('<div class="d-flex justify-content-center mt-5"><button class="add-button" title="Ajouter"><i data-fa-symbol="add" class="fas fa-plus"></i><svg class="icon-md"><use xlink:href="#add"></use></svg></button></div>');
+		var $newLinkDiv = $('<div></div>').append($addTagButton);
+		jQuery(document).ready(function () { // Get the ul that holds the collection of tags
+			$collectionHolder = $('div.divs');
+			// add the "add a tag" anchor and li to the tags ul
+			$collectionHolder.append($newLinkDiv);
+			// count the current form inputs we have (e.g. 2), use that as the new
+			// index when inserting a new item (e.g. 2)
+			$collectionHolder.data('index', ($collectionHolder.find(':input').length));
+			$addTagButton.on('click', function (e) { // add a new tag form (see next code block)
+				addTagForm($collectionHolder, $newLinkDiv);
+				});
+		});
+		function addTagForm($collectionHolder, $newLinkDiv) { // Get the data-prototype explained earlier
+			var prototype = $collectionHolder.data('prototype');
+			// get the new index
+			var index = $collectionHolder.data('index');
+			var newForm = prototype;
+			// You need this only if you didn't set 'label' => false in your tags field in TaskType
+			// Replace '__name__label__' in the prototype's HTML to
+			// instead be a number based on how many items we have
+			// newForm = newForm.replace(/__name__label__/g, index);
+			// Replace '__name__' in the prototype's HTML to
+			// instead be a number based on how many items we have
+			newForm = newForm.replace(/__name__/g, index);
+			// increase the index with one for the next item
+			$collectionHolder.data('index', index + 1);
+			// Display the form in the page in an div, before the "Add a spec" link li
+			var $newFormDiv = $('<div></div>').append(newForm);
+			$newLinkDiv.before($newFormDiv);
+		}
+	</script>
+{% endblock %}

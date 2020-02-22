@@ -1,0 +1,258 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+	{# brand #}
+	<a class="navbar-brand logo" href="{{ path('home') }}">
+		PROSMOBILE
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		{# links #}
+		<ul class="navbar-nav link">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" dropdown-toggle href="#" id="navBarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Articles
+				</a>
+				<div class="dropdown-menu rounded-0 mt-2 product-box" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="{{ path('article_sell_phones')}}">
+						Téléphones
+					</a>
+					<a class="dropdown-item" href="{{ path('article_sell_components')}}">
+						Composants
+					</a>
+					<a class="dropdown-item" href="{{ path('article_sell_accessories')}}">
+						Accessoires
+					</a>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('article_sell_repairs')}}">
+					Réparation
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					Magasin
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					Contact
+				</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto block">
+			{# search bar #}
+			<li class="nav-item">
+				<form class="form-inline search" action="{{ path('article_search') }}">
+					<input class="form-control search-box" type="search" placeholder="Rechercher" aria-label="Search" id="search" name="search">
+					<span class="search-button">
+						<span class="search-icon"></span>
+					</span>
+				</form>
+				<div class="search-result-box" id="search-result"></div>
+			</li>
+			{# prosmobile facebook #}
+			<li class="nav-item">
+				<a href="https://fr-fr.facebook.com/prosmbile" target="_blank">
+					<button class="facebook-button" title="PROSMobile Facebook">
+						<i data-fa-symbol="facebook" class="fab fa-facebook-f"></i>
+						<svg class="icon-md">
+							<use xlink:href="#facebook"></use>
+						</svg>
+					</button>
+				</a>
+			</li>
+			{# basket #}
+			<li class="nav-item">
+				<a href="{{ path('panier_index') }}">
+					<button class="basket-button" title="Mon Panier">
+						<i data-fa-symbol="basket" class="fas fa-shopping-cart"></i>
+						<svg class="icon-md">
+							<use xlink:href="#basket"></use>
+						</svg>
+					</button>
+				</a>
+			</li>
+			{# account #}
+			<li class="nav-item dropdown p-0">
+				<div class="d-flex flex-column">
+					{% if app.user %}
+						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Mon compte
+						</a>
+						<div class="row d-flex justify-content-start align-items-center m-0">
+							<span class="logged-message">
+								Connecté(e)
+							</span>
+						</div>
+					{% else %}
+						<a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Mon compte
+						</a>
+						<span class="login-message">
+							Identifiez-vous
+						</span>
+					{% endif %}
+					<div class="dropdown-menu rounded-0 mt-2 account-box" aria-labelledby="navbarDropdown">
+						{% if app.user %}
+							{# individual #}
+							{% if is_granted('ROLE_PARTICULIER')%}
+								<h6 class="text-center">Compte particulier</h6>
+								<div class="container d-flex justify-content-center">
+									<div class="row">
+										{# user account type #}
+										<div class="col-4">
+											<div class="user-icon">
+												<i data-fa-symbol="user" class="fas fa-user"></i>
+												<svg class="icon-md">
+													<use xlink:href="#user"></use>
+												</svg>
+											</div>
+										</div>
+										{# profile button #}
+										<div class="col-4">
+											<a href="{{ path('particulier_profile', { 'id' : app.user.id }) }}">
+												<button class="profile-button" title="Profile">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+										{# logout button #}
+										<div class="col-4">
+											<a href="{{ path('logout') }}">
+												<button class="logout-button" title="Se déconnecter">
+													<i data-fa-symbol="logout" class="fas fa-sign-out-alt"></i>
+													<svg class="icon-md">
+														<use xlink:href="#logout"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+								{# professional #}
+							{% elseif is_granted('ROLE_PRO') %}
+								<h6 class="text-center">Compte professionnel</h6>
+								<div class="container d-flex justify-content-center">
+									<div class="row">
+										{# user account type #}
+										<div class="col-4">
+											<div class="user-icon">
+												<i data-fa-symbol="pro-user" class="fas fa-user-tie"></i>
+												<svg class="icon-md">
+													<use xlink:href="#pro-user"></use>
+												</svg>
+											</div>
+										</div>
+										{# profile button #}
+										<div class="col-4">
+											<a href="{{ path('pro_profile', { 'id' : app.user.id }) }}">
+												<button class="profile-button" title="Profile">
+													<i data-fa-symbol="edit" class="fas fa-pen"></i>
+													<svg class="icon-md">
+														<use xlink:href="#edit"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+										{# logout button #}
+										<div class="col-4">
+											<a href="{{ path('logout') }}">
+												<button class="logout-button" title="Se déconnecter">
+													<i data-fa-symbol="logout" class="fas fa-sign-out-alt"></i>
+													<svg class="icon-md">
+														<use xlink:href="#logout"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+								{# administrator #}
+							{% elseif is_granted('ROLE_ADMIN') %}
+								<h6 class="text-center">Compte administrateur</h6>
+								<div class="container d-flex justify-content-center">
+									<div class="row">
+										{# user account type #}
+										<div class="col-4">
+											<div class="user-icon">
+												<i data-fa-symbol="admin-user" class="fas fa-user-tie"></i>
+												<svg class="icon-md">
+													<use xlink:href="#admin-user"></use>
+												</svg>
+											</div>
+										</div>
+										{# dashboard button #}
+										<div class="col-4">
+											<a href="{{ path('admin_index', { 'id' : app.user.id }) }}">
+												<button class="dashboard-button" title="Dashboard">
+													<i data-fa-symbol="dashboard" class="fas fa-chart-line"></i>
+													<svg class="icon-md">
+														<use xlink:href="#dashboard"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+										{# logout button #}
+										<div class="col-4">
+											<a href="{{ path('logout') }}">
+												<button class="logout-button" title="Se déconnecter">
+													<i data-fa-symbol="logout" class="fas fa-sign-out-alt"></i>
+													<svg class="icon-md">
+														<use xlink:href="#logout"></use>
+													</svg>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						{% else %}
+							{# login #}
+							<div class="d-flex justify-content-center mt-2">
+								<a href="{{ path('login') }}">
+									<button class="login-button">
+										Identifiez-vous
+									</button>
+								</a>
+							</div>
+							{# register #}
+							{% if not app.user %}
+								<div class="d-flex justify-content-center">
+									<span class="new-customer">
+										Nouveau client ?
+									</span>
+									<a class="create-account-link" href="{{ path('register')}}">
+										Créez votre compte
+									</a>
+								</div>
+							{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</li>
+			{# phone number container #}
+			<li class="nav-item">
+				<div class="container">
+					<div class="row">
+						{# phone icon #}
+						<div class="phone-icon">
+							<i data-fa-symbol="phone" class="fas fa-mobile-alt"></i>
+							<svg class="icon-sm">
+								<use xlink:href="#phone"></use>
+							</svg>
+						</div>
+						{# phone number #}
+						<span class="phone-block">
+							03 88 62 98 01
+						</span>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>

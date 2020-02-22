@@ -1,0 +1,225 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dasboard{% endblock %}
+
+{% block body %}
+	{# tree #}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb bg-white rounded-0">
+			<li class="breadcrumb-item active" aria-current="page">
+				Dashboard
+			</li>
+		</ol>
+	</nav>
+	{# title #}
+	<h1>Dashboard</h1>
+	{# dashboard #}
+	<div class="container my-5">
+		<div class="row">
+			{# dashboard nav #}
+			<div class="col-2 d-flex justify-content-center">
+				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					{# accounts tab icon #}
+					<a class="nav-link mb-4" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true">
+						<div class="account-tab" title="Comptes utilisateurs">
+							<i data-fa-symbol="account" class="fas fa-user"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#account"></use>
+							</svg>
+						</div>
+					</a>
+					{# products tab icon #}
+					<a class="nav-link mb-4" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="false">
+						<div class="user-tab" title="Articles">
+							<i data-fa-symbol="product" class="fas fa-box"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#product"></use>
+							</svg>
+						</div>
+					</a>
+					{# orders tab icon #}
+					<a class="nav-link mb-4" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">
+						<div class="order-tab" title="Commandes">
+							<i data-fa-symbol="order" class="fas fa-box-open"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#order"></use>
+							</svg>
+						</div>
+					</a>
+					{# discounts tab icon #}
+					<a class="nav-link mb-4" id="v-pills-discount-tab" data-toggle="pill" href="#v-pills-discount" role="tab" aria-controls="v-pills-discount" aria-selected="false">
+						<div class="discount-tab" title="Promotions">
+							<i data-fa-symbol="discount" class="fas fa-percent"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#discount"></use>
+							</svg>
+						</div>
+					</a>
+					{# brands tab icon #}
+					<a class="nav-link" id="v-pills-brand-tab" data-toggle="pill" href="#v-pills-brand" role="tab" aria-controls="v-pills-brand" aria-selected="false">
+						<div class="brand-tab" title="Marques">
+							<i data-fa-symbol="brand" class="fas fa-copyright"></i>
+							<svg class="icon-lg">
+								<use xlink:href="#brand"></use>
+							</svg>
+						</div>
+					</a>
+				</div>
+			</div>
+			{# tabs menu #}
+			<div class="col-10 d-flex align-items-center">
+				<div class="tab-content" id="v-pills-tabContent">
+					{# accounts menu #}
+					<div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="card dashboard-card">
+										<div class="card-body">
+											<h5 class="card-title">Particuliers</h5>
+											<p class="card-text">Informations sur les clients particuliers.</p>
+											<div class="d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('particulier_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<div class="card dashboard-card">
+										<div class="card-body">
+											<h5 class="card-title">Professionnels</h5>
+											<p class="card-text">Informations sur les clients professionnels.</p>
+											<div class="d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('pro_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# products menu #}
+					<div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="card dashboard-card">
+										<div class="card-body">
+											<h5 class="card-title">Articles</h5>
+											<p class="card-text">Informations sur articles.</p>
+											<div class="d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('admin_article_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# orders menu #}
+					<div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="card dashboard-card">
+										<div class="card-body">
+											<h5 class="card-title">Commandes</h5>
+											<p class="card-text">Informations sur les commandes.</p>
+											<div class="d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('admin_commande_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# discounts menu #}
+					<div class="tab-pane fade" id="v-pills-discount" role="tabpanel" aria-labelledby="v-pills-discount-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="card dashboard-card">
+										<div class="card-body">
+											<h5 class="card-title">Promotions</h5>
+											<p class="card-text">Informations sur les promotions.</p>
+											<div class="d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('promo_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# brands menu #}
+					<div class="tab-pane fade" id="v-pills-brand" role="tabpanel" aria-labelledby="v-pills-brand-tab">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="card dashboard-card">
+										<div class="card-body">
+											<h5 class="card-title">Marques</h5>
+											<p class="card-text">Informations sur les marques.</p>
+											<div class="d-flex justify-content-center">
+												{# show button #}
+												<a href="{{ path('marque_index')}}">
+													<button class="show-icon" title="Afficher">
+														<i data-fa-symbol="show" class="fas fa-eye"></i>
+														<svg class="icon-md">
+															<use xlink:href="#show"></use>
+														</svg>
+													</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
